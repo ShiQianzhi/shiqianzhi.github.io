@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文章专栏 · shiqianzhi</title>
+<meta name="description" content="文章专栏：围绕编程语言、系统原理与工程实践的长文，追求把复杂机制讲清楚。">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="articles.css">
+<link rel="stylesheet" href="../assets/scrollbar.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../index.html">首页</a>
+      <div class="nav-drop">
+        <a href="../knowledge.html">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="../knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="../knowledge.html#domains">五大知识域</a>
+          <a href="../knowledge.html#cross">交叉与前沿</a>
+          <a href="../knowledge.html#axes">三条贯穿轴</a>
+          <a href="../knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="../career.html">世界职业体系</a>
+      <a href="../blog/index.html">博客</a>
+      <a href="index.html" class="active">文章专栏</a>
+      <a class="nav-cta" href="../knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<header class="articles-hero">
+  <div class="wrap">
+    <div class="kicker"><i></i>ARTICLES · 文章专栏</div>
+    <h1>文章专栏</h1>
+    <p class="lede">围绕编程语言、系统原理与工程实践的长文。不追热点，尽量把一件事的来龙去脉、设计取舍和底层机制讲清楚。</p>
+  </div>
+</header>
+
+<main class="articles-wrap">
+  <div class="list-head">
+    <div class="sec-label">全部文章</div>
+    <p>目前 1 篇 · 新文章会陆续加入</p>
+  </div>
+
+  <div class="article-grid">
+    <!-- 新增文章：复制一张 .article-card，更新链接、日期、标题、摘要与标签即可 -->
+    <a class="article-card" href="go-design-and-implementation.html">
+      <div class="ac-top"><span>2026-11-26</span><span class="tag">深度长文</span></div>
+      <h2>Go 语言设计与实现</h2>
+      <div class="ac-sub">Go Internals · 从编译到运行时</div>
+      <p>从编译流水线、GMP 调度、可增长栈、内存分配、三色标记 GC，到 map、接口、channel 与 defer 的底层结构，用 12 张图解讲清一个 Go 程序究竟是怎样跑起来的。</p>
+      <div class="ac-tags">
+        <span>编译器</span><span>调度器</span><span>内存分配</span><span>垃圾回收</span><span>运行时</span>
+      </div>
+      <div class="ac-foot">
+        <span>12 张图解 · 系统原理</span>
+        <span class="ac-go">开始阅读
+          <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        </span>
+      </div>
+    </a>
+
+    <div class="article-card placeholder">
+      <div class="plus">+</div>
+      <h2>更多文章正在整理</h2>
+      <p>这个专栏会继续收录语言设计、运行时与工程实践方面的长文，新文章会出现在这里。</p>
+    </div>
+  </div>
+
+  <p class="column-note">专栏按「一门语言为什么这样设计」来组织，而不是按 API 用法罗列。如果你更想看按目录整理的笔记，可以前往 <a href="../blog/index.html" style="color:#d9b25a;text-decoration:none">逐梦笔记</a>。</p>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span>© 2026 shiqianzhi · 文章专栏</span>
+    <span><a href="../index.html">返回首页</a> · <a href="../blog/index.html">逐梦笔记</a></span>
+  </div>
+</footer>
+
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+menuBtn.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  menuBtn.classList.toggle('open', open);
+  menuBtn.setAttribute('aria-expanded', String(open));
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navLinks.classList.remove('open');
+  menuBtn.classList.remove('open');
+  menuBtn.setAttribute('aria-expanded', 'false');
+}));
+</script>
+</body>
+</html>

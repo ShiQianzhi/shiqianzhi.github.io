@@ -251,6 +251,33 @@ h1 .accent{
 .blog-banner:hover .bb-go{background:rgba(217,178,90,.18);border-color:rgba(217,178,90,.7)}
 .blog-banner:hover .bb-go svg{transform:translateX(3px)}
 
+/* 文章专栏入口 */
+.article-feature{
+  position:relative;overflow:hidden;display:grid;grid-template-columns:190px minmax(0,1fr) auto;
+  gap:28px;align-items:center;padding:26px 30px;border-radius:22px;border:1px solid var(--line);
+  background:linear-gradient(120deg,rgba(124,156,255,.1),rgba(255,255,255,.02) 55%,rgba(217,178,90,.07));
+  text-decoration:none;color:inherit;transition:transform .28s,border-color .28s,box-shadow .28s;
+}
+.article-feature:hover{transform:translateY(-3px);border-color:rgba(217,178,90,.4);box-shadow:0 28px 60px -42px #000}
+.af-visual{
+  height:128px;border-radius:14px;border:1px solid rgba(255,255,255,.1);position:relative;
+  background:radial-gradient(220px 120px at 30% 20%,rgba(124,156,255,.18),transparent 70%),#0b111c;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.af-visual span{
+  width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--serif);font-size:16px;border:1px solid rgba(255,255,255,.14);
+  color:#dfe6f2;background:rgba(255,255,255,.04);
+}
+.af-visual span:nth-child(1){border-color:rgba(124,156,255,.5);color:#a9bdff}
+.af-visual span:nth-child(2){border-color:rgba(79,209,197,.5);color:#8fd8d0}
+.af-visual span:nth-child(3){border-color:rgba(217,178,90,.55);color:#f0d9a4}
+.af-visual em{position:absolute;left:0;right:0;bottom:10px;text-align:center;font-style:normal;font-size:9.5px;letter-spacing:.24em;color:var(--dim-2);text-transform:uppercase}
+.af-kicker{font-size:11px;letter-spacing:.2em;color:var(--gold)}
+.af-copy h3{font-family:var(--serif);font-size:clamp(21px,2.4vw,29px);margin-top:8px;letter-spacing:.03em}
+.af-copy p{font-size:13px;color:var(--dim);line-height:1.85;margin-top:8px;max-width:640px}
+.af-meta{font-size:11.5px;color:var(--dim-2);letter-spacing:.06em;margin-top:12px}
+
 /* ================= 分层结构 ================= */
 .layers{position:relative;display:grid;gap:12px}
 .layers::before{
@@ -367,6 +394,8 @@ h1 .accent{
   .band{padding:30px 24px;margin-top:56px}
   .band::after{font-size:150px;bottom:-44px;right:14px}
   .blog-banner{flex-direction:column;align-items:flex-start;gap:18px;padding:24px 22px}
+  .article-feature{grid-template-columns:1fr;gap:18px;padding:24px 22px}
+  .af-visual{height:104px}
   .layer-row{grid-template-columns:46px minmax(0,1fr);padding:18px}
   .lr-go{display:none}
   .layers::before{left:40px}
@@ -391,6 +420,7 @@ h1 .accent{
   .reveal{opacity:1;transform:none}
 }
 </style>
+<link rel="stylesheet" href="assets/scrollbar.css">
 </head>
 <body>
 
@@ -414,6 +444,7 @@ h1 .accent{
       </div>
       <a href="career.html">世界职业体系</a>
       <a href="blog/index.html">博客</a>
+      <a href="articles/index.html">文章专栏</a>
       <a class="nav-cta" href="knowledge.html">进入图谱</a>
     </div>
   </div>
@@ -579,6 +610,32 @@ h1 .accent{
     </div>
   </section>
 
+  <!-- ===== 文章专栏 ===== -->
+  <section class="wrap section" id="articles">
+    <div class="sec-head reveal">
+      <div>
+        <div class="sec-label">03 / Articles</div>
+        <h2>文章专栏</h2>
+      </div>
+      <p>围绕语言设计、系统原理与工程实践的长文，尽量把机制讲清楚。</p>
+    </div>
+
+    <a class="article-feature reveal" href="articles/go-design-and-implementation.html">
+      <div class="af-visual" aria-hidden="true">
+        <span>G</span><span>M</span><span>P</span><em>runtime</em>
+      </div>
+      <div class="af-copy">
+        <div class="af-kicker">深度长文 · 系统原理</div>
+        <h3>Go 语言设计与实现</h3>
+        <p>从编译流水线、GMP 调度、栈增长、内存分配，到三色标记 GC 与运行时数据结构，用 12 张图解讲清 Go 如何运行。</p>
+        <div class="af-meta">12 张图解 · 约 6,000 字 · 预计 25 分钟</div>
+      </div>
+      <span class="bb-go">阅读文章
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+  </section>
+
   <!-- ===== 问题带 ===== -->
   <section class="wrap">
     <div class="band reveal">
@@ -616,6 +673,7 @@ h1 .accent{
     <a href="knowledge.html">世界知识体系</a>
     <a href="career.html">世界职业体系</a>
     <a href="blog/index.html">博客</a>
+    <a href="articles/index.html">文章专栏</a>
     <a href="knowledge.html#finder">问题定位器</a>
     <a href="knowledge.html#axes">三条贯穿轴</a>
   </nav>

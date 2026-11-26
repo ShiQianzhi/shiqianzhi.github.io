@@ -429,6 +429,7 @@ def site_nav(from_out: Path) -> str:
     knowledge = site_url(from_out, "knowledge.html")
     career = site_url(from_out, "career.html")
     blog = site_url(from_out, "blog/index.html")
+    articles = site_url(from_out, "articles/index.html")
     return f"""
 <nav class="site-nav">
   <div class="nav-inner">
@@ -450,6 +451,7 @@ def site_nav(from_out: Path) -> str:
       </div>
       <a href="{career}">世界职业体系</a>
       <a href="{blog}" class="active">博客</a>
+      <a href="{articles}">文章专栏</a>
       <a class="nav-cta" href="{knowledge}">进入图谱</a>
     </div>
   </div>
@@ -465,6 +467,10 @@ def page_shell(
 ) -> str:
     css_href = url_between(from_out, Path("blog.css"))
     js_href = url_between(from_out, Path("blog.js"))
+    code_css = site_url(from_out, "assets/code-highlight.css")
+    scroll_css = site_url(from_out, "assets/scrollbar.css")
+    hljs_js = site_url(from_out, "assets/highlight.min.js")
+    code_js = site_url(from_out, "assets/code-highlight.js")
     math = ""
     if has_math:
         math = """
@@ -480,7 +486,9 @@ def page_shell(
 <meta name="description" content="{html.escape(description, quote=True)}">
 <link rel="preconnect" href="https://miaoda.feishu.cn">
 <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
-<link rel="stylesheet" href="{css_href}">{math}
+<link rel="stylesheet" href="{css_href}">
+<link rel="stylesheet" href="{code_css}">
+<link rel="stylesheet" href="{scroll_css}">{math}
 </head>
 <body>
 {site_nav(from_out)}
@@ -492,6 +500,8 @@ def page_shell(
   </div>
 </footer>
 <script src="{js_href}"></script>
+<script src="{hljs_js}" defer></script>
+<script src="{code_js}" defer></script>
 </body>
 </html>
 """
@@ -697,9 +707,7 @@ a{color:inherit}
 
 /* 博客布局 */
 .blog-wrap{max-width:1280px;margin:0 auto;padding:34px 26px 80px;display:grid;grid-template-columns:266px minmax(0,1fr);gap:48px;align-items:start}
-.blog-side{position:sticky;top:84px;max-height:calc(100vh - 106px);overflow-y:auto;overscroll-behavior:contain;padding-right:8px;scrollbar-width:thin}
-.blog-side::-webkit-scrollbar{width:6px}
-.blog-side::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:6px}
+.blog-side{position:sticky;top:84px;max-height:calc(100vh - 106px);overflow-y:auto;overscroll-behavior:contain;padding-right:8px}
 .blog-brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:#f0d9a4;font-family:var(--serif);font-size:17px;letter-spacing:.1em}
 .blog-brand span{font-family:var(--sans);font-size:9px;letter-spacing:.26em;color:var(--dim2)}
 .side-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 4px 12px;border-bottom:1px solid var(--line-soft)}

@@ -1,0 +1,21 @@
+/* highlight.js 主题：沿用站点深色 + 金/蓝/青配色 */
+.hljs{color:#c9d4e5;background:transparent}
+pre code.hljs{display:block;overflow-x:visible;padding:0;background:transparent;color:#c9d4e5}
+
+.hljs-comment,.hljs-quote{color:#5f6b80;font-style:italic}
+.hljs-keyword,.hljs-selector-tag,.hljs-doctag{color:#c58ce0}
+.hljs-string,.hljs-regexp{color:#9ed39b}
+.hljs-number,.hljs-literal,.hljs-symbol,.hljs-bullet{color:#f0a35e}
+.hljs-title,.hljs-section,.hljs-title.class_,.hljs-title.function_{color:#8fb0ff}
+.hljs-built_in,.hljs-type,.hljs-class .hljs-title{color:#5fd6c9}
+.hljs-attr,.hljs-attribute,.hljs-property{color:#e2c484}
+.hljs-variable,.hljs-template-variable{color:#e8d6a8}
+.hljs-meta,.hljs-meta .hljs-keyword,.hljs-selector-id,.hljs-selector-class{color:#d9b25a}
+.hljs-punctuation,.hljs-operator{color:#98a4b8}
+.hljs-tag,.hljs-name{color:#7c9cff}
+.hljs-params{color:#c9d4e5}
+.hljs-link{color:#7c9cff;text-decoration:underline}
+.hljs-emphasis{font-style:italic}
+.hljs-strong{font-weight:700}
+.hljs-deletion{color:#ff9a9a;background:rgba(255,120,120,.08)}
+.hljs-addition{color:#9ed39b;background:rgba(120,220,150,.07)}

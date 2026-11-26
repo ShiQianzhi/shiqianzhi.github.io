@@ -148,9 +148,7 @@ h1 .thin{display:block;font-family:var(--sans);font-weight:400;font-size:clamp(1
 .dw-head h3{font-family:var(--serif);font-size:27px;font-weight:700;letter-spacing:.04em;line-height:1.3;padding-right:10px}
 .dw-en{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim2);margin-top:7px}
 .dw-badges{display:flex;gap:7px;margin-top:14px;flex-wrap:wrap}
-.dw-body{flex:1 1 auto;overflow-y:auto;padding:24px 30px 30px;scrollbar-width:thin;display:grid;grid-template-columns:1fr 1fr;gap:0 38px;align-content:start}
-.dw-body::-webkit-scrollbar{width:8px}
-.dw-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:8px}
+.dw-body{flex:1 1 auto;overflow-y:auto;padding:24px 30px 30px;display:grid;grid-template-columns:1fr 1fr;gap:0 38px;align-content:start}
 .blk{margin-bottom:26px}
 .blk h4{font-size:11.5px;letter-spacing:.18em;color:var(--gc);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .blk h4::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.07)}
@@ -191,8 +189,7 @@ footer.foot{margin-top:56px;padding:30px 0 66px;border-top:1px solid var(--soft)
   .layout{grid-template-columns:minmax(0,1fr);gap:0;padding-top:30px}
   .index{position:static;margin-bottom:24px}
   .index .ih{margin-bottom:10px}
-  #nav{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
-  #nav::-webkit-scrollbar{display:none}
+  #nav{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
   .nav-item{width:auto;flex:0 0 auto;background:rgba(255,255,255,.05);border:1px solid var(--soft);border-radius:100px;padding:7px 13px;font-size:12.5px}
   .nav-item .cnt{display:none}
   .sec-cnt{display:none}
@@ -219,6 +216,7 @@ footer.foot{margin-top:56px;padding:30px 0 66px;border-top:1px solid var(--soft)
   .dw-body{grid-template-columns:1fr;padding:18px 20px 24px}
 }
 </style>
+<link rel="stylesheet" href="assets/scrollbar.css">
 </head>
 <body>
 
@@ -233,6 +231,7 @@ footer.foot{margin-top:56px;padding:30px 0 66px;border-top:1px solid var(--soft)
       <a href="knowledge.html">世界知识体系</a>
       <a href="career.html" class="active">世界职业体系</a>
       <a href="blog/index.html">博客</a>
+      <a href="articles/index.html">文章专栏</a>
       <a class="nav-cta" href="knowledge.html">进入图谱</a>
     </div>
   </div>
