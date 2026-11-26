@@ -1,0 +1,4 @@
+# 站点为纯静态 HTML，docs 是独立的笔记子模块（含 Go/Helm 模板等非 Liquid 语法），
+# 交由 Jekyll 渲染会触发 Liquid 语法异常导致 Pages 构建失败，故排除。
+exclude:
+  - docs
