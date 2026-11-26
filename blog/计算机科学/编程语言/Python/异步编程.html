@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python 异步编程：从原理到实战 · 逐梦笔记</title>
+<meta name="description" content="Python 的 asyncio 提供了一套基于事件循环的 协作式并发 框架。它用单线程 + async/await 语法实现对 I/O 密集型任务的高效调度，是现代 Python 网络服务、爬虫、微服务的核心能力之一。">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../../../blog.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="../../../../index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../../../../index.html">首页</a>
+      <div class="nav-drop">
+        <a href="../../../../knowledge.html">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="../../../../knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="../../../../knowledge.html#domains">五大知识域</a>
+          <a href="../../../../knowledge.html#cross">交叉与前沿</a>
+          <a href="../../../../knowledge.html#axes">三条贯穿轴</a>
+          <a href="../../../../knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="../../../../career.html">世界职业体系</a>
+      <a href="../../../index.html" class="active">博客</a>
+      <a class="nav-cta" href="../../../../knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-wrap">
+  
+    <aside class="blog-side">
+      <div class="side-head">
+        <a class="blog-brand" href="../../../index.html">逐梦笔记<span>NOTES</span></a>
+        <button class="side-toggle" id="sideToggle" aria-expanded="false" aria-controls="sideBody">目录</button>
+      </div>
+      <div class="side-body" id="sideBody">
+        <div class="tree-search">
+          <input id="treeQ" type="search" placeholder="筛选 197 篇笔记…" aria-label="筛选笔记">
+        </div>
+        <nav class="tree" aria-label="博客目录"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI创作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI短剧制作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI写周报，把我写成了公司CEO</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E5%86%99%E5%91%A8%E6%8A%A5%EF%BC%8C%E6%8A%8A%E6%88%91%E5%86%99%E6%88%90%E4%BA%86%E5%85%AC%E5%8F%B8CEO/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI的最后一活</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%B4%BB/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><a class="tree-link" href="../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%9B%E4%BD%9C%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html" title="AI 短剧创作保姆级教程：从一个想法到成片发布">AI 短剧创作保姆级教程：从一个想法到成片发布</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人生感悟</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/%E5%9C%A8%E5%89%A7%E5%8F%98%E4%B8%AD%E5%AF%BB%E8%B7%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8AI%E6%B5%AA%E6%BD%AE%E4%B8%8B%E6%8A%93%E4%BD%8F%E6%9C%BA%E9%81%87.html" title="在剧变中寻路：如何在 AI 浪潮下抓住机遇">在剧变中寻路：如何在 AI 浪潮下抓住机遇</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础学科</span><span class="tree-count">22</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数学</span><span class="tree-count">13</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">初等代数</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5.html" title="数的概念">数的概念</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E7%B1%BB%E5%88%AB.html" title="数的类别">数的类别</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E9%87%8F.html" title="数量">数量</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性代数</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F.html" title="向量（Vector）：从几何箭头到 AI 数据表示">向量（Vector）：从几何箭头到 AI 数据表示</a></div></details><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%8C%87%E6%95%B0%E8%BF%90%E7%AE%97.html" title="什么是指数运算">什么是指数运算</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%85%B3%E7%B3%BB.html" title="什么是线性关系">什么是线性关系</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%87%A0%E4%BD%95%E5%85%A5%E9%97%A8.html" title="几何入门">几何入门</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97.html" title="四则运算">四则运算</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9F%BA%E6%9C%AC%E4%BB%A3%E6%95%B0.html" title="基本代数">基本代数</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E6%95%B0%E5%AD%A6.html" title="如何学习数学">如何学习数学</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%9A%E4%BB%8E0%E5%88%B0%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6.html" title="数学学习路线图：从0到高等数学">数学学习路线图：从0到高等数学</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E8%A1%A8%E7%A4%BA.html" title="数的分类与表示">数的分类与表示</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%AE%97%E6%9C%AF%E5%9F%BA%E7%A1%80.html" title="算术基础">算术基础</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">物理</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E4%BB%8E%E5%BE%AE%E8%A7%82%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E7%89%A9%E8%B4%A8%EF%BC%9A%E5%8E%9F%E5%AD%90%E3%80%81%E7%B2%92%E5%AD%90%E4%B8%8E%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8.html" title="从微观角度理解物质：原子、粒子与相互作用">从微观角度理解物质：原子、粒子与相互作用</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%89%A9%E8%B4%A8%E5%92%8C%E8%83%BD%E9%87%8F%E7%9A%84%E5%85%B3%E7%B3%BB.html" title="物质和能量的关系">物质和能量的关系</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%90%86%E8%A7%A3%E7%94%B5%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%89%A9%E7%90%86%E5%9F%BA%E7%A1%80.html" title="理解电必须掌握的物理基础">理解电必须掌握的物理基础</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E%E5%8E%86%E5%8F%B2%E5%88%B0%E6%9C%AC%E8%B4%A8.html" title="电是什么：从历史到本质">电是什么：从历史到本质</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.html" title="电的原理与应用场景">电的原理与应用场景</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%A3%81%EF%BC%9A%E4%BB%8E%E7%94%B5%E5%9C%BA%E7%A3%81%E5%9C%BA%E5%88%B0%E7%94%B5%E7%A3%81%E6%B3%A2.html" title="电磁：从电场磁场到电磁波">电磁：从电场磁场到电磁波</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">语言</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">英语</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="英语学习笔记">英语学习笔记</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95.html" title="英语语法">英语语法</a></div></details><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%AF%AD%E6%B3%95.html" title="语法">语法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">心情随笔</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/%E5%85%AD%E7%A7%8D%E5%80%BC%E5%BE%97%E7%BB%93%E4%BA%A4%E4%B8%80%E8%BE%88%E5%AD%90%E7%9A%84%E4%BA%BA.html" title="六种值得结交一辈子的人">六种值得结交一辈子的人</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">生活常识</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">买房攻略</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98.html" title="下面是我总结了买房相关常见问题：">下面是我总结了买房相关常见问题：</a><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5.html" title="买房攻略">买房攻略</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">考驾照</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E8%80%83%E9%A9%BE%E7%85%A7/%E7%A7%91%E7%9B%AE%E4%B8%80.html" title="科目一刷题笔记">科目一刷题笔记</a></div></details><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E5%90%84%E8%A1%8C%E4%B8%9A%E5%85%A8%E6%99%AF%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%AE%9A%E4%B9%89%E3%80%81%E7%8E%B0%E7%8A%B6%E4%B8%8EAI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%9C%AA%E6%9D%A5.html" title="各行业全景解析：定义、现状与 AI 时代的未来">各行业全景解析：定义、现状与 AI 时代的未来</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">计算机科学</span><span class="tree-count">160</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Agent 开发</span><span class="tree-count">11</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">docs</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">superpowers</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">specs</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/docs/superpowers/specs/2026-11-06-enterprise-agent-course-design.html" title="企业级 Agent 混合架构课程设计">企业级 Agent 混合架构课程设计</a></div></details></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">learning-records</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0001-python-worker-first.html" title="Learning Record 0001: Python Agent Worker First">Learning Record 0001: Python Agent Worker First</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0002-agent-state-checkpoint-recovery.html" title="Learning Record 0002: Agent State and Checkpoint Recovery">Learning Record 0002: Agent State and Checkpoint Recovery</a></div></details><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/Agent%20%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="Agent 开发学习路线">Agent 开发学习路线</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/Agent%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.html" title="Agent开发核心知识点">Agent开发核心知识点</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/Go-Python%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BD%ACAgent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B.html" title="Go/Python 后端工程师转 Agent 开发实战教程">Go/Python 后端工程师转 Agent 开发实战教程</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/MISSION.html" title="Mission: 从 Python Agent Worker 学会企业级 Agent 开发">Mission: 从 Python Agent Worker 学会企业级 Agent 开发</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/RAG.html" title="RAG">RAG</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/RAG%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%A6%E7%BB%86%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html" title="RAG系统的详细工作流程">RAG系统的详细工作流程</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E9%AB%98%E5%B9%B6%E5%8F%91%E4%BC%81%E4%B8%9A%E7%BA%A7Agent%E7%B3%BB%E7%BB%9F%E6%95%99%E7%A8%8B.html" title="从零搭建高并发企业级 Agent 系统教程">从零搭建高并发企业级 Agent 系统教程</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/RESOURCES.html" title="企业级 Agent 开发资源">企业级 Agent 开发资源</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人工智能</span><span class="tree-count">33</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI行业基础知识相关概念</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAI.html" title="什么是 AI">什么是 AI</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAIGC.html" title="什么是 AIGC">什么是 AIGC</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAgent.html" title="什么是 Agent">什么是 Agent</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG">什么是 RAG</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE.html" title="什么是向量数据">什么是向量数据</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是大模型">什么是大模型</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是语言大模型">什么是语言大模型</a></div></details><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93.html" title="AI 学习笔记总结">AI 学习笔记总结</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E5%BA%94%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="AI 应用工程师从入门到实战的最佳学习路线">AI 应用工程师从入门到实战的最佳学习路线</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Chroma%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Chroma 入门手册：从零上手最轻量的向量数据库">Chroma 入门手册：从零上手最轻量的向量数据库</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/LangChain%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="LangChain 入门手册：用搭积木的方式编排大模型应用">LangChain 入门手册：用搭积木的方式编排大模型应用</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Transformer%20%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.html" title="Transformer 注意力机制详解">Transformer 注意力机制详解</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BB%8B%E7%BB%8D.html" title="人工智能介绍">人工智能介绍</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%A6%E7%90%86%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="人工智能伦理与安全">人工智能伦理与安全</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG：检索增强生成从原理到实战">什么是 RAG：检索增强生成从原理到实战</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%8D%E5%90%91%E9%87%8F.html" title="什么是词向量">什么是词向量</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BANLP%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html" title="从零搭建NLP模型完全指南">从零搭建NLP模型完全指南</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%85%B3%E4%BA%8EAI%E7%9A%84%E7%95%85%E6%83%B3%E5%92%8C%E6%80%9D%E8%80%83.html" title="关于AI的畅想和思考">关于AI的畅想和思考</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%80%85AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师">后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93.html" title="向量数据库：语义搜索的存储与检索引擎">向量数据库：语义搜索的存储与检索引擎</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BA%B2.html" title="大模型应用实战知识总纲">大模型应用实战知识总纲</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAAgent.html" title="如何搭建一个 Agent">如何搭建一个 Agent</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="学习笔记">学习笔记</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html" title="强化学习">强化学习</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%96%87%E6%9C%AC%E6%98%AF%E5%A6%82%E4%BD%95%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E7%9A%84.html" title="文本是如何变成向量的：Embedding 推理管线全解析">文本是如何变成向量的：Embedding 推理管线全解析</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html" title="机器学习-线性回归">机器学习-线性回归</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="机器学习基础">机器学习基础</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="深度学习基础">深度学习基础</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html" title="神经网络">神经网络</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Agent%20%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="网页版知识库 Agent 搭建实战">网页版知识库 Agent 搭建实战</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86.html" title="自然语言处理">自然语言处理</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89.html" title="计算机视觉">计算机视觉</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E9%AB%98%E7%BB%B4%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%91%E9%87%8F%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%90%91%E9%87%8D%E5%BB%BA.html" title="高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容">高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础知识</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/DNS.html" title="DNS：从域名到 IP 地址的分布式解析系统">DNS：从域名到 IP 地址的分布式解析系统</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/HTTP.html" title="HTTP：从一次请求到现代 Web 传输体系">HTTP：从一次请求到现代 Web 传输体系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84.html" title="互联网是如何工作的">互联网是如何工作的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%9F%E7%90%86.html" title="操作系统的原理">操作系统的原理</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F.html" title="深入理解计算机系统">深入理解计算机系统</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84.html" title="计算机是如何编码数据的">计算机是如何编码数据的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">8</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Elasticsearch</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/%E5%AE%89%E8%A3%85.html" title="创建网络">创建网络</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MongoDB</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念">基本概念</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%AE%89%E8%A3%85mongodb.html" title="安装mongodb">安装mongodb</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" title="数据库不存在会自动创建">数据库不存在会自动创建</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MySQL</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%9E%B6%E6%9E%84.html" title="MySQL 架构">MySQL 架构</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="MySQL数据库知识大纲">MySQL数据库知识大纲</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.html" title="存储引擎">存储引擎</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E7%B4%A2%E5%BC%95.html" title="索引">索引</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构与算法</span><span class="tree-count">10</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构</span><span class="tree-count">6</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数组和字符串</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C.html" title="数组的操作">数组的操作</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%A6%82%E8%BF%B0.html" title="概述">概述</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">树</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/%E6%A0%91.html" title="树">树</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性表</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8.html" title="线性表">线性表</a></div></details><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD.html" title="基本概念和术语">基本概念和术语</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E5%92%8C%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84.html" title="逻辑结构和物理结构">逻辑结构和物理结构</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">算法</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/K-Means.html" title="K-Means 聚类算法">K-Means 聚类算法</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97%E8%AF%A6%E8%A7%A3.html" title="位运算详解">位运算详解</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95.html" title="算法效率分析方法">算法效率分析方法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程笔记</span><span class="tree-count">54</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C 语言学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/C%20%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="此时会生成 a.out（windows 会生成 a.exe）">此时会生成 a.out（windows 会生成 a.exe）</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Docker</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Docker/docker%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Docker 入门手册：编写 Dockerfile、构建镜像与容器管理">Docker 入门手册：编写 Dockerfile、构建镜像与容器管理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言之旅</span><span class="tree-count">12</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架源码剖析</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Gin%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Gin%20%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Gin%E6%A1%86%E6%9E%B6%E5%BC%95%E6%93%8E%E5%AE%9E%E4%BE%8B.html" title="深入理解Gin框架引擎实例">深入理解Gin框架引擎实例</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言设计与实现</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%BA%90%E4%BB%A3%E7%A0%81.html" title="自己需要那个版本的 Go 标签，就用那个">自己需要那个版本的 Go 标签，就用那个</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言高级开发工程</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html" title="Go 单元测试">Go 单元测试</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E9%98%B6%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7.html" title="Go 语言高阶实战技巧">Go 语言高阶实战技巧</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Lua</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Lua/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BLua%E8%84%9A%E6%9C%AC.html" title="&quot;Hello, scripting!&quot;">&quot;Hello, scripting!&quot;</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">kubernetes</span><span class="tree-count">17</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">从入门到实战</span><span class="tree-count">16</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/K8s%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2.html" title="Kubernetes 从入门到实战：完整知识学习大纲">Kubernetes 从入门到实战：完整知识学习大纲</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC10%E7%AB%A0-Ingress%E4%B8%8E%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1.html" title="第10章：Ingress 与流量路由">第10章：Ingress 与流量路由</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC11%E7%AB%A0-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%9B%E9%98%B6.html" title="第11章 控制器进阶">第11章 控制器进阶</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC12%E7%AB%A0-RBAC%E6%9D%83%E9%99%90%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="第12章 RBAC 权限与安全">第12章 RBAC 权限与安全</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html" title="第13章 监控日志与可观测性">第13章 监控日志与可观测性</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC14%E7%AB%A0-Helm%E5%8C%85%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第14章 Helm 包管理与应用部署">第14章 Helm 包管理与应用部署</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC15%E7%AB%A0-%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98-%E5%AE%8C%E6%95%B4%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2.html" title="第15章 综合实战：完整微服务项目部署">第15章 综合实战：完整微服务项目部署</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC1%E7%AB%A0-K8s%E6%A6%82%E8%BF%B0%E4%B8%8E%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3.html" title="第1章 K8s 概述与架构理解">第1章 K8s 概述与架构理解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC2%E7%AB%A0-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="第2章 环境搭建实战">第2章 环境搭建实战</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC3%E7%AB%A0-Pod%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E6%88%98.html" title="第3章 Pod 核心概念与实战">第3章 Pod 核心概念与实战</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第4章 Deployment 与应用部署">第4章 Deployment 与应用部署</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC5%E7%AB%A0-Service%E4%B8%8E%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1.html" title="第5章：Service 与网络通信">第5章：Service 与网络通信</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC6%E7%AB%A0-ConfigMap%E4%B8%8ESecret%E7%AE%A1%E7%90%86.html" title="第6章：ConfigMap 与 Secret 管理">第6章：ConfigMap 与 Secret 管理</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC7%E7%AB%A0-Volume%E4%B8%8E%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8.html" title="第7章：Volume 与持久化存储">第7章：Volume 与持久化存储</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC8%E7%AB%A0-Namespace%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.html" title="第8章：Namespace 与资源管理">第8章：Namespace 与资源管理</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC9%E7%AB%A0-%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6%E4%B8%8E%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86.html" title="第9章：调度机制与节点管理">第9章：调度机制与节点管理</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/HPA%E5%92%8CVPA%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="HPA 和 VPA 的区别">HPA 和 VPA 的区别</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">其他</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%85%B6%E4%BB%96/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80UML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="统一建模语言UML学习笔记">统一建模语言UML学习笔记</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Linux</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Centos</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/yum.html" title="yum">yum</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/CentosStream8%20%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html" title="刷新配置">刷新配置</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/Centos7.9%20%E5%AE%89%E8%A3%85%20node20%20%E5%AE%9E%E6%88%98.html" title="安装 nvm">安装 nvm</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86.html" title="查看文件的大小">查看文件的大小</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">mysql</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%AE%89%E8%A3%85mysql.html" title="CentOS Linux release 8.5.2111">CentOS Linux release 8.5.2111</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E4%BB%80%E4%B9%88%E6%98%AFmysql.html" title="什么是mysql">什么是mysql</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.html" title="注意不同的密码验证策略要求密码复杂度不一样。">注意不同的密码验证策略要求密码复杂度不一样。</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">缓存</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98/redis%20%E7%BC%93%E5%AD%98%E5%AE%9E%E6%88%98.html" title="redis 缓存实战">redis 缓存实战</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">软件开发与设计规范</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/%E6%8C%87%E5%AF%BC%E6%80%9D%E6%83%B3.html" title="指导思想">指导思想</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">领域驱动设计</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E4%BB%80%E4%B9%88%E6%98%AFDDD.html" title="什么是DDD">什么是DDD</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E5%89%8D%E8%A8%80.html" title="前言">前言</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Cookie%20%E8%AF%A6%E8%A7%A3.html" title="Cookie 详解">Cookie 详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/JWT%E8%AF%A6%E8%A7%A3.html" title="JWT 详解">JWT 详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Raft%20%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3.html" title="Raft 协议详解">Raft 协议详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/WebRTC%20%E5%BA%95%E5%B1%82%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.html" title="WebRTC 底层工作原理详解">WebRTC 底层工作原理详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/curl%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="curl 使用手册">curl 使用手册</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Git%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" title="克隆指定分支">克隆指定分支</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95.html" title="分布式一致性算法">分布式一致性算法</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="学习路线">学习路线</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%90%AD%E5%BB%BA%20Conda%20%2B%20Jupyter%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" title="搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南">搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">编程语言</span><span class="tree-count">18</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../C/C%20%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="C 语言快速入门">C 语言快速入门</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../Go/Go%20benchmark%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go Benchmark 最佳实战">Go Benchmark 最佳实战</a><a class="tree-link" href="../Go/Go%20pprof%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go pprof 最佳实战：从开发诊断到生产调优">Go pprof 最佳实战：从开发诊断到生产调优</a><a class="tree-link" href="../Go/Go%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5.html" title="Go 底层原理与工程化实践">Go 底层原理与工程化实践</a><a class="tree-link" href="../Go/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码">Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码</a><a class="tree-link" href="../Go/Go%E8%AF%AD%E8%A8%80%E9%AB%98%E6%95%88%E7%BC%96%E7%A8%8B%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8C%96.html" title="Go 语言高效编程：原理、可观测性与优化">Go 语言高效编程：原理、可观测性与优化</a><a class="tree-link" href="../Go/Go%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A.html" title="Go开发工程师必知必会">Go开发工程师必知必会</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">Python</span><span class="tree-count">8</span></summary><div class="tree-children"><a class="tree-link" href="NumPy%20%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="NumPy 使用手册">NumPy 使用手册</a><a class="tree-link" href="NumPy%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="NumPy 使用指南：从 ndarray 到数值计算实践">NumPy 使用指南：从 ndarray 到数值计算实践</a><a class="tree-link" href="Pandas%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="Pandas 使用指南：从 Series/DataFrame 到数据分析实践">Pandas 使用指南：从 Series/DataFrame 到数据分析实践</a><a class="tree-link active" href="%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html" title="Python 异步编程：从原理到实战">Python 异步编程：从原理到实战</a><a class="tree-link" href="Python%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="Python 快速入门">Python 快速入门</a><a class="tree-link" href="Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Decorator%EF%BC%89%E6%80%BB%E7%BB%93.html" title="Python 装饰器（Decorator）总结">Python 装饰器（Decorator）总结</a><a class="tree-link" href="%E8%AE%A4%E8%AF%86Python.html" title="认识Python">认识Python</a><a class="tree-link" href="Python%20%40staticmethod%20%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="静态方法是类的属性">静态方法是类的属性</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Rust</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../Rust/Rust%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Rust 入门手册：面向 Go 与 Python 开发者">Rust 入门手册：面向 Go 与 Python 开发者</a></div></details><a class="tree-link" href="../%E7%A8%8B%E5%BA%8F%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86.html" title="程序底层执行原理：从一行源码到进程退出">程序底层执行原理：从一行源码到进程退出</a><a class="tree-link" href="../%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88.html" title="计算机科学与编程十万个为什么">计算机科学与编程十万个为什么</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机组成原理</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%BC%96%E7%A0%81.html" title="《编码》：从手电筒到计算机">《编码》：从手电筒到计算机</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%98%BE%E7%A4%BA%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="显示器的工作原理">显示器的工作原理</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%99%B6%E4%BD%93%E7%AE%A1.html" title="晶体管：小学生也能看懂的计算机“小开关”">晶体管：小学生也能看懂的计算机“小开关”</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84.html" title="程序是如何执行的">程序是如何执行的</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.html" title="计算机底层原理：程序、数据与网络如何从 0 到 1 运转">计算机底层原理：程序、数据与网络如何从 0 到 1 运转</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html" title="计算机组成">计算机组成</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="计算机组成原理">计算机组成原理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机网络</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BATCP-IP%E5%8D%8F%E8%AE%AE.html" title="深入浅出TCP-IP协议">深入浅出TCP-IP协议</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20OSI.html" title="计算机网络 - OSI">计算机网络 - OSI</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html" title="计算机网络 - 概述">计算机网络 - 概述</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="计算机网络工作原理：从输入 URL 到数据跨越互联网">计算机网络工作原理：从输入 URL 到数据跨越互联网</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">高性能服务设计与实现</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1.html" title="什么是高性能服务">什么是高性能服务</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88.html" title="后端服务安全方案">后端服务安全方案</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%AF%B4%E6%98%8E.html" title="后端服务性能指标体系">后端服务性能指标体系</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E7%99%BE%E4%B8%87%E7%BA%A7QPS%20API%E7%BD%91%E5%85%B3%E8%AE%BE%E8%AE%A1.html" title="如何设计一个支持百万级 QPS 的 API 网关">如何设计一个支持百万级 QPS 的 API 网关</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%99%90%E6%B5%81%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1.html" title="限流方案设计">限流方案设计</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%20Agent%20%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="高性能 Agent 服务架构设计与实现">高性能 Agent 服务架构设计与实现</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8F%AF%E8%A1%8C%E6%80%A7%E6%96%B9%E6%A1%88.html" title="高性能服务架构可行性方案">高性能服务架构可行性方案</a></div></details><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E5%A4%A7%E7%BA%B2.html" title="计算机知识学习先后顺序大纲">计算机知识学习先后顺序大纲</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="计算机科学知识大纲">计算机科学知识大纲</a></div></details><div class="tree-label">散篇</div><a class="tree-link" href="../../../TODO.html" title="TODO">TODO</a><a class="tree-link" href="../../../%E4%B8%AA%E4%BA%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E9%87%8D%E9%93%B8%E8%AE%A1%E5%88%92.html" title="个人基础知识重铸计划">个人基础知识重铸计划</a><a class="tree-link" href="../../../%E5%8F%A5%E5%AD%90.html" title="句子">句子</a><a class="tree-link" href="../../../%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E5%AD%A6%E4%B9%A0.html" title="如何高效的学习">如何高效的学习</a><a class="tree-link" href="../../../%E6%97%B6%E9%97%B4%E8%83%B6%E5%9B%8A.html" title="时间胶囊">时间胶囊</a><a class="tree-link" href="../../../%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA.html" title="网站导航">网站导航</a></nav>
+      </div>
+    </aside>
+  <main class="blog-main">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../../../index.html">博客</a><span>/</span><span>计算机科学</span><span>/</span><span>编程语言</span><span>/</span><a href="index.html">Python</a><span>/</span><span>Python 异步编程：从原理到实战</span></nav>
+    <article class="post">
+      <header class="post-head">
+        <div class="post-kicker">计算机科学 / 编程语言 / Python</div>
+        <h1>Python 异步编程：从原理到实战</h1>
+        <div class="post-meta"><span>计算机科学/编程语言/Python/异步编程.md</span><span>约 2,752 字</span></div>
+      </header>
+      <div class="prose"><blockquote>
+<p>Python 的 <code>asyncio</code> 提供了一套基于事件循环的<strong>协作式并发</strong>框架。它用单线程 + <code>async/await</code> 语法实现对 I/O 密集型任务的高效调度，是现代 Python 网络服务、爬虫、微服务的核心能力之一。</p>
+</blockquote>
+<h2 id="一-为什么需要异步编程">一、为什么需要异步编程</h2>
+<h3 id="1-1-同步-i-o-的痛点">1.1 同步 I/O 的痛点</h3>
+<p>传统同步代码中，一次网络请求或文件读取会让当前线程<strong>阻塞挂起</strong>：CPU 无法执行其他任务，只能干等 I/O 完成。当并发量上来时，只能靠开更多线程弥补，但线程本身有内存开销（每个线程栈约几 MB），且线程切换需要内核介入，存在上下文切换成本。</p>
+<pre><code class="language-python">import requests
+import time
+
+def fetch(url):
+    return requests.get(url)  # 阻塞：直到 HTTP 响应返回
+
+start = time.perf_counter()
+for url in [&quot;https://example.com&quot;] * 5:
+    fetch(url)
+print(f&quot;串行耗时: {time.perf_counter() - start:.2f}s&quot;)  # 约 5 个请求时间之和
+</code></pre>
+<h3 id="1-2-三种并发模型对比">1.2 三种并发模型对比</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>实现方式</th>
+<th>调度者</th>
+<th>适用场景</th>
+<th>主要开销</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>多进程</td>
+<td><code>multiprocessing</code></td>
+<td>操作系统（抢占式）</td>
+<td>CPU 密集、需绕过 GIL</td>
+<td>进程创建、IPC、内存占用大</td>
+</tr>
+<tr>
+<td>多线程</td>
+<td><code>threading</code></td>
+<td>操作系统（抢占式）</td>
+<td>I/O 密集、需共享内存</td>
+<td>GIL 限制 CPU 并行、锁竞争</td>
+</tr>
+<tr>
+<td>异步（协程）</td>
+<td><code>asyncio</code></td>
+<td>事件循环（协作式）</td>
+<td>高并发 I/O 密集</td>
+<td>任务切换极轻，无锁竞争</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>关键点：<strong>异步不是为了让单个任务变快，而是为了在等待 I/O 时去做别的事，从而提高整体吞吐量。</strong></p>
+</blockquote>
+<h3 id="1-3-同步-vs-异步执行时间线">1.3 同步 vs 异步执行时间线</h3>
+<p><img loading="lazy" decoding="async" alt="同步与异步执行时间线对比" src="images/async-sync-vs-async.svg" /></p>
+<p>上图中，同步模型在 I/O 等待期间线程被挂起；异步模型则在等待时把控制权交还给事件循环，让其他任务继续运行。</p>
+<hr />
+<h2 id="二-核心概念">二、核心概念</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>英文</th>
+<th>一句话解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>协程</td>
+<td>Coroutine</td>
+<td>可暂停、可恢复的函数，由 <code>async def</code> 定义</td>
+</tr>
+<tr>
+<td>事件循环</td>
+<td>Event Loop</td>
+<td>驱动协程调度的核心引擎，单线程循环运行</td>
+</tr>
+<tr>
+<td>任务</td>
+<td>Task</td>
+<td>对协程的封装，让它进入事件循环被调度</td>
+</tr>
+<tr>
+<td>Future</td>
+<td>Future</td>
+<td>表示"尚未完成的异步结果"的容器</td>
+</tr>
+<tr>
+<td>可等待对象</td>
+<td>Awaitable</td>
+<td>能被 <code>await</code> 的对象（协程、Task、Future）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="2-1-协程-coroutine">2.1 协程（Coroutine）</h3>
+<p>用 <code>async def</code> 定义的函数，调用它<strong>不会立即执行函数体</strong>，而是返回一个协程对象：</p>
+<pre><code class="language-python">import asyncio
+
+async def hello():
+    print(&quot;hello&quot;)
+    await asyncio.sleep(1)
+    print(&quot;world&quot;)
+
+coro = hello()      # &lt;coroutine object hello at 0x...&gt;，函数体尚未执行
+print(type(coro))   # &lt;class 'coroutine'&gt;
+</code></pre>
+<p>直接调用协程对象而不 <code>await</code> 会触发 <code>RuntimeWarning: coroutine 'hello' was never awaited</code>。</p>
+<h3 id="2-2-事件循环-event-loop">2.2 事件循环（Event Loop）</h3>
+<p>事件循环是 asyncio 的心脏。它负责：
+- 从就绪队列取出协程执行
+- 在协程 <code>await</code> 时把它挂起，注册到底层 I/O 监听
+- 当 I/O 事件就绪后把协程重新放回就绪队列
+- 所有任务完成后退出</p>
+<p><img loading="lazy" decoding="async" alt="asyncio 事件循环调度模型" src="images/async-event-loop.svg" /></p>
+<h3 id="2-3-task-与-future-的关系">2.3 Task 与 Future 的关系</h3>
+<ul>
+<li><code>Future</code> 是底层抽象，表示"一个将来会有结果的对象"，有 <code>done()</code>、<code>result()</code>、<code>set_result()</code> 等方法。</li>
+<li><code>Task</code> 是 <code>Future</code> 的子类，专门用来<strong>包装协程</strong>并驱动它执行。</li>
+<li>通常开发者直接用 <code>Task</code>，很少直接操作 <code>Future</code>。</li>
+</ul>
+<pre><code class="language-python">import asyncio
+
+async def main():
+    task = asyncio.create_task(asyncio.sleep(1))
+    print(isinstance(task, asyncio.Future))  # True
+    await task
+
+asyncio.run(main())
+</code></pre>
+<hr />
+<h2 id="三-asyncio-运行原理">三、asyncio 运行原理</h2>
+<h3 id="3-1-协作式调度">3.1 协作式调度</h3>
+<p>asyncio 采用<strong>协作式（cooperative）</strong>而非抢占式调度：任务不会被操作系统强制中断，只有当任务执行到 <code>await</code> 时才主动让出控制权。</p>
+<p>这意味着：<strong>如果一个协程里写了长时间的 CPU 计算（没有 await），它会阻塞整个事件循环</strong>，其他任务都无法运行。</p>
+<pre><code class="language-python">async def bad_task():
+    # 危险：CPU 密集型计算，没有 await，会阻塞事件循环
+    total = 0
+    for i in range(10_000_000):
+        total += i
+    return total
+</code></pre>
+<h3 id="3-2-底层-i-o-多路复用">3.2 底层 I/O 多路复用</h3>
+<p>事件循环底层使用操作系统的 I/O 多路复用机制：
+- Linux: <code>epoll</code>
+- macOS / BSD: <code>kqueue</code>
+- Windows: <code>IOCP</code>（ProactorEventLoop）或 <code>select</code></p>
+<p>这些机制让单个线程可以同时监听成百上千个 socket，当其中任何一个就绪时再通知事件循环恢复对应的协程。</p>
+<h3 id="3-3-协程的状态生命周期">3.3 协程的状态生命周期</h3>
+<p><img loading="lazy" decoding="async" alt="协程的状态生命周期" src="images/async-coroutine-lifecycle.svg" /></p>
+<p>协程在 <code>创建 → 运行中 → 挂起 → 运行中 → 完成/异常</code> 之间切换，挂起时保存执行现场，恢复时继续。</p>
+<hr />
+<h2 id="四-基础语法">四、基础语法</h2>
+<h3 id="4-1-async-def-与-await">4.1 <code>async def</code> 与 <code>await</code></h3>
+<pre><code class="language-python">import asyncio
+
+async def greet(name: str) -&gt; str:
+    await asyncio.sleep(0.5)          # 模拟异步 I/O
+    return f&quot;Hello, {name}&quot;
+
+async def main():
+    result = await greet(&quot;World&quot;)     # 等待协程完成并拿到返回值
+    print(result)
+
+asyncio.run(main())
+</code></pre>
+<h3 id="4-2-asyncio-run">4.2 <code>asyncio.run</code></h3>
+<p><code>asyncio.run(coro)</code> 是 Python 3.7+ 推荐的入口，它会：
+1. 创建一个新的事件循环
+2. 运行传入的协程直到完成
+3. 关闭循环</p>
+<pre><code class="language-python">import asyncio
+
+async def main():
+    print(&quot;hello asyncio&quot;)
+
+asyncio.run(main())
+</code></pre>
+<blockquote>
+<p>注意：<code>asyncio.run</code> 不能在已经有事件循环运行的环境中调用（如 Jupyter、FastAPI 内部），此时要用 <code>await main()</code> 或 <code>asyncio.get_running_loop()</code>。</p>
+</blockquote>
+<h3 id="4-3-串行-await">4.3 串行 await</h3>
+<p>多个 <code>await</code> 会<strong>串行执行</strong>，总耗时是各任务耗时之和：</p>
+<pre><code class="language-python">import asyncio
+import time
+
+async def task(name, seconds):
+    await asyncio.sleep(seconds)
+    return f&quot;{name} done&quot;
+
+async def main():
+    start = time.perf_counter()
+    a = await task(&quot;A&quot;, 1)
+    b = await task(&quot;B&quot;, 2)
+    print(a, b)
+    print(f&quot;耗时: {time.perf_counter() - start:.2f}s&quot;)  # 约 3s
+
+asyncio.run(main())
+</code></pre>
+<hr />
+<h2 id="五-并发执行">五、并发执行</h2>
+<p>要让多个协程<strong>真正并发</strong>，必须先把它们调度起来（封装为 Task），再一起等待。</p>
+<h3 id="5-1-asyncio-gather">5.1 <code>asyncio.gather</code></h3>
+<p><code>gather</code> 是最常用的并发原语。它接收多个可等待对象，并发执行并按入参顺序返回结果列表：</p>
+<pre><code class="language-python">import asyncio
+import time
+
+async def task(name, seconds):
+    await asyncio.sleep(seconds)
+    return f&quot;{name} done&quot;
+
+async def main():
+    start = time.perf_counter()
+    results = await asyncio.gather(
+        task(&quot;A&quot;, 1),
+        task(&quot;B&quot;, 2),
+        task(&quot;C&quot;, 1),
+    )
+    print(results)  # ['A done', 'B done', 'C done']
+    print(f&quot;耗时: {time.perf_counter() - start:.2f}s&quot;)  # 约 2s（取最大值）
+
+asyncio.run(main())
+</code></pre>
+<p><img loading="lazy" decoding="async" alt="asyncio.gather 并发执行与结果聚合" src="images/async-gather-flow.svg" /></p>
+<p><strong>异常处理</strong>：默认情况下，任一协程抛异常会导致 <code>gather</code> 立即抛出该异常。可通过 <code>return_exceptions=True</code> 把异常作为结果收集：</p>
+<pre><code class="language-python">results = await asyncio.gather(coro1, coro2, return_exceptions=True)
+# results 中可能包含 Exception 对象
+</code></pre>
+<h3 id="5-2-asyncio-create_task">5.2 <code>asyncio.create_task</code></h3>
+<p><code>create_task</code> 立即把协程封装成 Task 并调度执行，返回 Task 对象，之后可 <code>await</code> 它拿结果：</p>
+<pre><code class="language-python">import asyncio
+
+async def task(name, seconds):
+    await asyncio.sleep(seconds)
+    return f&quot;{name} done&quot;
+
+async def main():
+    t1 = asyncio.create_task(task(&quot;A&quot;, 1))
+    t2 = asyncio.create_task(task(&quot;B&quot;, 2))
+
+    # 此时 t1、t2 已经在并发运行
+    print(await t1)
+    print(await t2)
+
+asyncio.run(main())
+</code></pre>
+<blockquote>
+<p><strong>重要</strong>：<code>create_task</code> 返回的 Task 如果没有被持有引用，可能被 GC 回收导致任务中断。务必保存引用（放进列表或字典）。</p>
+</blockquote>
+<h3 id="5-3-asyncio-as_completed">5.3 <code>asyncio.as_completed</code></h3>
+<p>当你希望"哪个先完成就先处理哪个"时，用 <code>as_completed</code>：</p>
+<pre><code class="language-python">import asyncio
+
+async def task(name, seconds):
+    await asyncio.sleep(seconds)
+    return f&quot;{name} done after {seconds}s&quot;
+
+async def main():
+    coros = [task(&quot;A&quot;, 3), task(&quot;B&quot;, 1), task(&quot;C&quot;, 2)]
+    for coro in asyncio.as_completed(coros):
+        result = await coro
+        print(result)  # 输出顺序：B、C、A
+
+asyncio.run(main())
+</code></pre>
+<h3 id="5-4-asyncio-wait">5.4 <code>asyncio.wait</code></h3>
+<p><code>wait</code> 提供更细粒度的控制，可指定等待条件：</p>
+<pre><code class="language-python">import asyncio
+
+async def main():
+    tasks = [asyncio.create_task(asyncio.sleep(i)) for i in range(1, 4)]
+
+    # 等所有任务完成
+    done, pending = await asyncio.wait(tasks, return_when=asyncio.ALL_COMPLETED)
+
+    # 或等待任一完成
+    # done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
+
+asyncio.run(main())
+</code></pre>
+<h3 id="5-5-四种并发方式对比">5.5 四种并发方式对比</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方式</th>
+<th>结果顺序</th>
+<th>异常行为</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gather</code></td>
+<td>按入参顺序</td>
+<td>默认立即抛出</td>
+<td>需要批量结果</td>
+</tr>
+<tr>
+<td><code>create_task</code></td>
+<td>自行控制</td>
+<td>需 await 时捕获</td>
+<td>灵活调度、后台任务</td>
+</tr>
+<tr>
+<td><code>as_completed</code></td>
+<td>完成顺序</td>
+<td>需 await 时捕获</td>
+<td>先到先处理</td>
+</tr>
+<tr>
+<td><code>wait</code></td>
+<td>分 done/pending</td>
+<td>需从 Future 取</td>
+<td>需要精细控制等待条件</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="六-异步-i-o-实战">六、异步 I/O 实战</h2>
+<h3 id="6-1-asyncio-sleep-是异步的-但-time-sleep-不是">6.1 <code>asyncio.sleep</code> 是异步的，但 <code>time.sleep</code> 不是</h3>
+<pre><code class="language-python">import asyncio
+import time
+
+async def main():
+    # asyncio.sleep 是非阻塞的，await 时事件循环去做别的事
+    await asyncio.sleep(1)
+
+    # time.sleep 会阻塞整个事件循环，绝不要在协程里用！
+    # time.sleep(1)
+
+asyncio.run(main())
+</code></pre>
+<h3 id="6-2-异步-http-aiohttp">6.2 异步 HTTP：aiohttp</h3>
+<p><code>requests</code> 是同步库，在协程中调用会阻塞事件循环。应使用 <code>aiohttp</code>：</p>
+<pre><code class="language-python">import asyncio
+import aiohttp
+
+async def fetch(session, url):
+    async with session.get(url) as resp:
+        return await resp.text()
+
+async def main():
+    urls = [
+        &quot;https://example.com&quot;,
+        &quot;https://httpbin.org/get&quot;,
+        &quot;https://httpbin.org/status/200&quot;,
+    ]
+    async with aiohttp.ClientSession() as session:
+        tasks = [fetch(session, url) for url in urls]
+        results = await asyncio.gather(*tasks)
+        for url, html in zip(urls, results):
+            print(f&quot;{url}: {len(html)} bytes&quot;)
+
+asyncio.run(main())
+</code></pre>
+<h3 id="6-3-异步文件读写">6.3 异步文件读写</h3>
+<p>Python 标准库的文件 I/O 是同步的。可使用 <code>aiofiles</code> 或把同步调用丢到线程池：</p>
+<pre><code class="language-python">import asyncio
+import aiofiles
+
+async def main():
+    async with aiofiles.open(&quot;data.txt&quot;, mode=&quot;r&quot;) as f:
+        content = await f.read()
+    print(content)
+
+asyncio.run(main())
+</code></pre>
+<h3 id="6-4-把阻塞调用变成异步">6.4 把阻塞调用变成异步</h3>
+<p>对于无法改造的同步阻塞函数，用 <code>asyncio.to_thread</code>（Python 3.9+）或 <code>loop.run_in_executor</code> 丢到线程池：</p>
+<pre><code class="language-python">import asyncio
+import time
+
+def blocking_io():
+    time.sleep(2)  # 模拟阻塞 I/O
+    return &quot;done&quot;
+
+async def main():
+    result = await asyncio.to_thread(blocking_io)
+    print(result)
+
+asyncio.run(main())
+</code></pre>
+<hr />
+<h2 id="七-同步原语">七、同步原语</h2>
+<p>asyncio 提供了与 <code>threading</code> 类似的同步原语，但它们是<strong>协程级</strong>的，不会阻塞线程。</p>
+<h3 id="7-1-lock-互斥锁">7.1 Lock：互斥锁</h3>
+<pre><code class="language-python">import asyncio
+
+lock = asyncio.Lock()
+
+async def critical_section(name):
+    async with lock:
+        print(f&quot;{name} 进入临界区&quot;)
+        await asyncio.sleep(1)
+        print(f&quot;{name} 离开临界区&quot;)
+
+async def main():
+    await asyncio.gather(critical_section(&quot;A&quot;), critical_section(&quot;B&quot;))
+
+asyncio.run(main())
+</code></pre>
+<h3 id="7-2-semaphore-信号量">7.2 Semaphore：信号量</h3>
+<p>控制并发数量，常用于限速（如爬虫并发数限制）：</p>
+<pre><code class="language-python">import asyncio
+
+sem = asyncio.Semaphore(3)  # 最多 3 个并发
+
+async def limited_task(name):
+    async with sem:
+        print(f&quot;{name} 开始&quot;)
+        await asyncio.sleep(1)
+        print(f&quot;{name} 结束&quot;)
+
+async def main():
+    await asyncio.gather(*[limited_task(f&quot;task-{i}&quot;) for i in range(10)])
+
+asyncio.run(main())
+</code></pre>
+<h3 id="7-3-event-事件通知">7.3 Event：事件通知</h3>
+<pre><code class="language-python">import asyncio
+
+async def waiter(event):
+    print(&quot;等待事件...&quot;)
+    await event.wait()
+    print(&quot;事件已触发！&quot;)
+
+async def setter(event):
+    await asyncio.sleep(1)
+    event.set()
+
+async def main():
+    event = asyncio.Event()
+    await asyncio.gather(waiter(event), setter(event))
+
+asyncio.run(main())
+</code></pre>
+<h3 id="7-4-queue-生产者-消费者">7.4 Queue：生产者-消费者</h3>
+<pre><code class="language-python">import asyncio
+
+async def producer(queue, n):
+    for i in range(n):
+        await queue.put(i)
+        print(f&quot;生产: {i}&quot;)
+    await queue.put(None)  # 哨兵值表示结束
+
+async def consumer(queue):
+    while True:
+        item = await queue.get()
+        if item is None:
+            break
+        print(f&quot;消费: {item}&quot;)
+        queue.task_done()
+
+async def main():
+    queue = asyncio.Queue(maxsize=5)
+    await asyncio.gather(producer(queue, 10), consumer(queue))
+
+asyncio.run(main())
+</code></pre>
+<hr />
+<h2 id="八-完整案例-异步网页爬虫">八、完整案例：异步网页爬虫</h2>
+<h3 id="8-1-需求">8.1 需求</h3>
+<p>并发抓取多个网页，限制并发数，收集失败的 URL，最后输出统计。</p>
+<h3 id="8-2-实现">8.2 实现</h3>
+<pre><code class="language-python">import asyncio
+import aiohttp
+from typing import List, Tuple
+
+async def fetch(
+    session: aiohttp.ClientSession,
+    url: str,
+    sem: asyncio.Semaphore,
+) -&gt; Tuple[str, int, str]:
+    &quot;&quot;&quot;抓取单个 URL，返回 (url, 状态码, 内容长度或错误信息)&quot;&quot;&quot;
+    async with sem:
+        try:
+            async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
+                text = await resp.text()
+                return url, resp.status, str(len(text))
+        except Exception as e:
+            return url, 0, str(e)
+
+async def crawl(urls: List[str], max_concurrent: int = 5):
+    sem = asyncio.Semaphore(max_concurrent)
+    async with aiohttp.ClientSession() as session:
+        tasks = [fetch(session, url, sem) for url in urls]
+        results = await asyncio.gather(*tasks)
+
+    success = [(u, s, l) for u, s, l in results if s == 200]
+    failed = [(u, s, l) for u, s, l in results if s != 200]
+    print(f&quot;成功: {len(success)}, 失败: {len(failed)}&quot;)
+    for u, s, l in failed:
+        print(f&quot;  失败 URL: {u} (status={s}, error={l})&quot;)
+    return results
+
+async def main():
+    urls = [
+        &quot;https://example.com&quot;,
+        &quot;https://httpbin.org/get&quot;,
+        &quot;https://httpbin.org/status/404&quot;,
+        &quot;https://httpbin.org/delay/2&quot;,
+        &quot;https://nonexistent.invalid&quot;,
+    ]
+    await crawl(urls, max_concurrent=3)
+
+asyncio.run(main())
+</code></pre>
+<h3 id="8-3-关键设计点">8.3 关键设计点</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>设计点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Semaphore</code> 限制并发</td>
+<td>避免对目标服务器造成过大压力</td>
+</tr>
+<tr>
+<td><code>gather</code> 收集结果</td>
+<td>一次性拿到所有抓取结果</td>
+</tr>
+<tr>
+<td>异常捕获而非抛出</td>
+<td>单个 URL 失败不影响整体</td>
+</tr>
+<tr>
+<td><code>ClientSession</code> 复用</td>
+<td>复用 TCP 连接池，提升性能</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="九-常见陷阱">九、常见陷阱</h2>
+<h3 id="9-1-在协程中调用同步阻塞函数">9.1 在协程中调用同步阻塞函数</h3>
+<pre><code class="language-python">import requests
+
+async def bad():
+    # 错误：requests.get 会阻塞事件循环
+    resp = requests.get(&quot;https://example.com&quot;)
+</code></pre>
+<p><strong>解决</strong>：用 <code>aiohttp</code>，或 <code>asyncio.to_thread(requests.get, url)</code>。</p>
+<h3 id="9-2-创建了-task-但不-await-也不保存引用">9.2 创建了 Task 但不 await，也不保存引用</h3>
+<pre><code class="language-python">async def bad():
+    asyncio.create_task(asyncio.sleep(1))  # 可能被 GC 回收
+    # 没有保存引用，任务可能在完成前被回收
+</code></pre>
+<p><strong>解决</strong>：用列表保存所有 Task 引用。</p>
+<h3 id="9-3-忘记-await-协程">9.3 忘记 await 协程</h3>
+<pre><code class="language-python">async def bad():
+    asyncio.sleep(1)  # 返回协程对象但未 await，不会执行
+</code></pre>
+<p><strong>解决</strong>：始终 <code>await</code> 协程，或用 <code>create_task</code> 调度。</p>
+<h3 id="9-4-在事件循环外调用异步函数">9.4 在事件循环外调用异步函数</h3>
+<pre><code class="language-python">async def foo(): ...
+
+foo()  # 只创建协程对象，不执行
+</code></pre>
+<p><strong>解决</strong>：用 <code>asyncio.run(foo())</code> 启动。</p>
+<h3 id="9-5-混用同步-i-o-与异步代码">9.5 混用同步 I/O 与异步代码</h3>
+<p>标准库的 <code>open</code>、<code>requests.get</code>、<code>time.sleep</code> 等都是同步的。在协程中使用它们会阻塞事件循环。</p>
+<h3 id="9-6-异常处理不当">9.6 异常处理不当</h3>
+<p>Task 中的异常如果没有被 <code>await</code> 捕获，会在 Task 被 GC 时打印 <code>Task exception was never retrieved</code> 警告。务必 <code>await</code> 或调用 <code>task.add_done_callback</code> 处理。</p>
+<hr />
+<h2 id="十-面试高频问答">十、面试高频问答</h2>
+<h3 id="q1-asyncio-是单线程还是多线程">Q1：asyncio 是单线程还是多线程？</h3>
+<p>asyncio 本身是<strong>单线程</strong>的。事件循环在一个线程中运行，通过协作式调度在多个协程间切换。但可以通过 <code>asyncio.to_thread</code> 或 <code>run_in_executor</code> 把阻塞操作放到线程池/进程池执行。</p>
+<h3 id="q2-asyncio-适合什么场景-不适合什么场景">Q2：asyncio 适合什么场景？不适合什么场景？</h3>
+<ul>
+<li><strong>适合</strong>：I/O 密集型任务（网络请求、数据库查询、文件读写）、高并发连接（Web 服务器、爬虫、消息队列消费者）。</li>
+<li><strong>不适合</strong>：CPU 密集型任务（大量计算、图像处理），此时协程无法并行，应使用多进程。</li>
+</ul>
+<h3 id="q3-asyncio-sleep-和-time-sleep-有什么区别">Q3：<code>asyncio.sleep</code> 和 <code>time.sleep</code> 有什么区别？</h3>
+<ul>
+<li><code>asyncio.sleep</code> 是异步的，<code>await</code> 时把控制权还给事件循环，不阻塞线程。</li>
+<li><code>time.sleep</code> 是同步的，会阻塞当前线程（即整个事件循环线程），绝不能在协程中使用。</li>
+</ul>
+<h3 id="q4-task-和-future-的关系">Q4：Task 和 Future 的关系？</h3>
+<p><code>Task</code> 继承自 <code>Future</code>。<code>Future</code> 表示"未来会有结果"的抽象容器；<code>Task</code> 专门用于包装协程并调度它运行。日常开发用 <code>Task</code>，很少直接用 <code>Future</code>。</p>
+<h3 id="q5-如何处理异步中的异常">Q5：如何处理异步中的异常？</h3>
+<ul>
+<li>协程内部 <code>try/except</code> 捕获。</li>
+<li><code>gather</code> 默认任一异常会向外抛，可用 <code>return_exceptions=True</code> 收集。</li>
+<li><code>Task</code> 的异常需在 <code>await task</code> 时捕获，否则用 <code>add_done_callback</code> 检查。</li>
+</ul>
+<h3 id="q6-如何限制并发数">Q6：如何限制并发数？</h3>
+<p>用 <code>asyncio.Semaphore(n)</code> 作为异步上下文管理器，或用 <code>asyncio.Queue</code> + 固定数量消费者协程。</p>
+<h3 id="q7-asyncio-中的锁和-threading-lock-有什么区别">Q7：asyncio 中的锁和 threading.Lock 有什么区别？</h3>
+<p>asyncio 的 <code>Lock</code> 是协程级的，<code>await lock.acquire()</code> 时不会阻塞线程，而是挂起当前协程。<code>threading.Lock</code> 会阻塞线程，不能在协程中使用。</p>
+<h3 id="q8-为什么-asyncio-是协作式而非抢占式">Q8：为什么 asyncio 是协作式而非抢占式？</h3>
+<p>协作式调度由协程主动通过 <code>await</code> 让出控制权，切换开销极低且无需锁。代价是如果协程不主动让出（CPU 密集），会阻塞整个循环。抢占式由操作系统调度，可并行利用多核但有上下文切换开销和锁竞争。</p>
+<hr />
+<h2 id="附录-a-常用-api-速查表">附录 A：常用 API 速查表</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>API</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>asyncio.run(coro)</code></td>
+<td>创建并运行事件循环，执行协程</td>
+</tr>
+<tr>
+<td><code>asyncio.create_task(coro)</code></td>
+<td>创建 Task 并调度</td>
+</tr>
+<tr>
+<td><code>asyncio.gather(*aws)</code></td>
+<td>并发执行，按序返回结果</td>
+</tr>
+<tr>
+<td><code>asyncio.as_completed(aws)</code></td>
+<td>按完成顺序迭代</td>
+</tr>
+<tr>
+<td><code>asyncio.wait(aws)</code></td>
+<td>精细控制等待条件</td>
+</tr>
+<tr>
+<td><code>asyncio.sleep(delay)</code></td>
+<td>异步休眠</td>
+</tr>
+<tr>
+<td><code>asyncio.wait_for(aw, timeout)</code></td>
+<td>带超时等待</td>
+</tr>
+<tr>
+<td><code>asyncio.shield(aw)</code></td>
+<td>保护协程不被取消</td>
+</tr>
+<tr>
+<td><code>asyncio.to_thread(func, *args)</code></td>
+<td>在线程池中执行同步函数</td>
+</tr>
+<tr>
+<td><code>asyncio.Lock()</code></td>
+<td>互斥锁</td>
+</tr>
+<tr>
+<td><code>asyncio.Semaphore(n)</code></td>
+<td>信号量（限并发）</td>
+</tr>
+<tr>
+<td><code>asyncio.Event()</code></td>
+<td>事件通知</td>
+</tr>
+<tr>
+<td><code>asyncio.Condition()</code></td>
+<td>条件变量</td>
+</tr>
+<tr>
+<td><code>asyncio.Queue()</code></td>
+<td>协程安全队列</td>
+</tr>
+<tr>
+<td><code>asyncio.run_coroutine_threadsafe(coro, loop)</code></td>
+<td>跨线程提交协程</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="附录-b-关键概念术语对照表">附录 B：关键概念术语对照表</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>协程</td>
+<td>Coroutine</td>
+<td>可暂停恢复的函数</td>
+</tr>
+<tr>
+<td>事件循环</td>
+<td>Event Loop</td>
+<td>驱动协程调度的引擎</td>
+</tr>
+<tr>
+<td>任务</td>
+<td>Task</td>
+<td>协程的调度封装</td>
+</tr>
+<tr>
+<td>未来对象</td>
+<td>Future</td>
+<td>异步结果的容器</td>
+</tr>
+<tr>
+<td>可等待对象</td>
+<td>Awaitable</td>
+<td>可被 await 的对象</td>
+</tr>
+<tr>
+<td>协作式调度</td>
+<td>Cooperative Scheduling</td>
+<td>任务主动让出控制权</td>
+</tr>
+<tr>
+<td>抢占式调度</td>
+<td>Preemptive Scheduling</td>
+<td>操作系统强制中断切换</td>
+</tr>
+<tr>
+<td>I/O 多路复用</td>
+<td>I/O Multiplexing</td>
+<td>单线程监听多个 I/O 事件</td>
+</tr>
+<tr>
+<td>挂起</td>
+<td>Suspend</td>
+<td>协程暂停执行并保存现场</td>
+</tr>
+<tr>
+<td>恢复</td>
+<td>Resume</td>
+<td>协程从挂起点继续执行</td>
+</tr>
+</tbody>
+</table></div></div>
+      <nav class="post-pager" aria-label="上下篇"><a class="pager-link" href="Pandas%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html"><em>上一篇</em><b>Pandas 使用指南：从 Series/DataFrame 到数据分析实践</b></a><a class="pager-link next" href="Python%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html"><em>下一篇</em><b>Python 快速入门</b></a></nav>
+    </article>
+  </main>
+</div>
+<footer class="blog-foot">
+  <div class="wrap foot-inner">
+    <span>© 2026 逐梦笔记 · 由 <code>scripts/build_blog.py</code> 从 docs/ 自动生成</span>
+    <span>内容来源：<a href="https://github.com/ShiQianzhi/note" target="_blank" rel="noopener noreferrer">ShiQianzhi/note</a> · 同步于 2026-11-26</span>
+  </div>
+</footer>
+<script src="../../../blog.js"></script>
+</body>
+</html>

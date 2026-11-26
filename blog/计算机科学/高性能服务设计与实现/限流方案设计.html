@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>限流方案设计 · 逐梦笔记</title>
+<meta name="description" content="一、限流算法概述">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../../blog.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="../../../index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../../../index.html">首页</a>
+      <div class="nav-drop">
+        <a href="../../../knowledge.html">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="../../../knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="../../../knowledge.html#domains">五大知识域</a>
+          <a href="../../../knowledge.html#cross">交叉与前沿</a>
+          <a href="../../../knowledge.html#axes">三条贯穿轴</a>
+          <a href="../../../knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="../../../career.html">世界职业体系</a>
+      <a href="../../index.html" class="active">博客</a>
+      <a class="nav-cta" href="../../../knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-wrap">
+  
+    <aside class="blog-side">
+      <div class="side-head">
+        <a class="blog-brand" href="../../index.html">逐梦笔记<span>NOTES</span></a>
+        <button class="side-toggle" id="sideToggle" aria-expanded="false" aria-controls="sideBody">目录</button>
+      </div>
+      <div class="side-body" id="sideBody">
+        <div class="tree-search">
+          <input id="treeQ" type="search" placeholder="筛选 197 篇笔记…" aria-label="筛选笔记">
+        </div>
+        <nav class="tree" aria-label="博客目录"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI创作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI短剧制作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI写周报，把我写成了公司CEO</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E5%86%99%E5%91%A8%E6%8A%A5%EF%BC%8C%E6%8A%8A%E6%88%91%E5%86%99%E6%88%90%E4%BA%86%E5%85%AC%E5%8F%B8CEO/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI的最后一活</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%B4%BB/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%9B%E4%BD%9C%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html" title="AI 短剧创作保姆级教程：从一个想法到成片发布">AI 短剧创作保姆级教程：从一个想法到成片发布</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人生感悟</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/%E5%9C%A8%E5%89%A7%E5%8F%98%E4%B8%AD%E5%AF%BB%E8%B7%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8AI%E6%B5%AA%E6%BD%AE%E4%B8%8B%E6%8A%93%E4%BD%8F%E6%9C%BA%E9%81%87.html" title="在剧变中寻路：如何在 AI 浪潮下抓住机遇">在剧变中寻路：如何在 AI 浪潮下抓住机遇</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础学科</span><span class="tree-count">22</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数学</span><span class="tree-count">13</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">初等代数</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5.html" title="数的概念">数的概念</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E7%B1%BB%E5%88%AB.html" title="数的类别">数的类别</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E9%87%8F.html" title="数量">数量</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性代数</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F.html" title="向量（Vector）：从几何箭头到 AI 数据表示">向量（Vector）：从几何箭头到 AI 数据表示</a></div></details><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%8C%87%E6%95%B0%E8%BF%90%E7%AE%97.html" title="什么是指数运算">什么是指数运算</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%85%B3%E7%B3%BB.html" title="什么是线性关系">什么是线性关系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%87%A0%E4%BD%95%E5%85%A5%E9%97%A8.html" title="几何入门">几何入门</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97.html" title="四则运算">四则运算</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9F%BA%E6%9C%AC%E4%BB%A3%E6%95%B0.html" title="基本代数">基本代数</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E6%95%B0%E5%AD%A6.html" title="如何学习数学">如何学习数学</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%9A%E4%BB%8E0%E5%88%B0%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6.html" title="数学学习路线图：从0到高等数学">数学学习路线图：从0到高等数学</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E8%A1%A8%E7%A4%BA.html" title="数的分类与表示">数的分类与表示</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%AE%97%E6%9C%AF%E5%9F%BA%E7%A1%80.html" title="算术基础">算术基础</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">物理</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E4%BB%8E%E5%BE%AE%E8%A7%82%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E7%89%A9%E8%B4%A8%EF%BC%9A%E5%8E%9F%E5%AD%90%E3%80%81%E7%B2%92%E5%AD%90%E4%B8%8E%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8.html" title="从微观角度理解物质：原子、粒子与相互作用">从微观角度理解物质：原子、粒子与相互作用</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%89%A9%E8%B4%A8%E5%92%8C%E8%83%BD%E9%87%8F%E7%9A%84%E5%85%B3%E7%B3%BB.html" title="物质和能量的关系">物质和能量的关系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%90%86%E8%A7%A3%E7%94%B5%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%89%A9%E7%90%86%E5%9F%BA%E7%A1%80.html" title="理解电必须掌握的物理基础">理解电必须掌握的物理基础</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E%E5%8E%86%E5%8F%B2%E5%88%B0%E6%9C%AC%E8%B4%A8.html" title="电是什么：从历史到本质">电是什么：从历史到本质</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.html" title="电的原理与应用场景">电的原理与应用场景</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%A3%81%EF%BC%9A%E4%BB%8E%E7%94%B5%E5%9C%BA%E7%A3%81%E5%9C%BA%E5%88%B0%E7%94%B5%E7%A3%81%E6%B3%A2.html" title="电磁：从电场磁场到电磁波">电磁：从电场磁场到电磁波</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">语言</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">英语</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="英语学习笔记">英语学习笔记</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95.html" title="英语语法">英语语法</a></div></details><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%AF%AD%E6%B3%95.html" title="语法">语法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">心情随笔</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/%E5%85%AD%E7%A7%8D%E5%80%BC%E5%BE%97%E7%BB%93%E4%BA%A4%E4%B8%80%E8%BE%88%E5%AD%90%E7%9A%84%E4%BA%BA.html" title="六种值得结交一辈子的人">六种值得结交一辈子的人</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">生活常识</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">买房攻略</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98.html" title="下面是我总结了买房相关常见问题：">下面是我总结了买房相关常见问题：</a><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5.html" title="买房攻略">买房攻略</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">考驾照</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E8%80%83%E9%A9%BE%E7%85%A7/%E7%A7%91%E7%9B%AE%E4%B8%80.html" title="科目一刷题笔记">科目一刷题笔记</a></div></details><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E5%90%84%E8%A1%8C%E4%B8%9A%E5%85%A8%E6%99%AF%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%AE%9A%E4%B9%89%E3%80%81%E7%8E%B0%E7%8A%B6%E4%B8%8EAI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%9C%AA%E6%9D%A5.html" title="各行业全景解析：定义、现状与 AI 时代的未来">各行业全景解析：定义、现状与 AI 时代的未来</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">计算机科学</span><span class="tree-count">160</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Agent 开发</span><span class="tree-count">11</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">docs</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">superpowers</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">specs</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/docs/superpowers/specs/2026-11-06-enterprise-agent-course-design.html" title="企业级 Agent 混合架构课程设计">企业级 Agent 混合架构课程设计</a></div></details></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">learning-records</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/learning-records/0001-python-worker-first.html" title="Learning Record 0001: Python Agent Worker First">Learning Record 0001: Python Agent Worker First</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/learning-records/0002-agent-state-checkpoint-recovery.html" title="Learning Record 0002: Agent State and Checkpoint Recovery">Learning Record 0002: Agent State and Checkpoint Recovery</a></div></details><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Agent%20%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="Agent 开发学习路线">Agent 开发学习路线</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Agent%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.html" title="Agent开发核心知识点">Agent开发核心知识点</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Go-Python%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BD%ACAgent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B.html" title="Go/Python 后端工程师转 Agent 开发实战教程">Go/Python 后端工程师转 Agent 开发实战教程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/MISSION.html" title="Mission: 从 Python Agent Worker 学会企业级 Agent 开发">Mission: 从 Python Agent Worker 学会企业级 Agent 开发</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RAG.html" title="RAG">RAG</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RAG%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%A6%E7%BB%86%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html" title="RAG系统的详细工作流程">RAG系统的详细工作流程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E9%AB%98%E5%B9%B6%E5%8F%91%E4%BC%81%E4%B8%9A%E7%BA%A7Agent%E7%B3%BB%E7%BB%9F%E6%95%99%E7%A8%8B.html" title="从零搭建高并发企业级 Agent 系统教程">从零搭建高并发企业级 Agent 系统教程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RESOURCES.html" title="企业级 Agent 开发资源">企业级 Agent 开发资源</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人工智能</span><span class="tree-count">33</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI行业基础知识相关概念</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAI.html" title="什么是 AI">什么是 AI</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAIGC.html" title="什么是 AIGC">什么是 AIGC</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAgent.html" title="什么是 Agent">什么是 Agent</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG">什么是 RAG</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE.html" title="什么是向量数据">什么是向量数据</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是大模型">什么是大模型</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是语言大模型">什么是语言大模型</a></div></details><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93.html" title="AI 学习笔记总结">AI 学习笔记总结</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E5%BA%94%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="AI 应用工程师从入门到实战的最佳学习路线">AI 应用工程师从入门到实战的最佳学习路线</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Chroma%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Chroma 入门手册：从零上手最轻量的向量数据库">Chroma 入门手册：从零上手最轻量的向量数据库</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/LangChain%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="LangChain 入门手册：用搭积木的方式编排大模型应用">LangChain 入门手册：用搭积木的方式编排大模型应用</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Transformer%20%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.html" title="Transformer 注意力机制详解">Transformer 注意力机制详解</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BB%8B%E7%BB%8D.html" title="人工智能介绍">人工智能介绍</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%A6%E7%90%86%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="人工智能伦理与安全">人工智能伦理与安全</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG：检索增强生成从原理到实战">什么是 RAG：检索增强生成从原理到实战</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%8D%E5%90%91%E9%87%8F.html" title="什么是词向量">什么是词向量</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BANLP%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html" title="从零搭建NLP模型完全指南">从零搭建NLP模型完全指南</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%85%B3%E4%BA%8EAI%E7%9A%84%E7%95%85%E6%83%B3%E5%92%8C%E6%80%9D%E8%80%83.html" title="关于AI的畅想和思考">关于AI的畅想和思考</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%80%85AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师">后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93.html" title="向量数据库：语义搜索的存储与检索引擎">向量数据库：语义搜索的存储与检索引擎</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BA%B2.html" title="大模型应用实战知识总纲">大模型应用实战知识总纲</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAAgent.html" title="如何搭建一个 Agent">如何搭建一个 Agent</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="学习笔记">学习笔记</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html" title="强化学习">强化学习</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%96%87%E6%9C%AC%E6%98%AF%E5%A6%82%E4%BD%95%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E7%9A%84.html" title="文本是如何变成向量的：Embedding 推理管线全解析">文本是如何变成向量的：Embedding 推理管线全解析</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html" title="机器学习-线性回归">机器学习-线性回归</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="机器学习基础">机器学习基础</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="深度学习基础">深度学习基础</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html" title="神经网络">神经网络</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Agent%20%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="网页版知识库 Agent 搭建实战">网页版知识库 Agent 搭建实战</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86.html" title="自然语言处理">自然语言处理</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89.html" title="计算机视觉">计算机视觉</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E9%AB%98%E7%BB%B4%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%91%E9%87%8F%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%90%91%E9%87%8D%E5%BB%BA.html" title="高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容">高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础知识</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/DNS.html" title="DNS：从域名到 IP 地址的分布式解析系统">DNS：从域名到 IP 地址的分布式解析系统</a><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/HTTP.html" title="HTTP：从一次请求到现代 Web 传输体系">HTTP：从一次请求到现代 Web 传输体系</a><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84.html" title="互联网是如何工作的">互联网是如何工作的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%9F%E7%90%86.html" title="操作系统的原理">操作系统的原理</a><a class="tree-link" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F.html" title="深入理解计算机系统">深入理解计算机系统</a><a class="tree-link" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84.html" title="计算机是如何编码数据的">计算机是如何编码数据的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">8</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Elasticsearch</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/%E5%AE%89%E8%A3%85.html" title="创建网络">创建网络</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MongoDB</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念">基本概念</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%AE%89%E8%A3%85mongodb.html" title="安装mongodb">安装mongodb</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" title="数据库不存在会自动创建">数据库不存在会自动创建</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MySQL</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%9E%B6%E6%9E%84.html" title="MySQL 架构">MySQL 架构</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="MySQL数据库知识大纲">MySQL数据库知识大纲</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.html" title="存储引擎">存储引擎</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E7%B4%A2%E5%BC%95.html" title="索引">索引</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构与算法</span><span class="tree-count">10</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构</span><span class="tree-count">6</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数组和字符串</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C.html" title="数组的操作">数组的操作</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%A6%82%E8%BF%B0.html" title="概述">概述</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">树</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/%E6%A0%91.html" title="树">树</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性表</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8.html" title="线性表">线性表</a></div></details><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD.html" title="基本概念和术语">基本概念和术语</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E5%92%8C%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84.html" title="逻辑结构和物理结构">逻辑结构和物理结构</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">算法</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/K-Means.html" title="K-Means 聚类算法">K-Means 聚类算法</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97%E8%AF%A6%E8%A7%A3.html" title="位运算详解">位运算详解</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95.html" title="算法效率分析方法">算法效率分析方法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程笔记</span><span class="tree-count">54</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C 语言学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/C%20%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="此时会生成 a.out（windows 会生成 a.exe）">此时会生成 a.out（windows 会生成 a.exe）</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Docker</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Docker/docker%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Docker 入门手册：编写 Dockerfile、构建镜像与容器管理">Docker 入门手册：编写 Dockerfile、构建镜像与容器管理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言之旅</span><span class="tree-count">12</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架源码剖析</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Gin%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Gin%20%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Gin%E6%A1%86%E6%9E%B6%E5%BC%95%E6%93%8E%E5%AE%9E%E4%BE%8B.html" title="深入理解Gin框架引擎实例">深入理解Gin框架引擎实例</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言设计与实现</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%BA%90%E4%BB%A3%E7%A0%81.html" title="自己需要那个版本的 Go 标签，就用那个">自己需要那个版本的 Go 标签，就用那个</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言高级开发工程</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html" title="Go 单元测试">Go 单元测试</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E9%98%B6%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7.html" title="Go 语言高阶实战技巧">Go 语言高阶实战技巧</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Lua</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Lua/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BLua%E8%84%9A%E6%9C%AC.html" title="&quot;Hello, scripting!&quot;">&quot;Hello, scripting!&quot;</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">kubernetes</span><span class="tree-count">17</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">从入门到实战</span><span class="tree-count">16</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/K8s%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2.html" title="Kubernetes 从入门到实战：完整知识学习大纲">Kubernetes 从入门到实战：完整知识学习大纲</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC10%E7%AB%A0-Ingress%E4%B8%8E%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1.html" title="第10章：Ingress 与流量路由">第10章：Ingress 与流量路由</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC11%E7%AB%A0-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%9B%E9%98%B6.html" title="第11章 控制器进阶">第11章 控制器进阶</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC12%E7%AB%A0-RBAC%E6%9D%83%E9%99%90%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="第12章 RBAC 权限与安全">第12章 RBAC 权限与安全</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html" title="第13章 监控日志与可观测性">第13章 监控日志与可观测性</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC14%E7%AB%A0-Helm%E5%8C%85%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第14章 Helm 包管理与应用部署">第14章 Helm 包管理与应用部署</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC15%E7%AB%A0-%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98-%E5%AE%8C%E6%95%B4%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2.html" title="第15章 综合实战：完整微服务项目部署">第15章 综合实战：完整微服务项目部署</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC1%E7%AB%A0-K8s%E6%A6%82%E8%BF%B0%E4%B8%8E%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3.html" title="第1章 K8s 概述与架构理解">第1章 K8s 概述与架构理解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC2%E7%AB%A0-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="第2章 环境搭建实战">第2章 环境搭建实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC3%E7%AB%A0-Pod%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E6%88%98.html" title="第3章 Pod 核心概念与实战">第3章 Pod 核心概念与实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第4章 Deployment 与应用部署">第4章 Deployment 与应用部署</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC5%E7%AB%A0-Service%E4%B8%8E%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1.html" title="第5章：Service 与网络通信">第5章：Service 与网络通信</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC6%E7%AB%A0-ConfigMap%E4%B8%8ESecret%E7%AE%A1%E7%90%86.html" title="第6章：ConfigMap 与 Secret 管理">第6章：ConfigMap 与 Secret 管理</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC7%E7%AB%A0-Volume%E4%B8%8E%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8.html" title="第7章：Volume 与持久化存储">第7章：Volume 与持久化存储</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC8%E7%AB%A0-Namespace%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.html" title="第8章：Namespace 与资源管理">第8章：Namespace 与资源管理</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC9%E7%AB%A0-%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6%E4%B8%8E%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86.html" title="第9章：调度机制与节点管理">第9章：调度机制与节点管理</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/HPA%E5%92%8CVPA%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="HPA 和 VPA 的区别">HPA 和 VPA 的区别</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">其他</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%85%B6%E4%BB%96/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80UML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="统一建模语言UML学习笔记">统一建模语言UML学习笔记</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Linux</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Centos</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/yum.html" title="yum">yum</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/CentosStream8%20%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html" title="刷新配置">刷新配置</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/Centos7.9%20%E5%AE%89%E8%A3%85%20node20%20%E5%AE%9E%E6%88%98.html" title="安装 nvm">安装 nvm</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86.html" title="查看文件的大小">查看文件的大小</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">mysql</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%AE%89%E8%A3%85mysql.html" title="CentOS Linux release 8.5.2111">CentOS Linux release 8.5.2111</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E4%BB%80%E4%B9%88%E6%98%AFmysql.html" title="什么是mysql">什么是mysql</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.html" title="注意不同的密码验证策略要求密码复杂度不一样。">注意不同的密码验证策略要求密码复杂度不一样。</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">缓存</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98/redis%20%E7%BC%93%E5%AD%98%E5%AE%9E%E6%88%98.html" title="redis 缓存实战">redis 缓存实战</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">软件开发与设计规范</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/%E6%8C%87%E5%AF%BC%E6%80%9D%E6%83%B3.html" title="指导思想">指导思想</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">领域驱动设计</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E4%BB%80%E4%B9%88%E6%98%AFDDD.html" title="什么是DDD">什么是DDD</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E5%89%8D%E8%A8%80.html" title="前言">前言</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Cookie%20%E8%AF%A6%E8%A7%A3.html" title="Cookie 详解">Cookie 详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/JWT%E8%AF%A6%E8%A7%A3.html" title="JWT 详解">JWT 详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Raft%20%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3.html" title="Raft 协议详解">Raft 协议详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/WebRTC%20%E5%BA%95%E5%B1%82%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.html" title="WebRTC 底层工作原理详解">WebRTC 底层工作原理详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/curl%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="curl 使用手册">curl 使用手册</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Git%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" title="克隆指定分支">克隆指定分支</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95.html" title="分布式一致性算法">分布式一致性算法</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="学习路线">学习路线</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%90%AD%E5%BB%BA%20Conda%20%2B%20Jupyter%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" title="搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南">搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程语言</span><span class="tree-count">18</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/C%20%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="C 语言快速入门">C 语言快速入门</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20benchmark%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go Benchmark 最佳实战">Go Benchmark 最佳实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20pprof%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go pprof 最佳实战：从开发诊断到生产调优">Go pprof 最佳实战：从开发诊断到生产调优</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5.html" title="Go 底层原理与工程化实践">Go 底层原理与工程化实践</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码">Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E8%AF%AD%E8%A8%80%E9%AB%98%E6%95%88%E7%BC%96%E7%A8%8B%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8C%96.html" title="Go 语言高效编程：原理、可观测性与优化">Go 语言高效编程：原理、可观测性与优化</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A.html" title="Go开发工程师必知必会">Go开发工程师必知必会</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Python</span><span class="tree-count">8</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="NumPy 使用手册">NumPy 使用手册</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="NumPy 使用指南：从 ndarray 到数值计算实践">NumPy 使用指南：从 ndarray 到数值计算实践</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Pandas%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="Pandas 使用指南：从 Series/DataFrame 到数据分析实践">Pandas 使用指南：从 Series/DataFrame 到数据分析实践</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html" title="Python 异步编程：从原理到实战">Python 异步编程：从原理到实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="Python 快速入门">Python 快速入门</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Decorator%EF%BC%89%E6%80%BB%E7%BB%93.html" title="Python 装饰器（Decorator）总结">Python 装饰器（Decorator）总结</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E8%AE%A4%E8%AF%86Python.html" title="认识Python">认识Python</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%40staticmethod%20%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="静态方法是类的属性">静态方法是类的属性</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Rust</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Rust 入门手册：面向 Go 与 Python 开发者">Rust 入门手册：面向 Go 与 Python 开发者</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E7%A8%8B%E5%BA%8F%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86.html" title="程序底层执行原理：从一行源码到进程退出">程序底层执行原理：从一行源码到进程退出</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88.html" title="计算机科学与编程十万个为什么">计算机科学与编程十万个为什么</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机组成原理</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%BC%96%E7%A0%81.html" title="《编码》：从手电筒到计算机">《编码》：从手电筒到计算机</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%98%BE%E7%A4%BA%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="显示器的工作原理">显示器的工作原理</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%99%B6%E4%BD%93%E7%AE%A1.html" title="晶体管：小学生也能看懂的计算机“小开关”">晶体管：小学生也能看懂的计算机“小开关”</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84.html" title="程序是如何执行的">程序是如何执行的</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.html" title="计算机底层原理：程序、数据与网络如何从 0 到 1 运转">计算机底层原理：程序、数据与网络如何从 0 到 1 运转</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html" title="计算机组成">计算机组成</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="计算机组成原理">计算机组成原理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机网络</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BATCP-IP%E5%8D%8F%E8%AE%AE.html" title="深入浅出TCP-IP协议">深入浅出TCP-IP协议</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20OSI.html" title="计算机网络 - OSI">计算机网络 - OSI</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html" title="计算机网络 - 概述">计算机网络 - 概述</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="计算机网络工作原理：从输入 URL 到数据跨越互联网">计算机网络工作原理：从输入 URL 到数据跨越互联网</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">高性能服务设计与实现</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1.html" title="什么是高性能服务">什么是高性能服务</a><a class="tree-link" href="%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88.html" title="后端服务安全方案">后端服务安全方案</a><a class="tree-link" href="%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%AF%B4%E6%98%8E.html" title="后端服务性能指标体系">后端服务性能指标体系</a><a class="tree-link" href="%E7%99%BE%E4%B8%87%E7%BA%A7QPS%20API%E7%BD%91%E5%85%B3%E8%AE%BE%E8%AE%A1.html" title="如何设计一个支持百万级 QPS 的 API 网关">如何设计一个支持百万级 QPS 的 API 网关</a><a class="tree-link active" href="%E9%99%90%E6%B5%81%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1.html" title="限流方案设计">限流方案设计</a><a class="tree-link" href="%E9%AB%98%E6%80%A7%E8%83%BD%20Agent%20%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="高性能 Agent 服务架构设计与实现">高性能 Agent 服务架构设计与实现</a><a class="tree-link" href="%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8F%AF%E8%A1%8C%E6%80%A7%E6%96%B9%E6%A1%88.html" title="高性能服务架构可行性方案">高性能服务架构可行性方案</a></div></details><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E5%A4%A7%E7%BA%B2.html" title="计算机知识学习先后顺序大纲">计算机知识学习先后顺序大纲</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="计算机科学知识大纲">计算机科学知识大纲</a></div></details><div class="tree-label">散篇</div><a class="tree-link" href="../../TODO.html" title="TODO">TODO</a><a class="tree-link" href="../../%E4%B8%AA%E4%BA%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E9%87%8D%E9%93%B8%E8%AE%A1%E5%88%92.html" title="个人基础知识重铸计划">个人基础知识重铸计划</a><a class="tree-link" href="../../%E5%8F%A5%E5%AD%90.html" title="句子">句子</a><a class="tree-link" href="../../%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E5%AD%A6%E4%B9%A0.html" title="如何高效的学习">如何高效的学习</a><a class="tree-link" href="../../%E6%97%B6%E9%97%B4%E8%83%B6%E5%9B%8A.html" title="时间胶囊">时间胶囊</a><a class="tree-link" href="../../%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA.html" title="网站导航">网站导航</a></nav>
+      </div>
+    </aside>
+  <main class="blog-main">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../../index.html">博客</a><span>/</span><span>计算机科学</span><span>/</span><span>高性能服务设计与实现</span><span>/</span><span>限流方案设计</span></nav>
+    <article class="post">
+      <header class="post-head">
+        <div class="post-kicker">计算机科学 / 高性能服务设计与实现</div>
+        <h1>限流方案设计</h1>
+        <div class="post-meta"><span>计算机科学/高性能服务设计与实现/限流方案设计.md</span><span>约 1,056 字</span></div>
+      </header>
+      <div class="prose"><h2 id="一-限流算法概述">一、限流算法概述</h2>
+<h3 id="1-1-常用限流算法对比">1.1 常用限流算法对比</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>原理</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>固定窗口计数器</strong></td>
+<td>固定时间窗口内计数</td>
+<td>实现简单</td>
+<td>临界问题</td>
+<td>简单场景、非核心链路</td>
+</tr>
+<tr>
+<td><strong>滑动窗口计数器</strong></td>
+<td>时间窗口滑动，平滑流量</td>
+<td>流量平滑</td>
+<td>实现复杂</td>
+<td>需要平滑流量的场景</td>
+</tr>
+<tr>
+<td><strong>令牌桶</strong></td>
+<td>匀速生成令牌，请求消耗令牌</td>
+<td>允许突发流量</td>
+<td>实现较复杂</td>
+<td>大多数场景、推荐使用</td>
+</tr>
+<tr>
+<td><strong>漏桶</strong></td>
+<td>请求进入队列，匀速流出</td>
+<td>流量整形</td>
+<td>无法应对突发</td>
+<td>流量整形、网关限流</td>
+</tr>
+<tr>
+<td><strong>分布式令牌桶</strong></td>
+<td>基于 Redis 的令牌桶</td>
+<td>分布式场景</td>
+<td>依赖 Redis</td>
+<td>多实例、分布式系统</td>
+</tr>
+<tr>
+<td><strong>自适应限流</strong></td>
+<td>根据系统负载动态调整</td>
+<td>智能调节</td>
+<td>算法复杂</td>
+<td>复杂系统、自动化运维</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="1-2-核心概念">1.2 核心概念</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                      限流核心概念                            │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  • Rate Limit：速率限制（每秒/每分钟允许的请求数）           │
+│  • Burst：突发允许量（超过速率限制时的缓冲）                │
+│  • Window：时间窗口（计数或滑动的时间范围）                 │
+│  • Key：限流维度（IP、用户ID、接口、业务类型等）            │
+│  • Strategy：限流策略（拒绝、排队、降级等）                 │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<h2 id="二-限流算法详解">二、限流算法详解</h2>
+<h3 id="2-1-固定窗口计数器">2.1 固定窗口计数器</h3>
+<p><strong>原理</strong>：在固定时间窗口内计数，超过阈值则拒绝请求。</p>
+<pre><code>时间轴：0----1s----2s----3s----4s----5s----&gt;
+窗口1：[====100====]
+窗口2：            [====120====]
+窗口3：                        [====80====]
+</code></pre>
+<p><strong>问题</strong>：临界问题</p>
+<pre><code>时间轴：0--------1s--------2s--------&gt;
+窗口1：[=========99=========]
+窗口2：                    [=========99=========]
+       ↑                    ↑
+       第1秒末99请求        第2秒初99请求
+       总计198请求在1秒内通过！
+</code></pre>
+<p><strong>Go 实现</strong>：</p>
+<pre><code class="language-go">package limiter
+
+import (
+    &quot;sync&quot;
+    &quot;time&quot;
+)
+
+type FixedWindowLimiter struct {
+    mu         sync.Mutex
+    counters   map[string]int
+    limit      int
+    window     time.Duration
+    lastReset  map[string]time.Time
+}
+
+func NewFixedWindowLimiter(limit int, window time.Duration) *FixedWindowLimiter {
+    return &amp;FixedWindowLimiter{
+        counters:  make(map[string]int),
+        limit:     limit,
+        window:    window,
+        lastReset: make(map[string]time.Time),
+    }
+}
+
+func (l *FixedWindowLimiter) Allow(key string) bool {
+    l.mu.Lock()
+    defer l.mu.Unlock()
+
+    now := time.Now()
+
+    if last, ok := l.lastReset[key]; !ok || now.Sub(last) &gt;= l.window {
+        l.counters[key] = 0
+        l.lastReset[key] = now
+    }
+
+    if l.counters[key] &gt;= l.limit {
+        return false
+    }
+
+    l.counters[key]++
+    return true
+}
+</code></pre>
+<h3 id="2-2-滑动窗口计数器">2.2 滑动窗口计数器</h3>
+<p><strong>原理</strong>：将时间窗口划分为多个小格子，滑动时只计算当前窗口内的请求数。</p>
+<pre><code>时间轴：0----0.2s----0.4s----0.6s----0.8s----1s----&gt;
+窗口大小：1秒，分为5个格子，每个格子0.2秒
+
+t=0.9s时的窗口：
+[格1] [格2] [格3] [格4] [格5]
+      ←←←←←←←←←←←←←←←←←←
+      当前窗口：格2+格3+格4+格5+新格
+
+优势：避免了固定窗口的临界问题
+</code></pre>
+<p><strong>Go 实现</strong>：</p>
+<pre><code class="language-go">package limiter
+
+import (
+    &quot;sync&quot;
+    &quot;time&quot;
+)
+
+type SlidingWindowLimiter struct {
+    mu           sync.Mutex
+    windows      map[string][]int
+    limit        int
+    windowSize   time.Duration
+    segmentCount int
+}
+
+func NewSlidingWindowLimiter(limit int, windowSize time.Duration, segmentCount int) *SlidingWindowLimiter {
+    return &amp;SlidingWindowLimiter{
+        windows:      make(map[string][]int),
+        limit:        limit,
+        windowSize:   windowSize,
+        segmentCount: segmentCount,
+    }
+}
+
+func (l *SlidingWindowLimiter) Allow(key string) bool {
+    l.mu.Lock()
+    defer l.mu.Unlock()
+
+    now := time.Now()
+    segmentDuration := l.windowSize / time.Duration(l.segmentCount)
+
+    if _, ok := l.windows[key]; !ok {
+        l.windows[key] = make([]int, l.segmentCount)
+    }
+
+    segmentIndex := int(now.UnixNano() / int64(segmentDuration)) % l.segmentCount
+
+    total := 0
+    for i := 0; i &lt; l.segmentCount; i++ {
+        if i != segmentIndex {
+            total += l.windows[key][i]
+        }
+    }
+
+    if total &gt;= l.limit {
+        return false
+    }
+
+    l.windows[key][segmentIndex]++
+    return true
+}
+</code></pre>
+<h3 id="2-3-令牌桶算法">2.3 令牌桶算法</h3>
+<p><strong>原理</strong>：令牌桶匀速生成令牌，请求需要获取令牌才能通过，允许一定的突发流量。</p>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                      令牌桶模型                              │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   ┌─────────────────────────────────────────────┐           │
+│   │              令牌桶 (容量=burst)              │           │
+│   │  ┌─────┬─────┬─────┬─────┬─────┬─────┐    │           │
+│   │  │  ●  │  ●  │  ●  │  ●  │  ●  │  ●  │    │           │
+│   │  └─────┴─────┴─────┴─────┴─────┴─────┘    │           │
+│   │       当前令牌数 = 6                        │           │
+│   └─────────────────┬─────────────────────────┘           │
+│                     │                                       │
+│                     ▼                                       │
+│   ┌─────────────────────────────────────────────┐           │
+│   │   令牌生成器：每秒生成 rate 个令牌           │           │
+│   │              ↑                              │           │
+│   │              │ 定时任务                      │           │
+│   └──────────────┴──────────────────────────────┘           │
+│                                                             │
+│   请求 ──▶ 获取令牌 ──▶ 通过 / 拒绝                          │
+│           │                                                 │
+│           └── 无令牌时等待或拒绝                             │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<p><strong>Go 实现（基于 gorilla/websocket 风格）</strong>：</p>
+<pre><code class="language-go">package limiter
+
+import (
+    &quot;sync&quot;
+    &quot;time&quot;
+)
+
+type TokenBucket struct {
+    mu           sync.Mutex
+    tokens       float64
+    capacity     float64
+    rate         float64
+    lastRefill   time.Time
+}
+
+func NewTokenBucket(rate, burst float64) *TokenBucket {
+    return &amp;TokenBucket{
+        tokens:     burst,
+        capacity:   burst,
+        rate:       rate,
+        lastRefill: time.Now(),
+    }
+}
+
+func (tb *TokenBucket) Allow() bool {
+    tb.mu.Lock()
+    defer tb.mu.Unlock()
+
+    tb.refill()
+
+    if tb.tokens &gt;= 1 {
+        tb.tokens--
+        return true
+    }
+    return false
+}
+
+func (tb *TokenBucket) AllowN(n int) bool {
+    tb.mu.Lock()
+    defer tb.mu.Unlock()
+
+    tb.refill()
+
+    if tb.tokens &gt;= float64(n) {
+        tb.tokens -= float64(n)
+        return true
+    }
+    return false
+}
+
+func (tb *TokenBucket) refill() {
+    now := time.Now()
+    elapsed := now.Sub(tb.lastRefill).Seconds()
+    tokensToAdd := elapsed * tb.rate
+    tb.tokens = min(tb.tokens+tokensToAdd, tb.capacity)
+    tb.lastRefill = now
+}
+
+func min(a, b float64) float64 {
+    if a &lt; b {
+        return a
+    }
+    return b
+}
+</code></pre>
+<h3 id="2-4-漏桶算法">2.4 漏桶算法</h3>
+<p><strong>原理</strong>：请求进入队列，按固定速率流出，起到流量整形作用。</p>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                      漏桶模型                               │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   请求 ──▶ ┌───────────────────────┐ ──固定速率──▶ 处理     │
+│            │       漏桶队列         │                       │
+│            │   [●][●][●][ ][ ]    │                       │
+│            │       容量=5          │                       │
+│            └──────────┬────────────┘                       │
+│                       │                                    │
+│                       ▼                                    │
+│                  溢出则丢弃                                 │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<p><strong>Go 实现</strong>：</p>
+<pre><code class="language-go">package limiter
+
+import (
+    &quot;sync&quot;
+    &quot;time&quot;
+)
+
+type LeakyBucket struct {
+    mu            sync.Mutex
+    queue         chan struct{}
+    rate          time.Duration
+    stopChan      chan struct{}
+}
+
+func NewLeakyBucket(rate time.Duration, capacity int) *LeakyBucket {
+    lb := &amp;LeakyBucket{
+        queue:    make(chan struct{}, capacity),
+        rate:     rate,
+        stopChan: make(chan struct{}),
+    }
+
+    go lb.leak()
+
+    return lb
+}
+
+func (lb *LeakyBucket) Allow() bool {
+    select {
+    case lb.queue &lt;- struct{}{}:
+        return true
+    default:
+        return false
+    }
+}
+
+func (lb *LeakyBucket) leak() {
+    ticker := time.NewTicker(lb.rate)
+    defer ticker.Stop()
+
+    for {
+        select {
+        case &lt;-ticker.C:
+            select {
+            case &lt;-lb.queue:
+            default:
+            }
+        case &lt;-lb.stopChan:
+            return
+        }
+    }
+}
+
+func (lb *LeakyBucket) Stop() {
+    close(lb.stopChan)
+}
+</code></pre>
+<h3 id="2-5-分布式令牌桶-redis-lua">2.5 分布式令牌桶（Redis + Lua）</h3>
+<p><strong>原理</strong>：基于 Redis 实现分布式令牌桶，支持多实例共享限流状态。</p>
+<p><strong>Lua 脚本</strong>：</p>
+<pre><code class="language-lua">local key = KEYS[1]
+local rate = tonumber(ARGV[1])
+local burst = tonumber(ARGV[2])
+local now = tonumber(ARGV[3])
+local window = 1000 -- 1秒窗口
+
+local current = tonumber(redis.call(&quot;get&quot;, key) or &quot;0&quot;)
+if current &lt; now - window then
+    current = now
+end
+
+local tokens = tonumber(redis.call(&quot;hget&quot;, key .. &quot;:tokens&quot;) or tostring(burst))
+tokens = math.min(tokens + (now - current) * rate / window, burst)
+
+if tokens &gt;= 1 then
+    tokens = tokens - 1
+    redis.call(&quot;set&quot;, key, now)
+    redis.call(&quot;hset&quot;, key .. &quot;:tokens&quot;, tokens)
+    redis.call(&quot;expire&quot;, key, window / 1000)
+    redis.call(&quot;expire&quot;, key .. &quot;:tokens&quot;, window / 1000)
+    return 1
+end
+
+return 0
+</code></pre>
+<p><strong>Go 实现</strong>：</p>
+<pre><code class="language-go">package limiter
+
+import (
+    &quot;context&quot;
+    &quot;time&quot;
+
+    &quot;github.com/go-redis/redis/v8&quot;
+)
+
+type RedisTokenBucket struct {
+    client *redis.Client
+    rate   int
+    burst  int
+}
+
+func NewRedisTokenBucket(client *redis.Client, rate, burst int) *RedisTokenBucket {
+    return &amp;RedisTokenBucket{
+        client: client,
+        rate:   rate,
+        burst:  burst,
+    }
+}
+
+var luaScript = `
+local key = KEYS[1]
+local rate = tonumber(ARGV[1])
+local burst = tonumber(ARGV[2])
+local now = tonumber(ARGV[3])
+local window = 1000
+
+local current = tonumber(redis.call(&quot;get&quot;, key) or &quot;0&quot;)
+if current &lt; now - window then
+    current = now
+end
+
+local tokens = tonumber(redis.call(&quot;hget&quot;, key .. &quot;:tokens&quot;) or tostring(burst))
+tokens = math.min(tokens + (now - current) * rate / window, burst)
+
+if tokens &gt;= 1 then
+    tokens = tokens - 1
+    redis.call(&quot;set&quot;, key, now)
+    redis.call(&quot;hset&quot;, key .. &quot;:tokens&quot;, tokens)
+    redis.call(&quot;expire&quot;, key, window / 1000)
+    redis.call(&quot;expire&quot;, key .. &quot;:tokens&quot;, window / 1000)
+    return 1
+end
+
+return 0
+`
+
+func (r *RedisTokenBucket) Allow(ctx context.Context, key string) (bool, error) {
+    now := time.Now().UnixNano() / 1e6
+
+    result, err := r.client.Eval(ctx, luaScript, []string{key}, r.rate, r.burst, now).Result()
+    if err != nil {
+        return false, err
+    }
+
+    return result.(int64) == 1, nil
+}
+</code></pre>
+<hr />
+<h2 id="三-限流维度设计">三、限流维度设计</h2>
+<h3 id="3-1-常见限流维度">3.1 常见限流维度</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IP 限流</strong></td>
+<td>限制单个 IP 的请求频率</td>
+<td>防止单个 IP 恶意攻击</td>
+</tr>
+<tr>
+<td><strong>用户限流</strong></td>
+<td>限制单个用户的请求频率</td>
+<td>防止用户滥用</td>
+</tr>
+<tr>
+<td><strong>接口限流</strong></td>
+<td>限制单个接口的请求频率</td>
+<td>保护核心接口</td>
+</tr>
+<tr>
+<td><strong>业务限流</strong></td>
+<td>按业务类型限流</td>
+<td>订单创建、支付等</td>
+</tr>
+<tr>
+<td><strong>全局限流</strong></td>
+<td>限制整个系统的请求总量</td>
+<td>保护系统整体容量</td>
+</tr>
+<tr>
+<td><strong>组合限流</strong></td>
+<td>多个维度组合限流</td>
+<td>IP + 接口、用户 + 业务</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="3-2-限流维度实现">3.2 限流维度实现</h3>
+<pre><code class="language-go">package limiter
+
+import (
+    &quot;context&quot;
+    &quot;sync&quot;
+)
+
+type MultiDimensionLimiter struct {
+    mu        sync.Mutex
+    limiters  map[string]Limiter
+    redisPool *redis.Client
+}
+
+type Limiter interface {
+    Allow(ctx context.Context, key string) (bool, error)
+}
+
+func NewMultiDimensionLimiter(redisPool *redis.Client) *MultiDimensionLimiter {
+    return &amp;MultiDimensionLimiter{
+        limiters:  make(map[string]Limiter),
+        redisPool: redisPool,
+    }
+}
+
+func (m *MultiDimensionLimiter) Allow(ctx context.Context, dimension, key string, rate, burst int) (bool, error) {
+    m.mu.Lock()
+    limiterKey := dimension + &quot;:&quot; + string(rune(rate)) + &quot;:&quot; + string(rune(burst))
+
+    if _, ok := m.limiters[limiterKey]; !ok {
+        m.limiters[limiterKey] = NewRedisTokenBucket(m.redisPool, rate, burst)
+    }
+    m.mu.Unlock()
+
+    return m.limiters[limiterKey].Allow(ctx, key)
+}
+
+func (m *MultiDimensionLimiter) AllowByIP(ctx context.Context, ip string, rate, burst int) (bool, error) {
+    return m.Allow(ctx, &quot;ip&quot;, ip, rate, burst)
+}
+
+func (m *MultiDimensionLimiter) AllowByUser(ctx context.Context, userID string, rate, burst int) (bool, error) {
+    return m.Allow(ctx, &quot;user&quot;, userID, rate, burst)
+}
+
+func (m *MultiDimensionLimiter) AllowByAPI(ctx context.Context, apiPath string, rate, burst int) (bool, error) {
+    return m.Allow(ctx, &quot;api&quot;, apiPath, rate, burst)
+}
+</code></pre>
+<hr />
+<h2 id="四-限流策略">四、限流策略</h2>
+<h3 id="4-1-拒绝策略">4.1 拒绝策略</h3>
+<pre><code class="language-go">func rejectHandler(c *gin.Context) {
+    c.JSON(http.StatusTooManyRequests, gin.H{
+        &quot;code&quot;:    429,
+        &quot;message&quot;: &quot;Too many requests&quot;,
+        &quot;retryAfter&quot;: &quot;10s&quot;,
+    })
+    c.Abort()
+}
+</code></pre>
+<h3 id="4-2-排队策略">4.2 排队策略</h3>
+<pre><code class="language-go">func queueHandler(c *gin.Context) {
+    ticker := time.NewTicker(time.Millisecond * 100)
+    defer ticker.Stop()
+
+    for i := 0; i &lt; 10; i++ {
+        if limiter.Allow() {
+            c.Next()
+            return
+        }
+        &lt;-ticker.C
+    }
+
+    rejectHandler(c)
+}
+</code></pre>
+<h3 id="4-3-降级策略">4.3 降级策略</h3>
+<pre><code class="language-go">func degradeHandler(c *gin.Context) {
+    if limiter.Allow() {
+        c.Next()
+        return
+    }
+
+    c.JSON(http.StatusOK, gin.H{
+        &quot;code&quot;:    200,
+        &quot;message&quot;: &quot;Service degraded&quot;,
+        &quot;data&quot;:    getCacheData(),
+    })
+    c.Abort()
+}
+</code></pre>
+<h3 id="4-4-黑白名单策略">4.4 黑白名单策略</h3>
+<pre><code class="language-go">package limiter
+
+import (
+    &quot;sync&quot;
+)
+
+type WhitelistLimiter struct {
+    mu        sync.RWMutex
+    whitelist map[string]bool
+    blacklist map[string]bool
+    limiter   Limiter
+}
+
+func NewWhitelistLimiter(limiter Limiter) *WhitelistLimiter {
+    return &amp;WhitelistLimiter{
+        whitelist: make(map[string]bool),
+        blacklist: make(map[string]bool),
+        limiter:   limiter,
+    }
+}
+
+func (w *WhitelistLimiter) AddWhitelist(key string) {
+    w.mu.Lock()
+    w.whitelist[key] = true
+    w.mu.Unlock()
+}
+
+func (w *WhitelistLimiter) AddBlacklist(key string) {
+    w.mu.Lock()
+    w.blacklist[key] = true
+    w.mu.Unlock()
+}
+
+func (w *WhitelistLimiter) Allow(ctx context.Context, key string) (bool, error) {
+    w.mu.RLock()
+    defer w.mu.RUnlock()
+
+    if w.blacklist[key] {
+        return false, nil
+    }
+
+    if w.whitelist[key] {
+        return true, nil
+    }
+
+    return w.limiter.Allow(ctx, key)
+}
+</code></pre>
+<hr />
+<h2 id="五-gin-中间件集成">五、Gin 中间件集成</h2>
+<h3 id="5-1-基础限流中间件">5.1 基础限流中间件</h3>
+<pre><code class="language-go">package middleware
+
+import (
+    &quot;net/http&quot;
+    &quot;strings&quot;
+
+    &quot;github.com/gin-gonic/gin&quot;
+    &quot;github.com/go-redis/redis/v8&quot;
+)
+
+func RateLimitMiddleware(redisClient *redis.Client, rate, burst int) gin.HandlerFunc {
+    limiter := NewRedisTokenBucket(redisClient, rate, burst)
+
+    return func(c *gin.Context) {
+        ip := getClientIP(c)
+        ctx := c.Request.Context()
+
+        allowed, err := limiter.Allow(ctx, ip)
+        if err != nil {
+            c.JSON(http.StatusInternalServerError, gin.H{
+                &quot;code&quot;:    500,
+                &quot;message&quot;: &quot;Internal server error&quot;,
+            })
+            c.Abort()
+            return
+        }
+
+        if !allowed {
+            c.Header(&quot;Retry-After&quot;, &quot;10&quot;)
+            c.JSON(http.StatusTooManyRequests, gin.H{
+                &quot;code&quot;:    429,
+                &quot;message&quot;: &quot;Too many requests&quot;,
+            })
+            c.Abort()
+            return
+        }
+
+        c.Next()
+    }
+}
+
+func getClientIP(c *gin.Context) string {
+    ip := c.ClientIP()
+
+    if xForwardedFor := c.GetHeader(&quot;X-Forwarded-For&quot;); xForwardedFor != &quot;&quot; {
+        ips := strings.Split(xForwardedFor, &quot;,&quot;)
+        ip = strings.TrimSpace(ips[0])
+    }
+
+    return ip
+}
+</code></pre>
+<h3 id="5-2-多维度限流中间件">5.2 多维度限流中间件</h3>
+<pre><code class="language-go">package middleware
+
+import (
+    &quot;net/http&quot;
+
+    &quot;github.com/gin-gonic/gin&quot;
+)
+
+func MultiRateLimitMiddleware(limiter *MultiDimensionLimiter) gin.HandlerFunc {
+    return func(c *gin.Context) {
+        ctx := c.Request.Context()
+        ip := getClientIP(c)
+        apiPath := c.Request.URL.Path
+
+        if allowed, _ := limiter.AllowByIP(ctx, ip, 100, 200); !allowed {
+            c.JSON(http.StatusTooManyRequests, gin.H{
+                &quot;code&quot;:    429,
+                &quot;message&quot;: &quot;IP rate limit exceeded&quot;,
+            })
+            c.Abort()
+            return
+        }
+
+        if allowed, _ := limiter.AllowByAPI(ctx, apiPath, 1000, 2000); !allowed {
+            c.JSON(http.StatusTooManyRequests, gin.H{
+                &quot;code&quot;:    429,
+                &quot;message&quot;: &quot;API rate limit exceeded&quot;,
+            })
+            c.Abort()
+            return
+        }
+
+        c.Next()
+    }
+}
+</code></pre>
+<hr />
+<h2 id="六-分布式限流一致性保障">六、分布式限流一致性保障</h2>
+<h3 id="6-1-问题分析">6.1 问题分析</h3>
+<pre><code>分布式限流的挑战：
+
+┌─────────┐    ┌─────────┐    ┌─────────┐
+│ 实例 A  │    │ 实例 B  │    │ 实例 C  │
+│         │    │         │    │         │
+│ 本地计数│    │ 本地计数│    │ 本地计数│
+│         │    │         │    │         │
+└────┬────┘    └────┬────┘    └────┬────┘
+     │              │              │
+     └──────────────┼──────────────┘
+                    ▼
+              ┌─────────┐
+              │  Redis  │
+              │  共享状态│
+              └─────────┘
+
+问题：
+1. 网络延迟导致状态不一致
+2. Redis 宕机导致限流失效
+3. 高并发下 Lua 脚本执行延迟
+</code></pre>
+<h3 id="6-2-解决方案">6.2 解决方案</h3>
+<p><strong>方案一：本地 + 分布式双层限流</strong></p>
+<pre><code class="language-go">package limiter
+
+import (
+    &quot;context&quot;
+    &quot;sync&quot;
+)
+
+type HybridLimiter struct {
+    mu            sync.Mutex
+    localLimiters map[string]*TokenBucket
+    redisLimiter  *RedisTokenBucket
+    rate          int
+    burst         int
+}
+
+func NewHybridLimiter(redisClient *redis.Client, rate, burst int) *HybridLimiter {
+    return &amp;HybridLimiter{
+        localLimiters: make(map[string]*TokenBucket),
+        redisLimiter:  NewRedisTokenBucket(redisClient, rate, burst),
+        rate:          rate,
+        burst:         burst,
+    }
+}
+
+func (h *HybridLimiter) Allow(ctx context.Context, key string) (bool, error) {
+    h.mu.Lock()
+    if _, ok := h.localLimiters[key]; !ok {
+        h.localLimiters[key] = NewTokenBucket(float64(h.rate), float64(h.burst))
+    }
+    h.mu.Unlock()
+
+    if !h.localLimiters[key].Allow() {
+        return false, nil
+    }
+
+    return h.redisLimiter.Allow(ctx, key)
+}
+</code></pre>
+<p><strong>方案二：熔断器 + 限流降级</strong></p>
+<pre><code class="language-go">package limiter
+
+import (
+    &quot;context&quot;
+    &quot;sync/atomic&quot;
+    &quot;time&quot;
+)
+
+type CircuitBreakerLimiter struct {
+    limiter       Limiter
+    failureCount  int32
+    successCount  int32
+    threshold     int32
+    halfOpenAfter time.Duration
+    lastFailure   time.Time
+    state         int32 // 0: closed, 1: open, 2: half-open
+}
+
+func NewCircuitBreakerLimiter(limiter Limiter, threshold int32, halfOpenAfter time.Duration) *CircuitBreakerLimiter {
+    return &amp;CircuitBreakerLimiter{
+        limiter:       limiter,
+        threshold:     threshold,
+        halfOpenAfter: halfOpenAfter,
+    }
+}
+
+func (c *CircuitBreakerLimiter) Allow(ctx context.Context, key string) (bool, error) {
+    state := atomic.LoadInt32(&amp;c.state)
+
+    if state == 1 {
+        if time.Since(c.lastFailure) &gt;= c.halfOpenAfter {
+            atomic.StoreInt32(&amp;c.state, 2)
+        } else {
+            return true, nil
+        }
+    }
+
+    allowed, err := c.limiter.Allow(ctx, key)
+    if err != nil {
+        atomic.AddInt32(&amp;c.failureCount, 1)
+        c.lastFailure = time.Now()
+
+        if atomic.LoadInt32(&amp;c.failureCount) &gt;= c.threshold {
+            atomic.StoreInt32(&amp;c.state, 1)
+            atomic.StoreInt32(&amp;c.failureCount, 0)
+        }
+
+        return true, nil
+    }
+
+    if state == 2 {
+        atomic.AddInt32(&amp;c.successCount, 1)
+        if atomic.LoadInt32(&amp;c.successCount) &gt;= c.threshold {
+            atomic.StoreInt32(&amp;c.state, 0)
+            atomic.StoreInt32(&amp;c.successCount, 0)
+        }
+    }
+
+    return allowed, nil
+}
+</code></pre>
+<hr />
+<h2 id="七-监控与可观测性">七、监控与可观测性</h2>
+<h3 id="7-1-限流指标">7.1 限流指标</h3>
+<pre><code class="language-go">package metrics
+
+import (
+    &quot;github.com/prometheus/client_golang/prometheus&quot;
+    &quot;github.com/prometheus/client_golang/prometheus/promauto&quot;
+)
+
+var (
+    requestsTotal = promauto.NewCounterVec(prometheus.CounterOpts{
+        Name: &quot;rate_limit_requests_total&quot;,
+        Help: &quot;Total number of requests&quot;,
+    }, []string{&quot;key&quot;, &quot;result&quot;})
+
+    requestsDuration = promauto.NewHistogramVec(prometheus.HistogramOpts{
+        Name:    &quot;rate_limit_requests_duration_seconds&quot;,
+        Help:    &quot;Duration of requests&quot;,
+        Buckets: prometheus.DefBuckets,
+    }, []string{&quot;key&quot;})
+)
+
+func RecordRequest(key string, allowed bool, duration float64) {
+    result := &quot;allowed&quot;
+    if !allowed {
+        result = &quot;rejected&quot;
+    }
+    requestsTotal.WithLabelValues(key, result).Inc()
+    requestsDuration.WithLabelValues(key).Observe(duration)
+}
+</code></pre>
+<h3 id="7-2-监控仪表盘">7.2 监控仪表盘</h3>
+<pre><code class="language-yaml"># Grafana Dashboard JSON 片段
+{
+  &quot;title&quot;: &quot;Rate Limit Dashboard&quot;,
+  &quot;panels&quot;: [
+    {
+      &quot;title&quot;: &quot;Requests per Second&quot;,
+      &quot;type&quot;: &quot;graph&quot;,
+      &quot;targets&quot;: [
+        {
+          &quot;expr&quot;: &quot;rate(rate_limit_requests_total[5m])&quot;,
+          &quot;legendFormat&quot;: &quot;{{result}}&quot;
+        }
+      ]
+    },
+    {
+      &quot;title&quot;: &quot;Rejection Rate&quot;,
+      &quot;type&quot;: &quot;graph&quot;,
+      &quot;targets&quot;: [
+        {
+          &quot;expr&quot;: &quot;sum(rate(rate_limit_requests_total{result=\&quot;rejected\&quot;}[5m])) / sum(rate(rate_limit_requests_total[5m]))&quot;,
+          &quot;legendFormat&quot;: &quot;Rejection Rate&quot;
+        }
+      ]
+    },
+    {
+      &quot;title&quot;: &quot;Top Rate Limited Keys&quot;,
+      &quot;type&quot;: &quot;table&quot;,
+      &quot;targets&quot;: [
+        {
+          &quot;expr&quot;: &quot;topk(10, sum(rate(rate_limit_requests_total{result=\&quot;rejected\&quot;}[10m])) by (key))&quot;,
+          &quot;legendFormat&quot;: &quot;{{key}}&quot;
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+<hr />
+<h2 id="八-测试方案">八、测试方案</h2>
+<h3 id="8-1-单元测试">8.1 单元测试</h3>
+<pre><code class="language-go">package limiter
+
+import (
+    &quot;testing&quot;
+    &quot;time&quot;
+)
+
+func TestTokenBucket_Allow(t *testing.T) {
+    tb := NewTokenBucket(10, 20)
+
+    for i := 0; i &lt; 20; i++ {
+        if !tb.Allow() {
+            t.Errorf(&quot;Expected allow, got reject at iteration %d&quot;, i)
+        }
+    }
+
+    if tb.Allow() {
+        t.Error(&quot;Expected reject after burst, got allow&quot;)
+    }
+
+    time.Sleep(time.Second)
+
+    if !tb.Allow() {
+        t.Error(&quot;Expected allow after refill, got reject&quot;)
+    }
+}
+</code></pre>
+<h3 id="8-2-压力测试">8.2 压力测试</h3>
+<pre><code class="language-go">package main
+
+import (
+    &quot;context&quot;
+    &quot;sync&quot;
+    &quot;testing&quot;
+    &quot;time&quot;
+
+    &quot;github.com/go-redis/redis/v8&quot;
+)
+
+func BenchmarkRedisTokenBucket(b *testing.B) {
+    client := redis.NewClient(&amp;redis.Options{
+        Addr: &quot;localhost:6379&quot;,
+    })
+
+    limiter := NewRedisTokenBucket(client, 10000, 20000)
+    ctx := context.Background()
+
+    var wg sync.WaitGroup
+    b.SetParallelism(100)
+
+    b.ResetTimer()
+    b.RunParallel(func(pb *testing.PB) {
+        for pb.Next() {
+            wg.Add(1)
+            go func() {
+                defer wg.Done()
+                limiter.Allow(ctx, &quot;test-key&quot;)
+            }()
+        }
+    })
+
+    wg.Wait()
+}
+</code></pre>
+<h3 id="8-3-集成测试">8.3 集成测试</h3>
+<pre><code class="language-go">package middleware
+
+import (
+    &quot;net/http&quot;
+    &quot;net/http/httptest&quot;
+    &quot;testing&quot;
+
+    &quot;github.com/gin-gonic/gin&quot;
+)
+
+func TestRateLimitMiddleware(t *testing.T) {
+    gin.SetMode(gin.TestMode)
+
+    redisClient := redis.NewClient(&amp;redis.Options{
+        Addr: &quot;localhost:6379&quot;,
+    })
+
+    router := gin.New()
+    router.GET(&quot;/test&quot;, RateLimitMiddleware(redisClient, 5, 10), func(c *gin.Context) {
+        c.JSON(http.StatusOK, gin.H{&quot;status&quot;: &quot;ok&quot;})
+    })
+
+    for i := 0; i &lt; 15; i++ {
+        req := httptest.NewRequest(http.MethodGet, &quot;/test&quot;, nil)
+        w := httptest.NewRecorder()
+        router.ServeHTTP(w, req)
+
+        if i &lt; 15 {
+            if w.Code != http.StatusOK &amp;&amp; i &gt;= 10 {
+                continue
+            }
+            if w.Code != http.StatusOK {
+                t.Errorf(&quot;Expected 200, got %d at request %d&quot;, w.Code, i)
+            }
+        }
+    }
+}
+</code></pre>
+<hr />
+<h2 id="九-生产环境注意事项">九、生产环境注意事项</h2>
+<h3 id="9-1-配置管理">9.1 配置管理</h3>
+<pre><code class="language-go">package config
+
+import (
+    &quot;time&quot;
+)
+
+type RateLimitConfig struct {
+    Enabled     bool          `yaml:&quot;enabled&quot;`
+    DefaultRate int           `yaml:&quot;default_rate&quot;`
+    DefaultBurst int          `yaml:&quot;default_burst&quot;`
+    Rules       []RuleConfig  `yaml:&quot;rules&quot;`
+}
+
+type RuleConfig struct {
+    Dimension string        `yaml:&quot;dimension&quot;`
+    Key       string        `yaml:&quot;key&quot;`
+    Rate      int           `yaml:&quot;rate&quot;`
+    Burst     int           `yaml:&quot;burst&quot;`
+}
+
+type CircuitBreakerConfig struct {
+    Enabled       bool          `yaml:&quot;enabled&quot;`
+    FailureThreshold int32      `yaml:&quot;failure_threshold&quot;`
+    HalfOpenAfter time.Duration `yaml:&quot;half_open_after&quot;`
+}
+</code></pre>
+<h3 id="9-2-热更新">9.2 热更新</h3>
+<pre><code class="language-go">package limiter
+
+import (
+    &quot;sync&quot;
+)
+
+type ConfigurableLimiter struct {
+    mu          sync.RWMutex
+    limiters    map[string]Limiter
+    config      RateLimitConfig
+    redisClient *redis.Client
+}
+
+func (c *ConfigurableLimiter) UpdateConfig(newConfig RateLimitConfig) {
+    c.mu.Lock()
+    defer c.mu.Unlock()
+
+    c.config = newConfig
+
+    for _, rule := range newConfig.Rules {
+        key := rule.Dimension + &quot;:&quot; + rule.Key
+        c.limiters[key] = NewRedisTokenBucket(c.redisClient, rule.Rate, rule.Burst)
+    }
+}
+</code></pre>
+<h3 id="9-3-告警策略">9.3 告警策略</h3>
+<pre><code class="language-yaml"># Prometheus Alert Rules
+groups:
+- name: rate_limit_alerts
+  rules:
+  - alert: HighRejectionRate
+    expr: sum(rate(rate_limit_requests_total{result=&quot;rejected&quot;}[5m])) / sum(rate(rate_limit_requests_total[5m])) &gt; 0.1
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: &quot;High rejection rate detected&quot;
+      description: &quot;Rejection rate is {{ $value }} for the last 5 minutes&quot;
+
+  - alert: RateLimitServiceDown
+    expr: rate(rate_limit_requests_total[5m]) == 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: &quot;Rate limit service is down&quot;
+      description: &quot;No rate limit requests processed for the last 5 minutes&quot;
+</code></pre>
+<hr />
+<h2 id="十-总结">十、总结</h2>
+<h3 id="10-1-方案选型建议">10.1 方案选型建议</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>推荐方案</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>简单场景</strong></td>
+<td>固定窗口计数器</td>
+<td>实现简单，资源占用低</td>
+</tr>
+<tr>
+<td><strong>需要平滑流量</strong></td>
+<td>滑动窗口计数器</td>
+<td>避免临界问题</td>
+</tr>
+<tr>
+<td><strong>大多数生产场景</strong></td>
+<td>令牌桶算法</td>
+<td>支持突发流量，灵活可控</td>
+</tr>
+<tr>
+<td><strong>流量整形</strong></td>
+<td>漏桶算法</td>
+<td>匀速流出，适合网关</td>
+</tr>
+<tr>
+<td><strong>分布式系统</strong></td>
+<td>Redis 令牌桶</td>
+<td>多实例共享状态</td>
+</tr>
+<tr>
+<td><strong>高可用要求</strong></td>
+<td>双层限流 + 熔断</td>
+<td>本地保护 + 分布式协调</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="10-2-关键成功因素">10.2 关键成功因素</h3>
+<ol>
+<li><strong>监控先行</strong>：完善的指标监控和告警</li>
+<li><strong>渐进式部署</strong>：先本地限流，再分布式限流</li>
+<li><strong>合理阈值</strong>：根据业务场景设置合理的 rate 和 burst</li>
+<li><strong>降级策略</strong>：限流后的处理策略要明确</li>
+<li><strong>测试验证</strong>：充分的单元测试和压力测试</li>
+</ol>
+<h3 id="10-3-常见坑点">10.3 常见坑点</h3>
+<ul>
+<li><strong>阈值设置过高</strong>：限流失效</li>
+<li><strong>阈值设置过低</strong>：正常请求被拦截</li>
+<li><strong>没有考虑突发流量</strong>：系统在峰值时不稳定</li>
+<li><strong>Redis 单点故障</strong>：限流依赖失效</li>
+<li><strong>缺少监控告警</strong>：无法及时发现问题</li>
+</ul></div>
+      <nav class="post-pager" aria-label="上下篇"><a class="pager-link" href="%E7%99%BE%E4%B8%87%E7%BA%A7QPS%20API%E7%BD%91%E5%85%B3%E8%AE%BE%E8%AE%A1.html"><em>上一篇</em><b>如何设计一个支持百万级 QPS 的 API 网关</b></a><a class="pager-link next" href="%E9%AB%98%E6%80%A7%E8%83%BD%20Agent%20%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html"><em>下一篇</em><b>高性能 Agent 服务架构设计与实现</b></a></nav>
+    </article>
+  </main>
+</div>
+<footer class="blog-foot">
+  <div class="wrap foot-inner">
+    <span>© 2026 逐梦笔记 · 由 <code>scripts/build_blog.py</code> 从 docs/ 自动生成</span>
+    <span>内容来源：<a href="https://github.com/ShiQianzhi/note" target="_blank" rel="noopener noreferrer">ShiQianzhi/note</a> · 同步于 2026-11-26</span>
+  </div>
+</footer>
+<script src="../../blog.js"></script>
+</body>
+</html>

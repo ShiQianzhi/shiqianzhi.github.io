@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第3章 Pod 核心概念与实战 · 逐梦笔记</title>
+<meta name="description" content="学习目标">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../../../../blog.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="../../../../../index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../../../../../index.html">首页</a>
+      <div class="nav-drop">
+        <a href="../../../../../knowledge.html">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="../../../../../knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="../../../../../knowledge.html#domains">五大知识域</a>
+          <a href="../../../../../knowledge.html#cross">交叉与前沿</a>
+          <a href="../../../../../knowledge.html#axes">三条贯穿轴</a>
+          <a href="../../../../../knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="../../../../../career.html">世界职业体系</a>
+      <a href="../../../../index.html" class="active">博客</a>
+      <a class="nav-cta" href="../../../../../knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-wrap">
+  
+    <aside class="blog-side">
+      <div class="side-head">
+        <a class="blog-brand" href="../../../../index.html">逐梦笔记<span>NOTES</span></a>
+        <button class="side-toggle" id="sideToggle" aria-expanded="false" aria-controls="sideBody">目录</button>
+      </div>
+      <div class="side-body" id="sideBody">
+        <div class="tree-search">
+          <input id="treeQ" type="search" placeholder="筛选 197 篇笔记…" aria-label="筛选笔记">
+        </div>
+        <nav class="tree" aria-label="博客目录"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI创作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI短剧制作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI写周报，把我写成了公司CEO</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E5%86%99%E5%91%A8%E6%8A%A5%EF%BC%8C%E6%8A%8A%E6%88%91%E5%86%99%E6%88%90%E4%BA%86%E5%85%AC%E5%8F%B8CEO/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI的最后一活</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%B4%BB/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><a class="tree-link" href="../../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%9B%E4%BD%9C%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html" title="AI 短剧创作保姆级教程：从一个想法到成片发布">AI 短剧创作保姆级教程：从一个想法到成片发布</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人生感悟</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/%E5%9C%A8%E5%89%A7%E5%8F%98%E4%B8%AD%E5%AF%BB%E8%B7%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8AI%E6%B5%AA%E6%BD%AE%E4%B8%8B%E6%8A%93%E4%BD%8F%E6%9C%BA%E9%81%87.html" title="在剧变中寻路：如何在 AI 浪潮下抓住机遇">在剧变中寻路：如何在 AI 浪潮下抓住机遇</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础学科</span><span class="tree-count">22</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数学</span><span class="tree-count">13</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">初等代数</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5.html" title="数的概念">数的概念</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E7%B1%BB%E5%88%AB.html" title="数的类别">数的类别</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E9%87%8F.html" title="数量">数量</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性代数</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F.html" title="向量（Vector）：从几何箭头到 AI 数据表示">向量（Vector）：从几何箭头到 AI 数据表示</a></div></details><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%8C%87%E6%95%B0%E8%BF%90%E7%AE%97.html" title="什么是指数运算">什么是指数运算</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%85%B3%E7%B3%BB.html" title="什么是线性关系">什么是线性关系</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%87%A0%E4%BD%95%E5%85%A5%E9%97%A8.html" title="几何入门">几何入门</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97.html" title="四则运算">四则运算</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9F%BA%E6%9C%AC%E4%BB%A3%E6%95%B0.html" title="基本代数">基本代数</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E6%95%B0%E5%AD%A6.html" title="如何学习数学">如何学习数学</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%9A%E4%BB%8E0%E5%88%B0%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6.html" title="数学学习路线图：从0到高等数学">数学学习路线图：从0到高等数学</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E8%A1%A8%E7%A4%BA.html" title="数的分类与表示">数的分类与表示</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%AE%97%E6%9C%AF%E5%9F%BA%E7%A1%80.html" title="算术基础">算术基础</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">物理</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E4%BB%8E%E5%BE%AE%E8%A7%82%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E7%89%A9%E8%B4%A8%EF%BC%9A%E5%8E%9F%E5%AD%90%E3%80%81%E7%B2%92%E5%AD%90%E4%B8%8E%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8.html" title="从微观角度理解物质：原子、粒子与相互作用">从微观角度理解物质：原子、粒子与相互作用</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%89%A9%E8%B4%A8%E5%92%8C%E8%83%BD%E9%87%8F%E7%9A%84%E5%85%B3%E7%B3%BB.html" title="物质和能量的关系">物质和能量的关系</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%90%86%E8%A7%A3%E7%94%B5%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%89%A9%E7%90%86%E5%9F%BA%E7%A1%80.html" title="理解电必须掌握的物理基础">理解电必须掌握的物理基础</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E%E5%8E%86%E5%8F%B2%E5%88%B0%E6%9C%AC%E8%B4%A8.html" title="电是什么：从历史到本质">电是什么：从历史到本质</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.html" title="电的原理与应用场景">电的原理与应用场景</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%A3%81%EF%BC%9A%E4%BB%8E%E7%94%B5%E5%9C%BA%E7%A3%81%E5%9C%BA%E5%88%B0%E7%94%B5%E7%A3%81%E6%B3%A2.html" title="电磁：从电场磁场到电磁波">电磁：从电场磁场到电磁波</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">语言</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">英语</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="英语学习笔记">英语学习笔记</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95.html" title="英语语法">英语语法</a></div></details><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%AF%AD%E6%B3%95.html" title="语法">语法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">心情随笔</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/%E5%85%AD%E7%A7%8D%E5%80%BC%E5%BE%97%E7%BB%93%E4%BA%A4%E4%B8%80%E8%BE%88%E5%AD%90%E7%9A%84%E4%BA%BA.html" title="六种值得结交一辈子的人">六种值得结交一辈子的人</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">生活常识</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">买房攻略</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98.html" title="下面是我总结了买房相关常见问题：">下面是我总结了买房相关常见问题：</a><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5.html" title="买房攻略">买房攻略</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">考驾照</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E8%80%83%E9%A9%BE%E7%85%A7/%E7%A7%91%E7%9B%AE%E4%B8%80.html" title="科目一刷题笔记">科目一刷题笔记</a></div></details><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E5%90%84%E8%A1%8C%E4%B8%9A%E5%85%A8%E6%99%AF%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%AE%9A%E4%B9%89%E3%80%81%E7%8E%B0%E7%8A%B6%E4%B8%8EAI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%9C%AA%E6%9D%A5.html" title="各行业全景解析：定义、现状与 AI 时代的未来">各行业全景解析：定义、现状与 AI 时代的未来</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">计算机科学</span><span class="tree-count">160</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Agent 开发</span><span class="tree-count">11</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">docs</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">superpowers</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">specs</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/docs/superpowers/specs/2026-11-06-enterprise-agent-course-design.html" title="企业级 Agent 混合架构课程设计">企业级 Agent 混合架构课程设计</a></div></details></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">learning-records</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0001-python-worker-first.html" title="Learning Record 0001: Python Agent Worker First">Learning Record 0001: Python Agent Worker First</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0002-agent-state-checkpoint-recovery.html" title="Learning Record 0002: Agent State and Checkpoint Recovery">Learning Record 0002: Agent State and Checkpoint Recovery</a></div></details><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/Agent%20%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="Agent 开发学习路线">Agent 开发学习路线</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/Agent%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.html" title="Agent开发核心知识点">Agent开发核心知识点</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/Go-Python%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BD%ACAgent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B.html" title="Go/Python 后端工程师转 Agent 开发实战教程">Go/Python 后端工程师转 Agent 开发实战教程</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/MISSION.html" title="Mission: 从 Python Agent Worker 学会企业级 Agent 开发">Mission: 从 Python Agent Worker 学会企业级 Agent 开发</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/RAG.html" title="RAG">RAG</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/RAG%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%A6%E7%BB%86%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html" title="RAG系统的详细工作流程">RAG系统的详细工作流程</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E9%AB%98%E5%B9%B6%E5%8F%91%E4%BC%81%E4%B8%9A%E7%BA%A7Agent%E7%B3%BB%E7%BB%9F%E6%95%99%E7%A8%8B.html" title="从零搭建高并发企业级 Agent 系统教程">从零搭建高并发企业级 Agent 系统教程</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/RESOURCES.html" title="企业级 Agent 开发资源">企业级 Agent 开发资源</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人工智能</span><span class="tree-count">33</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI行业基础知识相关概念</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAI.html" title="什么是 AI">什么是 AI</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAIGC.html" title="什么是 AIGC">什么是 AIGC</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAgent.html" title="什么是 Agent">什么是 Agent</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG">什么是 RAG</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE.html" title="什么是向量数据">什么是向量数据</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是大模型">什么是大模型</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是语言大模型">什么是语言大模型</a></div></details><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93.html" title="AI 学习笔记总结">AI 学习笔记总结</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E5%BA%94%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="AI 应用工程师从入门到实战的最佳学习路线">AI 应用工程师从入门到实战的最佳学习路线</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Chroma%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Chroma 入门手册：从零上手最轻量的向量数据库">Chroma 入门手册：从零上手最轻量的向量数据库</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/LangChain%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="LangChain 入门手册：用搭积木的方式编排大模型应用">LangChain 入门手册：用搭积木的方式编排大模型应用</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Transformer%20%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.html" title="Transformer 注意力机制详解">Transformer 注意力机制详解</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BB%8B%E7%BB%8D.html" title="人工智能介绍">人工智能介绍</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%A6%E7%90%86%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="人工智能伦理与安全">人工智能伦理与安全</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG：检索增强生成从原理到实战">什么是 RAG：检索增强生成从原理到实战</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%8D%E5%90%91%E9%87%8F.html" title="什么是词向量">什么是词向量</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BANLP%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html" title="从零搭建NLP模型完全指南">从零搭建NLP模型完全指南</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%85%B3%E4%BA%8EAI%E7%9A%84%E7%95%85%E6%83%B3%E5%92%8C%E6%80%9D%E8%80%83.html" title="关于AI的畅想和思考">关于AI的畅想和思考</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%80%85AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师">后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93.html" title="向量数据库：语义搜索的存储与检索引擎">向量数据库：语义搜索的存储与检索引擎</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BA%B2.html" title="大模型应用实战知识总纲">大模型应用实战知识总纲</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAAgent.html" title="如何搭建一个 Agent">如何搭建一个 Agent</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="学习笔记">学习笔记</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html" title="强化学习">强化学习</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%96%87%E6%9C%AC%E6%98%AF%E5%A6%82%E4%BD%95%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E7%9A%84.html" title="文本是如何变成向量的：Embedding 推理管线全解析">文本是如何变成向量的：Embedding 推理管线全解析</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html" title="机器学习-线性回归">机器学习-线性回归</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="机器学习基础">机器学习基础</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="深度学习基础">深度学习基础</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html" title="神经网络">神经网络</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Agent%20%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="网页版知识库 Agent 搭建实战">网页版知识库 Agent 搭建实战</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86.html" title="自然语言处理">自然语言处理</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89.html" title="计算机视觉">计算机视觉</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E9%AB%98%E7%BB%B4%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%91%E9%87%8F%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%90%91%E9%87%8D%E5%BB%BA.html" title="高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容">高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础知识</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/DNS.html" title="DNS：从域名到 IP 地址的分布式解析系统">DNS：从域名到 IP 地址的分布式解析系统</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/HTTP.html" title="HTTP：从一次请求到现代 Web 传输体系">HTTP：从一次请求到现代 Web 传输体系</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84.html" title="互联网是如何工作的">互联网是如何工作的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%9F%E7%90%86.html" title="操作系统的原理">操作系统的原理</a><a class="tree-link" href="../../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F.html" title="深入理解计算机系统">深入理解计算机系统</a><a class="tree-link" href="../../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84.html" title="计算机是如何编码数据的">计算机是如何编码数据的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">8</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Elasticsearch</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/%E5%AE%89%E8%A3%85.html" title="创建网络">创建网络</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MongoDB</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念">基本概念</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%AE%89%E8%A3%85mongodb.html" title="安装mongodb">安装mongodb</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" title="数据库不存在会自动创建">数据库不存在会自动创建</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MySQL</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%9E%B6%E6%9E%84.html" title="MySQL 架构">MySQL 架构</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="MySQL数据库知识大纲">MySQL数据库知识大纲</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.html" title="存储引擎">存储引擎</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E7%B4%A2%E5%BC%95.html" title="索引">索引</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构与算法</span><span class="tree-count">10</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构</span><span class="tree-count">6</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数组和字符串</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C.html" title="数组的操作">数组的操作</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%A6%82%E8%BF%B0.html" title="概述">概述</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">树</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/%E6%A0%91.html" title="树">树</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性表</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8.html" title="线性表">线性表</a></div></details><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD.html" title="基本概念和术语">基本概念和术语</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E5%92%8C%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84.html" title="逻辑结构和物理结构">逻辑结构和物理结构</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">算法</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/K-Means.html" title="K-Means 聚类算法">K-Means 聚类算法</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97%E8%AF%A6%E8%A7%A3.html" title="位运算详解">位运算详解</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95.html" title="算法效率分析方法">算法效率分析方法</a></div></details></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">编程笔记</span><span class="tree-count">54</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C 语言学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../C%20%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="此时会生成 a.out（windows 会生成 a.exe）">此时会生成 a.out（windows 会生成 a.exe）</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Docker</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Docker/docker%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Docker 入门手册：编写 Dockerfile、构建镜像与容器管理">Docker 入门手册：编写 Dockerfile、构建镜像与容器管理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言之旅</span><span class="tree-count">12</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架源码剖析</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Gin%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Gin%20%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Gin%E6%A1%86%E6%9E%B6%E5%BC%95%E6%93%8E%E5%AE%9E%E4%BE%8B.html" title="深入理解Gin框架引擎实例">深入理解Gin框架引擎实例</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言设计与实现</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%BA%90%E4%BB%A3%E7%A0%81.html" title="自己需要那个版本的 Go 标签，就用那个">自己需要那个版本的 Go 标签，就用那个</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言高级开发工程</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html" title="Go 单元测试">Go 单元测试</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E9%98%B6%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7.html" title="Go 语言高阶实战技巧">Go 语言高阶实战技巧</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Lua</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Lua/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BLua%E8%84%9A%E6%9C%AC.html" title="&quot;Hello, scripting!&quot;">&quot;Hello, scripting!&quot;</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">kubernetes</span><span class="tree-count">17</span></summary><div class="tree-children"><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">从入门到实战</span><span class="tree-count">16</span></summary><div class="tree-children"><a class="tree-link" href="K8s%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2.html" title="Kubernetes 从入门到实战：完整知识学习大纲">Kubernetes 从入门到实战：完整知识学习大纲</a><a class="tree-link" href="%E7%AC%AC10%E7%AB%A0-Ingress%E4%B8%8E%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1.html" title="第10章：Ingress 与流量路由">第10章：Ingress 与流量路由</a><a class="tree-link" href="%E7%AC%AC11%E7%AB%A0-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%9B%E9%98%B6.html" title="第11章 控制器进阶">第11章 控制器进阶</a><a class="tree-link" href="%E7%AC%AC12%E7%AB%A0-RBAC%E6%9D%83%E9%99%90%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="第12章 RBAC 权限与安全">第12章 RBAC 权限与安全</a><a class="tree-link" href="%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html" title="第13章 监控日志与可观测性">第13章 监控日志与可观测性</a><a class="tree-link" href="%E7%AC%AC14%E7%AB%A0-Helm%E5%8C%85%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第14章 Helm 包管理与应用部署">第14章 Helm 包管理与应用部署</a><a class="tree-link" href="%E7%AC%AC15%E7%AB%A0-%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98-%E5%AE%8C%E6%95%B4%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2.html" title="第15章 综合实战：完整微服务项目部署">第15章 综合实战：完整微服务项目部署</a><a class="tree-link" href="%E7%AC%AC1%E7%AB%A0-K8s%E6%A6%82%E8%BF%B0%E4%B8%8E%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3.html" title="第1章 K8s 概述与架构理解">第1章 K8s 概述与架构理解</a><a class="tree-link" href="%E7%AC%AC2%E7%AB%A0-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="第2章 环境搭建实战">第2章 环境搭建实战</a><a class="tree-link active" href="%E7%AC%AC3%E7%AB%A0-Pod%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E6%88%98.html" title="第3章 Pod 核心概念与实战">第3章 Pod 核心概念与实战</a><a class="tree-link" href="%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第4章 Deployment 与应用部署">第4章 Deployment 与应用部署</a><a class="tree-link" href="%E7%AC%AC5%E7%AB%A0-Service%E4%B8%8E%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1.html" title="第5章：Service 与网络通信">第5章：Service 与网络通信</a><a class="tree-link" href="%E7%AC%AC6%E7%AB%A0-ConfigMap%E4%B8%8ESecret%E7%AE%A1%E7%90%86.html" title="第6章：ConfigMap 与 Secret 管理">第6章：ConfigMap 与 Secret 管理</a><a class="tree-link" href="%E7%AC%AC7%E7%AB%A0-Volume%E4%B8%8E%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8.html" title="第7章：Volume 与持久化存储">第7章：Volume 与持久化存储</a><a class="tree-link" href="%E7%AC%AC8%E7%AB%A0-Namespace%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.html" title="第8章：Namespace 与资源管理">第8章：Namespace 与资源管理</a><a class="tree-link" href="%E7%AC%AC9%E7%AB%A0-%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6%E4%B8%8E%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86.html" title="第9章：调度机制与节点管理">第9章：调度机制与节点管理</a></div></details><a class="tree-link" href="../HPA%E5%92%8CVPA%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="HPA 和 VPA 的区别">HPA 和 VPA 的区别</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">其他</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%85%B6%E4%BB%96/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80UML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="统一建模语言UML学习笔记">统一建模语言UML学习笔记</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Linux</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Centos</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/yum.html" title="yum">yum</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/CentosStream8%20%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html" title="刷新配置">刷新配置</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/Centos7.9%20%E5%AE%89%E8%A3%85%20node20%20%E5%AE%9E%E6%88%98.html" title="安装 nvm">安装 nvm</a></div></details><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86.html" title="查看文件的大小">查看文件的大小</a></div></details><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">mysql</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%AE%89%E8%A3%85mysql.html" title="CentOS Linux release 8.5.2111">CentOS Linux release 8.5.2111</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E4%BB%80%E4%B9%88%E6%98%AFmysql.html" title="什么是mysql">什么是mysql</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.html" title="注意不同的密码验证策略要求密码复杂度不一样。">注意不同的密码验证策略要求密码复杂度不一样。</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">缓存</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%93%E5%AD%98/redis%20%E7%BC%93%E5%AD%98%E5%AE%9E%E6%88%98.html" title="redis 缓存实战">redis 缓存实战</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">软件开发与设计规范</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/%E6%8C%87%E5%AF%BC%E6%80%9D%E6%83%B3.html" title="指导思想">指导思想</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">领域驱动设计</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E4%BB%80%E4%B9%88%E6%98%AFDDD.html" title="什么是DDD">什么是DDD</a><a class="tree-link" href="../../%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E5%89%8D%E8%A8%80.html" title="前言">前言</a></div></details><a class="tree-link" href="../../Cookie%20%E8%AF%A6%E8%A7%A3.html" title="Cookie 详解">Cookie 详解</a><a class="tree-link" href="../../JWT%E8%AF%A6%E8%A7%A3.html" title="JWT 详解">JWT 详解</a><a class="tree-link" href="../../Raft%20%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3.html" title="Raft 协议详解">Raft 协议详解</a><a class="tree-link" href="../../WebRTC%20%E5%BA%95%E5%B1%82%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.html" title="WebRTC 底层工作原理详解">WebRTC 底层工作原理详解</a><a class="tree-link" href="../../curl%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="curl 使用手册">curl 使用手册</a><a class="tree-link" href="../../Git%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" title="克隆指定分支">克隆指定分支</a><a class="tree-link" href="../../%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95.html" title="分布式一致性算法">分布式一致性算法</a><a class="tree-link" href="../../%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="学习路线">学习路线</a><a class="tree-link" href="../../%E6%90%AD%E5%BB%BA%20Conda%20%2B%20Jupyter%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" title="搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南">搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程语言</span><span class="tree-count">18</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/C%20%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="C 语言快速入门">C 语言快速入门</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20benchmark%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go Benchmark 最佳实战">Go Benchmark 最佳实战</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20pprof%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go pprof 最佳实战：从开发诊断到生产调优">Go pprof 最佳实战：从开发诊断到生产调优</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5.html" title="Go 底层原理与工程化实践">Go 底层原理与工程化实践</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码">Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E8%AF%AD%E8%A8%80%E9%AB%98%E6%95%88%E7%BC%96%E7%A8%8B%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8C%96.html" title="Go 语言高效编程：原理、可观测性与优化">Go 语言高效编程：原理、可观测性与优化</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A.html" title="Go开发工程师必知必会">Go开发工程师必知必会</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Python</span><span class="tree-count">8</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="NumPy 使用手册">NumPy 使用手册</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="NumPy 使用指南：从 ndarray 到数值计算实践">NumPy 使用指南：从 ndarray 到数值计算实践</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Pandas%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="Pandas 使用指南：从 Series/DataFrame 到数据分析实践">Pandas 使用指南：从 Series/DataFrame 到数据分析实践</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html" title="Python 异步编程：从原理到实战">Python 异步编程：从原理到实战</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="Python 快速入门">Python 快速入门</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Decorator%EF%BC%89%E6%80%BB%E7%BB%93.html" title="Python 装饰器（Decorator）总结">Python 装饰器（Decorator）总结</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E8%AE%A4%E8%AF%86Python.html" title="认识Python">认识Python</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%40staticmethod%20%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="静态方法是类的属性">静态方法是类的属性</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Rust</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Rust 入门手册：面向 Go 与 Python 开发者">Rust 入门手册：面向 Go 与 Python 开发者</a></div></details><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E7%A8%8B%E5%BA%8F%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86.html" title="程序底层执行原理：从一行源码到进程退出">程序底层执行原理：从一行源码到进程退出</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88.html" title="计算机科学与编程十万个为什么">计算机科学与编程十万个为什么</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机组成原理</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%BC%96%E7%A0%81.html" title="《编码》：从手电筒到计算机">《编码》：从手电筒到计算机</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%98%BE%E7%A4%BA%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="显示器的工作原理">显示器的工作原理</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%99%B6%E4%BD%93%E7%AE%A1.html" title="晶体管：小学生也能看懂的计算机“小开关”">晶体管：小学生也能看懂的计算机“小开关”</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84.html" title="程序是如何执行的">程序是如何执行的</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.html" title="计算机底层原理：程序、数据与网络如何从 0 到 1 运转">计算机底层原理：程序、数据与网络如何从 0 到 1 运转</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html" title="计算机组成">计算机组成</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="计算机组成原理">计算机组成原理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机网络</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BATCP-IP%E5%8D%8F%E8%AE%AE.html" title="深入浅出TCP-IP协议">深入浅出TCP-IP协议</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20OSI.html" title="计算机网络 - OSI">计算机网络 - OSI</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html" title="计算机网络 - 概述">计算机网络 - 概述</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="计算机网络工作原理：从输入 URL 到数据跨越互联网">计算机网络工作原理：从输入 URL 到数据跨越互联网</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">高性能服务设计与实现</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1.html" title="什么是高性能服务">什么是高性能服务</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88.html" title="后端服务安全方案">后端服务安全方案</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%AF%B4%E6%98%8E.html" title="后端服务性能指标体系">后端服务性能指标体系</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E7%99%BE%E4%B8%87%E7%BA%A7QPS%20API%E7%BD%91%E5%85%B3%E8%AE%BE%E8%AE%A1.html" title="如何设计一个支持百万级 QPS 的 API 网关">如何设计一个支持百万级 QPS 的 API 网关</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%99%90%E6%B5%81%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1.html" title="限流方案设计">限流方案设计</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%20Agent%20%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="高性能 Agent 服务架构设计与实现">高性能 Agent 服务架构设计与实现</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8F%AF%E8%A1%8C%E6%80%A7%E6%96%B9%E6%A1%88.html" title="高性能服务架构可行性方案">高性能服务架构可行性方案</a></div></details><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E5%A4%A7%E7%BA%B2.html" title="计算机知识学习先后顺序大纲">计算机知识学习先后顺序大纲</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="计算机科学知识大纲">计算机科学知识大纲</a></div></details><div class="tree-label">散篇</div><a class="tree-link" href="../../../../TODO.html" title="TODO">TODO</a><a class="tree-link" href="../../../../%E4%B8%AA%E4%BA%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E9%87%8D%E9%93%B8%E8%AE%A1%E5%88%92.html" title="个人基础知识重铸计划">个人基础知识重铸计划</a><a class="tree-link" href="../../../../%E5%8F%A5%E5%AD%90.html" title="句子">句子</a><a class="tree-link" href="../../../../%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E5%AD%A6%E4%B9%A0.html" title="如何高效的学习">如何高效的学习</a><a class="tree-link" href="../../../../%E6%97%B6%E9%97%B4%E8%83%B6%E5%9B%8A.html" title="时间胶囊">时间胶囊</a><a class="tree-link" href="../../../../%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA.html" title="网站导航">网站导航</a></nav>
+      </div>
+    </aside>
+  <main class="blog-main">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../../../../index.html">博客</a><span>/</span><span>计算机科学</span><span>/</span><span>编程笔记</span><span>/</span><span>kubernetes</span><span>/</span><span>从入门到实战</span><span>/</span><span>第3章 Pod 核心概念与实战</span></nav>
+    <article class="post">
+      <header class="post-head">
+        <div class="post-kicker">计算机科学 / 编程笔记 / kubernetes / 从入门到实战</div>
+        <h1>第3章 Pod 核心概念与实战</h1>
+        <div class="post-meta"><span>计算机科学/编程笔记/kubernetes/从入门到实战/第3章-Pod核心概念与实战.md</span><span>约 2,231 字</span></div>
+      </header>
+      <div class="prose"><h2 id="学习目标">学习目标</h2>
+<ul>
+<li>理解 Pod 的定义与设计哲学，掌握 Kubernetes 选择 Pod 而非直接管理容器的原因</li>
+<li>掌握 Pod 的生命周期状态（Pending / Running / Succeeded / Failed / Unknown）及其转换条件</li>
+<li>能够独立编写 Pod YAML 配置，理解每个字段的含义</li>
+<li>掌握 Sidecar 模式与 Init Container 模式的使用场景与配置方法</li>
+<li>理解 requests/limits 的区别及 QoS 等级（Guaranteed / Burstable / BestEffort）的调度影响</li>
+<li>熟练配置 livenessProbe、readinessProbe、startupProbe 三种健康检查探针</li>
+<li>掌握 Pod 重启策略（Always / OnFailure / Never）的适用场景</li>
+<li>理解 Pod 间通信机制：同 Pod 内共享 localhost，跨 Pod 通过 Service 通信</li>
+<li>通过 5 个实战练习，熟练掌握 Pod 的创建、调试与运维操作</li>
+</ul>
+<hr />
+<h2 id="3-1-pod-的定义与特点">3.1 Pod 的定义与特点</h2>
+<h3 id="3-1-1-什么是-pod">3.1.1 什么是 Pod</h3>
+<p>Pod 是 Kubernetes 中<strong>最小的部署单元</strong>，它是一组紧密相关的容器的集合。Pod 将多个容器组合在一起，作为一个逻辑单元进行调度和管理。</p>
+<h3 id="3-1-2-为什么-k8s-使用-pod-而不是直接管理容器">3.1.2 为什么 K8s 使用 Pod 而不是直接管理容器</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>原因</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>共享资源</strong></td>
+<td>同一 Pod 内的容器共享网络命名空间（IP、端口）和存储卷，可以直接通过 <code>localhost</code> 通信</td>
+</tr>
+<tr>
+<td><strong>联合调度</strong></td>
+<td>Pod 作为调度原子，确保所有容器在同一节点上运行，避免跨节点通信开销</td>
+</tr>
+<tr>
+<td><strong>生命周期绑定</strong></td>
+<td>Pod 内的容器同生共死，一个容器退出则整个 Pod 重启</td>
+</tr>
+<tr>
+<td><strong>简化管理</strong></td>
+<td>将相关容器打包为一个单元，简化部署和扩缩容操作</td>
+</tr>
+<tr>
+<td><strong>IP 唯一性</strong></td>
+<td>每个 Pod 拥有唯一的集群内 IP，无需为每个容器单独分配</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="3-1-3-pod-的核心特性">3.1.3 Pod 的核心特性</h3>
+<ul>
+<li><strong>短暂性（Ephemeral）</strong>：Pod 可以随时被销毁和重建，IP 地址可能变化</li>
+<li><strong>确定性</strong>：Pod 中的容器共享网络和存储</li>
+<li><strong>原子性</strong>：Pod 作为最小调度和部署单元</li>
+</ul>
+<hr />
+<h2 id="3-2-pod-的生命周期状态详解">3.2 Pod 的生命周期状态详解</h2>
+<h3 id="3-2-1-pod-状态概览">3.2.1 Pod 状态概览</h3>
+<pre><code>                    ┌──────────┐
+                    │  Pending  │ 调度中，Pod 已创建但尚未被调度到节点
+                    └────┬─────┘
+                         │ 调度成功
+                         ▼
+                    ┌──────────┐
+           ┌────────│ Running   │ Pod 已绑定到节点，所有容器已启动
+           │        └────┬─────┘
+           │             │
+           │    ┌────────┴────────┐
+           │    ▼                 ▼
+           │  ┌──────────┐  ┌──────────┐
+           │  │ Succeeded│  │  Failed   │
+           │  └──────────┘  └──────────┘
+           │  所有容器正常终止  至少一个容器异常终止
+           │
+           │  ┌──────────┐
+           └─&gt;│ Unknown  │ 节点失联，状态未知
+              └──────────┘
+</code></pre>
+<h3 id="3-2-2-各状态详解">3.2.2 各状态详解</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>含义</th>
+<th>转换条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pending</strong></td>
+<td>Pod 已创建但尚未被调度到任何节点</td>
+<td>Pod 创建后立即进入此状态，等待调度器分配节点</td>
+</tr>
+<tr>
+<td><strong>Running</strong></td>
+<td>Pod 已绑定到节点，所有容器已创建并启动</td>
+<td>调度成功 + 节点分配成功 + 至少一个容器在运行</td>
+</tr>
+<tr>
+<td><strong>Succeeded</strong></td>
+<td>Pod 中所有容器均正常终止（退出码 0）</td>
+<td>所有容器执行完毕并以退出码 0 终止</td>
+</tr>
+<tr>
+<td><strong>Failed</strong></td>
+<td>Pod 中至少有一个容器以非 0 退出码终止，且所有容器已终止</td>
+<td>容器异常退出，且重启策略不允许重启</td>
+</tr>
+<tr>
+<td><strong>Unknown</strong></td>
+<td>无法获取 Pod 的状态</td>
+<td>所在节点失联（网络故障或 kubelet 停止）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="3-2-3-pod-condition-子状态">3.2.3 Pod Condition（子状态）</h3>
+<p>Pod 的顶层 <code>status.phase</code> 之外，还有更详细的 <code>status.conditions</code>：</p>
+<pre><code class="language-yaml">status:
+  phase: Running
+  conditions:
+    - type: PodScheduled      # Pod 是否已被调度
+      status: &quot;True&quot;
+    - type: Ready              # Pod 是否就绪（所有容器就绪）
+      status: &quot;True&quot;
+    - type: ContainersReady    # 所有容器是否就绪
+      status: &quot;True&quot;
+    - type: Initialized        # 所有 init 容器是否完成
+      status: &quot;True&quot;
+</code></pre>
+<hr />
+<h2 id="3-3-pod-yaml-结构详解">3.3 Pod YAML 结构详解</h2>
+<h3 id="3-3-1-完整-yaml-配置示例">3.3.1 完整 YAML 配置示例</h3>
+<pre><code class="language-yaml">apiVersion: v1                    # API 版本，Pod 使用 v1
+kind: Pod                         # 资源类型：Pod
+metadata:
+  name: nginx-pod                 # Pod 名称（在 namespace 内唯一）
+  namespace: default              # 命名空间，默认 default
+  labels:                         # 标签，用于筛选和分组
+    app: nginx
+    environment: production
+    version: &quot;1.25&quot;
+  annotations:                    # 注解，存储非标识性元数据
+    description: &quot;生产环境 Nginx Pod&quot;
+    owner: &quot;devops-team&quot;
+  # 如果需要在创建时指定节点，可使用 nodeSelector
+  # annotations:
+  #   kubernetes.io/hostname: &quot;node-1&quot;
+
+spec:
+  # 基础调度相关
+  nodeName: &quot;&quot;                    # 指定调度到特定节点（通常由调度器决定）
+  nodeSelector: {}                # 节点标签选择器，Pod 只能调度到匹配的节点
+  affinity: {}                    # 亲和性/反亲和性，更灵活的调度控制
+  tolerations: []                 # 容忍的污点，允许 Pod 调度到有污点的节点
+  priorityClassName: &quot;&quot;           # 优先级类，高优先级 Pod 可抢占低优先级 Pod
+
+  # 容器定义
+  containers:
+    - name: nginx                 # 容器名称（Pod 内唯一）
+      image: nginx:1.25-alpine    # 容器镜像（仓库地址:标签）
+      imagePullPolicy: IfNotPresent # 镜像拉取策略：Always / Never / IfNotPresent
+      command: [&quot;/bin/sh&quot;]        # 容器入口命令（覆盖 ENTRYPOINT）
+      args: [&quot;-c&quot;, &quot;echo hello&quot;]  # 命令参数（覆盖 CMD）
+      workingDir: &quot;/etc/nginx&quot;    # 容器工作目录
+
+      # 环境变量配置
+      env:
+        - name: NGINX_PORT
+          value: &quot;80&quot;
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: password
+        - name: CONFIG_PATH
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: config-path
+
+      # 资源限制
+      resources:
+        requests:                 # 调度时保证的最小资源
+          cpu: &quot;100m&quot;             # 100 millicores = 0.1 CPU
+          memory: &quot;128Mi&quot;         # 128 Mebibytes
+        limits:                   # 最大允许使用的资源
+          cpu: &quot;500m&quot;             # 最多使用 0.5 CPU
+          memory: &quot;256Mi&quot;         # 最多使用 256 MiB 内存
+          # ephemeral-storage: &quot;1Gi&quot;  # 临时存储限制
+
+      # 端口声明（仅作文档用途，不影响实际监听）
+      ports:
+        - name: http
+          containerPort: 80       # 容器内监听的端口
+          protocol: TCP           # 协议：TCP / UDP / SCTP
+          hostPort: 0             # 宿主机端口（通常不指定）
+
+      # 卷挂载
+      volumeMounts:
+        - name: config-volume
+          mountPath: /etc/nginx/conf.d
+          readOnly: true
+        - name: tmp-volume
+          mountPath: /tmp
+        - name: secret-volume
+          mountPath: /etc/secret
+          readOnly: true
+
+      # 存活探针
+      livenessProbe:
+        httpGet:
+          path: /healthz
+          port: 80
+        initialDelaySeconds: 15   # 容器启动后等待 15 秒开始探测
+        periodSeconds: 10         # 每 10 秒探测一次
+        timeoutSeconds: 5         # 超时时间
+        failureThreshold: 3       # 连续 3 次失败判定为不健康
+        successThreshold: 1       # 连续 1 次成功判定为健康
+
+      # 就绪探针
+      readinessProbe:
+        httpGet:
+          path: /ready
+          port: 80
+        initialDelaySeconds: 5
+        periodSeconds: 5
+        failureThreshold: 3
+        successThreshold: 1
+
+      # 启动探针
+      startupProbe:
+        httpGet:
+          path: /startup
+          port: 80
+        initialDelaySeconds: 0
+        periodSeconds: 5
+        failureThreshold: 30       # 启动阶段最多等待 150 秒（30 × 5s）
+
+      # 安全上下文
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        runAsUser: 1000
+        capabilities:
+          drop: [&quot;ALL&quot;]
+
+      # 容器的生命周期回调
+      lifecycle:
+        postStart:
+          exec:
+            command: [&quot;/bin/sh&quot;, &quot;-c&quot;, &quot;echo Container started&quot;]
+        preStop:
+          exec:
+            command: [&quot;/bin/sh&quot;, &quot;-c&quot;, &quot;sleep 5&quot;]
+
+  # init 容器（在主容器启动前执行）
+  initContainers:
+    - name: init-myservice
+      image: busybox:1.36
+      command:
+        - sh
+        - -c
+        - |
+          echo &quot;等待 MyService 启动...&quot;
+          until nslookup myservice.default.svc.cluster.local; do
+            echo &quot;等待 MyService...&quot;
+            sleep 2
+          done
+          echo &quot;MyService 已就绪&quot;
+    - name: init-clone
+      image: busybox:1.36
+      command: [&quot;git&quot;, &quot;clone&quot;, &quot;https://github.com/user/repo.git&quot;, &quot;/workspace&quot;]
+      volumeMounts:
+        - name: workspace-volume
+          mountPath: /workspace
+
+  # 卷定义
+  volumes:
+    - name: config-volume
+      configMap:
+        name: nginx-config
+    - name: tmp-volume
+      emptyDir: {}
+    - name: secret-volume
+      secret:
+        secretName: my-secret
+    - name: workspace-volume
+      emptyDir: {}
+
+  # Pod 重启策略
+  restartPolicy: Always            # Always / OnFailure / Never
+
+  # Pod 自动销毁时间
+  terminationGracePeriodSeconds: 30  # 优雅终止等待时间
+
+  # 服务账户
+  serviceAccountName: default      # 使用的 ServiceAccount
+  automountServiceAccountToken: true  # 自动挂载 SA Token
+
+  # 网络配置
+  hostNetwork: false               # 是否使用宿主机网络
+  hostPID: false                   # 是否共享宿主机 PID 命名空间
+  hostIPC: false                   # 是否共享宿主机 IPC 命名空间
+  shareProcessNamespace: false     # 是否与 Pod 内其他容器共享 PID 命名空间
+
+  # DNS 配置
+  dnsPolicy: ClusterFirst          # DNS 策略：Default / ClusterFirst / ClusterFirstWithHostNet / None
+  dnsConfig:                       # 自定义 DNS 配置
+    nameservers: [&quot;10.96.0.10&quot;]
+    searches: [&quot;default.svc.cluster.local&quot;, &quot;svc.cluster.local&quot;, &quot;cluster.local&quot;]
+    options:
+      - name: ndots
+        value: &quot;5&quot;
+
+  # 安全上下文（Pod 级别）
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000
+    seccompProfile:
+      type: RuntimeDefault
+</code></pre>
+<h3 id="3-3-2-yaml-字段速查表">3.3.2 YAML 字段速查表</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>apiVersion</code></td>
+<td>string</td>
+<td>API 版本</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td>string</td>
+<td>资源类型</td>
+</tr>
+<tr>
+<td><code>metadata.name</code></td>
+<td>string</td>
+<td>Pod 名称</td>
+</tr>
+<tr>
+<td><code>metadata.labels</code></td>
+<td>map</td>
+<td>标签键值对</td>
+</tr>
+<tr>
+<td><code>spec.containers</code></td>
+<td>array</td>
+<td>容器定义列表</td>
+</tr>
+<tr>
+<td><code>spec.initContainers</code></td>
+<td>array</td>
+<td>初始化容器列表</td>
+</tr>
+<tr>
+<td><code>spec.volumes</code></td>
+<td>array</td>
+<td>卷定义列表</td>
+</tr>
+<tr>
+<td><code>spec.restartPolicy</code></td>
+<td>string</td>
+<td>重启策略</td>
+</tr>
+<tr>
+<td><code>spec.nodeSelector</code></td>
+<td>map</td>
+<td>节点选择器</td>
+</tr>
+<tr>
+<td><code>spec.affinity</code></td>
+<td>object</td>
+<td>亲和性配置</td>
+</tr>
+<tr>
+<td><code>spec.tolerations</code></td>
+<td>array</td>
+<td>污点容忍</td>
+</tr>
+<tr>
+<td><code>spec.priorityClassName</code></td>
+<td>string</td>
+<td>优先级类</td>
+</tr>
+<tr>
+<td><code>spec.serviceAccountName</code></td>
+<td>string</td>
+<td>服务账户名</td>
+</tr>
+<tr>
+<td><code>spec.hostNetwork</code></td>
+<td>bool</td>
+<td>宿主机网络</td>
+</tr>
+<tr>
+<td><code>spec.dnsPolicy</code></td>
+<td>string</td>
+<td>DNS 策略</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="3-4-pod-中的容器模式">3.4 Pod 中的容器模式</h2>
+<h3 id="3-4-1-sidecar-模式">3.4.1 Sidecar 模式</h3>
+<p>Sidecar 模式是指在 Pod 中运行一个辅助容器（Sidecar），与主容器协同工作。</p>
+<h4 id="场景一-日志收集">场景一：日志收集</h4>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: log-collector-pod
+  labels:
+    app: log-collector
+spec:
+  containers:
+    - name: app                    # 主应用容器
+      image: myapp:1.0
+      volumeMounts:
+        - name: log-directory
+          mountPath: /var/log/app
+    - name: log-agent              # Sidecar 日志收集容器
+      image: fluent/fluent-bit:latest
+      volumeMounts:
+        - name: log-directory
+          mountPath: /var/log/app
+          readOnly: true
+      resources:
+        requests:
+          cpu: &quot;50m&quot;
+          memory: &quot;64Mi&quot;
+        limits:
+          cpu: &quot;100m&quot;
+          memory: &quot;128Mi&quot;
+  volumes:
+    - name: log-directory
+      emptyDir: {}
+</code></pre>
+<h4 id="场景二-配置热更新">场景二：配置热更新</h4>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: config-reloader-pod
+spec:
+  containers:
+    - name: app
+      image: myapp:1.0
+      volumeMounts:
+        - name: config-volume
+          mountPath: /etc/app/config
+          subPath: config.yaml
+    - name: config-reloader         # 监听 ConfigMap 变化并通知主容器
+      image: containerslabs/config-reloader:latest
+      args:
+        - -volume-dir=/etc/app/config
+        - -watch
+        - -on-change
+        - &quot;kill -HUP 1&quot;
+      volumeMounts:
+        - name: config-volume
+          mountPath: /etc/app/config
+      securityContext:
+        runAsUser: 0
+  volumes:
+    - name: config-volume
+      configMap:
+        name: app-config
+</code></pre>
+<h3 id="3-4-2-init-container-模式">3.4.2 Init Container 模式</h3>
+<p>Init Container 在主容器启动前执行，用于完成初始化工作。</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: init-demo-pod
+spec:
+  initContainers:
+    # 等待依赖服务就绪
+    - name: wait-for-db
+      image: busybox:1.36
+      command:
+        - sh
+        - -c
+        - |
+          echo &quot;等待数据库就绪...&quot;
+          until nc -z my-db-service 5432; do
+            echo &quot;数据库未就绪，2秒后重试...&quot;
+            sleep 2
+          done
+          echo &quot;数据库已就绪！&quot;
+
+    # 从远端下载配置文件
+    - name: fetch-config
+      image: curlimages/curl:latest
+      command:
+        - sh
+        - -c
+        - |
+          echo &quot;下载配置文件...&quot;
+          curl -s https://config-server.example.com/config &gt; /shared/config.json
+          echo &quot;配置下载完成&quot;
+
+    # 初始化数据
+    - name: init-data
+      image: busybox:1.36
+      command:
+        - sh
+        - -c
+        - |
+          echo &quot;初始化数据...&quot;
+          cat /shared/config.json
+          echo '{&quot;initialized&quot;: true}' &gt; /shared/status.json
+          echo &quot;初始化完成&quot;
+      volumeMounts:
+        - name: shared-data
+          mountPath: /shared
+
+  containers:
+    - name: main-app
+      image: myapp:1.0
+      volumeMounts:
+        - name: shared-data
+          mountPath: /shared
+      readinessProbe:
+        httpGet:
+          path: /health
+          port: 8080
+        initialDelaySeconds: 10
+        periodSeconds: 5
+
+  volumes:
+    - name: shared-data
+      emptyDir: {}
+</code></pre>
+<p><strong>Init Container 的执行规则：</strong>
+- 按定义顺序依次执行
+- 前一个成功完成后才执行下一个
+- 所有 Init Container 成功后，主容器才启动
+- 任一 Init Container 失败则 Pod 重启（重启策略为 Always/OnFailure 时）</p>
+<hr />
+<h2 id="3-5-pod-的资源限制">3.5 Pod 的资源限制</h2>
+<h3 id="3-5-1-requests-与-limits-的区别">3.5.1 Requests 与 Limits 的区别</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Requests</th>
+<th>Limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>含义</strong></td>
+<td>调度时保证分配的最小资源</td>
+<td>允许使用的最大资源上限</td>
+</tr>
+<tr>
+<td><strong>调度影响</strong></td>
+<td>调度器根据 requests 决定 Pod 调度到哪个节点</td>
+<td>节点上 Pod 的总 limits 不能超过节点可分配资源</td>
+</tr>
+<tr>
+<td><strong>超限行为</strong></td>
+<td>不影响调度（仅作为参考）</td>
+<td>超过 CPU limits 会被限流（throttle），超过 memory limits 会被 OOM Kill</td>
+</tr>
+<tr>
+<td><strong>未指定时</strong></td>
+<td>默认等于 limits</td>
+<td>默认等于节点可分配资源的默认值</td>
+</tr>
+</tbody>
+</table></div>
+<pre><code class="language-yaml">resources:
+  requests:
+    cpu: &quot;100m&quot;          # 调度时至少分配 0.1 CPU
+    memory: &quot;128Mi&quot;      # 调度时至少分配 128 MiB 内存
+    ephemeral-storage: &quot;1Gi&quot;  # 调度时至少分配 1Gi 临时存储
+  limits:
+    cpu: &quot;500m&quot;          # 最多使用 0.5 CPU（超出会被限流）
+    memory: &quot;256Mi&quot;      # 最多使用 256 MiB 内存（超出会被 OOM Kill）
+    ephemeral-storage: &quot;2Gi&quot;  # 最多使用 2Gi 临时存储
+</code></pre>
+<h3 id="3-5-2-qos-等级">3.5.2 QoS 等级</h3>
+<p>Kubernetes 根据 Pod 的 <code>requests</code> 与 <code>limits</code> 配置，将 Pod 划分为三种 QoS（Quality of Service）等级：</p>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│                        QoS 等级划分                              │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Guaranteed (最高优先级)                                         │
+│  ├── 所有容器都设置了 requests 和 limits                        │
+│  ├── requests == limits（CPU 和 Memory）                        │
+│  └── 示例：requests: {cpu: 100m, memory: 128Mi}                 │
+│            limits:  {cpu: 100m, memory: 128Mi}                   │
+│                                                                 │
+│  Burstable (中等优先级)                                          │
+│  ├── 至少一个容器设置了 requests 或 limits                      │
+│  ├── 且不满足 Guaranteed 条件                                    │
+│  └── 示例：requests: {cpu: 100m, memory: 128Mi}                 │
+│            limits:  {cpu: 200m, memory: 256Mi}                  │
+│                                                                 │
+│  BestEffort (最低优先级)                                         │
+│  ├── 所有容器都没有设置 requests 和 limits                      │
+│  └── 示例：不设置任何 resources 配置                             │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h4 id="qos-示例">QoS 示例</h4>
+<pre><code class="language-yaml"># Guaranteed QoS
+apiVersion: v1
+kind: Pod
+metadata:
+  name: qos-guaranteed
+spec:
+  containers:
+    - name: app
+      image: nginx:1.25
+      resources:
+        requests:
+          cpu: &quot;200m&quot;
+          memory: &quot;256Mi&quot;
+        limits:
+          cpu: &quot;200m&quot;
+          memory: &quot;256Mi&quot;
+---
+# Burstable QoS
+apiVersion: v1
+kind: Pod
+metadata:
+  name: qos-burstable
+spec:
+  containers:
+    - name: app
+      image: nginx:1.25
+      resources:
+        requests:
+          cpu: &quot;100m&quot;
+          memory: &quot;128Mi&quot;
+        limits:
+          cpu: &quot;500m&quot;
+          memory: &quot;512Mi&quot;
+---
+# BestEffort QoS
+apiVersion: v1
+kind: Pod
+metadata:
+  name: qos-besteffort
+spec:
+  containers:
+    - name: app
+      image: nginx:1.25
+</code></pre>
+<p><strong>内存不足时的驱逐顺序：</strong> BestEffort → Burstable → Guaranteed</p>
+<hr />
+<h2 id="3-6-pod-的健康检查">3.6 Pod 的健康检查</h2>
+<h3 id="3-6-1-三种探针对比">3.6.1 三种探针对比</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>探针</th>
+<th>作用</th>
+<th>失败行为</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>livenessProbe</strong></td>
+<td>检测容器是否存活</td>
+<td>重启容器</td>
+<td>检测应用死锁、无需重启即可恢复的问题</td>
+</tr>
+<tr>
+<td><strong>readinessProbe</strong></td>
+<td>检测容器是否就绪</td>
+<td>从 Service 中摘除</td>
+<td>应用需要时间启动、预热缓存、等待依赖</td>
+</tr>
+<tr>
+<td><strong>startupProbe</strong></td>
+<td>检测容器是否已启动</td>
+<td>重启容器，期间其他探针暂停</td>
+<td>启动慢的应用，避免启动阶段误判</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="3-6-2-探针配置详解">3.6.2 探针配置详解</h3>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: health-check-demo
+spec:
+  containers:
+    - name: web-app
+      image: nginx:1.25
+
+      # 方式一：HTTP GET 探测
+      livenessProbe:
+        httpGet:
+          path: /healthz          # 探测路径
+          port: 80               # 探测端口
+          httpHeaders:           # 自定义请求头
+            - name: Custom-Header
+              value: check-health
+        initialDelaySeconds: 30  # 启动后等待 30 秒
+        periodSeconds: 10        # 每 10 秒探测一次
+        timeoutSeconds: 3        # 单次探测超时
+        failureThreshold: 3      # 连续 3 次失败才算失败
+        successThreshold: 1      # 连续 1 次成功算成功
+
+      # 方式二：TCP Socket 探测
+      readinessProbe:
+        tcpSocket:
+          port: 8080
+          host: localhost
+        initialDelaySeconds: 5
+        periodSeconds: 5
+        failureThreshold: 3
+
+      # 方式三：Exec 命令探测
+      startupProbe:
+        exec:
+          command:
+            - /bin/sh
+            - -c
+            - &quot;curl -f http://localhost:8080/startup || exit 1&quot;
+        initialDelaySeconds: 0
+        periodSeconds: 5
+        failureThreshold: 30
+</code></pre>
+<h3 id="3-6-3-三种探针的协作关系">3.6.3 三种探针的协作关系</h3>
+<pre><code>时间线：
+  t=0s    Pod 启动
+  t=0s    startupProbe 开始探测（每 5s 一次，最多 30 次 = 150s）
+  t=30s   startupProbe 成功
+          livenessProbe 开始探测（initialDelaySeconds=30）
+  t=30s   readinessProbe 开始探测（initialDelaySeconds=5，已等待 25s）
+  t=30s+  readinessProbe 成功 → Pod Ready → 加入 Service Endpoints
+  t=∞     livenessProbe 持续探测 → 失败则重启容器
+          readinessProbe 持续探测 → 失败则从 Service 摘除
+</code></pre>
+<p><strong>关键规则：</strong>
+- <code>startupProbe</code> 存在时，<code>livenessProbe</code> 和 <code>readinessProbe</code> 会被暂停，直到 startupProbe 成功
+- <code>startupProbe</code> 成功后，其他探针开始工作
+- 推荐配置 startProbe，用于处理启动慢的应用，避免 startup 期间误触发 livenessProbe 重启</p>
+<hr />
+<h2 id="3-7-pod-的重启策略">3.7 Pod 的重启策略</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>策略</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Always</strong></td>
+<td>容器终止后总是重启（默认值）</td>
+<td>长期运行的服务型应用（Web 服务、API 服务等）</td>
+</tr>
+<tr>
+<td><strong>OnFailure</strong></td>
+<td>容器以非 0 退出码终止时重启</td>
+<td>批处理任务、需要重试的 Job</td>
+</tr>
+<tr>
+<td><strong>Never</strong></td>
+<td>容器终止后永不重启</td>
+<td>一次性任务、调试用途</td>
+</tr>
+</tbody>
+</table></div>
+<pre><code class="language-yaml"># Always 策略
+apiVersion: v1
+kind: Pod
+metadata:
+  name: always-restart-pod
+spec:
+  restartPolicy: Always           # 默认值，可省略
+  containers:
+    - name: web
+      image: nginx:1.25
+
+# OnFailure 策略
+apiVersion: v1
+kind: Pod
+metadata:
+  name: onfailure-restart-pod
+spec:
+  restartPolicy: OnFailure
+  containers:
+    - name: batch
+      image: busybox:1.36
+      command: [&quot;sh&quot;, &quot;-c&quot;, &quot;echo '处理数据'; exit 0&quot;]
+
+# Never 策略
+apiVersion: v1
+kind: Pod
+metadata:
+  name: never-restart-pod
+spec:
+  restartPolicy: Never
+  containers:
+    - name: one-shot
+      image: busybox:1.36
+      command: [&quot;sh&quot;, &quot;-c&quot;, &quot;echo '一次性执行'; exit 0&quot;]
+</code></pre>
+<p><strong>重启策略与 Pod 状态的关系：</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>重启策略</th>
+<th>容器退出码</th>
+<th>Pod 状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Always</td>
+<td>0</td>
+<td>Running（重启）</td>
+</tr>
+<tr>
+<td>Always</td>
+<td>非 0</td>
+<td>Running（重启）</td>
+</tr>
+<tr>
+<td>OnFailure</td>
+<td>0</td>
+<td>Succeeded</td>
+</tr>
+<tr>
+<td>OnFailure</td>
+<td>非 0</td>
+<td>Running（重启）</td>
+</tr>
+<tr>
+<td>Never</td>
+<td>0</td>
+<td>Succeeded</td>
+</tr>
+<tr>
+<td>Never</td>
+<td>非 0</td>
+<td>Failed</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="3-8-pod-之间的通信">3.8 Pod 之间的通信</h2>
+<h3 id="3-8-1-同一-pod-内的容器通信">3.8.1 同一 Pod 内的容器通信</h3>
+<p>同一 Pod 内的容器共享<strong>网络命名空间</strong>，因此：
+- 通过 <code>localhost</code> 或 <code>127.0.0.1</code> 直接通信
+- 共享所有网络接口和 IP 地址
+- 共享端口空间（不能重复）</p>
+<pre><code>Pod 内部：
+┌─────────────────────────────────────────┐
+│              Network Namespace          │
+│  IP: 10.244.1.5 (Pod IP)               │
+│  ┌──────────────┐    ┌──────────────┐   │
+│  │  Container A │    │  Container B │   │
+│  │  Port: 8080  │───▶│  Port: 9090  │   │
+│  │  localhost:9090   │              │   │
+│  └──────────────┘    └──────────────┘   │
+└─────────────────────────────────────────┘
+</code></pre>
+<h3 id="3-8-2-跨-pod-通信">3.8.2 跨 Pod 通信</h3>
+<p>跨 Pod 通信通过 <strong>Service</strong> 实现：</p>
+<pre><code>                  ┌──────────────────────┐
+                  │   Cluster DNS        │
+                  │  kube-dns / CoreDNS  │
+                  └──────────┬───────────┘
+                             │ 名称解析
+                             ▼
+┌──────────────┐    Service    ┌──────────────┐
+│   Pod A      │ ─────────────▶│   Pod B      │
+│  10.244.1.5  │   Pod B IP    │  10.244.2.8  │
+│              │  + Pod C IP   │              │
+└──────────────┘               └──────────────┘
+
+通信流程：
+1. Pod A 访问 my-service.default.svc.cluster.local
+2. DNS 解析返回 Service ClusterIP（如 10.96.0.100）
+3. kube-proxy 转发请求到后端 Pod B 或 Pod C
+</code></pre>
+<h4 id="service-配置示例">Service 配置示例</h4>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: default
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+      name: http
+</code></pre>
+<h4 id="pod-间通信示例">Pod 间通信示例</h4>
+<pre><code class="language-yaml"># Pod A：前端应用
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend-pod
+  labels:
+    app: frontend
+spec:
+  containers:
+    - name: frontend
+      image: nginx:1.25
+      env:
+        - name: BACKEND_URL
+          value: &quot;http://backend-service.default.svc.cluster.local&quot;
+      ports:
+        - containerPort: 80
+---
+# Pod B：后端应用
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend-pod
+  labels:
+    app: backend
+spec:
+  containers:
+    - name: backend
+      image: mybackend:1.0
+      ports:
+        - containerPort: 8080
+          name: http
+</code></pre>
+<h3 id="3-8-3-通信方式总结">3.8.3 通信方式总结</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>通信场景</th>
+<th>方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>同 Pod 内容器</td>
+<td><code>localhost</code></td>
+<td>共享网络命名空间</td>
+</tr>
+<tr>
+<td>同命名空间 Pod</td>
+<td><code>&lt;service-name&gt;</code></td>
+<td>短名称解析</td>
+</tr>
+<tr>
+<td>跨命名空间 Pod</td>
+<td><code>&lt;service-name&gt;.&lt;namespace&gt;</code></td>
+<td>包含命名空间</td>
+</tr>
+<tr>
+<td>完全限定域名</td>
+<td><code>&lt;service-name&gt;.&lt;namespace&gt;.svc.cluster.local</code></td>
+<td>完整域名</td>
+</tr>
+<tr>
+<td>外部访问</td>
+<td>NodePort / LoadBalancer / Ingress</td>
+<td>暴露到集群外</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="3-9-实战练习">3.9 实战练习</h2>
+<h3 id="实战-1-创建单个-nginx-pod">实战 1：创建单个 Nginx Pod</h3>
+<p><strong>目标：</strong> 创建一个最简单的 Nginx Pod，并验证其运行状态。</p>
+<pre><code class="language-bash"># 第 1 步：创建 Pod YAML 文件
+cat &gt; /tmp/nginx-pod.yaml &lt;&lt; 'EOF'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.25-alpine
+      ports:
+        - containerPort: 80
+          name: http
+EOF
+
+# 第 2 步：创建 Pod
+kubectl apply -f /tmp/nginx-pod.yaml
+
+# 第 3 步：查看 Pod 创建状态
+kubectl get pods -l app=nginx
+
+# 第 4 步：查看 Pod 详细信息
+kubectl describe pod nginx-pod
+
+# 第 5 步：查看 Pod 状态变化
+kubectl get pod nginx-pod -o wide
+
+# 第 6 步：验证 Pod IP
+kubectl get pod nginx-pod -o jsonpath='{.status.podIP}'
+echo &quot;&quot;
+
+# 第 7 步：使用端口转发访问 Pod
+kubectl port-forward pod/nginx-pod 8080:80 &amp;
+# 另开终端访问
+curl http://localhost:8080
+
+# 第 8 步：清理资源
+kubectl delete pod nginx-pod
+</code></pre>
+<h3 id="实战-2-创建多容器-pod-nginx-busybox-sidecar-共享日志">实战 2：创建多容器 Pod（Nginx + busybox sidecar 共享日志）</h3>
+<p><strong>目标：</strong> 演示 Sidecar 模式，Nginx 写入日志到共享卷，busybox 读取并输出日志。</p>
+<pre><code class="language-bash"># 第 1 步：创建 Sidecar Pod YAML
+cat &gt; /tmp/sidecar-pod.yaml &lt;&lt; 'EOF'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sidecar-pod
+  labels:
+    app: sidecar-demo
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.25-alpine
+      volumeMounts:
+        - name: shared-logs
+          mountPath: /var/log/nginx
+      ports:
+        - containerPort: 80
+          name: http
+
+    - name: log-reader
+      image: busybox:1.36
+      command:
+        - sh
+        - -c
+        - |
+          echo &quot;等待 Nginx 日志文件生成...&quot;
+          until [ -f /var/log/nginx/access.log ]; do
+            sleep 1
+          done
+          echo &quot;开始读取日志...&quot;
+          tail -f /var/log/nginx/access.log
+      volumeMounts:
+        - name: shared-logs
+          mountPath: /var/log/nginx
+  volumes:
+    - name: shared-logs
+      emptyDir: {}
+EOF
+
+# 第 2 步：创建 Pod
+kubectl apply -f /tmp/sidecar-pod.yaml
+
+# 第 3 步：等待 Pod 就绪
+kubectl wait --for=condition=Ready pod/sidecar-pod --timeout=60s
+
+# 第 4 步：访问 Nginx 产生日志
+kubectl port-forward pod/sidecar-pod 8080:80 &amp;
+curl http://localhost:8080
+curl http://localhost:8080/index.html
+
+# 第 5 步：查看 Sidecar 日志（log-reader 容器）
+kubectl logs sidecar-pod -c log-reader
+
+# 第 6 步：查看 Nginx 容器日志
+kubectl logs sidecar-pod -c nginx
+
+# 第 7 步：进入容器查看共享文件
+kubectl exec sidecar-pod -c nginx -- ls -la /var/log/nginx/
+kubectl exec sidecar-pod -c log-reader -- cat /var/log/nginx/access.log
+
+# 第 8 步：清理
+kubectl delete pod sidecar-pod
+</code></pre>
+<h3 id="实战-3-配置资源限制并观察-qos-等级">实战 3：配置资源限制并观察 QoS 等级</h3>
+<p><strong>目标：</strong> 创建三种 QoS 等级的 Pod，观察 QoS 标记。</p>
+<pre><code class="language-bash"># 第 1 步：创建 Guaranteed QoS Pod
+cat &gt; /tmp/qos-guaranteed.yaml &lt;&lt; 'EOF'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: qos-guaranteed
+  labels:
+    app: qos-demo
+    qos: guaranteed
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.25-alpine
+      resources:
+        requests:
+          cpu: &quot;200m&quot;
+          memory: &quot;256Mi&quot;
+        limits:
+          cpu: &quot;200m&quot;
+          memory: &quot;256Mi&quot;
+EOF
+
+# 第 2 步：创建 Burstable QoS Pod
+cat &gt; /tmp/qos-burstable.yaml &lt;&lt; 'EOF'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: qos-burstable
+  labels:
+    app: qos-demo
+    qos: burstable
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.25-alpine
+      resources:
+        requests:
+          cpu: &quot;100m&quot;
+          memory: &quot;128Mi&quot;
+        limits:
+          cpu: &quot;500m&quot;
+          memory: &quot;512Mi&quot;
+EOF
+
+# 第 3 步：创建 BestEffort QoS Pod
+cat &gt; /tmp/qos-besteffort.yaml &lt;&lt; 'EOF'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: qos-besteffort
+  labels:
+    app: qos-demo
+    qos: besteffort
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.25-alpine
+EOF
+
+# 第 4 步：创建所有 Pod
+kubectl apply -f /tmp/qos-guaranteed.yaml
+kubectl apply -f /tmp/qos-burstable.yaml
+kubectl apply -f /tmp/qos-besteffort.yaml
+
+# 第 5 步：查看 QoS 等级
+echo &quot;=== Guaranteed QoS ===&quot;
+kubectl describe pod qos-guaranteed | grep -i &quot;qos&quot;
+
+echo &quot;=== Burstable QoS ===&quot;
+kubectl describe pod qos-burstable | grep -i &quot;qos&quot;
+
+echo &quot;=== BestEffort QoS ===&quot;
+kubectl describe pod qos-besteffort | grep -i &quot;qos&quot;
+
+# 第 6 步：查看资源请求和限制
+kubectl get pods -l app=qos-demo -o custom-columns=\
+&quot;NAME:.metadata.name,\
+&quot;CPU_REQUEST:.spec.containers[0].resources.requests.cpu,\
+&quot;CPU_LIMIT:.spec.containers[0].resources.limits.cpu,\
+&quot;MEM_REQUEST:.spec.containers[0].resources.requests.memory,\
+&quot;MEM_LIMIT:.spec.containers[0].resources.limits.memory
+
+# 第 7 步：清理
+kubectl delete pod -l app=qos-demo
+</code></pre>
+<h3 id="实战-4-配置健康检查-手动制造探针失败场景">实战 4：配置健康检查，手动制造探针失败场景</h3>
+<p><strong>目标：</strong> 配置 livenessProbe 和 readinessProbe，手动制造失败场景观察 Pod 重启和流量摘除行为。</p>
+<pre><code class="language-bash"># 第 1 步：创建带健康检查的 Pod
+cat &gt; /tmp/health-check-pod.yaml &lt;&lt; 'EOF'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: health-check-pod
+  labels:
+    app: health-check-demo
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.25-alpine
+      ports:
+        - containerPort: 80
+          name: http
+      livenessProbe:
+        httpGet:
+          path: /healthz
+          port: 80
+        initialDelaySeconds: 5
+        periodSeconds: 5
+        failureThreshold: 3
+        successThreshold: 1
+      readinessProbe:
+        httpGet:
+          path: /ready
+          port: 80
+        initialDelaySeconds: 3
+        periodSeconds: 3
+        failureThreshold: 3
+        successThreshold: 1
+      startupProbe:
+        httpGet:
+          path: /healthz
+          port: 80
+        initialDelaySeconds: 0
+        periodSeconds: 2
+        failureThreshold: 10
+EOF
+
+# 第 2 步：创建 Pod
+kubectl apply -f /tmp/health-check-pod.yaml
+
+# 第 3 步：等待 Pod 就绪
+kubectl wait --for=condition=Ready pod/health-check-pod --timeout=60s
+
+# 第 4 步：验证探针状态
+kubectl get pod health-check-pod -o jsonpath='{.status.containerStatuses[0].ready}'
+echo &quot;&quot;
+
+# 第 5 步：制造 livenessProbe 失败场景
+# 删除健康检查文件，导致 /healthz 返回 404
+kubectl exec health-check-pod -- rm /etc/nginx/conf.d/default.conf
+
+# 第 6 步：观察 Pod 重启行为
+echo &quot;=== 观察重启次数 ===&quot;
+for i in $(seq 1 20); do
+  RESTARTS=$(kubectl get pod health-check-pod -o jsonpath='{.status.containerStatuses[0].restartCount}')
+  STATE=$(kubectl get pod health-check-pod -o jsonpath='{.status.containerStatuses[0].state.waiting.reason}')
+  echo &quot;Time ${i}: Restarts=${RESTARTS}, State=${STATE}&quot;
+  sleep 3
+done
+
+# 第 7 步：恢复配置
+kubectl delete pod health-check-pod
+kubectl apply -f /tmp/health-check-pod.yaml
+kubectl wait --for=condition=Ready pod/health-check-pod --timeout=60s
+
+# 第 8 步：制造 readinessProbe 失败场景
+# 手动将应用置为不可就绪
+kubectl exec health-check-pod -- sh -c &quot;echo 'server { listen 80; return 503; }' &gt; /etc/nginx/conf.d/default.conf&quot;
+
+# 第 9 步：观察就绪状态
+for i in $(seq 1 10); do
+  READY=$(kubectl get pod health-check-pod -o jsonpath='{.status.conditions[?(@.type==&quot;Ready&quot;)].status}')
+  echo &quot;Time ${i}: Ready=${READY}&quot;
+  sleep 2
+done
+
+# 第 10 步：恢复并清理
+kubectl delete pod health-check-pod
+</code></pre>
+<h3 id="实战-5-使用-kubectl-调试-pod">实战 5：使用 kubectl 调试 Pod</h3>
+<p><strong>目标：</strong> 熟练使用 kubectl logs、exec、describe 等命令调试 Pod。</p>
+<pre><code class="language-bash"># ========== 准备工作 ==========
+
+# 创建一个多容器测试 Pod
+cat &gt; /tmp/debug-pod.yaml &lt;&lt; 'EOF'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug-pod
+  labels:
+    app: debug-demo
+  annotations:
+    description: &quot;调试演示 Pod&quot;
+spec:
+  containers:
+    - name: web
+      image: nginx:1.25-alpine
+      ports:
+        - containerPort: 80
+      env:
+        - name: ENVIRONMENT
+          value: &quot;development&quot;
+        - name: LOG_LEVEL
+          value: &quot;debug&quot;
+    - name: sidecar
+      image: busybox:1.36
+      command: [&quot;sh&quot;, &quot;-c&quot;, &quot;while true; do echo 'Sidecar running...'; sleep 10; done&quot;]
+      env:
+        - name: SIDECAR_NAME
+          value: &quot;debug-sidecar&quot;
+  initContainers:
+    - name: init-check
+      image: busybox:1.36
+      command: [&quot;sh&quot;, &quot;-c&quot;, &quot;echo 'Init container running...'; sleep 1; echo 'Init complete'&quot;]
+EOF
+
+kubectl apply -f /tmp/debug-pod.yaml
+kubectl wait --for=condition=Ready pod/debug-pod --timeout=60s
+
+# ========== kubectl describe 详解 ==========
+
+# 查看 Pod 完整信息
+kubectl describe pod debug-pod
+
+# 输出说明：
+# - Name: Pod 名称
+# - Namespace: 命名空间
+# - Priority: 优先级
+# - Node: 所在节点
+# - Start Time: 创建时间
+# - Labels: 标签
+# - Annotations: 注解
+# - Status: Pod 状态（Running）
+# - IP: Pod IP
+# - Containers: 容器列表
+#   - Container 名称
+#   - Image: 镜像
+#   - Port: 端口
+#   - Requests/Limits: 资源配置
+#   - State: 容器状态
+#   - Ready: 就绪状态
+#   - Restart Count: 重启次数
+#   - Liveness/Readiness Probe: 探针配置
+# - Conditions: Pod 条件详情
+# - Events: 事件（重要！排查问题首选）
+
+# ========== kubectl logs 使用 ==========
+
+# 查看默认容器日志
+kubectl logs debug-pod
+
+# 指定容器查看日志
+kubectl logs debug-pod -c sidecar
+
+# 查看前 100 行日志
+kubectl logs --tail=100 debug-pod
+
+# 查看最近 10 分钟的日志
+kubectl logs --since=10m debug-pod
+
+# 实时跟随日志输出
+kubectl logs -f debug-pod
+
+# 查看上一次崩溃的日志
+kubectl logs --previous debug-pod
+
+# 同时查看所有容器日志
+kubectl logs --all-containers debug-pod
+
+# ========== kubectl exec 使用 ==========
+
+# 进入默认容器
+kubectl exec -it debug-pod -- /bin/sh
+
+# 指定容器进入
+kubectl exec -it debug-pod -c web -- /bin/sh
+
+# 执行单条命令
+kubectl exec debug-pod -- nginx -t
+
+# 在 sidecar 容器中执行命令
+kubectl exec debug-pod -c sidecar -- echo &quot;Hello from sidecar&quot;
+
+# 查看环境变量
+kubectl exec debug-pod -c web -- env
+
+# 查看文件系统
+kubectl exec debug-pod -c web -- ls -la /etc/nginx/
+
+# 查看进程
+kubectl exec debug-pod -c web -- ps aux
+
+# ========== 端口转发 ==========
+
+# 转发 Pod 端口到本地
+kubectl port-forward debug-pod 8080:80
+
+# 在后台运行端口转发
+kubectl port-forward debug-pod 8080:80 &amp;
+PF_PID=$!
+
+# 访问服务
+curl http://localhost:8080
+
+# 停止端口转发
+kill $PF_PID
+
+# ========== 使用 ephemeral 容器调试 ==========
+
+# 对于没有 shell 的容器，使用临时调试容器
+kubectl debug debug-pod -it --image=busybox:1.36 --target=web
+
+# 附加到 Pod 的命名空间进行调试
+kubectl debug debug-pod -it --image=busybox:1.36 --share-process-namespace
+
+# ========== 查看 Pod 资源使用 ==========
+
+# 查看 Pod 的 YAML 输出
+kubectl get pod debug-pod -o yaml
+
+# 查看 Pod 的 JSON 输出
+kubectl get pod debug-pod -o json
+
+# 查看特定字段
+kubectl get pod debug-pod -o jsonpath='{.status.podIP}'
+kubectl get pod debug-pod -o jsonpath='{.status.containerStatuses[*].restartCount}'
+kubectl get pod debug-pod -o jsonpath='{.metadata.labels}'
+
+# 自定义列输出
+kubectl get pod debug-pod -o custom-columns=\
+&quot;NAME:.metadata.name,\
+&quot;STATUS:.status.phase,\
+&quot;READY:.status.conditions[?(@.type==&quot;Ready&quot;)].status,\
+&quot;RESTARTS:.status.containerStatuses[*].restartCount,\
+&quot;IP:.status.podIP
+
+# ========== 清理 ==========
+
+kubectl delete pod debug-pod
+</code></pre>
+<hr />
+<h2 id="3-10-常见问题排查">3.10 常见问题排查</h2>
+<h3 id="q1-pod-一直处于-pending-状态">Q1：Pod 一直处于 Pending 状态</h3>
+<pre><code class="language-bash"># 查看事件
+kubectl describe pod &lt;pod-name&gt;
+# 关注 Events 部分，常见原因：
+# 1. 资源不足（Insufficient CPU/Memory）
+# 2. 节点选择器不匹配
+# 3. 污点/容忍不匹配
+# 4. PVC 未绑定
+
+# 排查资源不足
+kubectl describe nodes | grep -A 5 &quot;Allocated resources&quot;
+kubectl top nodes
+
+# 排查节点选择器
+kubectl get nodes -l &lt;label-key&gt;=&lt;label-value&gt;
+</code></pre>
+<h3 id="q2-pod-频繁重启">Q2：Pod 频繁重启</h3>
+<pre><code class="language-bash"># 查看重启次数
+kubectl get pod &lt;pod-name&gt;
+
+# 查看事件
+kubectl describe pod &lt;pod-name&gt; | tail -30
+
+# 查看上一次崩溃的日志
+kubectl logs --previous &lt;pod-name&gt;
+
+# 常见原因：
+# 1. livenessProbe 失败（检查探针配置和应用健康接口）
+# 2. OOMKilled（调整内存 limits）
+# 3. 应用自身崩溃（查看应用日志）
+</code></pre>
+<h3 id="q3-健康检查一直失败">Q3：健康检查一直失败</h3>
+<pre><code class="language-bash"># 手动测试健康接口
+kubectl port-forward pod/&lt;pod-name&gt; 8080:80
+curl -v http://localhost:8080/healthz
+
+# 检查探针配置
+kubectl get pod &lt;pod-name&gt; -o jsonpath='{.spec.containers[0].livenessProbe}'
+
+# 确认容器内应用实际监听的端口
+kubectl exec &lt;pod-name&gt; -- netstat -tlnp
+# 或
+kubectl exec &lt;pod-name&gt; -- ss -tlnp
+</code></pre>
+<h3 id="q4-init-container-执行失败">Q4：Init Container 执行失败</h3>
+<pre><code class="language-bash"># 查看 init 容器日志
+kubectl logs &lt;pod-name&gt; -c &lt;init-container-name&gt;
+
+# 查看 Pod 状态
+kubectl describe pod &lt;pod-name&gt;
+# 关注 Init Containers 部分的 State 字段
+
+# 常见原因：
+# 1. 依赖服务未就绪（调整等待逻辑）
+# 2. 配置错误（检查 init container 的 command）
+# 3. 网络问题（检查网络策略和 DNS）
+</code></pre>
+<h3 id="q5-pod-oomkilled">Q5：Pod OOMKilled</h3>
+<pre><code class="language-bash"># 增加内存限制
+kubectl patch pod &lt;pod-name&gt; -p '{&quot;spec&quot;:{&quot;containers&quot;:[{&quot;name&quot;:&quot;app&quot;,&quot;resources&quot;:{&quot;limits&quot;:{&quot;memory&quot;:&quot;512Mi&quot;}}}]}}'
+
+# 或者修改 YAML 后重新部署
+# 建议设置合理的 requests 和 limits
+</code></pre>
+<h3 id="q6-容器无法访问外部服务">Q6：容器无法访问外部服务</h3>
+<pre><code class="language-bash"># 检查 DNS
+kubectl exec &lt;pod-name&gt; -- nslookup google.com
+kubectl exec &lt;pod-name&gt; -- cat /etc/resolv.conf
+
+# 检查网络策略
+kubectl get networkpolicies
+kubectl describe networkpolicy
+
+# 检查 egress 规则
+kubectl exec &lt;pod-name&gt; -- curl -v http://external-service.com
+</code></pre>
+<h3 id="q7-pod-之间无法通信">Q7：Pod 之间无法通信</h3>
+<pre><code class="language-bash"># 检查 Service 是否存在
+kubectl get svc
+
+# 检查 Service Endpoints
+kubectl get endpoints &lt;service-name&gt;
+
+# 测试 DNS 解析
+kubectl exec &lt;pod-name&gt; -- nslookup &lt;service-name&gt;.&lt;namespace&gt;.svc.cluster.local
+
+# 检查网络策略
+kubectl get networkpolicy -n &lt;namespace&gt;
+</code></pre>
+<hr />
+<h2 id="3-11-章节小结">3.11 章节小结</h2>
+<h3 id="核心概念">核心概念</h3>
+<ol>
+<li><strong>Pod 是 K8s 最小的部署单元</strong>，由一个或多个紧密相关的容器组成</li>
+<li><strong>Pod 设计哲学</strong>：容器间共享网络和存储，联合调度，同生共死</li>
+<li><strong>Pod 生命周期</strong>：Pending → Running → Succeeded / Failed / Unknown</li>
+<li><strong>容器模式</strong>：Sidecar 模式（辅助容器）、Init Container 模式（前置初始化）</li>
+<li><strong>资源管理</strong>：Requests（保证最小）、Limits（限制最大）、QoS 等级决定驱逐优先级</li>
+<li><strong>健康检查</strong>：livenessProbe（存活）、readinessProbe（就绪）、startupProbe（启动）</li>
+<li><strong>重启策略</strong>：Always（服务类）、OnFailure（任务类）、Never（一次性）</li>
+<li><strong>通信机制</strong>：同 Pod 内 localhost，跨 Pod 通过 Service + DNS</li>
+</ol>
+<h3 id="实战命令速查">实战命令速查</h3>
+<pre><code class="language-bash"># 创建 Pod
+kubectl apply -f pod.yaml
+
+# 查看 Pod 状态
+kubectl get pods -o wide
+
+# 查看 Pod 详情
+kubectl describe pod &lt;name&gt;
+
+# 查看日志
+kubectl logs &lt;pod&gt; -c &lt;container&gt; -f
+
+# 进入容器
+kubectl exec -it &lt;pod&gt; -c &lt;container&gt; -- /bin/sh
+
+# 端口转发
+kubectl port-forward &lt;pod&gt; &lt;local-port&gt;:&lt;container-port&gt;
+
+# 删除 Pod
+kubectl delete pod &lt;name&gt;
+
+# 使用临时容器调试
+kubectl debug &lt;pod&gt; -it --image=busybox:1.36
+</code></pre>
+<h3 id="最佳实践">最佳实践</h3>
+<ul>
+<li><strong>资源配置</strong>：始终设置合理的 requests 和 limits，避免资源争抢</li>
+<li><strong>健康检查</strong>：配置三种探针，特别是 startupProbe 处理慢启动场景</li>
+<li><strong>Init Container</strong>：用于初始化依赖、等待外部服务、下载配置等</li>
+<li><strong>Sidecar 模式</strong>：日志收集、配置热更新、监控代理等</li>
+<li><strong>标签规范</strong>：使用清晰的标签体系（app、env、version 等）</li>
+<li><strong>命名规范</strong>：Pod 命名应具有描述性，方便排查</li>
+</ul></div>
+      <nav class="post-pager" aria-label="上下篇"><a class="pager-link" href="%E7%AC%AC2%E7%AB%A0-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html"><em>上一篇</em><b>第2章 环境搭建实战</b></a><a class="pager-link next" href="%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html"><em>下一篇</em><b>第4章 Deployment 与应用部署</b></a></nav>
+    </article>
+  </main>
+</div>
+<footer class="blog-foot">
+  <div class="wrap foot-inner">
+    <span>© 2026 逐梦笔记 · 由 <code>scripts/build_blog.py</code> 从 docs/ 自动生成</span>
+    <span>内容来源：<a href="https://github.com/ShiQianzhi/note" target="_blank" rel="noopener noreferrer">ShiQianzhi/note</a> · 同步于 2026-11-26</span>
+  </div>
+</footer>
+<script src="../../../../blog.js"></script>
+</body>
+</html>

@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>计算机是如何编码数据的 · 逐梦笔记</title>
+<meta name="description" content="计算机只认识 0 和 1，但我们却能用它看电影、听音乐、写文章、聊天。这一切的魔法都源于 编码 ——把现实世界的信息转换成二进制的规则，再从二进制还原回人类可感知形式的逆过程。本文将系统讲解文本、图片、音频、视频四大类数据的编码与解码原理。">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../../blog.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="../../../index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../../../index.html">首页</a>
+      <div class="nav-drop">
+        <a href="../../../knowledge.html">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="../../../knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="../../../knowledge.html#domains">五大知识域</a>
+          <a href="../../../knowledge.html#cross">交叉与前沿</a>
+          <a href="../../../knowledge.html#axes">三条贯穿轴</a>
+          <a href="../../../knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="../../../career.html">世界职业体系</a>
+      <a href="../../index.html" class="active">博客</a>
+      <a class="nav-cta" href="../../../knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-wrap">
+  
+    <aside class="blog-side">
+      <div class="side-head">
+        <a class="blog-brand" href="../../index.html">逐梦笔记<span>NOTES</span></a>
+        <button class="side-toggle" id="sideToggle" aria-expanded="false" aria-controls="sideBody">目录</button>
+      </div>
+      <div class="side-body" id="sideBody">
+        <div class="tree-search">
+          <input id="treeQ" type="search" placeholder="筛选 197 篇笔记…" aria-label="筛选笔记">
+        </div>
+        <nav class="tree" aria-label="博客目录"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI创作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI短剧制作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI写周报，把我写成了公司CEO</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E5%86%99%E5%91%A8%E6%8A%A5%EF%BC%8C%E6%8A%8A%E6%88%91%E5%86%99%E6%88%90%E4%BA%86%E5%85%AC%E5%8F%B8CEO/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI的最后一活</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%B4%BB/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%9B%E4%BD%9C%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html" title="AI 短剧创作保姆级教程：从一个想法到成片发布">AI 短剧创作保姆级教程：从一个想法到成片发布</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人生感悟</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/%E5%9C%A8%E5%89%A7%E5%8F%98%E4%B8%AD%E5%AF%BB%E8%B7%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8AI%E6%B5%AA%E6%BD%AE%E4%B8%8B%E6%8A%93%E4%BD%8F%E6%9C%BA%E9%81%87.html" title="在剧变中寻路：如何在 AI 浪潮下抓住机遇">在剧变中寻路：如何在 AI 浪潮下抓住机遇</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础学科</span><span class="tree-count">22</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数学</span><span class="tree-count">13</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">初等代数</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5.html" title="数的概念">数的概念</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E7%B1%BB%E5%88%AB.html" title="数的类别">数的类别</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E9%87%8F.html" title="数量">数量</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性代数</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F.html" title="向量（Vector）：从几何箭头到 AI 数据表示">向量（Vector）：从几何箭头到 AI 数据表示</a></div></details><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%8C%87%E6%95%B0%E8%BF%90%E7%AE%97.html" title="什么是指数运算">什么是指数运算</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%85%B3%E7%B3%BB.html" title="什么是线性关系">什么是线性关系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%87%A0%E4%BD%95%E5%85%A5%E9%97%A8.html" title="几何入门">几何入门</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97.html" title="四则运算">四则运算</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9F%BA%E6%9C%AC%E4%BB%A3%E6%95%B0.html" title="基本代数">基本代数</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E6%95%B0%E5%AD%A6.html" title="如何学习数学">如何学习数学</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%9A%E4%BB%8E0%E5%88%B0%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6.html" title="数学学习路线图：从0到高等数学">数学学习路线图：从0到高等数学</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E8%A1%A8%E7%A4%BA.html" title="数的分类与表示">数的分类与表示</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%AE%97%E6%9C%AF%E5%9F%BA%E7%A1%80.html" title="算术基础">算术基础</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">物理</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E4%BB%8E%E5%BE%AE%E8%A7%82%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E7%89%A9%E8%B4%A8%EF%BC%9A%E5%8E%9F%E5%AD%90%E3%80%81%E7%B2%92%E5%AD%90%E4%B8%8E%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8.html" title="从微观角度理解物质：原子、粒子与相互作用">从微观角度理解物质：原子、粒子与相互作用</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%89%A9%E8%B4%A8%E5%92%8C%E8%83%BD%E9%87%8F%E7%9A%84%E5%85%B3%E7%B3%BB.html" title="物质和能量的关系">物质和能量的关系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%90%86%E8%A7%A3%E7%94%B5%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%89%A9%E7%90%86%E5%9F%BA%E7%A1%80.html" title="理解电必须掌握的物理基础">理解电必须掌握的物理基础</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E%E5%8E%86%E5%8F%B2%E5%88%B0%E6%9C%AC%E8%B4%A8.html" title="电是什么：从历史到本质">电是什么：从历史到本质</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.html" title="电的原理与应用场景">电的原理与应用场景</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%A3%81%EF%BC%9A%E4%BB%8E%E7%94%B5%E5%9C%BA%E7%A3%81%E5%9C%BA%E5%88%B0%E7%94%B5%E7%A3%81%E6%B3%A2.html" title="电磁：从电场磁场到电磁波">电磁：从电场磁场到电磁波</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">语言</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">英语</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="英语学习笔记">英语学习笔记</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95.html" title="英语语法">英语语法</a></div></details><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%AF%AD%E6%B3%95.html" title="语法">语法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">心情随笔</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/%E5%85%AD%E7%A7%8D%E5%80%BC%E5%BE%97%E7%BB%93%E4%BA%A4%E4%B8%80%E8%BE%88%E5%AD%90%E7%9A%84%E4%BA%BA.html" title="六种值得结交一辈子的人">六种值得结交一辈子的人</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">生活常识</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">买房攻略</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98.html" title="下面是我总结了买房相关常见问题：">下面是我总结了买房相关常见问题：</a><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5.html" title="买房攻略">买房攻略</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">考驾照</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E8%80%83%E9%A9%BE%E7%85%A7/%E7%A7%91%E7%9B%AE%E4%B8%80.html" title="科目一刷题笔记">科目一刷题笔记</a></div></details><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E5%90%84%E8%A1%8C%E4%B8%9A%E5%85%A8%E6%99%AF%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%AE%9A%E4%B9%89%E3%80%81%E7%8E%B0%E7%8A%B6%E4%B8%8EAI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%9C%AA%E6%9D%A5.html" title="各行业全景解析：定义、现状与 AI 时代的未来">各行业全景解析：定义、现状与 AI 时代的未来</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">计算机科学</span><span class="tree-count">160</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Agent 开发</span><span class="tree-count">11</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">docs</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">superpowers</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">specs</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/docs/superpowers/specs/2026-11-06-enterprise-agent-course-design.html" title="企业级 Agent 混合架构课程设计">企业级 Agent 混合架构课程设计</a></div></details></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">learning-records</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/learning-records/0001-python-worker-first.html" title="Learning Record 0001: Python Agent Worker First">Learning Record 0001: Python Agent Worker First</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/learning-records/0002-agent-state-checkpoint-recovery.html" title="Learning Record 0002: Agent State and Checkpoint Recovery">Learning Record 0002: Agent State and Checkpoint Recovery</a></div></details><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Agent%20%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="Agent 开发学习路线">Agent 开发学习路线</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Agent%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.html" title="Agent开发核心知识点">Agent开发核心知识点</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Go-Python%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BD%ACAgent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B.html" title="Go/Python 后端工程师转 Agent 开发实战教程">Go/Python 后端工程师转 Agent 开发实战教程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/MISSION.html" title="Mission: 从 Python Agent Worker 学会企业级 Agent 开发">Mission: 从 Python Agent Worker 学会企业级 Agent 开发</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RAG.html" title="RAG">RAG</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RAG%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%A6%E7%BB%86%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html" title="RAG系统的详细工作流程">RAG系统的详细工作流程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E9%AB%98%E5%B9%B6%E5%8F%91%E4%BC%81%E4%B8%9A%E7%BA%A7Agent%E7%B3%BB%E7%BB%9F%E6%95%99%E7%A8%8B.html" title="从零搭建高并发企业级 Agent 系统教程">从零搭建高并发企业级 Agent 系统教程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RESOURCES.html" title="企业级 Agent 开发资源">企业级 Agent 开发资源</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人工智能</span><span class="tree-count">33</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI行业基础知识相关概念</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAI.html" title="什么是 AI">什么是 AI</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAIGC.html" title="什么是 AIGC">什么是 AIGC</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAgent.html" title="什么是 Agent">什么是 Agent</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG">什么是 RAG</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE.html" title="什么是向量数据">什么是向量数据</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是大模型">什么是大模型</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是语言大模型">什么是语言大模型</a></div></details><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93.html" title="AI 学习笔记总结">AI 学习笔记总结</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E5%BA%94%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="AI 应用工程师从入门到实战的最佳学习路线">AI 应用工程师从入门到实战的最佳学习路线</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Chroma%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Chroma 入门手册：从零上手最轻量的向量数据库">Chroma 入门手册：从零上手最轻量的向量数据库</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/LangChain%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="LangChain 入门手册：用搭积木的方式编排大模型应用">LangChain 入门手册：用搭积木的方式编排大模型应用</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Transformer%20%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.html" title="Transformer 注意力机制详解">Transformer 注意力机制详解</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BB%8B%E7%BB%8D.html" title="人工智能介绍">人工智能介绍</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%A6%E7%90%86%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="人工智能伦理与安全">人工智能伦理与安全</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG：检索增强生成从原理到实战">什么是 RAG：检索增强生成从原理到实战</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%8D%E5%90%91%E9%87%8F.html" title="什么是词向量">什么是词向量</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BANLP%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html" title="从零搭建NLP模型完全指南">从零搭建NLP模型完全指南</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%85%B3%E4%BA%8EAI%E7%9A%84%E7%95%85%E6%83%B3%E5%92%8C%E6%80%9D%E8%80%83.html" title="关于AI的畅想和思考">关于AI的畅想和思考</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%80%85AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师">后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93.html" title="向量数据库：语义搜索的存储与检索引擎">向量数据库：语义搜索的存储与检索引擎</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BA%B2.html" title="大模型应用实战知识总纲">大模型应用实战知识总纲</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAAgent.html" title="如何搭建一个 Agent">如何搭建一个 Agent</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="学习笔记">学习笔记</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html" title="强化学习">强化学习</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%96%87%E6%9C%AC%E6%98%AF%E5%A6%82%E4%BD%95%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E7%9A%84.html" title="文本是如何变成向量的：Embedding 推理管线全解析">文本是如何变成向量的：Embedding 推理管线全解析</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html" title="机器学习-线性回归">机器学习-线性回归</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="机器学习基础">机器学习基础</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="深度学习基础">深度学习基础</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html" title="神经网络">神经网络</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Agent%20%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="网页版知识库 Agent 搭建实战">网页版知识库 Agent 搭建实战</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86.html" title="自然语言处理">自然语言处理</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89.html" title="计算机视觉">计算机视觉</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E9%AB%98%E7%BB%B4%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%91%E9%87%8F%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%90%91%E9%87%8D%E5%BB%BA.html" title="高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容">高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础知识</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/DNS.html" title="DNS：从域名到 IP 地址的分布式解析系统">DNS：从域名到 IP 地址的分布式解析系统</a><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/HTTP.html" title="HTTP：从一次请求到现代 Web 传输体系">HTTP：从一次请求到现代 Web 传输体系</a><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84.html" title="互联网是如何工作的">互联网是如何工作的</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%9F%E7%90%86.html" title="操作系统的原理">操作系统的原理</a><a class="tree-link" href="%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F.html" title="深入理解计算机系统">深入理解计算机系统</a><a class="tree-link active" href="%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84.html" title="计算机是如何编码数据的">计算机是如何编码数据的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">8</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Elasticsearch</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/%E5%AE%89%E8%A3%85.html" title="创建网络">创建网络</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MongoDB</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念">基本概念</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%AE%89%E8%A3%85mongodb.html" title="安装mongodb">安装mongodb</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" title="数据库不存在会自动创建">数据库不存在会自动创建</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MySQL</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%9E%B6%E6%9E%84.html" title="MySQL 架构">MySQL 架构</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="MySQL数据库知识大纲">MySQL数据库知识大纲</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.html" title="存储引擎">存储引擎</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E7%B4%A2%E5%BC%95.html" title="索引">索引</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构与算法</span><span class="tree-count">10</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构</span><span class="tree-count">6</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数组和字符串</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C.html" title="数组的操作">数组的操作</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%A6%82%E8%BF%B0.html" title="概述">概述</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">树</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/%E6%A0%91.html" title="树">树</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性表</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8.html" title="线性表">线性表</a></div></details><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD.html" title="基本概念和术语">基本概念和术语</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E5%92%8C%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84.html" title="逻辑结构和物理结构">逻辑结构和物理结构</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">算法</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/K-Means.html" title="K-Means 聚类算法">K-Means 聚类算法</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97%E8%AF%A6%E8%A7%A3.html" title="位运算详解">位运算详解</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95.html" title="算法效率分析方法">算法效率分析方法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程笔记</span><span class="tree-count">54</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C 语言学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/C%20%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="此时会生成 a.out（windows 会生成 a.exe）">此时会生成 a.out（windows 会生成 a.exe）</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Docker</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Docker/docker%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Docker 入门手册：编写 Dockerfile、构建镜像与容器管理">Docker 入门手册：编写 Dockerfile、构建镜像与容器管理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言之旅</span><span class="tree-count">12</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架源码剖析</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Gin%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Gin%20%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Gin%E6%A1%86%E6%9E%B6%E5%BC%95%E6%93%8E%E5%AE%9E%E4%BE%8B.html" title="深入理解Gin框架引擎实例">深入理解Gin框架引擎实例</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言设计与实现</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%BA%90%E4%BB%A3%E7%A0%81.html" title="自己需要那个版本的 Go 标签，就用那个">自己需要那个版本的 Go 标签，就用那个</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言高级开发工程</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html" title="Go 单元测试">Go 单元测试</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E9%98%B6%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7.html" title="Go 语言高阶实战技巧">Go 语言高阶实战技巧</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Lua</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Lua/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BLua%E8%84%9A%E6%9C%AC.html" title="&quot;Hello, scripting!&quot;">&quot;Hello, scripting!&quot;</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">kubernetes</span><span class="tree-count">17</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">从入门到实战</span><span class="tree-count">16</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/K8s%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2.html" title="Kubernetes 从入门到实战：完整知识学习大纲">Kubernetes 从入门到实战：完整知识学习大纲</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC10%E7%AB%A0-Ingress%E4%B8%8E%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1.html" title="第10章：Ingress 与流量路由">第10章：Ingress 与流量路由</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC11%E7%AB%A0-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%9B%E9%98%B6.html" title="第11章 控制器进阶">第11章 控制器进阶</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC12%E7%AB%A0-RBAC%E6%9D%83%E9%99%90%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="第12章 RBAC 权限与安全">第12章 RBAC 权限与安全</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html" title="第13章 监控日志与可观测性">第13章 监控日志与可观测性</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC14%E7%AB%A0-Helm%E5%8C%85%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第14章 Helm 包管理与应用部署">第14章 Helm 包管理与应用部署</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC15%E7%AB%A0-%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98-%E5%AE%8C%E6%95%B4%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2.html" title="第15章 综合实战：完整微服务项目部署">第15章 综合实战：完整微服务项目部署</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC1%E7%AB%A0-K8s%E6%A6%82%E8%BF%B0%E4%B8%8E%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3.html" title="第1章 K8s 概述与架构理解">第1章 K8s 概述与架构理解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC2%E7%AB%A0-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="第2章 环境搭建实战">第2章 环境搭建实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC3%E7%AB%A0-Pod%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E6%88%98.html" title="第3章 Pod 核心概念与实战">第3章 Pod 核心概念与实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第4章 Deployment 与应用部署">第4章 Deployment 与应用部署</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC5%E7%AB%A0-Service%E4%B8%8E%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1.html" title="第5章：Service 与网络通信">第5章：Service 与网络通信</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC6%E7%AB%A0-ConfigMap%E4%B8%8ESecret%E7%AE%A1%E7%90%86.html" title="第6章：ConfigMap 与 Secret 管理">第6章：ConfigMap 与 Secret 管理</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC7%E7%AB%A0-Volume%E4%B8%8E%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8.html" title="第7章：Volume 与持久化存储">第7章：Volume 与持久化存储</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC8%E7%AB%A0-Namespace%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.html" title="第8章：Namespace 与资源管理">第8章：Namespace 与资源管理</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC9%E7%AB%A0-%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6%E4%B8%8E%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86.html" title="第9章：调度机制与节点管理">第9章：调度机制与节点管理</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/HPA%E5%92%8CVPA%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="HPA 和 VPA 的区别">HPA 和 VPA 的区别</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">其他</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%85%B6%E4%BB%96/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80UML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="统一建模语言UML学习笔记">统一建模语言UML学习笔记</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Linux</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Centos</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/yum.html" title="yum">yum</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/CentosStream8%20%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html" title="刷新配置">刷新配置</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/Centos7.9%20%E5%AE%89%E8%A3%85%20node20%20%E5%AE%9E%E6%88%98.html" title="安装 nvm">安装 nvm</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86.html" title="查看文件的大小">查看文件的大小</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">mysql</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%AE%89%E8%A3%85mysql.html" title="CentOS Linux release 8.5.2111">CentOS Linux release 8.5.2111</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E4%BB%80%E4%B9%88%E6%98%AFmysql.html" title="什么是mysql">什么是mysql</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.html" title="注意不同的密码验证策略要求密码复杂度不一样。">注意不同的密码验证策略要求密码复杂度不一样。</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">缓存</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98/redis%20%E7%BC%93%E5%AD%98%E5%AE%9E%E6%88%98.html" title="redis 缓存实战">redis 缓存实战</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">软件开发与设计规范</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/%E6%8C%87%E5%AF%BC%E6%80%9D%E6%83%B3.html" title="指导思想">指导思想</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">领域驱动设计</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E4%BB%80%E4%B9%88%E6%98%AFDDD.html" title="什么是DDD">什么是DDD</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E5%89%8D%E8%A8%80.html" title="前言">前言</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Cookie%20%E8%AF%A6%E8%A7%A3.html" title="Cookie 详解">Cookie 详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/JWT%E8%AF%A6%E8%A7%A3.html" title="JWT 详解">JWT 详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Raft%20%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3.html" title="Raft 协议详解">Raft 协议详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/WebRTC%20%E5%BA%95%E5%B1%82%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.html" title="WebRTC 底层工作原理详解">WebRTC 底层工作原理详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/curl%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="curl 使用手册">curl 使用手册</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Git%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" title="克隆指定分支">克隆指定分支</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95.html" title="分布式一致性算法">分布式一致性算法</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="学习路线">学习路线</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%90%AD%E5%BB%BA%20Conda%20%2B%20Jupyter%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" title="搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南">搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程语言</span><span class="tree-count">18</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/C%20%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="C 语言快速入门">C 语言快速入门</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20benchmark%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go Benchmark 最佳实战">Go Benchmark 最佳实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20pprof%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go pprof 最佳实战：从开发诊断到生产调优">Go pprof 最佳实战：从开发诊断到生产调优</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5.html" title="Go 底层原理与工程化实践">Go 底层原理与工程化实践</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码">Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E8%AF%AD%E8%A8%80%E9%AB%98%E6%95%88%E7%BC%96%E7%A8%8B%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8C%96.html" title="Go 语言高效编程：原理、可观测性与优化">Go 语言高效编程：原理、可观测性与优化</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A.html" title="Go开发工程师必知必会">Go开发工程师必知必会</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Python</span><span class="tree-count">8</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="NumPy 使用手册">NumPy 使用手册</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="NumPy 使用指南：从 ndarray 到数值计算实践">NumPy 使用指南：从 ndarray 到数值计算实践</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Pandas%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="Pandas 使用指南：从 Series/DataFrame 到数据分析实践">Pandas 使用指南：从 Series/DataFrame 到数据分析实践</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html" title="Python 异步编程：从原理到实战">Python 异步编程：从原理到实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="Python 快速入门">Python 快速入门</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Decorator%EF%BC%89%E6%80%BB%E7%BB%93.html" title="Python 装饰器（Decorator）总结">Python 装饰器（Decorator）总结</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E8%AE%A4%E8%AF%86Python.html" title="认识Python">认识Python</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%40staticmethod%20%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="静态方法是类的属性">静态方法是类的属性</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Rust</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Rust 入门手册：面向 Go 与 Python 开发者">Rust 入门手册：面向 Go 与 Python 开发者</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E7%A8%8B%E5%BA%8F%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86.html" title="程序底层执行原理：从一行源码到进程退出">程序底层执行原理：从一行源码到进程退出</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88.html" title="计算机科学与编程十万个为什么">计算机科学与编程十万个为什么</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机组成原理</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%BC%96%E7%A0%81.html" title="《编码》：从手电筒到计算机">《编码》：从手电筒到计算机</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%98%BE%E7%A4%BA%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="显示器的工作原理">显示器的工作原理</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%99%B6%E4%BD%93%E7%AE%A1.html" title="晶体管：小学生也能看懂的计算机“小开关”">晶体管：小学生也能看懂的计算机“小开关”</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84.html" title="程序是如何执行的">程序是如何执行的</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.html" title="计算机底层原理：程序、数据与网络如何从 0 到 1 运转">计算机底层原理：程序、数据与网络如何从 0 到 1 运转</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html" title="计算机组成">计算机组成</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="计算机组成原理">计算机组成原理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机网络</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BATCP-IP%E5%8D%8F%E8%AE%AE.html" title="深入浅出TCP-IP协议">深入浅出TCP-IP协议</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20OSI.html" title="计算机网络 - OSI">计算机网络 - OSI</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html" title="计算机网络 - 概述">计算机网络 - 概述</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="计算机网络工作原理：从输入 URL 到数据跨越互联网">计算机网络工作原理：从输入 URL 到数据跨越互联网</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">高性能服务设计与实现</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1.html" title="什么是高性能服务">什么是高性能服务</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88.html" title="后端服务安全方案">后端服务安全方案</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%AF%B4%E6%98%8E.html" title="后端服务性能指标体系">后端服务性能指标体系</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E7%99%BE%E4%B8%87%E7%BA%A7QPS%20API%E7%BD%91%E5%85%B3%E8%AE%BE%E8%AE%A1.html" title="如何设计一个支持百万级 QPS 的 API 网关">如何设计一个支持百万级 QPS 的 API 网关</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%99%90%E6%B5%81%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1.html" title="限流方案设计">限流方案设计</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%20Agent%20%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="高性能 Agent 服务架构设计与实现">高性能 Agent 服务架构设计与实现</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8F%AF%E8%A1%8C%E6%80%A7%E6%96%B9%E6%A1%88.html" title="高性能服务架构可行性方案">高性能服务架构可行性方案</a></div></details><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E5%A4%A7%E7%BA%B2.html" title="计算机知识学习先后顺序大纲">计算机知识学习先后顺序大纲</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="计算机科学知识大纲">计算机科学知识大纲</a></div></details><div class="tree-label">散篇</div><a class="tree-link" href="../../TODO.html" title="TODO">TODO</a><a class="tree-link" href="../../%E4%B8%AA%E4%BA%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E9%87%8D%E9%93%B8%E8%AE%A1%E5%88%92.html" title="个人基础知识重铸计划">个人基础知识重铸计划</a><a class="tree-link" href="../../%E5%8F%A5%E5%AD%90.html" title="句子">句子</a><a class="tree-link" href="../../%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E5%AD%A6%E4%B9%A0.html" title="如何高效的学习">如何高效的学习</a><a class="tree-link" href="../../%E6%97%B6%E9%97%B4%E8%83%B6%E5%9B%8A.html" title="时间胶囊">时间胶囊</a><a class="tree-link" href="../../%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA.html" title="网站导航">网站导航</a></nav>
+      </div>
+    </aside>
+  <main class="blog-main">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../../index.html">博客</a><span>/</span><span>计算机科学</span><span>/</span><a href="index.html">操作系统</a><span>/</span><span>计算机是如何编码数据的</span></nav>
+    <article class="post">
+      <header class="post-head">
+        <div class="post-kicker">计算机科学 / 操作系统</div>
+        <h1>计算机是如何编码数据的</h1>
+        <div class="post-meta"><span>计算机科学/操作系统/计算机是如何编码数据的.md</span><span>约 6,311 字</span></div>
+      </header>
+      <div class="prose"><blockquote>
+<p>计算机只认识 0 和 1，但我们却能用它看电影、听音乐、写文章、聊天。这一切的魔法都源于<strong>编码</strong>——把现实世界的信息转换成二进制的规则，再从二进制还原回人类可感知形式的逆过程。本文将系统讲解文本、图片、音频、视频四大类数据的编码与解码原理。</p>
+</blockquote>
+<h2 id="一-编码的本质-建立现实世界与比特的映射">一、编码的本质：建立现实世界与比特的映射</h2>
+<p>计算机的世界里只有两种状态：0 和 1。现实世界却是连续而丰富的——有文字、图像、声音、视频。要让计算机处理这些信息，必须先建立一套<strong>约定规则</strong>：</p>
+<p><img loading="lazy" decoding="async" alt="现实世界信息到二进制的编码之路" src="images/data-encoding-overview.svg" /></p>
+<p>编码的核心思想可以归纳为三步：</p>
+<ol>
+<li><strong>采样/离散化</strong>：把连续的现实信息切割成离散的样本（如音频按时间采样，图像按像素采样）</li>
+<li><strong>建立映射规则</strong>：给每个离散样本分配一个唯一的数字编号</li>
+<li><strong>二进制序列化</strong>：把数字编号转换成计算机能存储的字节序列</li>
+</ol>
+<p>解码则是编码的逆过程：读取字节 → 还原数字编号 → 根据规则还原成人类可感知的信息。</p>
+<hr />
+<h2 id="二-文本编码-从-ascii-到-unicode-的大一统之路">二、文本编码：从 ASCII 到 Unicode 的大一统之路</h2>
+<p>文本编码是计算机最早需要解决的问题，也是最容易产生"乱码"问题的领域。要彻底理解文本编码，必须先分清两个核心概念：<strong>字符集（Charset）</strong> 和 <strong>字符编码（Character Encoding）</strong>。</p>
+<h3 id="2-1-字符集与字符编码-两层抽象">2.1 字符集与字符编码：两层抽象</h3>
+<p>很多人混淆了这两个概念，导致遇到乱码时无从下手：</p>
+<p><img loading="lazy" decoding="async" alt="字符集 vs 字符编码：两层抽象" src="images/charset-vs-encoding.svg" /></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>作用</th>
+<th>比喻</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>字符集</strong></td>
+<td>收录哪些字符，给每个字符分配唯一编号（码点 Code Point）</td>
+<td>一本字典，给每个字编了号</td>
+<td>ASCII 收录 128 个字符，A 编号为 65</td>
+</tr>
+<tr>
+<td><strong>字符编码</strong></td>
+<td>规定码点如何转换成字节序列存储</td>
+<td>字典的运输打包规则</td>
+<td>UTF-8 把 U+4E2D 编码为 <code>E4 B8 AD</code> 三个字节</td>
+</tr>
+</tbody>
+</table></div>
+<p>一句话总结：<strong>字符集定义"字符→数字"的映射，字符编码定义"数字→字节"的转换规则</strong>。</p>
+<h3 id="2-2-字符集的演进历史">2.2 字符集的演进历史</h3>
+<h4 id="ascii-英语世界的起点">ASCII：英语世界的起点</h4>
+<p>ASCII（American Standard Code for Information Interchange，美国信息交换标准代码）诞生于 1967 年，是最早的通用字符集：</p>
+<ul>
+<li>使用 <strong>7 位</strong>二进制数表示一个字符，共能表示 \(2^7 = 128\) 个字符</li>
+<li>包含：英文字母（大小写）、数字 0-9、标点符号、33 个控制字符（换行、回车、制表符等）</li>
+</ul>
+<pre><code class="language-text">ASCII 编码示例：
+'A' → 65 → 01000001
+'a' → 97 → 01100001
+'0' → 48 → 00110000
+换行符 → 10 → 00001010
+</code></pre>
+<p>ASCII 对英语足够了，但完全无法表示中文、日文、阿拉伯文等非拉丁文字。</p>
+<h4 id="gb2312-gbk-gb18030-中文的解决方案">GB2312 / GBK / GB18030：中文的解决方案</h4>
+<p>为了表示中文，中国制定了自己的编码标准：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>标准</th>
+<th>发布年</th>
+<th>字符数</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GB2312</strong></td>
+<td>1980</td>
+<td>6763 个汉字</td>
+<td>双字节编码，兼容 ASCII</td>
+</tr>
+<tr>
+<td><strong>GBK</strong></td>
+<td>1995</td>
+<td>21886 个汉字</td>
+<td>GB2312 扩展，支持繁体字</td>
+</tr>
+<tr>
+<td><strong>GB18030</strong></td>
+<td>2000</td>
+<td>70244 个汉字</td>
+<td>最新国标，1/2/4 字节变长，兼容 Unicode</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>术语说明</strong>：GB = 国标，K = 扩展（扩展的拼音首字母）。</p>
+</blockquote>
+<p>GB 系列编码在中文 Windows 系统时代被广泛使用，这也是为什么很多老文档在 UTF-8 环境下打开会乱码的原因。</p>
+<p>同样，日本有 Shift_JIS，韩国有 EUC-KR，台湾有 Big5……世界各地都在做自己的编码，问题随之而来：<strong>同一串字节，在不同编码下代表完全不同的字符</strong>。这就是乱码的根源。</p>
+<h3 id="2-3-unicode-全球文字的统一编号">2.3 Unicode：全球文字的统一编号</h3>
+<p>为了结束编码混乱的局面，Unicode 联盟在 1991 年推出了 Unicode 标准——它的目标很简单：<strong>收录全世界所有文字、符号、表情，给每个字符分配一个唯一的编号（码点）</strong>。</p>
+<p>Unicode 码点的表示方式为 <code>U+XXXX</code>，其中 <code>XXXX</code> 是十六进制数：</p>
+<pre><code class="language-text">U+0041   → 'A'
+U+4E2D   → '中'
+U+1F600  → '😀'（笑脸表情）
+</code></pre>
+<p>Unicode 的码点空间目前规划到 \(10FFFF_{16}\)，可容纳超过 110 万个字符，足以容纳人类有史以来所有文字和符号。</p>
+<p>Unicode 字符集分为 17 个平面（Plane）：
+- <strong>基本多语言平面（BMP, U+0000 ~ U+FFFF）</strong>：包含最常用的字符，英文、中文、日文等都在这里
+- <strong>辅助平面（SMP, SIP 等, U+10000 ~ U+10FFFF）</strong>：包含表情符号、生僻汉字、历史文字等</p>
+<p>但是，Unicode 只定义了字符到码点的映射，并没有直接规定码点如何存储为字节——这就是编码方案要解决的问题。</p>
+<h3 id="2-4-unicode-的编码方案-utf-8-utf-16-utf-32">2.4 Unicode 的编码方案：UTF-8 / UTF-16 / UTF-32</h3>
+<p>针对 Unicode 码点，有多种编码方案（UTF = Unicode Transformation Format）。它们各有特点，适用于不同场景。</p>
+<h4 id="utf-32-定长编码-简单但浪费">UTF-32：定长编码，简单但浪费</h4>
+<p>UTF-32 是最简单直接的编码：<strong>每个码点固定用 4 字节（32 位）存储</strong>。</p>
+<ul>
+<li>优点：编解码极其简单，随机访问快（第 n 个字符就是第 4n 字节处）</li>
+<li>缺点：极度浪费空间，即使是 ASCII 字符也要 4 字节，比 ASCII 体积大 4 倍</li>
+<li>使用场景：主要在 Unix/Linux 系统内部 API 中使用，几乎不用于文件存储或网络传输</li>
+</ul>
+<pre><code class="language-text">'A' (U+0041) → UTF-32: 00 00 00 41
+'中' (U+4E2D) → UTF-32: 00 00 4E 2D
+</code></pre>
+<h4 id="utf-16-折中方案-windows-java-的选择">UTF-16：折中方案，Windows/Java 的选择</h4>
+<p>UTF-16 使用 <strong>2 或 4 字节</strong>变长编码：
+- BMP 内的字符（U+0000 ~ U+FFFF）：用 2 字节直接存储
+- BMP 外的字符（U+10000 及以上）：用<strong>代理对（Surrogate Pair）</strong>——两个 2 字节合起来表示一个字符</p>
+<ul>
+<li>优点：常用字符都是 2 字节，比 UTF-32 节省空间，随机访问比 UTF-8 容易</li>
+<li>缺点：仍有字节序问题（需要 BOM），不兼容 ASCII 处理函数，代理对增加了复杂度</li>
+<li>使用场景：Windows 内核、Java 字符串、JavaScript 内部、.NET</li>
+</ul>
+<h4 id="utf-8-事实标准-互联网的选择">UTF-8：事实标准，互联网的选择</h4>
+<p>UTF-8 是目前互联网上使用最广泛的编码（占比超过 98%），它是一种 <strong>1~4 字节变长编码</strong>，设计极其精巧。</p>
+<p><img loading="lazy" decoding="async" alt="UTF-8 编码规则：变长编码的艺术" src="images/utf8-encoding.svg" /></p>
+<p>UTF-8 的编码规则如下：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>码点范围</th>
+<th>字节数</th>
+<th>字节模板</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>U+0000 ~ U+007F</td>
+<td>1 字节</td>
+<td><code>0xxxxxxx</code></td>
+</tr>
+<tr>
+<td>U+0080 ~ U+07FF</td>
+<td>2 字节</td>
+<td><code>110xxxxx 10xxxxxx</code></td>
+</tr>
+<tr>
+<td>U+0800 ~ U+FFFF</td>
+<td>3 字节</td>
+<td><code>1110xxxx 10xxxxxx 10xxxxxx</code></td>
+</tr>
+<tr>
+<td>U+10000 ~ U+10FFFF</td>
+<td>4 字节</td>
+<td><code>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>UTF-8 的设计有几个天才之处：</p>
+<ol>
+<li><strong>完全兼容 ASCII</strong>：U+0000 ~ U+007F 的编码结果与 ASCII 完全相同，这意味着所有老的 ASCII 文档自动是合法的 UTF-8 文档</li>
+<li><strong>无字节序问题</strong>：UTF-8 以字节为单位编码，不存在大小端问题，不需要 BOM</li>
+<li><strong>自同步特性</strong>：从任意位置开始，都能快速定位到字符边界。每个字节的前缀位明确标识了它是单字节字符、首字节还是后续字节，不会因为局部损坏导致后面全部乱码</li>
+<li><strong>鲁棒性强</strong>：任何一个字节损坏，最多只影响一个字符，不会像 GBK 那样导致"多米诺骨牌"式的后续全乱码</li>
+</ol>
+<p>编码示例：汉字"中"（U+4E2D）</p>
+<pre><code class="language-text">1. U+4E2D = 20013，在 U+0800~U+FFFF 范围 → 需要 3 字节
+2. 二进制码点：0100 1110 0010 1101（16位）
+3. 填入3字节模板：
+   模板：1110xxxx 10xxxxxx 10xxxxxx
+   填入：11100100 10111000 10101101
+4. 最终字节：E4 B8 AD
+</code></pre>
+<p><strong>术语对照表</strong>：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>英文术语</th>
+<th>中文</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Code Point</td>
+<td>码点</td>
+<td>字符在字符集中的编号</td>
+</tr>
+<tr>
+<td>Character Set / Charset</td>
+<td>字符集</td>
+<td>字符与码点的映射表</td>
+</tr>
+<tr>
+<td>Encoding</td>
+<td>编码</td>
+<td>码点到字节的转换规则</td>
+</tr>
+<tr>
+<td>BOM (Byte Order Mark)</td>
+<td>字节序标记</td>
+<td>文件开头的特殊字节（EF BB BF for UTF-8），用于标识编码和字节序</td>
+</tr>
+<tr>
+<td>Endianness</td>
+<td>字节序</td>
+<td>多字节数据在内存中存储的顺序（大端/小端）</td>
+</tr>
+<tr>
+<td>Surrogate Pair</td>
+<td>代理对</td>
+<td>UTF-16 中用两个 16 位值表示辅助平面字符的机制</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="2-5-乱码的根源">2.5 乱码的根源</h3>
+<p><img loading="lazy" decoding="async" alt="乱码是怎么产生的？编码/解码不一致" src="images/mojibake-cause.svg" /></p>
+<p>乱码的根本原因只有一个：<strong>编码时使用的字符编码，与解码时使用的不一致</strong>。</p>
+<p>常见的乱码场景：</p>
+<ol>
+<li><strong>文件声明编码与实际编码不符</strong>：HTML 中写了 <code>&lt;meta charset="GBK"&gt;</code> 但实际文件是 UTF-8 保存的</li>
+<li><strong>数据库连接编码问题</strong>：MySQL 表用 latin1 存储，但客户端按 UTF-8 解读</li>
+<li><strong>HTTP 头未指定编码</strong>：服务器没返回 <code>Content-Type: text/html; charset=utf-8</code>，浏览器错误猜测</li>
+<li><strong>字节长度截断</strong>：在多字节字符中间截断字节，导致后续字符错位</li>
+</ol>
+<p><strong>解决乱码的黄金法则</strong>：从输入、存储、处理到输出，<strong>全链路统一使用 UTF-8</strong>。</p>
+<hr />
+<h2 id="三-图片编码-像素与色彩的数字表示">三、图片编码：像素与色彩的数字表示</h2>
+<h3 id="3-1-位图-bitmap-的基本原理">3.1 位图（Bitmap）的基本原理</h3>
+<p>位图（也叫光栅图、点阵图）是最直观的图像表示方式：把图像分割成一个矩形网格，每个网格点就是一个<strong>像素（Pixel）</strong>，每个像素存储颜色值。</p>
+<p><img loading="lazy" decoding="async" alt="位图图像编码：从像素到图片" src="images/image-encoding.svg" /></p>
+<h3 id="3-2-色彩模型-rgb-与-yuv">3.2 色彩模型：RGB 与 YUV</h3>
+<p>计算机中最常用的色彩模型是 <strong>RGB</strong>，用红（Red）、绿（Green）、蓝（Blue）三原色的强度来混合出任意颜色：</p>
+<ul>
+<li>每个通道用 8 位（1 字节）表示，取值范围 0~255</li>
+<li>三个通道组合：\(256 \times 256 \times 256 = 16,777,216\) 种颜色，即"24 位真彩色"</li>
+<li>有时会加一个 <strong>Alpha 通道</strong> 表示透明度，变成 32 位（RGBA）</li>
+</ul>
+<pre><code class="language-text">纯红:   R=255, G=0,   B=0   → #FF0000
+纯绿:   R=0,   G=255, B=0   → #00FF00
+纯蓝:   R=0,   G=0,   B=255 → #0000FF
+黄色:   R=255, G=255, B=0   → #FFFF00
+白色:   R=255, G=255, B=255 → #FFFFFF
+黑色:   R=0,   G=0,   B=0   → #000000
+中灰:   R=128, G=128, B=128 → #808080
+</code></pre>
+<p>另一种重要的色彩模型是 <strong>YUV</strong>（亮度-色度模型）：
+- <strong>Y</strong>：亮度（Luminance），表示明暗
+- <strong>U/V</strong>：色度（Chrominance），表示颜色</p>
+<p>YUV 的优势在于<strong>人眼对亮度比色度敏感得多</strong>，因此可以对色度分量进行降采样（如 YUV4:2:0）而不容易察觉质量损失，这是图像/视频压缩的重要基础。JPEG 和视频编码都大量使用 YUV。</p>
+<h3 id="3-3-未经压缩-bmp-格式">3.3 未经压缩：BMP 格式</h3>
+<p>BMP（Bitmap）是 Windows 系统的原生位图格式，它的存储方式非常直接：</p>
+<ul>
+<li>文件头（14 字节）：标识 "BM"、文件大小、像素数据偏移量</li>
+<li>信息头（40/108/124 字节）：图像宽高、位深、压缩方式等</li>
+<li>像素数据：按行存储每个像素的颜色值（可能有行对齐填充）</li>
+</ul>
+<p>BMP 不做任何压缩，因此文件体积巨大：一张 1920×1080 的 24 位 BMP 图片大小约为 \(1920 \times 1080 \times 3 ≈ 6\ \text{MB}\)。</p>
+<h3 id="3-4-无损压缩-png-格式">3.4 无损压缩：PNG 格式</h3>
+<p>PNG（Portable Network Graphics）使用 <strong>DEFLATE 压缩算法</strong>（与 ZIP 相同）实现无损压缩：</p>
+<ul>
+<li>压缩原理：结合 LZ77 算法（用长度+距离指针替代重复出现的字节序列）和 Huffman 编码（高频字符用短编码）</li>
+<li>支持 Alpha 透明通道</li>
+<li>支持 256 色调色板模式（适合图标，体积更小）</li>
+<li>适合场景：图标、logo、文字截图、UI 界面、纯色区域多的图片</li>
+</ul>
+<p>PNG 压缩不会损失任何信息，但压缩率有限——对照片类内容压缩效果不佳。</p>
+<h3 id="3-5-有损压缩-jpeg-格式">3.5 有损压缩：JPEG 格式</h3>
+<p>JPEG（Joint Photographic Experts Group）是专为照片设计的有损压缩格式，压缩率极高，但会损失一些人眼不敏感的细节：</p>
+<p>JPEG 压缩的核心步骤：</p>
+<ol>
+<li><strong>RGB → YCbCr 转换</strong>：把色彩转换为亮度-色度空间（与 YUV 类似）</li>
+<li><strong>色度子采样</strong>：对 Cb/Cr 色度通道降采样（通常 4:2:0，即水平垂直都减半），因为人眼对色度不敏感</li>
+<li><strong>分块 DCT 变换</strong>：把图像分成 8×8 的块，对每个块做离散余弦变换（DCT），把空间域数据转换为频率域数据</li>
+<li><strong>量化</strong>：用量化表除以 DCT 系数，高频分量（人眼不敏感的细节）大多变成 0——这是"有损"的来源</li>
+<li><strong>熵编码</strong>：对量化后的数据用 Huffman 或算术编码进一步压缩</li>
+</ol>
+<p>JPEG 的关键设计哲学是：<strong>利用人眼视觉系统的特性，丢弃那些人眼本来看不到或不敏感的信息</strong>。质量参数（Q 值）控制量化步长，Q=100 几乎无损，Q=50 是常见平衡值，Q=10 则模糊严重。</p>
+<h3 id="3-6-矢量图-数学描述而非像素">3.6 矢量图：数学描述而非像素</h3>
+<p>与位图的存储方式完全不同，<strong>矢量图（Vector Graphics）</strong> 不存储像素，而是存储<strong>数学描述</strong>：</p>
+<ul>
+<li>线条的起点、终点、宽度、颜色</li>
+<li>曲线的贝塞尔控制点</li>
+<li>填充颜色、渐变效果</li>
+<li>文字的字体、大小、位置</li>
+</ul>
+<p>常见矢量格式：<strong>SVG</strong>（Web 标准，XML 描述）、AI（Adobe Illustrator）、EPS、PDF（可包含矢量和位图）。</p>
+<p>矢量图的最大优势是<strong>无限缩放不失真</strong>——无论放大多少倍，线条都是平滑的。适合 logo、图标、图表、插画等几何图形为主的场景。但矢量图无法表示照片这种复杂场景。</p>
+<p><strong>术语对照表</strong>：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>英文术语</th>
+<th>中文</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pixel</td>
+<td>像素</td>
+<td>图像的最小单位，一个颜色点</td>
+</tr>
+<tr>
+<td>Resolution</td>
+<td>分辨率</td>
+<td>图像的像素数量（宽×高）</td>
+</tr>
+<tr>
+<td>Bit Depth</td>
+<td>位深</td>
+<td>每个颜色通道用多少位表示</td>
+</tr>
+<tr>
+<td>DCT</td>
+<td>离散余弦变换</td>
+<td>将信号从空间域转换到频率域的数学变换</td>
+</tr>
+<tr>
+<td>Lossless</td>
+<td>无损压缩</td>
+<td>解压后可完全还原原始数据</td>
+</tr>
+<tr>
+<td>Lossy</td>
+<td>有损压缩</td>
+<td>压缩时丢弃部分信息，无法完全还原</td>
+</tr>
+<tr>
+<td>Chroma Subsampling</td>
+<td>色度子采样</td>
+<td>降低色彩分辨率以减少数据量</td>
+</tr>
+<tr>
+<td>Raster / Bitmap</td>
+<td>位图/光栅图</td>
+<td>基于像素阵列的图像</td>
+</tr>
+<tr>
+<td>Vector</td>
+<td>矢量图</td>
+<td>基于数学描述的图形</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="四-音频编码-声波的数字化">四、音频编码：声波的数字化</h2>
+<p>声音本质是空气振动产生的<strong>机械波</strong>，是一种<strong>连续的模拟信号</strong>。要让计算机存储和处理声音，必须把它转换成数字形式。</p>
+<p><img loading="lazy" decoding="async" alt="音频编码：从声波到数字信号" src="images/audio-encoding.svg" /></p>
+<h3 id="4-1-pcm-编码三步骤">4.1 PCM 编码三步骤</h3>
+<p>PCM（Pulse Code Modulation，脉冲编码调制）是音频数字化的基础方法，分为三步：</p>
+<h4 id="步骤一-采样-sampling-时间轴离散化">步骤一：采样（Sampling）—— 时间轴离散化</h4>
+<p>按固定的时间间隔对声波进行"拍照"，测量每个时刻的振幅值。每秒钟采样的次数称为<strong>采样率（Sample Rate）</strong>。</p>
+<p>常见采样率：
+- <strong>8 kHz</strong>：电话音质
+- <strong>22.05 kHz</strong>：广播音质
+- <strong>44.1 kHz</strong>：CD 音质（最常用）
+- <strong>48 kHz</strong>：专业音频/视频制作
+- <strong>96 kHz / 192 kHz</strong>：Hi-Res 高解析度音频</p>
+<blockquote>
+<p><strong>奈奎斯特-香农采样定理</strong>：要无损还原一个信号，采样率必须至少是信号最高频率的 2 倍。人耳能听到的最高频率约为 20 kHz，因此 CD 选择 44.1 kHz 作为标准（留了一点余量）。</p>
+</blockquote>
+<h4 id="步骤二-量化-quantization-振幅轴离散化">步骤二：量化（Quantization）—— 振幅轴离散化</h4>
+<p>把每个采样点的连续振幅值映射到有限个离散数值上。用多少位来存储一个采样值称为<strong>位深（Bit Depth）</strong>。</p>
+<p>常见位深：
+- <strong>8 位</strong>：256 个级别，老式电话/游戏音效，动态范围小
+- <strong>16 位</strong>：65536 个级别，CD 标准，动态范围约 96 dB，日常听音乐足够
+- <strong>24 位</strong>：1677 万个级别，专业录音/制作，动态范围约 144 dB</p>
+<p>量化会引入<strong>量化噪声</strong>（原始值和量化值之间的误差），位深越大，噪声越小。</p>
+<h4 id="步骤三-编码-encoding-二进制表示">步骤三：编码（Encoding）—— 二进制表示</h4>
+<p>把量化后的整数值用二进制方式存储。PCM 数据通常使用<strong>补码</strong>（有符号整数）表示。</p>
+<p>单声道 PCM 数据是一串连续的采样值；双声道（立体声）则是按 LRLRLR... 交错存储左右声道的采样值。</p>
+<h3 id="4-2-码率计算">4.2 码率计算</h3>
+<p>PCM 音频的数据率（码率）计算公式：</p>
+<pre><code class="language-text">码率(bps) = 采样率(Hz) × 位深(bit) × 声道数
+</code></pre>
+<p>CD 音质计算：</p>
+<pre><code class="language-text">44100 Hz × 16 bit × 2 声道 = 1,411,200 bps ≈ 1411 kbps
+</code></pre>
+<p>一分钟 CD 音质的 PCM 数据大小：</p>
+<pre><code class="language-text">1411 kbps × 60 s = 84.7 Mb ≈ 10.6 MB
+</code></pre>
+<p>这就是为什么 WAV 文件很大的原因。</p>
+<h3 id="4-3-音频压缩格式">4.3 音频压缩格式</h3>
+<p>原始 PCM 数据量太大，实际使用时几乎都会压缩：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>格式</th>
+<th>类型</th>
+<th>典型码率</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>WAV</strong></td>
+<td>无压缩（PCM封装）</td>
+<td>1411 kbps</td>
+<td>Windows 标准，音质最好，文件大</td>
+</tr>
+<tr>
+<td><strong>FLAC</strong></td>
+<td>无损压缩</td>
+<td>~700-900 kbps</td>
+<td>压缩率约 50-60%，可完全还原，适合音乐收藏</td>
+</tr>
+<tr>
+<td><strong>MP3</strong></td>
+<td>有损压缩</td>
+<td>128-320 kbps</td>
+<td>最普及的格式，利用人耳听觉掩蔽效应</td>
+</tr>
+<tr>
+<td><strong>AAC</strong></td>
+<td>有损压缩</td>
+<td>96-256 kbps</td>
+<td>MP3 的继任者，同码率音质更好，Apple/YouTube 使用</td>
+</tr>
+<tr>
+<td><strong>OGG Vorbis</strong></td>
+<td>有损压缩</td>
+<td>96-256 kbps</td>
+<td>开源免专利，Spotify 使用</td>
+</tr>
+<tr>
+<td><strong>Opus</strong></td>
+<td>有损压缩</td>
+<td>6-510 kbps</td>
+<td>最新标准，语音和音乐都好，WebRTC 默认</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="mp3-aac-压缩的核心原理">MP3/AAC 压缩的核心原理</h4>
+<p>有损音频压缩利用了<strong>人耳听觉心理学（心理声学）</strong>的特性：
+1. <strong>频域掩蔽（Frequency Masking）</strong>：一个强音附近频率的弱音会被"盖住"听不见，可以丢弃
+2. <strong>时域掩蔽（Temporal Masking）</strong>：强音前后很短时间内的弱音也听不见
+3. <strong>频率敏感度</strong>：人耳对 2-5 kHz 频段最敏感，对极低/极高频率较不敏感</p>
+<p>压缩时先把信号通过 MDCT（改进离散余弦变换）转换到频域，然后根据心理声学模型把人耳听不到的分量量化为 0 或用更少位表示，最后用 Huffman 编码压缩。</p>
+<p><strong>术语对照表</strong>：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>英文术语</th>
+<th>中文</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sampling Rate</td>
+<td>采样率</td>
+<td>每秒采集声音样本的次数，单位 Hz</td>
+</tr>
+<tr>
+<td>Bit Depth</td>
+<td>位深/采样精度</td>
+<td>每个采样值用多少位存储</td>
+</tr>
+<tr>
+<td>Sample</td>
+<td>采样值/样本</td>
+<td>某个时刻声音振幅的量化值</td>
+</tr>
+<tr>
+<td>PCM</td>
+<td>脉冲编码调制</td>
+<td>最基础的数字音频编码方式</td>
+</tr>
+<tr>
+<td>Nyquist Frequency</td>
+<td>奈奎斯特频率</td>
+<td>采样率的一半，是可还原的最高频率</td>
+</tr>
+<tr>
+<td>Psychoacoustics</td>
+<td>心理声学</td>
+<td>研究人耳听觉特性的学科</td>
+</tr>
+<tr>
+<td>Bitrate</td>
+<td>码率/比特率</td>
+<td>每秒音频数据量，单位 bps/kbps</td>
+</tr>
+<tr>
+<td>VBR</td>
+<td>可变码率</td>
+<td>复杂段落用高码率，简单段落用低码率</td>
+</tr>
+<tr>
+<td>CBR</td>
+<td>恒定码率</td>
+<td>全程码率不变</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="五-视频编码-连续图像的高效压缩">五、视频编码：连续图像的高效压缩</h2>
+<p>视频本质上就是<strong>快速连续播放的图片序列</strong>，利用人眼的<strong>视觉暂留（Persistence of Vision）</strong>特性产生运动的错觉。通常每秒播放 24~60 帧（fps，frames per second）。</p>
+<p><img loading="lazy" decoding="async" alt="视频编码：连续图像的压缩艺术" src="images/video-encoding.svg" /></p>
+<h3 id="5-1-视频数据量有多大">5.1 视频数据量有多大？</h3>
+<p>先算一笔账，如果不压缩：
+- 分辨率：1920×1080（1080p）
+- 帧率：30 fps
+- 每像素：24 位（3 字节，RGB）
+- 每秒数据量：\(1920 \times 1080 \times 3 \times 30 ≈ 178\ \text{MB/s}\)
+- 每分钟：\(178 \times 60 ≈ 10.4\ \text{GB/分钟}\)
+- 一部 2 小时电影：约 <strong>1.2 TB</strong>！</p>
+<p>不压缩的话，在线看视频、存储电影都是不可能的。视频编码就是解决如何把数据量压到原来的几十分之一甚至几百分之一，同时尽量保持视觉质量。</p>
+<h3 id="5-2-视频压缩的两大方向-去除冗余">5.2 视频压缩的两大方向：去除冗余</h3>
+<p>视频压缩主要利用两种冗余：</p>
+<h4 id="空间冗余-帧内压缩">空间冗余（帧内压缩）</h4>
+<p>同一帧画面内，相邻像素往往颜色相近，存在大量重复。帧内压缩就是对单张图片进行压缩，原理与 JPEG 类似：
+- DCT 变换 → 量化 → 熵编码
+- 去除图像内部的空间相关性
+- 帧内压缩后的帧称为 <strong>I 帧（Intra-coded frame，关键帧）</strong></p>
+<h4 id="时间冗余-帧间压缩">时间冗余（帧间压缩）</h4>
+<p>相邻帧之间的画面变化很小（比如视频会议中人不动，背景不变），没必要每帧都完整存储。帧间压缩只存储<strong>当前帧与参考帧的差异</strong>：</p>
+<ol>
+<li><strong>运动估计（Motion Estimation）</strong>：在参考帧中搜索当前帧每个宏块（通常 16×16）的最佳匹配位置，得到<strong>运动矢量（Motion Vector）</strong></li>
+<li><strong>运动补偿（Motion Compensation）</strong>：用运动矢量从参考帧"搬运"对应块来预测当前帧</li>
+<li><strong>残差编码</strong>：只存储预测值与实际值的差（残差），残差通常很小，压缩后体积极小</li>
+</ol>
+<h3 id="5-3-三种帧类型-i-p-b-帧">5.3 三种帧类型：I/P/B 帧</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>帧类型</th>
+<th>全称</th>
+<th>编码方式</th>
+<th>压缩率</th>
+<th>解码依赖</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>I 帧</strong></td>
+<td>Intra-frame</td>
+<td>帧内压缩（独立完整图像）</td>
+<td>最低（类似JPEG）</td>
+<td>无需参考其他帧</td>
+<td>随机访问点、防止误差累积</td>
+</tr>
+<tr>
+<td><strong>P 帧</strong></td>
+<td>Predictive-frame</td>
+<td>前向预测（参考前面的I/P帧）</td>
+<td>较高</td>
+<td>需要前面的参考帧</td>
+<td>提高压缩率</td>
+</tr>
+<tr>
+<td><strong>B 帧</strong></td>
+<td>Bidirectional-frame</td>
+<td>双向预测（同时参考前后帧）</td>
+<td>最高</td>
+<td>需要前面和后面的参考帧</td>
+<td>最高压缩率，但增加延迟</td>
+</tr>
+</tbody>
+</table></div>
+<p>典型的帧序列结构（GOP，图像组）：</p>
+<pre><code class="language-text">I P P B P B P I P P B P B P ...
+|←─── 一个 GOP ──→|
+</code></pre>
+<p>GOP（Group of Pictures）是两个 I 帧之间的距离，GOP 越大压缩率越高，但随机访问越慢，错误传播越远。</p>
+<h3 id="5-4-主流视频编码标准">5.4 主流视频编码标准</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>标准</th>
+<th>别名</th>
+<th>制定组织</th>
+<th>发布年</th>
+<th>压缩效率（相对H.264）</th>
+<th>专利/版权</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>H.264</strong></td>
+<td>AVC</td>
+<td>ITU-T/MPEG</td>
+<td>2003</td>
+<td>基准（100%）</td>
+<td>需专利授权</td>
+</tr>
+<tr>
+<td><strong>H.265</strong></td>
+<td>HEVC</td>
+<td>ITU-T/MPEG</td>
+<td>2013</td>
+<td>约 50% 码率节省</td>
+<td>专利费复杂，较贵</td>
+</tr>
+<tr>
+<td><strong>AV1</strong></td>
+<td>AOMedia Video 1</td>
+<td>AOMedia（Google/Amazon/Netflix等）</td>
+<td>2018</td>
+<td>约 30% 优于 H.265</td>
+<td><strong>开源免版权费</strong></td>
+</tr>
+<tr>
+<td><strong>VP9</strong></td>
+<td>-</td>
+<td>Google</td>
+<td>2013</td>
+<td>略优于 H.264</td>
+<td>开源免版权费</td>
+</tr>
+</tbody>
+</table></div>
+<p>H.264 目前仍是兼容性最好的编码（几乎所有设备都支持硬件解码）；AV1 是未来趋势，YouTube、Netflix 已在逐步切换。</p>
+<h3 id="5-5-容器格式-vs-编码标准">5.5 容器格式 vs 编码标准</h3>
+<p>很多人分不清容器格式和编码：</p>
+<ul>
+<li><strong>视频编码（Codec）</strong>：规定如何压缩和解压视频画面（H.264、H.265、AV1）</li>
+<li><strong>音频编码（Codec）</strong>：规定如何压缩和解压声音（AAC、MP3、Opus）</li>
+<li><strong>容器格式（Container）</strong>：把视频流、音频流、字幕、元数据打包到一个文件中</li>
+</ul>
+<p>常见容器格式：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>容器</th>
+<th>扩展名</th>
+<th>常见组合</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MP4</strong></td>
+<td>.mp4</td>
+<td>H.264/H.265 + AAC</td>
+<td>最通用，兼容性最好</td>
+</tr>
+<tr>
+<td><strong>MKV</strong></td>
+<td>.mkv</td>
+<td>任意编码</td>
+<td>开源灵活，支持多音轨多字幕</td>
+</tr>
+<tr>
+<td><strong>WebM</strong></td>
+<td>.webm</td>
+<td>VP9/AV1 + Opus/Vorbis</td>
+<td>Google 主推，Web 原生支持</td>
+</tr>
+<tr>
+<td><strong>AVI</strong></td>
+<td>.avi</td>
+<td>MPEG-4/DivX + MP3</td>
+<td>老格式，不支持现代特性</td>
+</tr>
+<tr>
+<td><strong>MOV</strong></td>
+<td>.mov</td>
+<td>ProRes/H.264 + AAC</td>
+<td>Apple 专业视频格式</td>
+</tr>
+<tr>
+<td><strong>FLV</strong></td>
+<td>.flv</td>
+<td>H.264 + AAC/MP3</td>
+<td>Flash 时代产物，已过时</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>重要：<strong>MP4 不是编码，它只是容器</strong>。MP4 文件里可以装 H.264 视频，也可以装 H.265 甚至 AV1 视频。</p>
+</blockquote>
+<h3 id="5-6-视频解码流程">5.6 视频解码流程</h3>
+<p>解码器的工作流程与编码器相反：</p>
+<ol>
+<li><strong>解析容器</strong>：从 MP4/MKV 中分离出视频流、音频流</li>
+<li><strong>熵解码</strong>：把压缩的比特流还原成量化系数和运动矢量</li>
+<li><strong>反量化 + 反变换（IDCT）</strong>：还原残差数据</li>
+<li><strong>运动补偿</strong>：根据运动矢量从参考帧重建预测块</li>
+<li><strong>帧重建</strong>：预测块 + 残差 = 完整帧</li>
+<li><strong>环路滤波</strong>：去除块效应等压缩伪影</li>
+<li><strong>送显示</strong>：按时间戳顺序送帧到显示器</li>
+</ol>
+<p>硬件解码（GPU 专用电路）比软件解码（CPU 运算）快得多且省电，这是手机看视频不发热的原因。</p>
+<p><strong>术语对照表</strong>：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>英文术语</th>
+<th>中文</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frame</td>
+<td>帧</td>
+<td>视频中的单张静态图像</td>
+</tr>
+<tr>
+<td>FPS</td>
+<td>帧率/每秒帧数</td>
+<td>每秒播放多少帧画面</td>
+</tr>
+<tr>
+<td>GOP</td>
+<td>图像组</td>
+<td>两个 I 帧之间的帧序列</td>
+</tr>
+<tr>
+<td>Macroblock</td>
+<td>宏块</td>
+<td>运动估计的基本单元，通常 16×16 像素</td>
+</tr>
+<tr>
+<td>Motion Vector</td>
+<td>运动矢量</td>
+<td>描述宏块在帧间移动位置的向量</td>
+</tr>
+<tr>
+<td>Motion Compensation</td>
+<td>运动补偿</td>
+<td>利用运动矢量从参考帧预测当前帧</td>
+</tr>
+<tr>
+<td>Residual</td>
+<td>残差</td>
+<td>预测值与真实值的差</td>
+</tr>
+<tr>
+<td>Codec</td>
+<td>编解码器</td>
+<td>编码器+解码器的合称</td>
+</tr>
+<tr>
+<td>Container</td>
+<td>容器格式</td>
+<td>封装多路流的文件格式</td>
+</tr>
+<tr>
+<td>Hardware Decoding</td>
+<td>硬件解码</td>
+<td>用专用硬件电路解码，更快更省电</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="六-总结-编码的统一思想">六、总结：编码的统一思想</h2>
+<p>回顾文本、图片、音频、视频的编码方式，可以发现它们背后的共同思想：</p>
+<h3 id="6-1-编码的通用流程">6.1 编码的通用流程</h3>
+<pre><code class="language-text">现实世界连续信息
+    ↓ 采样/离散化
+离散的符号/样本
+    ↓ 建立映射规则
+数值化表示（码点/采样值/RGB值）
+    ↓ 压缩编码（可选，但几乎都做）
+二进制字节流 → 存储/传输
+</code></pre>
+<h3 id="6-2-压缩的两种基本策略">6.2 压缩的两种基本策略</h3>
+<p>所有数据压缩方法都可以归为两类：</p>
+<ol>
+<li>
+<p><strong>无损压缩（Lossless）</strong>：解压后完全还原原始数据
+   - 方法：统计冗余去除（Huffman 编码、算术编码、LZ77/LZ78 字典压缩）
+   - 代表：PNG、FLAC、ZIP、UTF-8（本质也是一种编码优化）
+   - 适用：文本、代码、程序文件，任何不允许信息丢失的场景</p>
+</li>
+<li>
+<p><strong>有损压缩（Lossy）</strong>：丢弃人不敏感的信息，获得更高压缩率
+   - 方法：利用人类感知系统特性（视觉/听觉心理模型）+ 量化
+   - 代表：JPEG、MP3、H.264/H.265
+   - 适用：照片、音乐、视频——这些允许轻微失真且人眼/人耳难以察觉</p>
+</li>
+</ol>
+<h3 id="6-3-为什么要理解编码">6.3 为什么要理解编码？</h3>
+<p>理解编码原理不是为了自己写编码器，而是为了在实际工作中：</p>
+<ol>
+<li><strong>处理乱码问题</strong>：知道乱码是编码/解码不一致导致的，全链路统一 UTF-8</li>
+<li><strong>选择合适的格式</strong>：截图用 PNG，照片用 JPEG，图标用 SVG，音乐用 AAC/FLAC</li>
+<li><strong>优化性能</strong>：视频转码选 H.264 还是 AV1？图片用 WebP 还是 JPEG？理解原理才能做权衡</li>
+<li><strong>排查问题</strong>：为什么图片上传后变模糊？为什么视频播放卡顿？为什么音频文件这么大？</li>
+<li><strong>避免低级错误</strong>：不要在数据库里存 BMP，不要用记事本编辑 UTF-8 文件后存成 ANSI，不要在多字节字符中间截断字符串</li>
+</ol>
+<p>计算机世界的一切，归根结底都是 0 和 1。编码就是我们为了让这两个数字承载无穷无尽的人类文明而发明的桥梁——从电报码到 Unicode，从 BMP 到 AV1，编码的演进史就是一部信息处理的进化史。</p>
+<hr />
+<h2 id="参考资料与延伸阅读">参考资料与延伸阅读</h2>
+<ul>
+<li>Unicode 官方网站：https://unicode.org/</li>
+<li>UTF-8 与 Unicode 的设计历史：《The Absolute Minimum Every Software Developer Must Know About Unicode》by Joel Spolsky</li>
+<li>《编码：隐匿在计算机软硬件背后的语言》by Charles Petzold</li>
+<li>JPEG 标准：ITU-T T.81 | ISO/IEC 10918-1</li>
+<li>H.264/AVC 标准：ITU-T H.264 | ISO/IEC 14496-10</li>
+<li>WebP/AV1 官方文档：Google Developers - AOMedia</li>
+</ul></div>
+      <nav class="post-pager" aria-label="上下篇"><a class="pager-link" href="%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F.html"><em>上一篇</em><b>深入理解计算机系统</b></a><a class="pager-link next" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/%E5%AE%89%E8%A3%85.html"><em>下一篇</em><b>创建网络</b></a></nav>
+    </article>
+  </main>
+</div>
+<footer class="blog-foot">
+  <div class="wrap foot-inner">
+    <span>© 2026 逐梦笔记 · 由 <code>scripts/build_blog.py</code> 从 docs/ 自动生成</span>
+    <span>内容来源：<a href="https://github.com/ShiQianzhi/note" target="_blank" rel="noopener noreferrer">ShiQianzhi/note</a> · 同步于 2026-11-26</span>
+  </div>
+</footer>
+<script src="../../blog.js"></script>
+</body>
+</html>

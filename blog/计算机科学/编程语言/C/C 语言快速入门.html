@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C 语言快速入门 · 逐梦笔记</title>
+<meta name="description" content="1. 环境准备">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../../../blog.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="../../../../index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../../../../index.html">首页</a>
+      <div class="nav-drop">
+        <a href="../../../../knowledge.html">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="../../../../knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="../../../../knowledge.html#domains">五大知识域</a>
+          <a href="../../../../knowledge.html#cross">交叉与前沿</a>
+          <a href="../../../../knowledge.html#axes">三条贯穿轴</a>
+          <a href="../../../../knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="../../../../career.html">世界职业体系</a>
+      <a href="../../../index.html" class="active">博客</a>
+      <a class="nav-cta" href="../../../../knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-wrap">
+  
+    <aside class="blog-side">
+      <div class="side-head">
+        <a class="blog-brand" href="../../../index.html">逐梦笔记<span>NOTES</span></a>
+        <button class="side-toggle" id="sideToggle" aria-expanded="false" aria-controls="sideBody">目录</button>
+      </div>
+      <div class="side-body" id="sideBody">
+        <div class="tree-search">
+          <input id="treeQ" type="search" placeholder="筛选 197 篇笔记…" aria-label="筛选笔记">
+        </div>
+        <nav class="tree" aria-label="博客目录"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI创作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI短剧制作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI写周报，把我写成了公司CEO</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E5%86%99%E5%91%A8%E6%8A%A5%EF%BC%8C%E6%8A%8A%E6%88%91%E5%86%99%E6%88%90%E4%BA%86%E5%85%AC%E5%8F%B8CEO/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI的最后一活</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%B4%BB/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><a class="tree-link" href="../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%9B%E4%BD%9C%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html" title="AI 短剧创作保姆级教程：从一个想法到成片发布">AI 短剧创作保姆级教程：从一个想法到成片发布</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人生感悟</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/%E5%9C%A8%E5%89%A7%E5%8F%98%E4%B8%AD%E5%AF%BB%E8%B7%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8AI%E6%B5%AA%E6%BD%AE%E4%B8%8B%E6%8A%93%E4%BD%8F%E6%9C%BA%E9%81%87.html" title="在剧变中寻路：如何在 AI 浪潮下抓住机遇">在剧变中寻路：如何在 AI 浪潮下抓住机遇</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础学科</span><span class="tree-count">22</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数学</span><span class="tree-count">13</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">初等代数</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5.html" title="数的概念">数的概念</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E7%B1%BB%E5%88%AB.html" title="数的类别">数的类别</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E9%87%8F.html" title="数量">数量</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性代数</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F.html" title="向量（Vector）：从几何箭头到 AI 数据表示">向量（Vector）：从几何箭头到 AI 数据表示</a></div></details><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%8C%87%E6%95%B0%E8%BF%90%E7%AE%97.html" title="什么是指数运算">什么是指数运算</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%85%B3%E7%B3%BB.html" title="什么是线性关系">什么是线性关系</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%87%A0%E4%BD%95%E5%85%A5%E9%97%A8.html" title="几何入门">几何入门</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97.html" title="四则运算">四则运算</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9F%BA%E6%9C%AC%E4%BB%A3%E6%95%B0.html" title="基本代数">基本代数</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E6%95%B0%E5%AD%A6.html" title="如何学习数学">如何学习数学</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%9A%E4%BB%8E0%E5%88%B0%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6.html" title="数学学习路线图：从0到高等数学">数学学习路线图：从0到高等数学</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E8%A1%A8%E7%A4%BA.html" title="数的分类与表示">数的分类与表示</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%AE%97%E6%9C%AF%E5%9F%BA%E7%A1%80.html" title="算术基础">算术基础</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">物理</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E4%BB%8E%E5%BE%AE%E8%A7%82%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E7%89%A9%E8%B4%A8%EF%BC%9A%E5%8E%9F%E5%AD%90%E3%80%81%E7%B2%92%E5%AD%90%E4%B8%8E%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8.html" title="从微观角度理解物质：原子、粒子与相互作用">从微观角度理解物质：原子、粒子与相互作用</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%89%A9%E8%B4%A8%E5%92%8C%E8%83%BD%E9%87%8F%E7%9A%84%E5%85%B3%E7%B3%BB.html" title="物质和能量的关系">物质和能量的关系</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%90%86%E8%A7%A3%E7%94%B5%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%89%A9%E7%90%86%E5%9F%BA%E7%A1%80.html" title="理解电必须掌握的物理基础">理解电必须掌握的物理基础</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E%E5%8E%86%E5%8F%B2%E5%88%B0%E6%9C%AC%E8%B4%A8.html" title="电是什么：从历史到本质">电是什么：从历史到本质</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.html" title="电的原理与应用场景">电的原理与应用场景</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%A3%81%EF%BC%9A%E4%BB%8E%E7%94%B5%E5%9C%BA%E7%A3%81%E5%9C%BA%E5%88%B0%E7%94%B5%E7%A3%81%E6%B3%A2.html" title="电磁：从电场磁场到电磁波">电磁：从电场磁场到电磁波</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">语言</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">英语</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="英语学习笔记">英语学习笔记</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95.html" title="英语语法">英语语法</a></div></details><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%AF%AD%E6%B3%95.html" title="语法">语法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">心情随笔</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/%E5%85%AD%E7%A7%8D%E5%80%BC%E5%BE%97%E7%BB%93%E4%BA%A4%E4%B8%80%E8%BE%88%E5%AD%90%E7%9A%84%E4%BA%BA.html" title="六种值得结交一辈子的人">六种值得结交一辈子的人</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">生活常识</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">买房攻略</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98.html" title="下面是我总结了买房相关常见问题：">下面是我总结了买房相关常见问题：</a><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5.html" title="买房攻略">买房攻略</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">考驾照</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E8%80%83%E9%A9%BE%E7%85%A7/%E7%A7%91%E7%9B%AE%E4%B8%80.html" title="科目一刷题笔记">科目一刷题笔记</a></div></details><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E5%90%84%E8%A1%8C%E4%B8%9A%E5%85%A8%E6%99%AF%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%AE%9A%E4%B9%89%E3%80%81%E7%8E%B0%E7%8A%B6%E4%B8%8EAI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%9C%AA%E6%9D%A5.html" title="各行业全景解析：定义、现状与 AI 时代的未来">各行业全景解析：定义、现状与 AI 时代的未来</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">计算机科学</span><span class="tree-count">160</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Agent 开发</span><span class="tree-count">11</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">docs</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">superpowers</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">specs</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/docs/superpowers/specs/2026-11-06-enterprise-agent-course-design.html" title="企业级 Agent 混合架构课程设计">企业级 Agent 混合架构课程设计</a></div></details></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">learning-records</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0001-python-worker-first.html" title="Learning Record 0001: Python Agent Worker First">Learning Record 0001: Python Agent Worker First</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0002-agent-state-checkpoint-recovery.html" title="Learning Record 0002: Agent State and Checkpoint Recovery">Learning Record 0002: Agent State and Checkpoint Recovery</a></div></details><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/Agent%20%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="Agent 开发学习路线">Agent 开发学习路线</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/Agent%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.html" title="Agent开发核心知识点">Agent开发核心知识点</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/Go-Python%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BD%ACAgent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B.html" title="Go/Python 后端工程师转 Agent 开发实战教程">Go/Python 后端工程师转 Agent 开发实战教程</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/MISSION.html" title="Mission: 从 Python Agent Worker 学会企业级 Agent 开发">Mission: 从 Python Agent Worker 学会企业级 Agent 开发</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/RAG.html" title="RAG">RAG</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/RAG%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%A6%E7%BB%86%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html" title="RAG系统的详细工作流程">RAG系统的详细工作流程</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E9%AB%98%E5%B9%B6%E5%8F%91%E4%BC%81%E4%B8%9A%E7%BA%A7Agent%E7%B3%BB%E7%BB%9F%E6%95%99%E7%A8%8B.html" title="从零搭建高并发企业级 Agent 系统教程">从零搭建高并发企业级 Agent 系统教程</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/RESOURCES.html" title="企业级 Agent 开发资源">企业级 Agent 开发资源</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人工智能</span><span class="tree-count">33</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI行业基础知识相关概念</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAI.html" title="什么是 AI">什么是 AI</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAIGC.html" title="什么是 AIGC">什么是 AIGC</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAgent.html" title="什么是 Agent">什么是 Agent</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG">什么是 RAG</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE.html" title="什么是向量数据">什么是向量数据</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是大模型">什么是大模型</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是语言大模型">什么是语言大模型</a></div></details><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93.html" title="AI 学习笔记总结">AI 学习笔记总结</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E5%BA%94%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="AI 应用工程师从入门到实战的最佳学习路线">AI 应用工程师从入门到实战的最佳学习路线</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Chroma%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Chroma 入门手册：从零上手最轻量的向量数据库">Chroma 入门手册：从零上手最轻量的向量数据库</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/LangChain%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="LangChain 入门手册：用搭积木的方式编排大模型应用">LangChain 入门手册：用搭积木的方式编排大模型应用</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Transformer%20%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.html" title="Transformer 注意力机制详解">Transformer 注意力机制详解</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BB%8B%E7%BB%8D.html" title="人工智能介绍">人工智能介绍</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%A6%E7%90%86%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="人工智能伦理与安全">人工智能伦理与安全</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG：检索增强生成从原理到实战">什么是 RAG：检索增强生成从原理到实战</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%8D%E5%90%91%E9%87%8F.html" title="什么是词向量">什么是词向量</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BANLP%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html" title="从零搭建NLP模型完全指南">从零搭建NLP模型完全指南</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%85%B3%E4%BA%8EAI%E7%9A%84%E7%95%85%E6%83%B3%E5%92%8C%E6%80%9D%E8%80%83.html" title="关于AI的畅想和思考">关于AI的畅想和思考</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%80%85AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师">后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93.html" title="向量数据库：语义搜索的存储与检索引擎">向量数据库：语义搜索的存储与检索引擎</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BA%B2.html" title="大模型应用实战知识总纲">大模型应用实战知识总纲</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAAgent.html" title="如何搭建一个 Agent">如何搭建一个 Agent</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="学习笔记">学习笔记</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html" title="强化学习">强化学习</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%96%87%E6%9C%AC%E6%98%AF%E5%A6%82%E4%BD%95%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E7%9A%84.html" title="文本是如何变成向量的：Embedding 推理管线全解析">文本是如何变成向量的：Embedding 推理管线全解析</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html" title="机器学习-线性回归">机器学习-线性回归</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="机器学习基础">机器学习基础</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="深度学习基础">深度学习基础</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html" title="神经网络">神经网络</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Agent%20%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="网页版知识库 Agent 搭建实战">网页版知识库 Agent 搭建实战</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86.html" title="自然语言处理">自然语言处理</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89.html" title="计算机视觉">计算机视觉</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E9%AB%98%E7%BB%B4%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%91%E9%87%8F%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%90%91%E9%87%8D%E5%BB%BA.html" title="高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容">高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础知识</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/DNS.html" title="DNS：从域名到 IP 地址的分布式解析系统">DNS：从域名到 IP 地址的分布式解析系统</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/HTTP.html" title="HTTP：从一次请求到现代 Web 传输体系">HTTP：从一次请求到现代 Web 传输体系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84.html" title="互联网是如何工作的">互联网是如何工作的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%9F%E7%90%86.html" title="操作系统的原理">操作系统的原理</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F.html" title="深入理解计算机系统">深入理解计算机系统</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84.html" title="计算机是如何编码数据的">计算机是如何编码数据的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">8</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Elasticsearch</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/%E5%AE%89%E8%A3%85.html" title="创建网络">创建网络</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MongoDB</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念">基本概念</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%AE%89%E8%A3%85mongodb.html" title="安装mongodb">安装mongodb</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" title="数据库不存在会自动创建">数据库不存在会自动创建</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MySQL</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%9E%B6%E6%9E%84.html" title="MySQL 架构">MySQL 架构</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="MySQL数据库知识大纲">MySQL数据库知识大纲</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.html" title="存储引擎">存储引擎</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E7%B4%A2%E5%BC%95.html" title="索引">索引</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构与算法</span><span class="tree-count">10</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构</span><span class="tree-count">6</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数组和字符串</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C.html" title="数组的操作">数组的操作</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%A6%82%E8%BF%B0.html" title="概述">概述</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">树</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/%E6%A0%91.html" title="树">树</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性表</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8.html" title="线性表">线性表</a></div></details><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD.html" title="基本概念和术语">基本概念和术语</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E5%92%8C%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84.html" title="逻辑结构和物理结构">逻辑结构和物理结构</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">算法</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/K-Means.html" title="K-Means 聚类算法">K-Means 聚类算法</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97%E8%AF%A6%E8%A7%A3.html" title="位运算详解">位运算详解</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95.html" title="算法效率分析方法">算法效率分析方法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程笔记</span><span class="tree-count">54</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C 语言学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/C%20%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="此时会生成 a.out（windows 会生成 a.exe）">此时会生成 a.out（windows 会生成 a.exe）</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Docker</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Docker/docker%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Docker 入门手册：编写 Dockerfile、构建镜像与容器管理">Docker 入门手册：编写 Dockerfile、构建镜像与容器管理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言之旅</span><span class="tree-count">12</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架源码剖析</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Gin%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Gin%20%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Gin%E6%A1%86%E6%9E%B6%E5%BC%95%E6%93%8E%E5%AE%9E%E4%BE%8B.html" title="深入理解Gin框架引擎实例">深入理解Gin框架引擎实例</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言设计与实现</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%BA%90%E4%BB%A3%E7%A0%81.html" title="自己需要那个版本的 Go 标签，就用那个">自己需要那个版本的 Go 标签，就用那个</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言高级开发工程</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html" title="Go 单元测试">Go 单元测试</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E9%98%B6%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7.html" title="Go 语言高阶实战技巧">Go 语言高阶实战技巧</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Lua</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Lua/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BLua%E8%84%9A%E6%9C%AC.html" title="&quot;Hello, scripting!&quot;">&quot;Hello, scripting!&quot;</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">kubernetes</span><span class="tree-count">17</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">从入门到实战</span><span class="tree-count">16</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/K8s%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2.html" title="Kubernetes 从入门到实战：完整知识学习大纲">Kubernetes 从入门到实战：完整知识学习大纲</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC10%E7%AB%A0-Ingress%E4%B8%8E%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1.html" title="第10章：Ingress 与流量路由">第10章：Ingress 与流量路由</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC11%E7%AB%A0-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%9B%E9%98%B6.html" title="第11章 控制器进阶">第11章 控制器进阶</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC12%E7%AB%A0-RBAC%E6%9D%83%E9%99%90%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="第12章 RBAC 权限与安全">第12章 RBAC 权限与安全</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html" title="第13章 监控日志与可观测性">第13章 监控日志与可观测性</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC14%E7%AB%A0-Helm%E5%8C%85%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第14章 Helm 包管理与应用部署">第14章 Helm 包管理与应用部署</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC15%E7%AB%A0-%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98-%E5%AE%8C%E6%95%B4%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2.html" title="第15章 综合实战：完整微服务项目部署">第15章 综合实战：完整微服务项目部署</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC1%E7%AB%A0-K8s%E6%A6%82%E8%BF%B0%E4%B8%8E%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3.html" title="第1章 K8s 概述与架构理解">第1章 K8s 概述与架构理解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC2%E7%AB%A0-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="第2章 环境搭建实战">第2章 环境搭建实战</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC3%E7%AB%A0-Pod%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E6%88%98.html" title="第3章 Pod 核心概念与实战">第3章 Pod 核心概念与实战</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第4章 Deployment 与应用部署">第4章 Deployment 与应用部署</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC5%E7%AB%A0-Service%E4%B8%8E%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1.html" title="第5章：Service 与网络通信">第5章：Service 与网络通信</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC6%E7%AB%A0-ConfigMap%E4%B8%8ESecret%E7%AE%A1%E7%90%86.html" title="第6章：ConfigMap 与 Secret 管理">第6章：ConfigMap 与 Secret 管理</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC7%E7%AB%A0-Volume%E4%B8%8E%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8.html" title="第7章：Volume 与持久化存储">第7章：Volume 与持久化存储</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC8%E7%AB%A0-Namespace%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.html" title="第8章：Namespace 与资源管理">第8章：Namespace 与资源管理</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC9%E7%AB%A0-%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6%E4%B8%8E%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86.html" title="第9章：调度机制与节点管理">第9章：调度机制与节点管理</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/HPA%E5%92%8CVPA%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="HPA 和 VPA 的区别">HPA 和 VPA 的区别</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">其他</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%85%B6%E4%BB%96/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80UML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="统一建模语言UML学习笔记">统一建模语言UML学习笔记</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Linux</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Centos</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/yum.html" title="yum">yum</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/CentosStream8%20%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html" title="刷新配置">刷新配置</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/Centos7.9%20%E5%AE%89%E8%A3%85%20node20%20%E5%AE%9E%E6%88%98.html" title="安装 nvm">安装 nvm</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86.html" title="查看文件的大小">查看文件的大小</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">mysql</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%AE%89%E8%A3%85mysql.html" title="CentOS Linux release 8.5.2111">CentOS Linux release 8.5.2111</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E4%BB%80%E4%B9%88%E6%98%AFmysql.html" title="什么是mysql">什么是mysql</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.html" title="注意不同的密码验证策略要求密码复杂度不一样。">注意不同的密码验证策略要求密码复杂度不一样。</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">缓存</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98/redis%20%E7%BC%93%E5%AD%98%E5%AE%9E%E6%88%98.html" title="redis 缓存实战">redis 缓存实战</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">软件开发与设计规范</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/%E6%8C%87%E5%AF%BC%E6%80%9D%E6%83%B3.html" title="指导思想">指导思想</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">领域驱动设计</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E4%BB%80%E4%B9%88%E6%98%AFDDD.html" title="什么是DDD">什么是DDD</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E5%89%8D%E8%A8%80.html" title="前言">前言</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Cookie%20%E8%AF%A6%E8%A7%A3.html" title="Cookie 详解">Cookie 详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/JWT%E8%AF%A6%E8%A7%A3.html" title="JWT 详解">JWT 详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Raft%20%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3.html" title="Raft 协议详解">Raft 协议详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/WebRTC%20%E5%BA%95%E5%B1%82%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.html" title="WebRTC 底层工作原理详解">WebRTC 底层工作原理详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/curl%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="curl 使用手册">curl 使用手册</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Git%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" title="克隆指定分支">克隆指定分支</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95.html" title="分布式一致性算法">分布式一致性算法</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="学习路线">学习路线</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%90%AD%E5%BB%BA%20Conda%20%2B%20Jupyter%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" title="搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南">搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">编程语言</span><span class="tree-count">18</span></summary><div class="tree-children"><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">C</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link active" href="C%20%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="C 语言快速入门">C 语言快速入门</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../Go/Go%20benchmark%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go Benchmark 最佳实战">Go Benchmark 最佳实战</a><a class="tree-link" href="../Go/Go%20pprof%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go pprof 最佳实战：从开发诊断到生产调优">Go pprof 最佳实战：从开发诊断到生产调优</a><a class="tree-link" href="../Go/Go%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5.html" title="Go 底层原理与工程化实践">Go 底层原理与工程化实践</a><a class="tree-link" href="../Go/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码">Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码</a><a class="tree-link" href="../Go/Go%E8%AF%AD%E8%A8%80%E9%AB%98%E6%95%88%E7%BC%96%E7%A8%8B%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8C%96.html" title="Go 语言高效编程：原理、可观测性与优化">Go 语言高效编程：原理、可观测性与优化</a><a class="tree-link" href="../Go/Go%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A.html" title="Go开发工程师必知必会">Go开发工程师必知必会</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Python</span><span class="tree-count">8</span></summary><div class="tree-children"><a class="tree-link" href="../Python/NumPy%20%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="NumPy 使用手册">NumPy 使用手册</a><a class="tree-link" href="../Python/NumPy%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="NumPy 使用指南：从 ndarray 到数值计算实践">NumPy 使用指南：从 ndarray 到数值计算实践</a><a class="tree-link" href="../Python/Pandas%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="Pandas 使用指南：从 Series/DataFrame 到数据分析实践">Pandas 使用指南：从 Series/DataFrame 到数据分析实践</a><a class="tree-link" href="../Python/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html" title="Python 异步编程：从原理到实战">Python 异步编程：从原理到实战</a><a class="tree-link" href="../Python/Python%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="Python 快速入门">Python 快速入门</a><a class="tree-link" href="../Python/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Decorator%EF%BC%89%E6%80%BB%E7%BB%93.html" title="Python 装饰器（Decorator）总结">Python 装饰器（Decorator）总结</a><a class="tree-link" href="../Python/%E8%AE%A4%E8%AF%86Python.html" title="认识Python">认识Python</a><a class="tree-link" href="../Python/Python%20%40staticmethod%20%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="静态方法是类的属性">静态方法是类的属性</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Rust</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../Rust/Rust%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Rust 入门手册：面向 Go 与 Python 开发者">Rust 入门手册：面向 Go 与 Python 开发者</a></div></details><a class="tree-link" href="../%E7%A8%8B%E5%BA%8F%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86.html" title="程序底层执行原理：从一行源码到进程退出">程序底层执行原理：从一行源码到进程退出</a><a class="tree-link" href="../%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88.html" title="计算机科学与编程十万个为什么">计算机科学与编程十万个为什么</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机组成原理</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%BC%96%E7%A0%81.html" title="《编码》：从手电筒到计算机">《编码》：从手电筒到计算机</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%98%BE%E7%A4%BA%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="显示器的工作原理">显示器的工作原理</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%99%B6%E4%BD%93%E7%AE%A1.html" title="晶体管：小学生也能看懂的计算机“小开关”">晶体管：小学生也能看懂的计算机“小开关”</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84.html" title="程序是如何执行的">程序是如何执行的</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.html" title="计算机底层原理：程序、数据与网络如何从 0 到 1 运转">计算机底层原理：程序、数据与网络如何从 0 到 1 运转</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html" title="计算机组成">计算机组成</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="计算机组成原理">计算机组成原理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机网络</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BATCP-IP%E5%8D%8F%E8%AE%AE.html" title="深入浅出TCP-IP协议">深入浅出TCP-IP协议</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20OSI.html" title="计算机网络 - OSI">计算机网络 - OSI</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html" title="计算机网络 - 概述">计算机网络 - 概述</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="计算机网络工作原理：从输入 URL 到数据跨越互联网">计算机网络工作原理：从输入 URL 到数据跨越互联网</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">高性能服务设计与实现</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1.html" title="什么是高性能服务">什么是高性能服务</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88.html" title="后端服务安全方案">后端服务安全方案</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%AF%B4%E6%98%8E.html" title="后端服务性能指标体系">后端服务性能指标体系</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E7%99%BE%E4%B8%87%E7%BA%A7QPS%20API%E7%BD%91%E5%85%B3%E8%AE%BE%E8%AE%A1.html" title="如何设计一个支持百万级 QPS 的 API 网关">如何设计一个支持百万级 QPS 的 API 网关</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%99%90%E6%B5%81%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1.html" title="限流方案设计">限流方案设计</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%20Agent%20%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="高性能 Agent 服务架构设计与实现">高性能 Agent 服务架构设计与实现</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8F%AF%E8%A1%8C%E6%80%A7%E6%96%B9%E6%A1%88.html" title="高性能服务架构可行性方案">高性能服务架构可行性方案</a></div></details><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E5%A4%A7%E7%BA%B2.html" title="计算机知识学习先后顺序大纲">计算机知识学习先后顺序大纲</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="计算机科学知识大纲">计算机科学知识大纲</a></div></details><div class="tree-label">散篇</div><a class="tree-link" href="../../../TODO.html" title="TODO">TODO</a><a class="tree-link" href="../../../%E4%B8%AA%E4%BA%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E9%87%8D%E9%93%B8%E8%AE%A1%E5%88%92.html" title="个人基础知识重铸计划">个人基础知识重铸计划</a><a class="tree-link" href="../../../%E5%8F%A5%E5%AD%90.html" title="句子">句子</a><a class="tree-link" href="../../../%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E5%AD%A6%E4%B9%A0.html" title="如何高效的学习">如何高效的学习</a><a class="tree-link" href="../../../%E6%97%B6%E9%97%B4%E8%83%B6%E5%9B%8A.html" title="时间胶囊">时间胶囊</a><a class="tree-link" href="../../../%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA.html" title="网站导航">网站导航</a></nav>
+      </div>
+    </aside>
+  <main class="blog-main">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../../../index.html">博客</a><span>/</span><span>计算机科学</span><span>/</span><span>编程语言</span><span>/</span><span>C</span><span>/</span><span>C 语言快速入门</span></nav>
+    <article class="post">
+      <header class="post-head">
+        <div class="post-kicker">计算机科学 / 编程语言 / C</div>
+        <h1>C 语言快速入门</h1>
+        <div class="post-meta"><span>计算机科学/编程语言/C/C 语言快速入门.md</span><span>约 1,508 字</span></div>
+      </header>
+      <div class="prose"><h2 id="1-环境准备">1. 环境准备</h2>
+<p>C 语言是编译型语言，需要通过编译器将源代码转换为可执行文件。常用的编译器有 GCC（GNU Compiler Collection）和 Clang。</p>
+<h3 id="检查编译器安装">检查编译器安装</h3>
+<pre><code class="language-bash"># 检查 GCC 版本
+gcc --version
+
+# 检查 Clang 版本
+clang --version
+</code></pre>
+<h3 id="macos-安装编译器">macOS 安装编译器</h3>
+<pre><code class="language-bash"># 通过 Xcode Command Line Tools 安装（包含 Clang）
+xcode-select --install
+
+# 验证安装
+clang --version
+gcc --version   # macOS 上 gcc 通常是 clang 的别名
+</code></pre>
+<h3 id="linux-安装-gcc">Linux 安装 GCC</h3>
+<pre><code class="language-bash"># Ubuntu / Debian
+sudo apt update
+sudo apt install build-essential
+
+# CentOS / RHEL
+sudo yum groupinstall &quot;Development Tools&quot;
+
+# 验证安装
+gcc --version
+</code></pre>
+<h3 id="windows-安装">Windows 安装</h3>
+<p>推荐使用 MinGW-w64 或 MSYS2，也可以使用 WSL (Windows Subsystem for Linux)。</p>
+<h2 id="2-第一个程序">2. 第一个程序</h2>
+<h3 id="hello-world">Hello, World!</h3>
+<p>创建文件 <code>hello.c</code>：</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    printf(&quot;Hello, World!\n&quot;);
+    return 0;
+}
+</code></pre>
+<h3 id="编译与运行">编译与运行</h3>
+<pre><code class="language-bash"># 编译（默认生成 a.out 或 a.exe）
+gcc hello.c
+
+# 运行
+./a.out          # macOS / Linux
+# 输出: Hello, World!
+
+# 指定输出文件名
+gcc hello.c -o hello
+./hello
+</code></pre>
+<h3 id="程序结构解析">程序结构解析</h3>
+<ul>
+<li><code>#include &lt;stdio.h&gt;</code> — 预处理指令，引入标准输入输出头文件，提供 <code>printf</code> 等函数</li>
+<li><code>int main()</code> — 程序入口函数，每个 C 程序有且仅有一个 <code>main</code> 函数</li>
+<li><code>printf(...)</code> — 格式化输出函数，<code>\n</code> 表示换行</li>
+<li><code>return 0</code> — 函数返回值，0 表示程序正常退出</li>
+</ul>
+<h2 id="3-基本语法">3. 基本语法</h2>
+<h3 id="注释">注释</h3>
+<pre><code class="language-c">// 单行注释
+
+/*
+   多行注释
+   这是多行注释
+*/
+</code></pre>
+<h3 id="标识符与关键字">标识符与关键字</h3>
+<p><strong>标识符命名规则：</strong>
+- 由字母、数字、下划线组成
+- 不能以数字开头
+- 区分大小写
+- 不能使用 C 关键字</p>
+<p><strong>常用关键字（32 个）：</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>关键字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据类型</td>
+<td><code>int</code>, <code>char</code>, <code>float</code>, <code>double</code>, <code>void</code>, <code>short</code>, <code>long</code>, <code>signed</code>, <code>unsigned</code>, <code>enum</code>, <code>struct</code>, <code>union</code>, <code>typedef</code></td>
+</tr>
+<tr>
+<td>控制语句</td>
+<td><code>if</code>, <code>else</code>, <code>switch</code>, <code>case</code>, <code>default</code>, <code>for</code>, <code>while</code>, <code>do</code>, <code>break</code>, <code>continue</code>, <code>goto</code>, <code>return</code></td>
+</tr>
+<tr>
+<td>存储类</td>
+<td><code>auto</code>, <code>static</code>, <code>extern</code>, <code>register</code></td>
+</tr>
+<tr>
+<td>其他</td>
+<td><code>const</code>, <code>volatile</code>, <code>sizeof</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="语句与分号">语句与分号</h3>
+<p>C 语言中每条语句以分号 <code>;</code> 结尾：</p>
+<pre><code class="language-c">int a = 10;   // 声明并初始化变量
+printf(&quot;%d&quot;, a);  // 函数调用语句
+</code></pre>
+<h2 id="4-数据类型">4. 数据类型</h2>
+<h3 id="基本数据类型">基本数据类型</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>大小（典型）</th>
+<th>取值范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>char</code></td>
+<td>1 字节</td>
+<td>-128 ~ 127</td>
+<td>字符型</td>
+</tr>
+<tr>
+<td><code>unsigned char</code></td>
+<td>1 字节</td>
+<td>0 ~ 255</td>
+<td>无符号字符</td>
+</tr>
+<tr>
+<td><code>short</code></td>
+<td>2 字节</td>
+<td>-32768 ~ 32767</td>
+<td>短整型</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td>4 字节</td>
+<td>-2^31 ~ 2^31-1</td>
+<td>整型</td>
+</tr>
+<tr>
+<td><code>unsigned int</code></td>
+<td>4 字节</td>
+<td>0 ~ 2^32-1</td>
+<td>无符号整型</td>
+</tr>
+<tr>
+<td><code>long</code></td>
+<td>4/8 字节</td>
+<td>平台相关</td>
+<td>长整型</td>
+</tr>
+<tr>
+<td><code>long long</code></td>
+<td>8 字节</td>
+<td>-2^63 ~ 2^63-1</td>
+<td>长长整型</td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td>4 字节</td>
+<td>约 6~7 位有效数字</td>
+<td>单精度浮点</td>
+</tr>
+<tr>
+<td><code>double</code></td>
+<td>8 字节</td>
+<td>约 15~16 位有效数字</td>
+<td>双精度浮点</td>
+</tr>
+<tr>
+<td><code>void</code></td>
+<td>-</td>
+<td>-</td>
+<td>空类型</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="sizeof-运算符">sizeof 运算符</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    printf(&quot;char:    %zu 字节\n&quot;, sizeof(char));
+    printf(&quot;short:   %zu 字节\n&quot;, sizeof(short));
+    printf(&quot;int:     %zu 字节\n&quot;, sizeof(int));
+    printf(&quot;long:    %zu 字节\n&quot;, sizeof(long));
+    printf(&quot;float:   %zu 字节\n&quot;, sizeof(float));
+    printf(&quot;double:  %zu 字节\n&quot;, sizeof(double));
+    return 0;
+}
+</code></pre>
+<h3 id="类型限定符">类型限定符</h3>
+<pre><code class="language-c">const int MAX = 100;   // 常量，不可修改
+volatile int flag;     // 易变变量，禁止编译器优化
+</code></pre>
+<h2 id="5-变量与常量">5. 变量与常量</h2>
+<h3 id="变量声明与初始化">变量声明与初始化</h3>
+<pre><code class="language-c">// 声明
+int age;
+float price;
+char grade;
+
+// 声明并初始化
+int a = 10;
+double pi = 3.14159;
+char ch = 'A';
+
+// 同时声明多个变量
+int x, y, z;
+int m = 1, n = 2, p = 3;
+</code></pre>
+<h3 id="变量命名规范">变量命名规范</h3>
+<pre><code class="language-c">// 推荐：见名知意，使用下划线或小驼峰
+int student_age = 20;   // 下划线式
+int studentAge = 20;    // 小驼峰式（C 风格更常用下划线）
+
+// 避免：无意义的命名
+int a, b, c;
+</code></pre>
+<h3 id="常量定义">常量定义</h3>
+<pre><code class="language-c">// 方式一：#define 宏定义（预处理阶段替换）
+#define PI 3.14159
+#define MAX_SIZE 100
+
+// 方式二：const 关键字（编译时类型检查）
+const double E = 2.71828;
+const int MAX = 100;
+</code></pre>
+<blockquote>
+<p><strong>注意</strong>：<code>#define</code> 是文本替换，没有类型检查；<code>const</code> 有类型检查，更安全，推荐优先使用。</p>
+</blockquote>
+<h2 id="6-运算符">6. 运算符</h2>
+<h3 id="算术运算符">算术运算符</h3>
+<pre><code class="language-c">int a = 10, b = 3;
+
+a + b;    // 13  加法
+a - b;    // 7   减法
+a * b;    // 30  乘法
+a / b;    // 3   整数除法（截断小数）
+a % b;    // 1   取余（仅用于整数）
+
+a++;      // 11  后置自增
+++a;      // 12  前置自增
+a--;      // 11  后置自减
+--a;      // 10  前置自减
+</code></pre>
+<h3 id="关系运算符">关系运算符</h3>
+<pre><code class="language-c">int a = 5, b = 3;
+
+a == b;   // 0 (假)  等于
+a != b;   // 1 (真)  不等于
+a &gt; b;    // 1       大于
+a &lt; b;    // 0       小于
+a &gt;= b;   // 1       大于等于
+a &lt;= b;   // 0       小于等于
+</code></pre>
+<blockquote>
+<p>C 语言中，0 表示假，非 0 表示真。</p>
+</blockquote>
+<h3 id="逻辑运算符">逻辑运算符</h3>
+<pre><code class="language-c">int a = 1, b = 0;
+
+a &amp;&amp; b;   // 0  逻辑与（两边都为真才为真）
+a || b;   // 1  逻辑或（一边为真即为真）
+!a;       // 0  逻辑非（取反）
+</code></pre>
+<blockquote>
+<p><strong>短路求值</strong>：<code>&amp;&amp;</code> 左边为假时右边不执行；<code>||</code> 左边为真时右边不执行。</p>
+</blockquote>
+<h3 id="位运算符">位运算符</h3>
+<pre><code class="language-c">unsigned char a = 0b1100;  // 12
+unsigned char b = 0b1010;  // 10
+
+a &amp; b;     // 0b1000 (8)   按位与
+a | b;     // 0b1110 (14)  按位或
+a ^ b;     // 0b0110 (6)   按位异或
+~a;        // 按位取反
+a &lt;&lt; 1;    // 0b10000 (24) 左移
+a &gt;&gt; 1;    // 0b0110 (6)   右移
+</code></pre>
+<h3 id="赋值运算符">赋值运算符</h3>
+<pre><code class="language-c">int a = 10;
+
+a += 5;    // a = a + 5;    → 15
+a -= 3;    // a = a - 3;    → 12
+a *= 2;    // a = a * 2;    → 24
+a /= 4;    // a = a / 4;    → 6
+a %= 4;    // a = a % 4;    → 2
+a &amp;= 3;    // a = a &amp; 3;
+a |= 5;    // a = a | 5;
+a &lt;&lt;= 1;   // a = a &lt;&lt; 1;
+</code></pre>
+<h3 id="三元运算符">三元运算符</h3>
+<pre><code class="language-c">// 条件 ? 表达式1 : 表达式2
+// 条件为真，返回表达式1；否则返回表达式2
+
+int a = 10, b = 20;
+int max = (a &gt; b) ? a : b;   // max = 20
+</code></pre>
+<h3 id="运算符优先级-从高到低">运算符优先级（从高到低）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>运算符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>()</code> <code>[]</code> <code>-&gt;</code> <code>.</code></td>
+<td>括号、下标、成员访问</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>!</code> <code>~</code> <code>++</code> <code>--</code> <code>+</code> <code>-</code> <code>*</code> <code>&amp;</code> <code>sizeof</code></td>
+<td>单目运算符</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>*</code> <code>/</code> <code>%</code></td>
+<td>算术乘除</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>+</code> <code>-</code></td>
+<td>算术加减</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>&lt;&lt;</code> <code>&gt;&gt;</code></td>
+<td>位移</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>&lt;</code> <code>&lt;=</code> <code>&gt;</code> <code>&gt;=</code></td>
+<td>关系</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>==</code> <code>!=</code></td>
+<td>相等</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>&amp;</code></td>
+<td>按位与</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>^</code></td>
+<td>按位异或</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>|</code></td>
+<td>按位或</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>&amp;&amp;</code></td>
+<td>逻辑与</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>||</code></td>
+<td>逻辑或</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>?:</code></td>
+<td>三元</td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>=</code> <code>+=</code> <code>-=</code> 等</td>
+<td>赋值</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>,</code></td>
+<td>逗号</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="7-输入与输出">7. 输入与输出</h2>
+<h3 id="printf-格式化输出">printf 格式化输出</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int age = 25;
+    float height = 1.75f;
+    char grade = 'A';
+    char name[] = &quot;Tom&quot;;
+
+    printf(&quot;姓名: %s\n&quot;, name);
+    printf(&quot;年龄: %d\n&quot;, age);
+    printf(&quot;身高: %.2f 米\n&quot;, height);
+    printf(&quot;等级: %c\n&quot;, grade);
+    printf(&quot;十六进制: 0x%X\n&quot;, 255);
+    printf(&quot;指针地址: %p\n&quot;, &amp;age);
+
+    return 0;
+}
+</code></pre>
+<p><strong>常用格式符：</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>格式符</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>%d</code> / <code>%i</code></td>
+<td>十进制整数</td>
+<td><code>printf("%d", 42)</code></td>
+</tr>
+<tr>
+<td><code>%f</code></td>
+<td>浮点数</td>
+<td><code>printf("%.2f", 3.14)</code></td>
+</tr>
+<tr>
+<td><code>%c</code></td>
+<td>字符</td>
+<td><code>printf("%c", 'A')</code></td>
+</tr>
+<tr>
+<td><code>%s</code></td>
+<td>字符串</td>
+<td><code>printf("%s", "hello")</code></td>
+</tr>
+<tr>
+<td><code>%x</code> / <code>%X</code></td>
+<td>十六进制</td>
+<td><code>printf("%x", 255)</code></td>
+</tr>
+<tr>
+<td><code>%o</code></td>
+<td>八进制</td>
+<td><code>printf("%o", 8)</code></td>
+</tr>
+<tr>
+<td><code>%p</code></td>
+<td>指针</td>
+<td><code>printf("%p", &amp;a)</code></td>
+</tr>
+<tr>
+<td><code>%%</code></td>
+<td>百分号本身</td>
+<td><code>printf("100%%")</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="scanf-格式化输入">scanf 格式化输入</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int age;
+    float height;
+    char name[50];
+
+    printf(&quot;请输入姓名: &quot;);
+    scanf(&quot;%s&quot;, name);        // 字符串不需要 &amp;
+
+    printf(&quot;请输入年龄: &quot;);
+    scanf(&quot;%d&quot;, &amp;age);        // 基本类型需要 &amp;（取地址）
+
+    printf(&quot;请输入身高: &quot;);
+    scanf(&quot;%f&quot;, &amp;height);
+
+    printf(&quot;你好，%s！年龄 %d，身高 %.2f 米\n&quot;, name, age, height);
+
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p><strong>注意</strong>：<code>scanf</code> 读取字符串时遇到空格会停止。如需读取整行，使用 <code>fgets</code>。</p>
+</blockquote>
+<h3 id="字符输入输出">字符输入输出</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    char ch;
+
+    ch = getchar();     // 读取一个字符
+    putchar(ch);        // 输出一个字符
+    putchar('\n');
+
+    return 0;
+}
+</code></pre>
+<h2 id="8-控制流程">8. 控制流程</h2>
+<h3 id="if-条件语句">if 条件语句</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int score = 85;
+
+    if (score &gt;= 90) {
+        printf(&quot;优秀\n&quot;);
+    } else if (score &gt;= 80) {
+        printf(&quot;良好\n&quot;);
+    } else if (score &gt;= 60) {
+        printf(&quot;及格\n&quot;);
+    } else {
+        printf(&quot;不及格\n&quot;);
+    }
+
+    return 0;
+}
+</code></pre>
+<h3 id="switch-多分支">switch 多分支</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int day = 3;
+
+    switch (day) {
+        case 1:
+            printf(&quot;星期一\n&quot;);
+            break;
+        case 2:
+            printf(&quot;星期二\n&quot;);
+            break;
+        case 3:
+            printf(&quot;星期三\n&quot;);
+            break;
+        default:
+            printf(&quot;其他\n&quot;);
+    }
+
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p><strong>注意</strong>：每个 <code>case</code> 后必须加 <code>break</code>，否则会"穿透"到下一个 case。</p>
+</blockquote>
+<h3 id="for-循环">for 循环</h3>
+<pre><code class="language-c">// 输出 1~10
+for (int i = 1; i &lt;= 10; i++) {
+    printf(&quot;%d &quot;, i);
+}
+
+// 从 10 到 1 倒序
+for (int i = 10; i &gt;= 1; i--) {
+    printf(&quot;%d &quot;, i);
+}
+
+// 嵌套循环：打印九九乘法表
+for (int i = 1; i &lt;= 9; i++) {
+    for (int j = 1; j &lt;= i; j++) {
+        printf(&quot;%d*%d=%-2d &quot;, j, i, i * j);
+    }
+    printf(&quot;\n&quot;);
+}
+</code></pre>
+<h3 id="while-循环">while 循环</h3>
+<pre><code class="language-c">// 计算 1~100 的和
+int sum = 0;
+int i = 1;
+
+while (i &lt;= 100) {
+    sum += i;
+    i++;
+}
+printf(&quot;1+2+...+100 = %d\n&quot;, sum);
+</code></pre>
+<h3 id="do-while-循环">do-while 循环</h3>
+<pre><code class="language-c">// 至少执行一次
+int i = 1;
+do {
+    printf(&quot;%d &quot;, i);
+    i++;
+} while (i &lt;= 10);
+</code></pre>
+<h3 id="break-与-continue">break 与 continue</h3>
+<pre><code class="language-c">// break：跳出整个循环
+for (int i = 1; i &lt;= 10; i++) {
+    if (i == 5) {
+        break;   // 到 5 就结束循环
+    }
+    printf(&quot;%d &quot;, i);  // 输出 1 2 3 4
+}
+
+// continue：跳过当前迭代，继续下一次
+for (int i = 1; i &lt;= 10; i++) {
+    if (i % 2 == 0) {
+        continue;  // 跳过偶数
+    }
+    printf(&quot;%d &quot;, i);  // 输出 1 3 5 7 9
+}
+</code></pre>
+<h3 id="goto-语句-慎用">goto 语句（慎用）</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    for (int i = 0; i &lt; 10; i++) {
+        for (int j = 0; j &lt; 10; j++) {
+            if (j == 5) {
+                goto end_loop;   // 跳出多层循环
+            }
+        }
+    }
+end_loop:
+    printf(&quot;循环结束\n&quot;);
+    return 0;
+}
+</code></pre>
+<h2 id="9-函数">9. 函数</h2>
+<h3 id="函数定义与调用">函数定义与调用</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+// 函数声明（原型），也可以直接写在 main 前面
+int add(int a, int b);
+
+int main() {
+    int result = add(3, 5);
+    printf(&quot;3 + 5 = %d\n&quot;, result);
+    return 0;
+}
+
+// 函数定义
+int add(int a, int b) {
+    return a + b;
+}
+</code></pre>
+<h3 id="函数参数">函数参数</h3>
+<pre><code class="language-c">// 无参数、无返回值
+void say_hello() {
+    printf(&quot;Hello!\n&quot;);
+}
+
+// 有参数、有返回值
+int max(int a, int b) {
+    return (a &gt; b) ? a : b;
+}
+
+// 无返回值
+void print_sum(int a, int b) {
+    printf(&quot;%d + %d = %d\n&quot;, a, b, a + b);
+}
+</code></pre>
+<h3 id="值传递与地址传递">值传递与地址传递</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+// 值传递：函数内修改不影响外部
+void swap_by_value(int a, int b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+// 地址传递（指针）：函数内修改影响外部
+void swap_by_pointer(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main() {
+    int x = 10, y = 20;
+
+    swap_by_value(x, y);
+    printf(&quot;值传递: x=%d, y=%d\n&quot;, x, y);  // x=10, y=20（没变）
+
+    swap_by_pointer(&amp;x, &amp;y);
+    printf(&quot;地址传递: x=%d, y=%d\n&quot;, x, y);  // x=20, y=10（已交换）
+
+    return 0;
+}
+</code></pre>
+<h3 id="函数递归">函数递归</h3>
+<pre><code class="language-c">// 计算阶乘 n! = n * (n-1) * ... * 1
+int factorial(int n) {
+    if (n &lt;= 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+// 斐波那契数列
+int fibonacci(int n) {
+    if (n &lt;= 1) {
+        return n;
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+</code></pre>
+<h3 id="静态局部变量">静态局部变量</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+void count() {
+    static int counter = 0;   // 静态变量只初始化一次，保留上一次的值
+    counter++;
+    printf(&quot;调用次数: %d\n&quot;, counter);
+}
+
+int main() {
+    count();   // 1
+    count();   // 2
+    count();   // 3
+    return 0;
+}
+</code></pre>
+<h2 id="10-数组">10. 数组</h2>
+<h3 id="一维数组">一维数组</h3>
+<pre><code class="language-c">// 声明与初始化
+int arr[5];                      // 声明 5 个 int 元素的数组（值未定义）
+int nums[5] = {1, 2, 3, 4, 5};  // 完全初始化
+int arr2[] = {1, 2, 3};         // 省略大小，自动推断为 3
+int arr3[5] = {0};              // 全部初始化为 0
+
+// 访问元素（下标从 0 开始）
+nums[0] = 10;
+printf(&quot;%d\n&quot;, nums[0]);  // 10
+
+// 遍历数组
+for (int i = 0; i &lt; 5; i++) {
+    printf(&quot;%d &quot;, nums[i]);
+}
+</code></pre>
+<h3 id="数组大小">数组大小</h3>
+<pre><code class="language-c">int arr[] = {1, 2, 3, 4, 5};
+int len = sizeof(arr) / sizeof(arr[0]);   // 5
+</code></pre>
+<h3 id="二维数组">二维数组</h3>
+<pre><code class="language-c">// 声明与初始化
+int matrix[3][4] = {
+    {1, 2, 3, 4},
+    {5, 6, 7, 8},
+    {9, 10, 11, 12}
+};
+
+// 访问元素
+matrix[0][0] = 100;   // 第一行第一列
+
+// 遍历二维数组
+for (int i = 0; i &lt; 3; i++) {
+    for (int j = 0; j &lt; 4; j++) {
+        printf(&quot;%d &quot;, matrix[i][j]);
+    }
+    printf(&quot;\n&quot;);
+}
+</code></pre>
+<h3 id="数组与函数">数组与函数</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+// 数组作为参数，传递的是首地址，所以需要单独传长度
+void print_array(int arr[], int len) {
+    for (int i = 0; i &lt; len; i++) {
+        printf(&quot;%d &quot;, arr[i]);
+    }
+    printf(&quot;\n&quot;);
+}
+
+// 数组在函数内可以被修改（因为传的是指针）
+void square_array(int arr[], int len) {
+    for (int i = 0; i &lt; len; i++) {
+        arr[i] = arr[i] * arr[i];
+    }
+}
+
+int main() {
+    int nums[] = {1, 2, 3, 4, 5};
+    int len = sizeof(nums) / sizeof(nums[0]);
+
+    print_array(nums, len);     // 1 2 3 4 5
+    square_array(nums, len);
+    print_array(nums, len);     // 1 4 9 16 25
+
+    return 0;
+}
+</code></pre>
+<h2 id="11-字符串">11. 字符串</h2>
+<h3 id="字符串基础">字符串基础</h3>
+<p>C 语言中，字符串是以 <code>\0</code>（空字符）结尾的字符数组。</p>
+<pre><code class="language-c">// 字符串声明与初始化
+char str1[] = &quot;Hello&quot;;             // 自动添加 '\0'，大小为 6
+char str2[6] = {'H', 'e', 'l', 'l', 'o', '\0'};  // 手动添加
+char str3[100] = &quot;World&quot;;          // 指定大小
+
+// 字符串长度（不包括 '\0'）
+#include &lt;string.h&gt;
+printf(&quot;%zu\n&quot;, strlen(str1));  // 5
+
+// 字符串大小（包括 '\0'）
+printf(&quot;%zu\n&quot;, sizeof(str1));  // 6
+</code></pre>
+<h3 id="字符串输入输出">字符串输入输出</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    char name[50];
+
+    // 使用 scanf（遇到空格停止）
+    printf(&quot;请输入姓名: &quot;);
+    scanf(&quot;%s&quot;, name);
+    printf(&quot;你好，%s\n&quot;, name);
+
+    // 使用 fgets（读取整行，包括空格）
+    char line[100];
+    printf(&quot;请输入一句话: &quot;);
+    getchar();  // 吃掉上次输入留下的换行符
+    fgets(line, sizeof(line), stdin);
+    printf(&quot;你输入的是: %s&quot;, line);
+
+    return 0;
+}
+</code></pre>
+<h3 id="常用字符串函数">常用字符串函数</h3>
+<p>需要引入头文件 <code>&lt;string.h&gt;</code>：</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main() {
+    char str1[50] = &quot;Hello&quot;;
+    char str2[] = &quot; World&quot;;
+    char str3[50];
+
+    // 字符串拼接：strcat(dest, src)
+    strcat(str1, str2);
+    printf(&quot;拼接: %s\n&quot;, str1);   // Hello World
+
+    // 字符串复制：strcpy(dest, src)
+    strcpy(str3, str1);
+    printf(&quot;复制: %s\n&quot;, str3);   // Hello World
+
+    // 字符串比较：strcmp(s1, s2)
+    // 返回 0 表示相等，&lt;0 表示 s1 &lt; s2，&gt;0 表示 s1 &gt; s2
+    int cmp = strcmp(&quot;abc&quot;, &quot;abc&quot;);
+    printf(&quot;比较: %d\n&quot;, cmp);    // 0
+
+    // 查找字符：strchr(s, c)
+    char *p = strchr(&quot;Hello World&quot;, 'W');
+    if (p) {
+        printf(&quot;找到: %s\n&quot;, p);  // World
+    }
+
+    // 查找子串：strstr(haystack, needle)
+    char *sub = strstr(&quot;Hello World&quot;, &quot;World&quot;);
+    if (sub) {
+        printf(&quot;找到子串: %s\n&quot;, sub);  // World
+    }
+
+    return 0;
+}
+</code></pre>
+<h2 id="12-指针">12. 指针</h2>
+<h3 id="指针基础">指针基础</h3>
+<p>指针是一个变量，存储的是另一个变量的内存地址。</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int a = 10;
+    int *p;      // 声明一个 int 类型的指针
+    p = &amp;a;      // &amp; 是取地址运算符，p 指向 a
+
+    printf(&quot;a 的值: %d\n&quot;, a);          // 10
+    printf(&quot;a 的地址: %p\n&quot;, &amp;a);       // 0x...
+    printf(&quot;p 的值: %p\n&quot;, p);          // 0x...（和 &amp;a 一样）
+    printf(&quot;p 指向的值: %d\n&quot;, *p);     // 10（* 是解引用运算符）
+
+    // 通过指针修改值
+    *p = 20;
+    printf(&quot;修改后 a 的值: %d\n&quot;, a);   // 20
+
+    return 0;
+}
+</code></pre>
+<h3 id="指针与数组">指针与数组</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};
+    int *p = arr;   // 数组名是数组首元素的地址
+
+    // 方式一：下标访问
+    for (int i = 0; i &lt; 5; i++) {
+        printf(&quot;%d &quot;, arr[i]);
+    }
+
+    // 方式二：指针访问
+    for (int i = 0; i &lt; 5; i++) {
+        printf(&quot;%d &quot;, *(p + i));
+    }
+
+    // 方式三：指针移动
+    for (int *q = arr; q &lt; arr + 5; q++) {
+        printf(&quot;%d &quot;, *q);
+    }
+
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>数组名 <code>arr</code> 是常量指针，不能修改（不能 <code>arr++</code>）；而指针变量 <code>p</code> 可以修改（可以 <code>p++</code>）。</p>
+</blockquote>
+<h3 id="指针与函数">指针与函数</h3>
+<pre><code class="language-c">// 通过指针交换两个变量的值
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// 通过指针返回多个值
+void calculate(int a, int b, int *sum, int *product) {
+    *sum = a + b;
+    *product = a * b;
+}
+
+int main() {
+    int x = 10, y = 20;
+    int s, p;
+    calculate(x, y, &amp;s, &amp;p);
+    printf(&quot;和: %d, 积: %d\n&quot;, s, p);  // 和: 30, 积: 200
+    return 0;
+}
+</code></pre>
+<h3 id="二级指针">二级指针</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int a = 10;
+    int *p = &amp;a;     // 一级指针
+    int **pp = &amp;p;   // 二级指针
+
+    printf(&quot;a = %d\n&quot;, a);          // 10
+    printf(&quot;*p = %d\n&quot;, *p);        // 10
+    printf(&quot;**pp = %d\n&quot;, **pp);    // 10
+
+    return 0;
+}
+</code></pre>
+<h3 id="void-指针">void 指针</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int a = 10;
+    float b = 3.14f;
+    void *p;   // 通用指针，可以指向任意类型
+
+    p = &amp;a;
+    printf(&quot;%d\n&quot;, *(int *)p);   // 强制类型转换后解引用
+
+    p = &amp;b;
+    printf(&quot;%f\n&quot;, *(float *)p);
+
+    return 0;
+}
+</code></pre>
+<h3 id="空指针">空指针</h3>
+<pre><code class="language-c">int *p = NULL;   // 空指针，不指向任何有效地址
+
+if (p != NULL) {
+    // 使用前检查指针是否有效
+    printf(&quot;%d\n&quot;, *p);
+}
+</code></pre>
+<h2 id="13-结构体与枚举">13. 结构体与枚举</h2>
+<h3 id="结构体定义与使用">结构体定义与使用</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+// 定义结构体类型
+struct Student {
+    char name[50];
+    int age;
+    float score;
+};
+
+int main() {
+    // 声明并初始化结构体变量
+    struct Student s1 = {&quot;张三&quot;, 20, 95.5f};
+
+    // 访问成员
+    printf(&quot;姓名: %s\n&quot;, s1.name);
+    printf(&quot;年龄: %d\n&quot;, s1.age);
+    printf(&quot;分数: %.1f\n&quot;, s1.score);
+
+    // 修改成员
+    s1.age = 21;
+    strcpy(s1.name, &quot;李四&quot;);
+
+    return 0;
+}
+</code></pre>
+<h3 id="结构体数组">结构体数组</h3>
+<pre><code class="language-c">struct Student students[3] = {
+    {&quot;张三&quot;, 20, 95.5f},
+    {&quot;李四&quot;, 21, 88.0f},
+    {&quot;王五&quot;, 19, 92.5f}
+};
+
+for (int i = 0; i &lt; 3; i++) {
+    printf(&quot;%s, %d, %.1f\n&quot;, students[i].name, students[i].age, students[i].score);
+}
+</code></pre>
+<h3 id="结构体指针">结构体指针</h3>
+<pre><code class="language-c">struct Student s = {&quot;张三&quot;, 20, 95.5f};
+struct Student *p = &amp;s;
+
+// 方式一：(*p).成员
+printf(&quot;%s\n&quot;, (*p).name);
+
+// 方式二：p-&gt;成员（更常用）
+printf(&quot;%s\n&quot;, p-&gt;name);
+printf(&quot;%d\n&quot;, p-&gt;age);
+</code></pre>
+<h3 id="typedef-简化类型名">typedef 简化类型名</h3>
+<pre><code class="language-c">typedef struct {
+    char name[50];
+    int age;
+} Student;   // 以后可以直接用 Student 代替 struct Student
+
+Student s1 = {&quot;张三&quot;, 20};
+</code></pre>
+<h3 id="枚举类型">枚举类型</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+// 定义枚举
+enum Weekday {
+    MON,    // 默认 0
+    TUE,    // 1
+    WED,    // 2
+    THU,    // 3
+    FRI,    // 4
+    SAT,    // 5
+    SUN     // 6
+};
+
+// 指定枚举值
+enum Color {
+    RED = 1,
+    GREEN = 2,
+    BLUE = 4
+};
+
+int main() {
+    enum Weekday day = WED;
+    printf(&quot;%d\n&quot;, day);  // 2
+
+    if (day == WED) {
+        printf(&quot;今天是星期三\n&quot;);
+    }
+
+    return 0;
+}
+</code></pre>
+<h2 id="14-内存管理">14. 内存管理</h2>
+<h3 id="动态内存分配">动态内存分配</h3>
+<p>需要引入头文件 <code>&lt;stdlib.h&gt;</code>。</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main() {
+    int n;
+    printf(&quot;请输入数组大小: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+
+    // 动态分配内存
+    int *arr = (int *)malloc(n * sizeof(int));
+    if (arr == NULL) {
+        printf(&quot;内存分配失败！\n&quot;);
+        return 1;
+    }
+
+    // 使用动态数组
+    for (int i = 0; i &lt; n; i++) {
+        arr[i] = i * 2;
+    }
+
+    for (int i = 0; i &lt; n; i++) {
+        printf(&quot;%d &quot;, arr[i]);
+    }
+    printf(&quot;\n&quot;);
+
+    // 释放内存（必须！否则内存泄漏）
+    free(arr);
+    arr = NULL;   // 置空，避免野指针
+
+    return 0;
+}
+</code></pre>
+<h3 id="常用内存函数">常用内存函数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>malloc(size)</code></td>
+<td>分配指定字节数的内存，内容未初始化</td>
+</tr>
+<tr>
+<td><code>calloc(n, size)</code></td>
+<td>分配 n 个元素的内存，初始化为 0</td>
+</tr>
+<tr>
+<td><code>realloc(ptr, size)</code></td>
+<td>重新调整已分配内存的大小</td>
+</tr>
+<tr>
+<td><code>free(ptr)</code></td>
+<td>释放动态分配的内存</td>
+</tr>
+</tbody>
+</table></div>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main() {
+    // calloc：分配并初始化为 0
+    int *arr = (int *)calloc(5, sizeof(int));
+    // arr[0]~arr[4] 都是 0
+
+    // realloc：扩容
+    arr = (int *)realloc(arr, 10 * sizeof(int));
+    // 现在数组大小是 10
+
+    free(arr);
+    arr = NULL;
+
+    return 0;
+}
+</code></pre>
+<h3 id="内存操作函数">内存操作函数</h3>
+<p>需要引入头文件 <code>&lt;string.h&gt;</code>。</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main() {
+    int arr1[5] = {1, 2, 3, 4, 5};
+    int arr2[5];
+
+    // memcpy：内存拷贝
+    memcpy(arr2, arr1, sizeof(arr1));
+
+    // memset：内存设置
+    char buf[10];
+    memset(buf, 0, sizeof(buf));   // 全部置 0
+    memset(buf, 'A', 5);           // 前 5 个字节设为 'A'
+
+    // memcmp：内存比较
+    int cmp = memcmp(arr1, arr2, sizeof(arr1));  // 0（相等）
+
+    return 0;
+}
+</code></pre>
+<h2 id="15-文件操作">15. 文件操作</h2>
+<p>需要引入头文件 <code>&lt;stdio.h&gt;</code>。</p>
+<h3 id="文件指针">文件指针</h3>
+<pre><code class="language-c">FILE *fp;   // 文件指针
+</code></pre>
+<h3 id="打开与关闭文件">打开与关闭文件</h3>
+<pre><code class="language-c">// 打开文件
+FILE *fp = fopen(&quot;example.txt&quot;, &quot;r&quot;);
+if (fp == NULL) {
+    printf(&quot;文件打开失败！\n&quot;);
+    return 1;
+}
+
+// 使用文件...
+
+// 关闭文件（必须！）
+fclose(fp);
+</code></pre>
+<p><strong>文件打开模式：</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"r"</code></td>
+<td>只读（文件必须存在）</td>
+</tr>
+<tr>
+<td><code>"w"</code></td>
+<td>只写（文件不存在则创建，存在则清空）</td>
+</tr>
+<tr>
+<td><code>"a"</code></td>
+<td>追加（文件不存在则创建，存在则在末尾追加）</td>
+</tr>
+<tr>
+<td><code>"r+"</code></td>
+<td>读写（文件必须存在）</td>
+</tr>
+<tr>
+<td><code>"w+"</code></td>
+<td>读写（创建/清空）</td>
+</tr>
+<tr>
+<td><code>"a+"</code></td>
+<td>读+追加</td>
+</tr>
+<tr>
+<td><code>"rb"</code></td>
+<td>二进制只读</td>
+</tr>
+<tr>
+<td><code>"wb"</code></td>
+<td>二进制只写</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="字符读写">字符读写</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    FILE *fp = fopen(&quot;test.txt&quot;, &quot;w&quot;);
+    if (fp == NULL) return 1;
+
+    // 写入字符
+    fputc('H', fp);
+    fputc('i', fp);
+    fclose(fp);
+
+    // 读取字符
+    fp = fopen(&quot;test.txt&quot;, &quot;r&quot;);
+    char ch;
+    while ((ch = fgetc(fp)) != EOF) {
+        putchar(ch);
+    }
+    fclose(fp);
+
+    return 0;
+}
+</code></pre>
+<h3 id="字符串读写">字符串读写</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    FILE *fp = fopen(&quot;test.txt&quot;, &quot;w&quot;);
+    if (fp == NULL) return 1;
+
+    // 写入字符串
+    fputs(&quot;Hello, World!\n&quot;, fp);
+    fputs(&quot;第二行\n&quot;, fp);
+    fclose(fp);
+
+    // 读取一行
+    fp = fopen(&quot;test.txt&quot;, &quot;r&quot;);
+    char line[100];
+    while (fgets(line, sizeof(line), fp) != NULL) {
+        printf(&quot;%s&quot;, line);
+    }
+    fclose(fp);
+
+    return 0;
+}
+</code></pre>
+<h3 id="格式化读写">格式化读写</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    FILE *fp = fopen(&quot;data.txt&quot;, &quot;w&quot;);
+    if (fp == NULL) return 1;
+
+    // 格式化写入
+    fprintf(fp, &quot;姓名: %s, 年龄: %d, 分数: %.1f\n&quot;, &quot;张三&quot;, 20, 95.5f);
+    fclose(fp);
+
+    // 格式化读取
+    fp = fopen(&quot;data.txt&quot;, &quot;r&quot;);
+    char name[50];
+    int age;
+    float score;
+    fscanf(fp, &quot;姓名: %[^,], 年龄: %d, 分数: %f&quot;, name, &amp;age, &amp;score);
+    printf(&quot;%s, %d, %.1f\n&quot;, name, age, score);
+    fclose(fp);
+
+    return 0;
+}
+</code></pre>
+<h3 id="二进制文件读写">二进制文件读写</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int data[] = {1, 2, 3, 4, 5};
+
+    // 写入二进制文件
+    FILE *fp = fopen(&quot;data.bin&quot;, &quot;wb&quot;);
+    fwrite(data, sizeof(int), 5, fp);
+    fclose(fp);
+
+    // 读取二进制文件
+    int read_data[5];
+    fp = fopen(&quot;data.bin&quot;, &quot;rb&quot;);
+    fread(read_data, sizeof(int), 5, fp);
+    fclose(fp);
+
+    for (int i = 0; i &lt; 5; i++) {
+        printf(&quot;%d &quot;, read_data[i]);
+    }
+
+    return 0;
+}
+</code></pre>
+<h3 id="文件定位">文件定位</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    FILE *fp = fopen(&quot;test.txt&quot;, &quot;r&quot;);
+    if (fp == NULL) return 1;
+
+    // 获取当前位置
+    long pos = ftell(fp);
+
+    // 移动文件指针
+    fseek(fp, 0, SEEK_SET);   // 移到文件开头
+    fseek(fp, 10, SEEK_CUR);  // 从当前位置向后移 10 字节
+    fseek(fp, 0, SEEK_END);   // 移到文件末尾
+
+    // 回到文件开头
+    rewind(fp);
+
+    fclose(fp);
+    return 0;
+}
+</code></pre>
+<h2 id="16-预处理器">16. 预处理器</h2>
+<h3 id="define-宏定义">#define 宏定义</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+#define PI 3.14159
+#define MAX(a, b) ((a) &gt; (b) ? (a) : (b))
+
+int main() {
+    printf(&quot;PI = %f\n&quot;, PI);
+    printf(&quot;MAX(3,5) = %d\n&quot;, MAX(3, 5));
+    return 0;
+}
+</code></pre>
+<h3 id="条件编译">条件编译</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+#define DEBUG 1
+
+int main() {
+#if DEBUG
+    printf(&quot;调试模式\n&quot;);
+#else
+    printf(&quot;发布模式\n&quot;);
+#endif
+
+#ifdef _WIN32
+    printf(&quot;Windows 系统\n&quot;);
+#elif __APPLE__
+    printf(&quot;macOS 系统\n&quot;);
+#elif __linux__
+    printf(&quot;Linux 系统\n&quot;);
+#endif
+
+    return 0;
+}
+</code></pre>
+<h3 id="头文件包含">头文件包含</h3>
+<pre><code class="language-c">// 系统头文件用尖括号
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+// 自定义头文件用双引号
+#include &quot;myheader.h&quot;
+</code></pre>
+<h3 id="头文件保护">头文件保护</h3>
+<p>防止头文件被重复包含：</p>
+<pre><code class="language-c">// myheader.h
+#ifndef MYHEADER_H
+#define MYHEADER_H
+
+// 头文件内容...
+
+#endif // MYHEADER_H
+</code></pre>
+<h2 id="17-实践练习">17. 实践练习</h2>
+<h3 id="练习-1-计算斐波那契数列">练习 1：计算斐波那契数列</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int n;
+    printf(&quot;请输入项数: &quot;);
+    scanf(&quot;%d&quot;, &amp;n);
+
+    int a = 0, b = 1;
+    for (int i = 0; i &lt; n; i++) {
+        printf(&quot;%d &quot;, a);
+        int temp = a + b;
+        a = b;
+        b = temp;
+    }
+    printf(&quot;\n&quot;);
+
+    return 0;
+}
+</code></pre>
+<h3 id="练习-2-冒泡排序">练习 2：冒泡排序</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+void bubble_sort(int arr[], int len) {
+    for (int i = 0; i &lt; len - 1; i++) {
+        for (int j = 0; j &lt; len - 1 - i; j++) {
+            if (arr[j] &gt; arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    int arr[] = {5, 2, 8, 1, 9, 3};
+    int len = sizeof(arr) / sizeof(arr[0]);
+
+    bubble_sort(arr, len);
+
+    for (int i = 0; i &lt; len; i++) {
+        printf(&quot;%d &quot;, arr[i]);
+    }
+    printf(&quot;\n&quot;);
+
+    return 0;
+}
+</code></pre>
+<h3 id="练习-3-字符串反转">练习 3：字符串反转</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+void reverse_string(char *str) {
+    int len = strlen(str);
+    int left = 0, right = len - 1;
+    while (left &lt; right) {
+        char temp = str[left];
+        str[left] = str[right];
+        str[right] = temp;
+        left++;
+        right--;
+    }
+}
+
+int main() {
+    char str[] = &quot;Hello, World!&quot;;
+    reverse_string(str);
+    printf(&quot;%s\n&quot;, str);  // !dlroW ,olleH
+    return 0;
+}
+</code></pre>
+<h3 id="练习-4-实现链表">练习 4：实现链表</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+typedef struct Node {
+    int data;
+    struct Node *next;
+} Node;
+
+Node *create_node(int data) {
+    Node *node = (Node *)malloc(sizeof(Node));
+    node-&gt;data = data;
+    node-&gt;next = NULL;
+    return node;
+}
+
+void print_list(Node *head) {
+    Node *p = head;
+    while (p != NULL) {
+        printf(&quot;%d -&gt; &quot;, p-&gt;data);
+        p = p-&gt;next;
+    }
+    printf(&quot;NULL\n&quot;);
+}
+
+int main() {
+    Node *head = create_node(1);
+    head-&gt;next = create_node(2);
+    head-&gt;next-&gt;next = create_node(3);
+
+    print_list(head);  // 1 -&gt; 2 -&gt; 3 -&gt; NULL
+
+    // 释放内存
+    Node *p = head;
+    while (p != NULL) {
+        Node *temp = p;
+        p = p-&gt;next;
+        free(temp);
+    }
+
+    return 0;
+}
+</code></pre>
+<h2 id="18-学习资源">18. 学习资源</h2>
+<h3 id="官方文档与参考">官方文档与参考</h3>
+<ul>
+<li><strong>cppreference</strong>: <a href="https://en.cppreference.com/w/c">https://en.cppreference.com/w/c</a> — 权威的 C 语言参考</li>
+<li><strong>C 标准文档</strong>: ISO/IEC 9899</li>
+</ul>
+<h3 id="在线练习">在线练习</h3>
+<ul>
+<li><strong>LeetCode</strong>: <a href="https://leetcode.com">https://leetcode.com</a> — 算法练习</li>
+<li><strong>HackerRank</strong>: <a href="https://www.hackerrank.com">https://www.hackerrank.com</a> — C 语言练习</li>
+</ul>
+<h3 id="推荐书籍">推荐书籍</h3>
+<ul>
+<li><strong>《C 程序设计语言》</strong>（K&amp;R）— C 语言之父的经典著作</li>
+<li><strong>《C Primer Plus》</strong> — 入门友好，内容详尽</li>
+<li><strong>《C 和指针》</strong> — 深入理解指针与内存</li>
+<li><strong>《C 专家编程》</strong> — 进阶读物</li>
+</ul>
+<h3 id="编译调试工具">编译调试工具</h3>
+<ul>
+<li><strong>GCC</strong> — GNU 编译器集合</li>
+<li><strong>Clang</strong> — LLVM 编译器前端</li>
+<li><strong>GDB</strong> — GNU 调试器</li>
+<li><strong>Valgrind</strong> — 内存泄漏检测工具</li>
+</ul></div>
+      <nav class="post-pager" aria-label="上下篇"><a class="pager-link" href="../%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88.html"><em>上一篇</em><b>计算机科学与编程十万个为什么</b></a><a class="pager-link next" href="../Go/Go%20benchmark%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html"><em>下一篇</em><b>Go Benchmark 最佳实战</b></a></nav>
+    </article>
+  </main>
+</div>
+<footer class="blog-foot">
+  <div class="wrap foot-inner">
+    <span>© 2026 逐梦笔记 · 由 <code>scripts/build_blog.py</code> 从 docs/ 自动生成</span>
+    <span>内容来源：<a href="https://github.com/ShiQianzhi/note" target="_blank" rel="noopener noreferrer">ShiQianzhi/note</a> · 同步于 2026-11-26</span>
+  </div>
+</footer>
+<script src="../../../blog.js"></script>
+</body>
+</html>

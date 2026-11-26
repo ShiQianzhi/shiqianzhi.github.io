@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南 · 逐梦笔记</title>
+<meta name="description" content="本文从零搭建一套可复现、可维护的 Python 数据分析与交互式开发环境，详细说明 Windows、macOS 和 Linux 的安装差异，并讲清楚 Conda 环境、Jupyter 服务与 Python 内核之间的关系。 文中默认使用命令…">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../../blog.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="../../../index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../../../index.html">首页</a>
+      <div class="nav-drop">
+        <a href="../../../knowledge.html">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="../../../knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="../../../knowledge.html#domains">五大知识域</a>
+          <a href="../../../knowledge.html#cross">交叉与前沿</a>
+          <a href="../../../knowledge.html#axes">三条贯穿轴</a>
+          <a href="../../../knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="../../../career.html">世界职业体系</a>
+      <a href="../../index.html" class="active">博客</a>
+      <a class="nav-cta" href="../../../knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-wrap">
+  
+    <aside class="blog-side">
+      <div class="side-head">
+        <a class="blog-brand" href="../../index.html">逐梦笔记<span>NOTES</span></a>
+        <button class="side-toggle" id="sideToggle" aria-expanded="false" aria-controls="sideBody">目录</button>
+      </div>
+      <div class="side-body" id="sideBody">
+        <div class="tree-search">
+          <input id="treeQ" type="search" placeholder="筛选 197 篇笔记…" aria-label="筛选笔记">
+        </div>
+        <nav class="tree" aria-label="博客目录"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI创作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI短剧制作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI写周报，把我写成了公司CEO</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E5%86%99%E5%91%A8%E6%8A%A5%EF%BC%8C%E6%8A%8A%E6%88%91%E5%86%99%E6%88%90%E4%BA%86%E5%85%AC%E5%8F%B8CEO/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI的最后一活</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%B4%BB/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%9B%E4%BD%9C%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html" title="AI 短剧创作保姆级教程：从一个想法到成片发布">AI 短剧创作保姆级教程：从一个想法到成片发布</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人生感悟</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/%E5%9C%A8%E5%89%A7%E5%8F%98%E4%B8%AD%E5%AF%BB%E8%B7%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8AI%E6%B5%AA%E6%BD%AE%E4%B8%8B%E6%8A%93%E4%BD%8F%E6%9C%BA%E9%81%87.html" title="在剧变中寻路：如何在 AI 浪潮下抓住机遇">在剧变中寻路：如何在 AI 浪潮下抓住机遇</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础学科</span><span class="tree-count">22</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数学</span><span class="tree-count">13</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">初等代数</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5.html" title="数的概念">数的概念</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E7%B1%BB%E5%88%AB.html" title="数的类别">数的类别</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E9%87%8F.html" title="数量">数量</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性代数</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F.html" title="向量（Vector）：从几何箭头到 AI 数据表示">向量（Vector）：从几何箭头到 AI 数据表示</a></div></details><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%8C%87%E6%95%B0%E8%BF%90%E7%AE%97.html" title="什么是指数运算">什么是指数运算</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%85%B3%E7%B3%BB.html" title="什么是线性关系">什么是线性关系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%87%A0%E4%BD%95%E5%85%A5%E9%97%A8.html" title="几何入门">几何入门</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97.html" title="四则运算">四则运算</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9F%BA%E6%9C%AC%E4%BB%A3%E6%95%B0.html" title="基本代数">基本代数</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E6%95%B0%E5%AD%A6.html" title="如何学习数学">如何学习数学</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%9A%E4%BB%8E0%E5%88%B0%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6.html" title="数学学习路线图：从0到高等数学">数学学习路线图：从0到高等数学</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E8%A1%A8%E7%A4%BA.html" title="数的分类与表示">数的分类与表示</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%AE%97%E6%9C%AF%E5%9F%BA%E7%A1%80.html" title="算术基础">算术基础</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">物理</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E4%BB%8E%E5%BE%AE%E8%A7%82%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E7%89%A9%E8%B4%A8%EF%BC%9A%E5%8E%9F%E5%AD%90%E3%80%81%E7%B2%92%E5%AD%90%E4%B8%8E%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8.html" title="从微观角度理解物质：原子、粒子与相互作用">从微观角度理解物质：原子、粒子与相互作用</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%89%A9%E8%B4%A8%E5%92%8C%E8%83%BD%E9%87%8F%E7%9A%84%E5%85%B3%E7%B3%BB.html" title="物质和能量的关系">物质和能量的关系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%90%86%E8%A7%A3%E7%94%B5%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%89%A9%E7%90%86%E5%9F%BA%E7%A1%80.html" title="理解电必须掌握的物理基础">理解电必须掌握的物理基础</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E%E5%8E%86%E5%8F%B2%E5%88%B0%E6%9C%AC%E8%B4%A8.html" title="电是什么：从历史到本质">电是什么：从历史到本质</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.html" title="电的原理与应用场景">电的原理与应用场景</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%A3%81%EF%BC%9A%E4%BB%8E%E7%94%B5%E5%9C%BA%E7%A3%81%E5%9C%BA%E5%88%B0%E7%94%B5%E7%A3%81%E6%B3%A2.html" title="电磁：从电场磁场到电磁波">电磁：从电场磁场到电磁波</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">语言</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">英语</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="英语学习笔记">英语学习笔记</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95.html" title="英语语法">英语语法</a></div></details><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%AF%AD%E6%B3%95.html" title="语法">语法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">心情随笔</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/%E5%85%AD%E7%A7%8D%E5%80%BC%E5%BE%97%E7%BB%93%E4%BA%A4%E4%B8%80%E8%BE%88%E5%AD%90%E7%9A%84%E4%BA%BA.html" title="六种值得结交一辈子的人">六种值得结交一辈子的人</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">生活常识</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">买房攻略</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98.html" title="下面是我总结了买房相关常见问题：">下面是我总结了买房相关常见问题：</a><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5.html" title="买房攻略">买房攻略</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">考驾照</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E8%80%83%E9%A9%BE%E7%85%A7/%E7%A7%91%E7%9B%AE%E4%B8%80.html" title="科目一刷题笔记">科目一刷题笔记</a></div></details><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E5%90%84%E8%A1%8C%E4%B8%9A%E5%85%A8%E6%99%AF%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%AE%9A%E4%B9%89%E3%80%81%E7%8E%B0%E7%8A%B6%E4%B8%8EAI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%9C%AA%E6%9D%A5.html" title="各行业全景解析：定义、现状与 AI 时代的未来">各行业全景解析：定义、现状与 AI 时代的未来</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">计算机科学</span><span class="tree-count">160</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Agent 开发</span><span class="tree-count">11</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">docs</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">superpowers</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">specs</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/docs/superpowers/specs/2026-11-06-enterprise-agent-course-design.html" title="企业级 Agent 混合架构课程设计">企业级 Agent 混合架构课程设计</a></div></details></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">learning-records</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/learning-records/0001-python-worker-first.html" title="Learning Record 0001: Python Agent Worker First">Learning Record 0001: Python Agent Worker First</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/learning-records/0002-agent-state-checkpoint-recovery.html" title="Learning Record 0002: Agent State and Checkpoint Recovery">Learning Record 0002: Agent State and Checkpoint Recovery</a></div></details><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Agent%20%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="Agent 开发学习路线">Agent 开发学习路线</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Agent%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.html" title="Agent开发核心知识点">Agent开发核心知识点</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Go-Python%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BD%ACAgent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B.html" title="Go/Python 后端工程师转 Agent 开发实战教程">Go/Python 后端工程师转 Agent 开发实战教程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/MISSION.html" title="Mission: 从 Python Agent Worker 学会企业级 Agent 开发">Mission: 从 Python Agent Worker 学会企业级 Agent 开发</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RAG.html" title="RAG">RAG</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RAG%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%A6%E7%BB%86%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html" title="RAG系统的详细工作流程">RAG系统的详细工作流程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E9%AB%98%E5%B9%B6%E5%8F%91%E4%BC%81%E4%B8%9A%E7%BA%A7Agent%E7%B3%BB%E7%BB%9F%E6%95%99%E7%A8%8B.html" title="从零搭建高并发企业级 Agent 系统教程">从零搭建高并发企业级 Agent 系统教程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RESOURCES.html" title="企业级 Agent 开发资源">企业级 Agent 开发资源</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人工智能</span><span class="tree-count">33</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI行业基础知识相关概念</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAI.html" title="什么是 AI">什么是 AI</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAIGC.html" title="什么是 AIGC">什么是 AIGC</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAgent.html" title="什么是 Agent">什么是 Agent</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG">什么是 RAG</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE.html" title="什么是向量数据">什么是向量数据</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是大模型">什么是大模型</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是语言大模型">什么是语言大模型</a></div></details><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93.html" title="AI 学习笔记总结">AI 学习笔记总结</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E5%BA%94%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="AI 应用工程师从入门到实战的最佳学习路线">AI 应用工程师从入门到实战的最佳学习路线</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Chroma%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Chroma 入门手册：从零上手最轻量的向量数据库">Chroma 入门手册：从零上手最轻量的向量数据库</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/LangChain%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="LangChain 入门手册：用搭积木的方式编排大模型应用">LangChain 入门手册：用搭积木的方式编排大模型应用</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Transformer%20%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.html" title="Transformer 注意力机制详解">Transformer 注意力机制详解</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BB%8B%E7%BB%8D.html" title="人工智能介绍">人工智能介绍</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%A6%E7%90%86%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="人工智能伦理与安全">人工智能伦理与安全</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG：检索增强生成从原理到实战">什么是 RAG：检索增强生成从原理到实战</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%8D%E5%90%91%E9%87%8F.html" title="什么是词向量">什么是词向量</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BANLP%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html" title="从零搭建NLP模型完全指南">从零搭建NLP模型完全指南</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%85%B3%E4%BA%8EAI%E7%9A%84%E7%95%85%E6%83%B3%E5%92%8C%E6%80%9D%E8%80%83.html" title="关于AI的畅想和思考">关于AI的畅想和思考</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%80%85AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师">后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93.html" title="向量数据库：语义搜索的存储与检索引擎">向量数据库：语义搜索的存储与检索引擎</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BA%B2.html" title="大模型应用实战知识总纲">大模型应用实战知识总纲</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAAgent.html" title="如何搭建一个 Agent">如何搭建一个 Agent</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="学习笔记">学习笔记</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html" title="强化学习">强化学习</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%96%87%E6%9C%AC%E6%98%AF%E5%A6%82%E4%BD%95%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E7%9A%84.html" title="文本是如何变成向量的：Embedding 推理管线全解析">文本是如何变成向量的：Embedding 推理管线全解析</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html" title="机器学习-线性回归">机器学习-线性回归</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="机器学习基础">机器学习基础</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="深度学习基础">深度学习基础</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html" title="神经网络">神经网络</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Agent%20%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="网页版知识库 Agent 搭建实战">网页版知识库 Agent 搭建实战</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86.html" title="自然语言处理">自然语言处理</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89.html" title="计算机视觉">计算机视觉</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E9%AB%98%E7%BB%B4%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%91%E9%87%8F%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%90%91%E9%87%8D%E5%BB%BA.html" title="高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容">高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础知识</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/DNS.html" title="DNS：从域名到 IP 地址的分布式解析系统">DNS：从域名到 IP 地址的分布式解析系统</a><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/HTTP.html" title="HTTP：从一次请求到现代 Web 传输体系">HTTP：从一次请求到现代 Web 传输体系</a><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84.html" title="互联网是如何工作的">互联网是如何工作的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%9F%E7%90%86.html" title="操作系统的原理">操作系统的原理</a><a class="tree-link" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F.html" title="深入理解计算机系统">深入理解计算机系统</a><a class="tree-link" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84.html" title="计算机是如何编码数据的">计算机是如何编码数据的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">8</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Elasticsearch</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/%E5%AE%89%E8%A3%85.html" title="创建网络">创建网络</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MongoDB</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念">基本概念</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%AE%89%E8%A3%85mongodb.html" title="安装mongodb">安装mongodb</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" title="数据库不存在会自动创建">数据库不存在会自动创建</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MySQL</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%9E%B6%E6%9E%84.html" title="MySQL 架构">MySQL 架构</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="MySQL数据库知识大纲">MySQL数据库知识大纲</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.html" title="存储引擎">存储引擎</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E7%B4%A2%E5%BC%95.html" title="索引">索引</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构与算法</span><span class="tree-count">10</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构</span><span class="tree-count">6</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数组和字符串</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C.html" title="数组的操作">数组的操作</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%A6%82%E8%BF%B0.html" title="概述">概述</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">树</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/%E6%A0%91.html" title="树">树</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性表</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8.html" title="线性表">线性表</a></div></details><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD.html" title="基本概念和术语">基本概念和术语</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E5%92%8C%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84.html" title="逻辑结构和物理结构">逻辑结构和物理结构</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">算法</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/K-Means.html" title="K-Means 聚类算法">K-Means 聚类算法</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97%E8%AF%A6%E8%A7%A3.html" title="位运算详解">位运算详解</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95.html" title="算法效率分析方法">算法效率分析方法</a></div></details></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">编程笔记</span><span class="tree-count">54</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C 语言学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="C%20%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="此时会生成 a.out（windows 会生成 a.exe）">此时会生成 a.out（windows 会生成 a.exe）</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Docker</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="Docker/docker%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Docker 入门手册：编写 Dockerfile、构建镜像与容器管理">Docker 入门手册：编写 Dockerfile、构建镜像与容器管理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言之旅</span><span class="tree-count">12</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架源码剖析</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Gin%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Gin%20%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Gin%E6%A1%86%E6%9E%B6%E5%BC%95%E6%93%8E%E5%AE%9E%E4%BE%8B.html" title="深入理解Gin框架引擎实例">深入理解Gin框架引擎实例</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言设计与实现</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%BA%90%E4%BB%A3%E7%A0%81.html" title="自己需要那个版本的 Go 标签，就用那个">自己需要那个版本的 Go 标签，就用那个</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言高级开发工程</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><a class="tree-link" href="Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html" title="Go 单元测试">Go 单元测试</a><a class="tree-link" href="Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><a class="tree-link" href="Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E9%98%B6%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7.html" title="Go 语言高阶实战技巧">Go 语言高阶实战技巧</a><a class="tree-link" href="Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Lua</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="Lua/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BLua%E8%84%9A%E6%9C%AC.html" title="&quot;Hello, scripting!&quot;">&quot;Hello, scripting!&quot;</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">kubernetes</span><span class="tree-count">17</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">从入门到实战</span><span class="tree-count">16</span></summary><div class="tree-children"><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/K8s%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2.html" title="Kubernetes 从入门到实战：完整知识学习大纲">Kubernetes 从入门到实战：完整知识学习大纲</a><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC10%E7%AB%A0-Ingress%E4%B8%8E%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1.html" title="第10章：Ingress 与流量路由">第10章：Ingress 与流量路由</a><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC11%E7%AB%A0-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%9B%E9%98%B6.html" title="第11章 控制器进阶">第11章 控制器进阶</a><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC12%E7%AB%A0-RBAC%E6%9D%83%E9%99%90%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="第12章 RBAC 权限与安全">第12章 RBAC 权限与安全</a><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html" title="第13章 监控日志与可观测性">第13章 监控日志与可观测性</a><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC14%E7%AB%A0-Helm%E5%8C%85%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第14章 Helm 包管理与应用部署">第14章 Helm 包管理与应用部署</a><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC15%E7%AB%A0-%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98-%E5%AE%8C%E6%95%B4%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2.html" title="第15章 综合实战：完整微服务项目部署">第15章 综合实战：完整微服务项目部署</a><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC1%E7%AB%A0-K8s%E6%A6%82%E8%BF%B0%E4%B8%8E%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3.html" title="第1章 K8s 概述与架构理解">第1章 K8s 概述与架构理解</a><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC2%E7%AB%A0-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="第2章 环境搭建实战">第2章 环境搭建实战</a><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC3%E7%AB%A0-Pod%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E6%88%98.html" title="第3章 Pod 核心概念与实战">第3章 Pod 核心概念与实战</a><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第4章 Deployment 与应用部署">第4章 Deployment 与应用部署</a><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC5%E7%AB%A0-Service%E4%B8%8E%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1.html" title="第5章：Service 与网络通信">第5章：Service 与网络通信</a><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC6%E7%AB%A0-ConfigMap%E4%B8%8ESecret%E7%AE%A1%E7%90%86.html" title="第6章：ConfigMap 与 Secret 管理">第6章：ConfigMap 与 Secret 管理</a><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC7%E7%AB%A0-Volume%E4%B8%8E%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8.html" title="第7章：Volume 与持久化存储">第7章：Volume 与持久化存储</a><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC8%E7%AB%A0-Namespace%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.html" title="第8章：Namespace 与资源管理">第8章：Namespace 与资源管理</a><a class="tree-link" href="kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC9%E7%AB%A0-%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6%E4%B8%8E%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86.html" title="第9章：调度机制与节点管理">第9章：调度机制与节点管理</a></div></details><a class="tree-link" href="kubernetes/HPA%E5%92%8CVPA%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="HPA 和 VPA 的区别">HPA 和 VPA 的区别</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">其他</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="%E5%85%B6%E4%BB%96/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80UML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="统一建模语言UML学习笔记">统一建模语言UML学习笔记</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Linux</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Centos</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/yum.html" title="yum">yum</a><a class="tree-link" href="%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/CentosStream8%20%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html" title="刷新配置">刷新配置</a><a class="tree-link" href="%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/Centos7.9%20%E5%AE%89%E8%A3%85%20node20%20%E5%AE%9E%E6%88%98.html" title="安装 nvm">安装 nvm</a></div></details><a class="tree-link" href="%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86.html" title="查看文件的大小">查看文件的大小</a></div></details><a class="tree-link" href="%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">mysql</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%AE%89%E8%A3%85mysql.html" title="CentOS Linux release 8.5.2111">CentOS Linux release 8.5.2111</a><a class="tree-link" href="%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E4%BB%80%E4%B9%88%E6%98%AFmysql.html" title="什么是mysql">什么是mysql</a><a class="tree-link" href="%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.html" title="注意不同的密码验证策略要求密码复杂度不一样。">注意不同的密码验证策略要求密码复杂度不一样。</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">缓存</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="%E7%BC%93%E5%AD%98/redis%20%E7%BC%93%E5%AD%98%E5%AE%9E%E6%88%98.html" title="redis 缓存实战">redis 缓存实战</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">软件开发与设计规范</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/%E6%8C%87%E5%AF%BC%E6%80%9D%E6%83%B3.html" title="指导思想">指导思想</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">领域驱动设计</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E4%BB%80%E4%B9%88%E6%98%AFDDD.html" title="什么是DDD">什么是DDD</a><a class="tree-link" href="%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E5%89%8D%E8%A8%80.html" title="前言">前言</a></div></details><a class="tree-link" href="Cookie%20%E8%AF%A6%E8%A7%A3.html" title="Cookie 详解">Cookie 详解</a><a class="tree-link" href="JWT%E8%AF%A6%E8%A7%A3.html" title="JWT 详解">JWT 详解</a><a class="tree-link" href="Raft%20%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3.html" title="Raft 协议详解">Raft 协议详解</a><a class="tree-link" href="WebRTC%20%E5%BA%95%E5%B1%82%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.html" title="WebRTC 底层工作原理详解">WebRTC 底层工作原理详解</a><a class="tree-link" href="curl%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="curl 使用手册">curl 使用手册</a><a class="tree-link" href="Git%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" title="克隆指定分支">克隆指定分支</a><a class="tree-link" href="%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95.html" title="分布式一致性算法">分布式一致性算法</a><a class="tree-link" href="%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="学习路线">学习路线</a><a class="tree-link active" href="%E6%90%AD%E5%BB%BA%20Conda%20%2B%20Jupyter%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" title="搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南">搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程语言</span><span class="tree-count">18</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/C%20%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="C 语言快速入门">C 语言快速入门</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20benchmark%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go Benchmark 最佳实战">Go Benchmark 最佳实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20pprof%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go pprof 最佳实战：从开发诊断到生产调优">Go pprof 最佳实战：从开发诊断到生产调优</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5.html" title="Go 底层原理与工程化实践">Go 底层原理与工程化实践</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码">Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E8%AF%AD%E8%A8%80%E9%AB%98%E6%95%88%E7%BC%96%E7%A8%8B%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8C%96.html" title="Go 语言高效编程：原理、可观测性与优化">Go 语言高效编程：原理、可观测性与优化</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A.html" title="Go开发工程师必知必会">Go开发工程师必知必会</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Python</span><span class="tree-count">8</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="NumPy 使用手册">NumPy 使用手册</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="NumPy 使用指南：从 ndarray 到数值计算实践">NumPy 使用指南：从 ndarray 到数值计算实践</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Pandas%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="Pandas 使用指南：从 Series/DataFrame 到数据分析实践">Pandas 使用指南：从 Series/DataFrame 到数据分析实践</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html" title="Python 异步编程：从原理到实战">Python 异步编程：从原理到实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="Python 快速入门">Python 快速入门</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Decorator%EF%BC%89%E6%80%BB%E7%BB%93.html" title="Python 装饰器（Decorator）总结">Python 装饰器（Decorator）总结</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E8%AE%A4%E8%AF%86Python.html" title="认识Python">认识Python</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%40staticmethod%20%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="静态方法是类的属性">静态方法是类的属性</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Rust</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Rust 入门手册：面向 Go 与 Python 开发者">Rust 入门手册：面向 Go 与 Python 开发者</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E7%A8%8B%E5%BA%8F%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86.html" title="程序底层执行原理：从一行源码到进程退出">程序底层执行原理：从一行源码到进程退出</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88.html" title="计算机科学与编程十万个为什么">计算机科学与编程十万个为什么</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机组成原理</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%BC%96%E7%A0%81.html" title="《编码》：从手电筒到计算机">《编码》：从手电筒到计算机</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%98%BE%E7%A4%BA%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="显示器的工作原理">显示器的工作原理</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%99%B6%E4%BD%93%E7%AE%A1.html" title="晶体管：小学生也能看懂的计算机“小开关”">晶体管：小学生也能看懂的计算机“小开关”</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84.html" title="程序是如何执行的">程序是如何执行的</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.html" title="计算机底层原理：程序、数据与网络如何从 0 到 1 运转">计算机底层原理：程序、数据与网络如何从 0 到 1 运转</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html" title="计算机组成">计算机组成</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="计算机组成原理">计算机组成原理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机网络</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BATCP-IP%E5%8D%8F%E8%AE%AE.html" title="深入浅出TCP-IP协议">深入浅出TCP-IP协议</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20OSI.html" title="计算机网络 - OSI">计算机网络 - OSI</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html" title="计算机网络 - 概述">计算机网络 - 概述</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="计算机网络工作原理：从输入 URL 到数据跨越互联网">计算机网络工作原理：从输入 URL 到数据跨越互联网</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">高性能服务设计与实现</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1.html" title="什么是高性能服务">什么是高性能服务</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88.html" title="后端服务安全方案">后端服务安全方案</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%AF%B4%E6%98%8E.html" title="后端服务性能指标体系">后端服务性能指标体系</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E7%99%BE%E4%B8%87%E7%BA%A7QPS%20API%E7%BD%91%E5%85%B3%E8%AE%BE%E8%AE%A1.html" title="如何设计一个支持百万级 QPS 的 API 网关">如何设计一个支持百万级 QPS 的 API 网关</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%99%90%E6%B5%81%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1.html" title="限流方案设计">限流方案设计</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%20Agent%20%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="高性能 Agent 服务架构设计与实现">高性能 Agent 服务架构设计与实现</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8F%AF%E8%A1%8C%E6%80%A7%E6%96%B9%E6%A1%88.html" title="高性能服务架构可行性方案">高性能服务架构可行性方案</a></div></details><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E5%A4%A7%E7%BA%B2.html" title="计算机知识学习先后顺序大纲">计算机知识学习先后顺序大纲</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="计算机科学知识大纲">计算机科学知识大纲</a></div></details><div class="tree-label">散篇</div><a class="tree-link" href="../../TODO.html" title="TODO">TODO</a><a class="tree-link" href="../../%E4%B8%AA%E4%BA%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E9%87%8D%E9%93%B8%E8%AE%A1%E5%88%92.html" title="个人基础知识重铸计划">个人基础知识重铸计划</a><a class="tree-link" href="../../%E5%8F%A5%E5%AD%90.html" title="句子">句子</a><a class="tree-link" href="../../%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E5%AD%A6%E4%B9%A0.html" title="如何高效的学习">如何高效的学习</a><a class="tree-link" href="../../%E6%97%B6%E9%97%B4%E8%83%B6%E5%9B%8A.html" title="时间胶囊">时间胶囊</a><a class="tree-link" href="../../%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA.html" title="网站导航">网站导航</a></nav>
+      </div>
+    </aside>
+  <main class="blog-main">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../../index.html">博客</a><span>/</span><span>计算机科学</span><span>/</span><span>编程笔记</span><span>/</span><span>搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</span></nav>
+    <article class="post">
+      <header class="post-head">
+        <div class="post-kicker">计算机科学 / 编程笔记</div>
+        <h1>搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</h1>
+        <div class="post-meta"><span>计算机科学/编程笔记/搭建 Conda + Jupyter 开发环境.md</span><span>约 6,030 字</span></div>
+      </header>
+      <div class="prose"><blockquote>
+<p>本文从零搭建一套可复现、可维护的 Python 数据分析与交互式开发环境，详细说明 Windows、macOS 和 Linux 的安装差异，并讲清楚 Conda 环境、Jupyter 服务与 Python 内核之间的关系。</p>
+<p>文中默认使用命令行操作。初学者可以直接按“快速路线”执行；需要维护多个项目时，建议采用后文的“服务环境与项目内核分离”方案。</p>
+</blockquote>
+<hr />
+<h2 id="一-先理解-conda-jupyter-与内核">一、先理解 Conda、Jupyter 与内核</h2>
+<p>在安装之前，必须先分清几个经常被混为一谈的组件。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>作用</th>
+<th>是否执行 Notebook 代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conda</td>
+<td>管理 Python 版本、依赖包和隔离环境</td>
+<td>否</td>
+</tr>
+<tr>
+<td>JupyterLab</td>
+<td>提供浏览器中的文件、编辑器和 Notebook 界面</td>
+<td>否</td>
+</tr>
+<tr>
+<td>Jupyter Server</td>
+<td>管理会话、文件、终端和内核连接</td>
+<td>否</td>
+</tr>
+<tr>
+<td>IPython</td>
+<td>Python 的交互式运行环境</td>
+<td>是</td>
+</tr>
+<tr>
+<td>ipykernel</td>
+<td>让某个 Python 环境能作为 Jupyter 内核运行</td>
+<td>是</td>
+</tr>
+<tr>
+<td>kernelspec</td>
+<td>告诉 Jupyter“内核名称、启动命令和 Python 路径”</td>
+<td>否</td>
+</tr>
+</tbody>
+</table></div>
+<p><img loading="lazy" decoding="async" alt="Conda、Jupyter 与内核关系" src="images/conda-jupyter-architecture.svg" /></p>
+<h3 id="1-conda-是什么">1. Conda 是什么</h3>
+<p>Conda 同时承担两种职责：</p>
+<ol>
+<li><strong>环境管理器</strong>：为不同项目创建相互隔离的 Python 与依赖环境；</li>
+<li><strong>包管理器</strong>：安装 Python 包以及 CUDA、C/C++ 动态库等非 Python 依赖。</li>
+</ol>
+<p>例如：</p>
+<pre><code class="language-text">base
+├── project-a：Python 3.11 + pandas 2.x
+├── project-b：Python 3.12 + PyTorch
+└── legacy-app：Python 3.9 + 旧版依赖
+</code></pre>
+<p>每个环境拥有独立的解释器和依赖，不需要反复覆盖系统 Python。</p>
+<h3 id="2-jupyter-是什么">2. Jupyter 是什么</h3>
+<p>Jupyter 是一套交互式计算体系。常用前端包括：</p>
+<ul>
+<li><strong>JupyterLab</strong>：功能完整，支持 Notebook、终端、文本编辑器和扩展，推荐使用；</li>
+<li><strong>Jupyter Notebook 7</strong>：界面更聚焦 Notebook；</li>
+<li><strong>VS Code Notebook</strong>：由 VS Code 提供界面，仍需选择正确的 Python 内核。</li>
+</ul>
+<p><code>.ipynb</code> 文件只保存代码单元、Markdown、输出结果和元数据，它本身不携带 Python 解释器与完整依赖。</p>
+<h3 id="3-为什么-启动-jupyter-的环境-不一定是-执行代码的环境">3. 为什么“启动 Jupyter 的环境”不一定是“执行代码的环境”</h3>
+<p>假设在 <code>jupyter-tools</code> 环境启动 JupyterLab：</p>
+<pre><code class="language-bash">conda activate jupyter-tools
+jupyter lab
+</code></pre>
+<p>页面中仍然可以选择 <code>project-a</code> 内核。此时：</p>
+<ul>
+<li>JupyterLab 服务进程来自 <code>jupyter-tools</code>；</li>
+<li>Notebook 中的代码由 <code>project-a</code> 的 Python 执行；</li>
+<li><code>import pandas</code> 查找的是 <code>project-a</code> 中的包；</li>
+<li>在终端里执行裸 <code>pip</code>，却可能修改另外一个环境。</li>
+</ul>
+<p>这正是大量“终端中可以导入，Notebook 中却找不到包”问题的根源。</p>
+<hr />
+<h2 id="二-选择-conda-发行版">二、选择 Conda 发行版</h2>
+<p>Conda 不是只能通过 Anaconda Distribution 获得。常见选择如下。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>发行版</th>
+<th>默认内容</th>
+<th>默认软件源</th>
+<th style="text-align: right;">体积</th>
+<th>适合人群</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Miniconda</td>
+<td>Conda、Python 和少量基础包</td>
+<td>Anaconda 默认源</td>
+<td style="text-align: right;">较小</td>
+<td>希望按需安装的个人用户</td>
+</tr>
+<tr>
+<td>Miniforge</td>
+<td>Conda、Mamba 和基础包</td>
+<td>conda-forge</td>
+<td style="text-align: right;">较小</td>
+<td>偏好社区源、跨架构或组织使用</td>
+</tr>
+<tr>
+<td>Anaconda Distribution</td>
+<td>数据科学常用包、Navigator 等</td>
+<td>Anaconda 默认源</td>
+<td style="text-align: right;">较大</td>
+<td>希望开箱即用且接受较多预装包的初学者</td>
+</tr>
+</tbody>
+</table></div>
+<p>本文以 <strong>Miniconda</strong> 为主要示例，Miniforge 的安装与日常命令基本相同。</p>
+<h3 id="1-推荐策略">1. 推荐策略</h3>
+<ul>
+<li>个人学习、希望最少预装内容：Miniconda；</li>
+<li>主要使用 <code>conda-forge</code>、重视 Apple Silicon 与多架构支持：Miniforge；</li>
+<li>不想手动安装常见科学计算包：Anaconda Distribution；</li>
+<li>企业或组织环境：先审查软件源服务条款，再决定使用 <code>defaults</code> 还是 <code>conda-forge</code>。</li>
+</ul>
+<blockquote>
+<p>Miniconda 和 Anaconda Distribution 默认连接 Anaconda Repository。组织使用前应核对最新服务条款和授权要求；Miniforge 默认使用社区维护的 <code>conda-forge</code>。</p>
+</blockquote>
+<h3 id="2-不建议直接使用系统-python">2. 不建议直接使用系统 Python</h3>
+<p>系统 Python 可能被操作系统组件依赖。在 Linux 和 macOS 中使用 <code>sudo pip install</code> 修改系统环境，容易导致包管理器冲突、权限混乱或系统工具损坏。</p>
+<p>推荐边界：</p>
+<pre><code class="language-text">操作系统 Python：留给系统
+Conda base：只维护 Conda 自身
+项目环境：安装项目依赖
+Jupyter tools：可选，集中安装 JupyterLab
+</code></pre>
+<hr />
+<h2 id="三-安装前检查">三、安装前检查</h2>
+<h3 id="1-确认-cpu-架构">1. 确认 CPU 架构</h3>
+<p>下载与 CPU 架构不匹配的安装包，可能无法运行，或只能通过模拟层低效运行。</p>
+<p><strong>Windows PowerShell</strong></p>
+<pre><code class="language-powershell">$env:PROCESSOR_ARCHITECTURE
+</code></pre>
+<p>常见结果：</p>
+<ul>
+<li><code>AMD64</code>：选择 Windows x86_64；</li>
+<li><code>ARM64</code>：优先选择 Windows ARM64 安装器；若发行版暂未提供，再评估 x86_64 模拟。</li>
+</ul>
+<p><strong>macOS</strong></p>
+<pre><code class="language-bash">uname -m
+</code></pre>
+<ul>
+<li><code>arm64</code>：Apple Silicon，选择 <code>MacOSX-arm64</code>；</li>
+<li><code>x86_64</code>：Intel Mac，选择 <code>MacOSX-x86_64</code>。</li>
+</ul>
+<p><strong>Linux</strong></p>
+<pre><code class="language-bash">uname -m
+</code></pre>
+<ul>
+<li><code>x86_64</code>：选择 <code>Linux-x86_64</code>；</li>
+<li><code>aarch64</code> 或 <code>arm64</code>：选择 <code>Linux-aarch64</code>；</li>
+<li>其他架构：先确认所选发行版是否提供安装器和软件包。</li>
+</ul>
+<h3 id="2-规划安装位置">2. 规划安装位置</h3>
+<p>Conda 不要求管理员或 root 权限。推荐安装到当前用户可写目录。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>系统</th>
+<th>常见位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows</td>
+<td><code>C:\Users\&lt;用户名&gt;\miniconda3</code></td>
+</tr>
+<tr>
+<td>macOS</td>
+<td><code>/Users/&lt;用户名&gt;/miniconda3</code></td>
+</tr>
+<tr>
+<td>Linux</td>
+<td><code>/home/&lt;用户名&gt;/miniconda3</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>注意事项：</p>
+<ul>
+<li>安装路径尽量避免特殊符号；</li>
+<li>Windows 下部分旧工具对空格和非 ASCII 路径支持不佳；</li>
+<li>不要为了省事安装到系统目录后长期使用管理员权限；</li>
+<li>预留足够空间，环境和包缓存可能增长到数 GB 甚至数十 GB。</li>
+</ul>
+<h3 id="3-从官方地址下载">3. 从官方地址下载</h3>
+<ul>
+<li>Conda 安装指南：<a href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/">https://docs.conda.io/projects/conda/en/latest/user-guide/install/</a></li>
+<li>Miniconda：<a href="https://www.anaconda.com/docs/getting-started/miniconda/install">https://www.anaconda.com/docs/getting-started/miniconda/install</a></li>
+<li>Miniforge：<a href="https://conda-forge.org/download/">https://conda-forge.org/download/</a></li>
+<li>Jupyter 安装指南：<a href="https://jupyter.org/install">https://jupyter.org/install</a></li>
+</ul>
+<p>不要从不可信的网盘、论坛附件或脚本镜像下载安装器。</p>
+<h3 id="4-校验-sha-256">4. 校验 SHA-256</h3>
+<p>下载后，将计算结果与官方发布的 SHA-256 比较。任何一个字符不同都不应继续安装。</p>
+<p><strong>Windows PowerShell</strong></p>
+<pre><code class="language-powershell">Get-FileHash .\Miniconda3-latest-Windows-x86_64.exe -Algorithm SHA256
+</code></pre>
+<p><strong>macOS</strong></p>
+<pre><code class="language-bash">shasum -a 256 Miniconda3-latest-MacOSX-arm64.sh
+</code></pre>
+<p><strong>Linux</strong></p>
+<pre><code class="language-bash">sha256sum Miniconda3-latest-Linux-x86_64.sh
+</code></pre>
+<blockquote>
+<p><code>latest</code> 安装器便于个人安装，但自动化部署应锁定明确版本和校验值，避免同一脚本在不同时间得到不同结果。</p>
+</blockquote>
+<hr />
+<h2 id="四-windows-安装">四、Windows 安装</h2>
+<p>Windows 推荐使用图形安装器，再通过 Miniconda Prompt 完成初始化。</p>
+<h3 id="1-图形界面安装">1. 图形界面安装</h3>
+<ol>
+<li>下载与架构匹配的 <code>.exe</code> 安装器；</li>
+<li>双击运行安装程序；</li>
+<li>安装范围选择 <strong>Just Me</strong>；</li>
+<li>安装位置使用当前用户目录；</li>
+<li>完成安装后，从开始菜单打开 <strong>Miniconda Prompt</strong>。</li>
+</ol>
+<p>安装选项建议：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>建议</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Add Miniconda to PATH</td>
+<td>不勾选</td>
+<td>避免覆盖系统中已有 Python 与命令</td>
+</tr>
+<tr>
+<td>Register Miniconda as default Python</td>
+<td>按需，通常不勾选</td>
+<td>IDE 可以单独选择解释器，无需接管全局 Python</td>
+</tr>
+<tr>
+<td>Clear package cache</td>
+<td>初次安装无需</td>
+<td>后续可用 Conda 命令清理</td>
+</tr>
+</tbody>
+</table></div>
+<p>不加入系统 <code>PATH</code> 并不影响使用。Miniconda Prompt 会加载所需环境。</p>
+<h3 id="2-验证安装">2. 验证安装</h3>
+<p>在 <strong>Miniconda Prompt</strong> 中执行：</p>
+<pre><code class="language-bat">conda --version
+conda info
+conda list
+where conda
+where python
+</code></pre>
+<p>输出路径应指向 Miniconda 安装目录。</p>
+<h3 id="3-初始化-powershell">3. 初始化 PowerShell</h3>
+<pre><code class="language-powershell">conda init powershell
+</code></pre>
+<p>关闭全部 PowerShell 窗口，再重新打开。</p>
+<p>验证：</p>
+<pre><code class="language-powershell">conda info --envs
+conda activate base
+python --version
+Get-Command python
+</code></pre>
+<p>若 PowerShell 报“无法加载配置文件，因为系统禁止运行脚本”，先查看策略：</p>
+<pre><code class="language-powershell">Get-ExecutionPolicy -List
+</code></pre>
+<p>仅为当前用户设置较温和的策略：</p>
+<pre><code class="language-powershell">Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+</code></pre>
+<p>这会修改当前用户的脚本执行策略，应理解组织安全要求后再执行。受管设备应由管理员按策略处理，不要绕过企业控制。</p>
+<h3 id="4-初始化-cmd">4. 初始化 CMD</h3>
+<p>若主要使用传统命令提示符：</p>
+<pre><code class="language-bat">conda init cmd.exe
+</code></pre>
+<p>关闭并重新打开 CMD 后测试：</p>
+<pre><code class="language-bat">conda activate base
+where python
+</code></pre>
+<h3 id="5-windows-静默安装">5. Windows 静默安装</h3>
+<p>适用于自动化部署。参数区分大小写，<code>/D</code> 必须放在最后，且安装路径不加引号。</p>
+<pre><code class="language-bat">start /wait &quot;&quot; Miniconda3-latest-Windows-x86_64.exe ^
+  /InstallationType=JustMe ^
+  /RegisterPython=0 ^
+  /AddToPath=0 ^
+  /S ^
+  /D=%UserProfile%\miniconda3
+</code></pre>
+<p>自动化脚本不要长期使用 <code>latest</code> 文件名，应锁定安装器版本、下载地址和 SHA-256。</p>
+<h3 id="6-git-bash">6. Git Bash</h3>
+<p>先在 Miniconda Prompt 中初始化 Bash：</p>
+<pre><code class="language-bat">conda init bash
+</code></pre>
+<p>重新打开 Git Bash。若仍无法识别，可直接调用安装目录中的初始化脚本进行诊断：</p>
+<pre><code class="language-bash">source ~/miniconda3/etc/profile.d/conda.sh
+conda activate base
+</code></pre>
+<p>具体路径取决于 Git Bash 如何映射 Windows 用户目录。</p>
+<hr />
+<h2 id="五-macos-安装">五、macOS 安装</h2>
+<p>macOS 需要先区分 Apple Silicon 与 Intel。</p>
+<h3 id="1-确认架构">1. 确认架构</h3>
+<pre><code class="language-bash">uname -m
+</code></pre>
+<p>Apple Silicon 应优先安装原生 <code>arm64</code> 版本。只有依赖明确不支持 ARM 时，才考虑通过 Rosetta 使用 <code>osx-64</code> 环境。</p>
+<h3 id="2-使用-shell-安装器">2. 使用 Shell 安装器</h3>
+<p>以下以 Apple Silicon 为例：</p>
+<pre><code class="language-bash">cd ~/Downloads
+shasum -a 256 Miniconda3-latest-MacOSX-arm64.sh
+bash Miniconda3-latest-MacOSX-arm64.sh
+</code></pre>
+<p>Intel Mac 替换为：</p>
+<pre><code class="language-bash">bash Miniconda3-latest-MacOSX-x86_64.sh
+</code></pre>
+<p>安装过程：</p>
+<ol>
+<li>按 Enter 阅读协议；</li>
+<li>输入 <code>yes</code> 接受协议；</li>
+<li>确认安装目录；</li>
+<li>同意运行 <code>conda init</code>；</li>
+<li>关闭并重新打开终端。</li>
+</ol>
+<h3 id="3-初始化-zsh">3. 初始化 Zsh</h3>
+<p>现代 macOS 默认使用 Zsh：</p>
+<pre><code class="language-bash">~/miniconda3/bin/conda init zsh
+exec zsh
+</code></pre>
+<p>验证：</p>
+<pre><code class="language-bash">conda --version
+conda info
+which conda
+which python
+</code></pre>
+<h3 id="4-使用-bash">4. 使用 Bash</h3>
+<pre><code class="language-bash">~/miniconda3/bin/conda init bash
+exec bash
+</code></pre>
+<h3 id="5-apple-silicon-与-intel-依赖">5. Apple Silicon 与 Intel 依赖</h3>
+<p>原生 ARM 环境：</p>
+<pre><code class="language-bash">conda create -n native-py python=3.12
+</code></pre>
+<p>只有确有需要时才创建 Intel 环境：</p>
+<pre><code class="language-bash">conda create --platform osx-64 -n intel-py python=3.11
+</code></pre>
+<p>注意：</p>
+<ul>
+<li><code>--platform</code> 应在创建环境时指定；</li>
+<li>Intel 包通常需要 Rosetta 2；</li>
+<li>不要在同一个环境中混装 <code>osx-arm64</code> 与 <code>osx-64</code> 包；</li>
+<li>首选原生 ARM 依赖，模拟环境仅作为兼容方案；</li>
+<li>跨平台求解成功不代表二进制能在当前系统原生运行。</li>
+</ul>
+<p>检查当前 Conda 平台：</p>
+<pre><code class="language-bash">conda info | grep platform
+</code></pre>
+<hr />
+<h2 id="六-linux-安装">六、Linux 安装</h2>
+<p>以下步骤适用于常见桌面版和服务器发行版，如 Ubuntu、Debian、Fedora、Rocky Linux 等。Conda 用户级安装通常与系统包管理器无关。</p>
+<h3 id="1-确认架构并下载对应安装器">1. 确认架构并下载对应安装器</h3>
+<pre><code class="language-bash">uname -m
+</code></pre>
+<p>以 x86_64 为例：</p>
+<pre><code class="language-bash">cd /tmp
+curl -fLO https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+</code></pre>
+<p>ARM64 使用：</p>
+<pre><code class="language-bash">curl -fLO https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh
+</code></pre>
+<p>若系统没有 <code>curl</code>，可使用 <code>wget</code>：</p>
+<pre><code class="language-bash">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+</code></pre>
+<p>下载前应从官方页面取得当前 SHA-256，随后校验：</p>
+<pre><code class="language-bash">sha256sum Miniconda3-latest-Linux-x86_64.sh
+</code></pre>
+<h3 id="2-交互式安装">2. 交互式安装</h3>
+<pre><code class="language-bash">bash Miniconda3-latest-Linux-x86_64.sh
+</code></pre>
+<p>安装完成后重新打开终端，或加载配置：</p>
+<pre><code class="language-bash">source ~/.bashrc
+</code></pre>
+<h3 id="3-初始化不同-shell">3. 初始化不同 Shell</h3>
+<p><strong>Bash</strong></p>
+<pre><code class="language-bash">~/miniconda3/bin/conda init bash
+exec bash
+</code></pre>
+<p><strong>Zsh</strong></p>
+<pre><code class="language-bash">~/miniconda3/bin/conda init zsh
+exec zsh
+</code></pre>
+<p><strong>Fish</strong></p>
+<pre><code class="language-fish">fish_add_path ~/miniconda3/condabin
+conda init fish
+exec fish
+</code></pre>
+<p>查看 <code>conda init</code> 将修改什么，而不真正写入：</p>
+<pre><code class="language-bash">conda init --dry-run --verbose bash
+</code></pre>
+<p>撤销初始化：</p>
+<pre><code class="language-bash">conda init --reverse bash
+</code></pre>
+<h3 id="4-无交互安装">4. 无交互安装</h3>
+<p>适合服务器、CI 和开发容器：</p>
+<pre><code class="language-bash">bash Miniconda3-latest-Linux-x86_64.sh \
+  -b \
+  -p &quot;$HOME/miniconda3&quot;
+
+&quot;$HOME/miniconda3/bin/conda&quot; init bash
+</code></pre>
+<p>参数含义：</p>
+<ul>
+<li><code>-b</code>：批处理模式，不进入交互提示；</li>
+<li><code>-p</code>：指定安装目录。</li>
+</ul>
+<p>自动化环境中也可以不执行 <code>conda init</code>，而直接使用完整路径或 <code>conda run</code>：</p>
+<pre><code class="language-bash">&quot;$HOME/miniconda3/bin/conda&quot; create -y -n notebook python=3.12
+&quot;$HOME/miniconda3/bin/conda&quot; run -n notebook python --version
+</code></pre>
+<p>这种方式不会修改 Shell 配置，更适合 CI。</p>
+<h3 id="5-服务器权限原则">5. 服务器权限原则</h3>
+<ul>
+<li>不使用 <code>sudo bash Miniconda...</code> 进行个人安装；</li>
+<li>不把个人环境放入 <code>/usr</code>；</li>
+<li>多用户共用环境时，需要统一规划只读基础环境和可写缓存；</li>
+<li>生产服务器不要直接暴露无认证的 Jupyter；</li>
+<li>避免在网络文件系统中创建大量环境，包链接和小文件操作可能很慢。</li>
+</ul>
+<hr />
+<h2 id="七-安装后的基础配置">七、安装后的基础配置</h2>
+<h3 id="1-更新-conda">1. 更新 Conda</h3>
+<pre><code class="language-bash">conda update -n base conda
+</code></pre>
+<p>先查看计划，再确认执行。自动化场景可使用 <code>-y</code>，交互使用时不建议盲目跳过变更审查。</p>
+<h3 id="2-禁止自动激活-base">2. 禁止自动激活 base</h3>
+<p>默认终端前缀可能出现 <code>(base)</code>。为避免误把包安装到 base：</p>
+<pre><code class="language-bash">conda config --set auto_activate_base false
+</code></pre>
+<p>重新打开终端后生效。需要时再执行：</p>
+<pre><code class="language-bash">conda activate base
+</code></pre>
+<h3 id="3-查看配置来源">3. 查看配置来源</h3>
+<pre><code class="language-bash">conda config --show-sources
+conda config --show
+</code></pre>
+<p>常见配置文件是用户目录下的 <code>.condarc</code>。Windows 中也可能显示其他层级的配置来源。</p>
+<h3 id="4-软件源策略">4. 软件源策略</h3>
+<p>同一个环境应尽量保持渠道一致，避免混合渠道产生 ABI 或依赖冲突。</p>
+<p>如果决定使用 <code>conda-forge</code>：</p>
+<pre><code class="language-bash">conda config --add channels conda-forge
+conda config --set channel_priority strict
+</code></pre>
+<p>检查：</p>
+<pre><code class="language-bash">conda config --show channels
+conda config --show channel_priority
+</code></pre>
+<p>如果使用 Miniforge，通常已经预配置 <code>conda-forge</code>。不要在不了解影响时反复调整全局 channel 顺序。</p>
+<h3 id="5-基础诊断">5. 基础诊断</h3>
+<pre><code class="language-bash">conda info
+conda config --show-sources
+conda info --envs
+conda list -n base
+</code></pre>
+<hr />
+<h2 id="八-推荐方案一-单项目快速搭建">八、推荐方案一：单项目快速搭建</h2>
+<p>该方案把 JupyterLab 和项目依赖装在同一个环境中，概念简单，适合第一次使用。</p>
+<p><img loading="lazy" decoding="async" alt="单环境与多环境两种部署方案" src="images/conda-jupyter-deployment-modes.svg" /></p>
+<h3 id="1-创建环境">1. 创建环境</h3>
+<p>本文示例固定 Python 的主次版本，不直接追随最新版本：</p>
+<pre><code class="language-bash">conda create -n data-lab python=3.12 pip
+</code></pre>
+<p>激活：</p>
+<pre><code class="language-bash">conda activate data-lab
+</code></pre>
+<p>确认解释器：</p>
+<pre><code class="language-bash">python --version
+python -c &quot;import sys; print(sys.executable)&quot;
+</code></pre>
+<h3 id="2-安装-jupyterlab-与常用依赖">2. 安装 JupyterLab 与常用依赖</h3>
+<p>使用默认 channel：</p>
+<pre><code class="language-bash">conda install jupyterlab ipykernel numpy pandas matplotlib
+</code></pre>
+<p>明确使用 <code>conda-forge</code>：</p>
+<pre><code class="language-bash">conda install -c conda-forge jupyterlab ipykernel numpy pandas matplotlib
+</code></pre>
+<p>不要在同一条指南中一会儿使用 <code>defaults</code>、一会儿使用 <code>conda-forge</code>。选定渠道后尽量保持一致。</p>
+<h3 id="3-启动-jupyterlab">3. 启动 JupyterLab</h3>
+<p>切换到项目目录：</p>
+<p><strong>Windows PowerShell</strong></p>
+<pre><code class="language-powershell">Set-Location D:\workspace\my-data-project
+jupyter lab
+</code></pre>
+<p><strong>macOS / Linux</strong></p>
+<pre><code class="language-bash">cd ~/workspace/my-data-project
+jupyter lab
+</code></pre>
+<p>默认会：</p>
+<ol>
+<li>在本机启动 Jupyter Server；</li>
+<li>监听本地回环地址；</li>
+<li>打开浏览器；</li>
+<li>显示当前目录中的文件。</li>
+</ol>
+<p>若不希望自动打开浏览器：</p>
+<pre><code class="language-bash">jupyter lab --no-browser
+</code></pre>
+<p>指定端口：</p>
+<pre><code class="language-bash">jupyter lab --port 8890
+</code></pre>
+<h3 id="4-notebook-中验证环境">4. Notebook 中验证环境</h3>
+<p>新建 Notebook 后执行：</p>
+<pre><code class="language-python">import os
+import sys
+import platform
+
+print(&quot;Python:&quot;, sys.version)
+print(&quot;解释器:&quot;, sys.executable)
+print(&quot;系统:&quot;, platform.platform())
+print(&quot;工作目录:&quot;, os.getcwd())
+</code></pre>
+<p>再验证依赖：</p>
+<pre><code class="language-python">import numpy as np
+import pandas as pd
+import matplotlib
+
+print(&quot;NumPy:&quot;, np.__version__)
+print(&quot;pandas:&quot;, pd.__version__)
+print(&quot;Matplotlib:&quot;, matplotlib.__version__)
+</code></pre>
+<p><code>sys.executable</code> 应位于 <code>data-lab</code> 环境目录。</p>
+<h3 id="5-停止服务">5. 停止服务</h3>
+<p>在启动 JupyterLab 的终端中按：</p>
+<pre><code class="language-text">Ctrl + C
+</code></pre>
+<p>根据提示确认关闭。关闭浏览器标签页并不会自动停止服务器。</p>
+<hr />
+<h2 id="九-推荐方案二-jupyter-服务与项目内核分离">九、推荐方案二：Jupyter 服务与项目内核分离</h2>
+<p>维护多个项目时，不必在每个环境重复安装完整 JupyterLab。推荐：</p>
+<pre><code class="language-text">jupyter-tools：只安装 JupyterLab
+project-a：安装项目依赖 + ipykernel
+project-b：安装项目依赖 + ipykernel
+</code></pre>
+<h3 id="1-创建-jupyter-服务环境">1. 创建 Jupyter 服务环境</h3>
+<pre><code class="language-bash">conda create -n jupyter-tools python=3.12 jupyterlab
+</code></pre>
+<h3 id="2-创建项目环境">2. 创建项目环境</h3>
+<pre><code class="language-bash">conda create -n project-a python=3.12 pip ipykernel numpy pandas matplotlib
+conda activate project-a
+</code></pre>
+<h3 id="3-注册项目内核">3. 注册项目内核</h3>
+<pre><code class="language-bash">python -m ipykernel install \
+  --user \
+  --name project-a \
+  --display-name &quot;Python (project-a)&quot;
+</code></pre>
+<p>Windows CMD 不支持反斜杠续行，可写成一行：</p>
+<pre><code class="language-bat">python -m ipykernel install --user --name project-a --display-name &quot;Python (project-a)&quot;
+</code></pre>
+<p>参数含义：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--user</code></td>
+<td>将 kernelspec 注册到当前用户范围</td>
+</tr>
+<tr>
+<td><code>--name</code></td>
+<td>内部唯一名称，建议只用字母、数字、连字符</td>
+</tr>
+<tr>
+<td><code>--display-name</code></td>
+<td>Jupyter 界面中显示的名称</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="4-启动集中式-jupyterlab">4. 启动集中式 JupyterLab</h3>
+<pre><code class="language-bash">conda activate jupyter-tools
+jupyter lab
+</code></pre>
+<p>新建 Notebook 时选择 <code>Python (project-a)</code>。</p>
+<h3 id="5-检查内核">5. 检查内核</h3>
+<pre><code class="language-bash">jupyter kernelspec list
+</code></pre>
+<p>在 Notebook 中验证：</p>
+<pre><code class="language-python">import sys
+
+print(sys.executable)
+</code></pre>
+<p>路径必须指向 <code>project-a</code>，而不是 <code>jupyter-tools</code>。</p>
+<h3 id="6-删除内核">6. 删除内核</h3>
+<p>先查看名称：</p>
+<pre><code class="language-bash">jupyter kernelspec list
+</code></pre>
+<p>再删除：</p>
+<pre><code class="language-bash">jupyter kernelspec remove project-a
+</code></pre>
+<p>删除 kernelspec 只移除 Jupyter 菜单项，不会删除 Conda 环境。</p>
+<h3 id="7-环境删除前先清理内核">7. 环境删除前先清理内核</h3>
+<pre><code class="language-bash">jupyter kernelspec remove project-a
+conda remove -n project-a --all
+</code></pre>
+<p>否则 Jupyter 中可能残留一个指向不存在 Python 的“幽灵内核”。</p>
+<hr />
+<h2 id="十-conda-环境日常管理">十、Conda 环境日常管理</h2>
+<h3 id="1-创建与激活">1. 创建与激活</h3>
+<pre><code class="language-bash">conda create -n my-project python=3.12 pip
+conda activate my-project
+</code></pre>
+<h3 id="2-退出环境">2. 退出环境</h3>
+<pre><code class="language-bash">conda deactivate
+</code></pre>
+<h3 id="3-查看环境">3. 查看环境</h3>
+<pre><code class="language-bash">conda env list
+conda info --envs
+</code></pre>
+<p>星号表示当前激活环境。</p>
+<h3 id="4-查看与搜索包">4. 查看与搜索包</h3>
+<pre><code class="language-bash">conda list
+conda list pandas
+conda search pandas
+</code></pre>
+<h3 id="5-安装-更新与删除包">5. 安装、更新与删除包</h3>
+<pre><code class="language-bash">conda install pandas
+conda update pandas
+conda remove pandas
+</code></pre>
+<p>指定环境而不激活：</p>
+<pre><code class="language-bash">conda install -n my-project pandas
+</code></pre>
+<h3 id="6-克隆环境">6. 克隆环境</h3>
+<pre><code class="language-bash">conda create -n my-project-test --clone my-project
+</code></pre>
+<p>适合升级大型依赖前做临时验证，但不应代替可版本控制的环境定义文件。</p>
+<h3 id="7-删除环境">7. 删除环境</h3>
+<p>先退出目标环境：</p>
+<pre><code class="language-bash">conda deactivate
+conda remove -n my-project --all
+</code></pre>
+<h3 id="8-清理缓存">8. 清理缓存</h3>
+<p>先查看可清理内容：</p>
+<pre><code class="language-bash">conda clean --dry-run --all
+</code></pre>
+<p>确认后：</p>
+<pre><code class="language-bash">conda clean --all
+</code></pre>
+<p>缓存可以加速新环境创建。磁盘空间不紧张时，无需频繁清理。</p>
+<hr />
+<h2 id="十一-正确处理-conda-与-pip">十一、正确处理 Conda 与 pip</h2>
+<p>Conda 和 pip 可以共存，但需要明确规则。</p>
+<p><img loading="lazy" decoding="async" alt="Conda 与 pip 的正确安装顺序" src="images/conda-pip-install-order.svg" /></p>
+<h3 id="1-推荐顺序">1. 推荐顺序</h3>
+<ol>
+<li>创建独立 Conda 环境；</li>
+<li>优先用 Conda 安装二进制和科学计算依赖；</li>
+<li>Conda 找不到的包，再使用该环境的 pip；</li>
+<li>pip 安装完成后，尽量不要再大规模修改底层 Conda 依赖；</li>
+<li>环境冲突严重时，依据环境文件重建，不要无限修补。</li>
+</ol>
+<h3 id="2-永远确认-pip-属于哪个-python">2. 永远确认 pip 属于哪个 Python</h3>
+<p>推荐：</p>
+<pre><code class="language-bash">python -m pip install package-name
+</code></pre>
+<p>不推荐直接假设：</p>
+<pre><code class="language-bash">pip install package-name
+</code></pre>
+<p>检查：</p>
+<p><strong>Windows</strong></p>
+<pre><code class="language-powershell">where.exe python
+where.exe pip
+python -m pip --version
+</code></pre>
+<p><strong>macOS / Linux</strong></p>
+<pre><code class="language-bash">which python
+which pip
+python -m pip --version
+</code></pre>
+<h3 id="3-notebook-中安装包">3. Notebook 中安装包</h3>
+<p>优先使用 IPython 的 <code>%pip</code> 魔法：</p>
+<pre><code class="language-python">%pip install package-name
+</code></pre>
+<p>需要使用 Conda 时：</p>
+<pre><code class="language-python">%conda install pandas
+</code></pre>
+<p>相比 <code>!pip install</code>，<code>%pip</code> 更能确保安装目标与当前内核一致。安装涉及底层库或导入缓存时，完成后重启内核。</p>
+<h3 id="4-避免用户级-pip-污染">4. 避免用户级 pip 污染</h3>
+<p>不要在 Conda 环境中随意执行：</p>
+<pre><code class="language-bash">pip install --user package-name
+</code></pre>
+<p><code>--user</code> 会把包安装到用户级目录，可能越过 Conda 环境边界，造成环境不可复现。</p>
+<hr />
+<h2 id="十二-环境复现与版本锁定">十二、环境复现与版本锁定</h2>
+<p>“我的电脑能运行”不是完成标准。项目应包含环境定义。</p>
+<h3 id="1-手写-environment-yml">1. 手写 environment.yml</h3>
+<p>推荐维护一个简洁、以直接依赖为主的文件：</p>
+<pre><code class="language-yaml">name: data-lab
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - jupyterlab=4
+  - ipykernel
+  - numpy=2
+  - pandas=2
+  - matplotlib=3
+  - pip
+  - pip:
+      - some-pypi-only-package==1.2.3
+</code></pre>
+<p>设计原则：</p>
+<ul>
+<li>锁定 Python 主次版本；</li>
+<li>核心库至少锁定主版本，生产项目应更严格；</li>
+<li>Conda 依赖写在 <code>pip</code> 之前；</li>
+<li><code>pip:</code> 中只放 Conda 渠道没有或必须从 PyPI 安装的包；</li>
+<li>不把本机路径、密钥和临时开发包写入共享文件。</li>
+</ul>
+<h3 id="2-从文件创建">2. 从文件创建</h3>
+<p>兼容性最广的命令：</p>
+<pre><code class="language-bash">conda env create -f environment.yml
+</code></pre>
+<p>激活：</p>
+<pre><code class="language-bash">conda activate data-lab
+</code></pre>
+<p>更新已有环境：</p>
+<pre><code class="language-bash">conda env update -n data-lab -f environment.yml --prune
+</code></pre>
+<p><code>--prune</code> 会删除文件中不再声明的 Conda 包，执行前应检查变更和备份重要环境。</p>
+<h3 id="3-导出环境">3. 导出环境</h3>
+<p>较新版本 Conda 支持：</p>
+<pre><code class="language-bash">conda export --file environment.yml
+</code></pre>
+<p>传统兼容命令：</p>
+<pre><code class="language-bash">conda env export --from-history &gt; environment.yml
+</code></pre>
+<p><code>--from-history</code> 主要记录主动安装的顶层 Conda 依赖，更适合跨平台共享，但可能不完整记录 pip 包，需要人工补充检查。</p>
+<p>完整快照：</p>
+<pre><code class="language-bash">conda env export &gt; environment-full.yml
+</code></pre>
+<p>完整快照包含大量平台相关的传递依赖和构建编号，适合同平台诊断，不适合作为唯一的跨平台项目定义。</p>
+<h3 id="4-精确复现与跨平台复现的区别">4. 精确复现与跨平台复现的区别</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>目标</th>
+<th>推荐文件</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>跨 Windows、macOS、Linux</td>
+<td>精简 <code>environment.yml</code></td>
+<td>声明直接依赖，允许各平台求解</td>
+</tr>
+<tr>
+<td>同平台近似复现</td>
+<td>完整环境 YAML</td>
+<td>包含传递依赖，约束较多</td>
+</tr>
+<tr>
+<td>同架构精确复现</td>
+<td>explicit 规格或锁文件</td>
+<td>含具体构建与 URL，不可直接跨平台</td>
+</tr>
+</tbody>
+</table></div>
+<p>不要把 Windows 导出的底层构建列表直接当成 macOS 或 Linux 的通用环境定义。</p>
+<h3 id="5-跨平台项目结构">5. 跨平台项目结构</h3>
+<pre><code class="language-text">my-project/
+├── environment.yml
+├── notebooks/
+├── src/
+├── data/
+│   └── README.md
+├── .gitignore
+└── README.md
+</code></pre>
+<p><code>.gitignore</code> 示例：</p>
+<pre><code class="language-gitignore">.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+.env
+.venv/
+data/raw/
+</code></pre>
+<p>不要把 Conda 环境目录提交到 Git。提交环境定义，而不是整个解释器和 <code>site-packages</code>。</p>
+<hr />
+<h2 id="十三-vs-code-与-jupyter">十三、VS Code 与 Jupyter</h2>
+<h3 id="1-安装扩展">1. 安装扩展</h3>
+<p>通常需要：</p>
+<ul>
+<li>Microsoft Python 扩展；</li>
+<li>Microsoft Jupyter 扩展。</li>
+</ul>
+<h3 id="2-选择解释器">2. 选择解释器</h3>
+<p>打开命令面板：</p>
+<pre><code class="language-text">Python: Select Interpreter
+</code></pre>
+<p>选择目标 Conda 环境。</p>
+<h3 id="3-选择-notebook-内核">3. 选择 Notebook 内核</h3>
+<p>打开 <code>.ipynb</code>，点击右上角内核选择器，选择对应环境或已注册的 kernelspec。</p>
+<p>编辑器解释器与 Notebook 内核是两个选择，必须分别检查。</p>
+<h3 id="4-vs-code-找不到环境">4. VS Code 找不到环境</h3>
+<p>先在外部终端验证：</p>
+<pre><code class="language-bash">conda env list
+conda run -n project-a python -c &quot;import sys; print(sys.executable)&quot;
+</code></pre>
+<p>然后：</p>
+<ol>
+<li>重启 VS Code；</li>
+<li>重新扫描解释器；</li>
+<li>从已激活环境启动 VS Code；</li>
+<li>确认远程窗口、WSL 窗口和本机窗口没有混淆。</li>
+</ol>
+<p>从环境启动：</p>
+<pre><code class="language-bash">conda activate project-a
+code .
+</code></pre>
+<hr />
+<h2 id="十四-windows-wsl-与容器边界">十四、Windows、WSL 与容器边界</h2>
+<p>Windows 本机、WSL 和 Docker 是三个不同的运行环境。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>Conda 安装位置</th>
+<th>Python 路径形式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows 本机</td>
+<td>Windows 文件系统</td>
+<td><code>C:\Users\...\miniconda3\...</code></td>
+</tr>
+<tr>
+<td>WSL</td>
+<td>Linux 文件系统</td>
+<td><code>/home/user/miniconda3/...</code></td>
+</tr>
+<tr>
+<td>Docker 容器</td>
+<td>容器文件系统</td>
+<td>由镜像定义</td>
+</tr>
+</tbody>
+</table></div>
+<p>不要直接让 WSL 使用 Windows Conda 的 Python，也不要反过来使用。二者的二进制格式、路径、动态库和权限模型不同。</p>
+<p>推荐：</p>
+<ul>
+<li>Windows 开发：安装 Windows 版 Conda；</li>
+<li>WSL 开发：在 WSL 内独立安装 Linux 版 Conda；</li>
+<li>VS Code Remote - WSL：选择 WSL 内的解释器；</li>
+<li>容器开发：在 Dockerfile 或镜像中创建环境；</li>
+<li>Notebook 文件可以共享，但解释器与依赖必须在各自系统中重建。</li>
+</ul>
+<hr />
+<h2 id="十五-jupyter-安全与远程访问">十五、Jupyter 安全与远程访问</h2>
+<h3 id="1-本机使用">1. 本机使用</h3>
+<p>默认只在本机访问：</p>
+<pre><code class="language-bash">jupyter lab --ip 127.0.0.1
+</code></pre>
+<p>不要为了方便关闭 token、密码或身份验证。</p>
+<p>查看正在运行的服务：</p>
+<pre><code class="language-bash">jupyter server list
+</code></pre>
+<h3 id="2-远程服务器推荐使用-ssh-隧道">2. 远程服务器推荐使用 SSH 隧道</h3>
+<p>服务器上启动：</p>
+<pre><code class="language-bash">jupyter lab \
+  --no-browser \
+  --ip 127.0.0.1 \
+  --port 8888
+</code></pre>
+<p>本机建立隧道：</p>
+<pre><code class="language-bash">ssh -L 8888:127.0.0.1:8888 user@server.example.com
+</code></pre>
+<p>然后在本机浏览器访问：</p>
+<pre><code class="language-text">http://127.0.0.1:8888
+</code></pre>
+<p>这样 Jupyter 仍只监听服务器回环地址，外部访问通过加密 SSH 隧道完成。</p>
+<h3 id="3-不安全示例">3. 不安全示例</h3>
+<p>不要在公网主机上直接执行类似配置：</p>
+<pre><code class="language-bash">jupyter lab \
+  --ip 0.0.0.0 \
+  --ServerApp.token='' \
+  --ServerApp.password=''
+</code></pre>
+<p>这可能让任何能访问端口的人执行代码、读取文件和使用终端。</p>
+<h3 id="4-团队与生产场景">4. 团队与生产场景</h3>
+<p>多人使用不应共享一个个人 JupyterLab 进程。应考虑：</p>
+<ul>
+<li>JupyterHub；</li>
+<li>反向代理与 HTTPS；</li>
+<li>单点登录和访问控制；</li>
+<li>每用户隔离环境；</li>
+<li>资源配额；</li>
+<li>审计、日志和密钥管理；</li>
+<li>容器或调度平台隔离。</li>
+</ul>
+<p>Notebook 具有执行任意代码的能力，应按开发服务器而不是静态文档处理。</p>
+<hr />
+<h2 id="十六-常见问题排查">十六、常见问题排查</h2>
+<p><img loading="lazy" decoding="async" alt="Conda 与 Jupyter 故障排查路径" src="images/conda-jupyter-troubleshooting.svg" /></p>
+<h3 id="1-conda-command-not-found-或-conda-不是内部命令">1. <code>conda: command not found</code> 或“conda 不是内部命令”</h3>
+<p>先直接调用安装目录中的 Conda。</p>
+<p><strong>Windows</strong></p>
+<p>打开 Miniconda Prompt，执行：</p>
+<pre><code class="language-bat">conda init powershell
+</code></pre>
+<p><strong>macOS / Linux</strong></p>
+<pre><code class="language-bash">~/miniconda3/bin/conda --version
+~/miniconda3/bin/conda init bash
+</code></pre>
+<p>Zsh 用户改成：</p>
+<pre><code class="language-bash">~/miniconda3/bin/conda init zsh
+</code></pre>
+<p>重新打开终端。</p>
+<h3 id="2-conda-activate-提示先运行-conda-init">2. <code>conda activate</code> 提示先运行 <code>conda init</code></h3>
+<pre><code class="language-bash">conda init
+</code></pre>
+<p>更明确地指定 Shell：</p>
+<pre><code class="language-bash">conda init powershell
+conda init bash
+conda init zsh
+conda init fish
+</code></pre>
+<p>执行后必须重新启动对应终端。</p>
+<h3 id="3-notebook-中-modulenotfounderror">3. Notebook 中 <code>ModuleNotFoundError</code></h3>
+<p>先在 Notebook 中检查：</p>
+<pre><code class="language-python">import sys
+
+print(sys.executable)
+</code></pre>
+<p>再在终端检查目标环境：</p>
+<pre><code class="language-bash">conda run -n project-a python -c &quot;import sys; print(sys.executable)&quot;
+conda list -n project-a
+</code></pre>
+<p>如果路径不同：</p>
+<ol>
+<li>切换 Notebook 内核；</li>
+<li>或在目标环境安装并注册 <code>ipykernel</code>；</li>
+<li>不要先在多个环境反复安装同一个包。</li>
+</ol>
+<h3 id="4-jupyter-中看不到新环境">4. Jupyter 中看不到新环境</h3>
+<pre><code class="language-bash">conda activate project-a
+conda install ipykernel
+python -m ipykernel install \
+  --user \
+  --name project-a \
+  --display-name &quot;Python (project-a)&quot;
+jupyter kernelspec list
+</code></pre>
+<p>重启 JupyterLab 后再检查。</p>
+<h3 id="5-内核不断重启">5. 内核不断重启</h3>
+<p>在目标环境直接测试：</p>
+<pre><code class="language-bash">conda activate project-a
+python -c &quot;import ipykernel; print(ipykernel.__version__)&quot;
+python -m ipykernel --version
+</code></pre>
+<p>再查看内核定义：</p>
+<pre><code class="language-bash">jupyter kernelspec list
+jupyter kernelspec list --json
+</code></pre>
+<p>重点检查：</p>
+<ul>
+<li>kernelspec 中的 Python 路径是否存在；</li>
+<li>环境是否被移动或删除；</li>
+<li><code>ipykernel</code>、<code>jupyter_client</code>、<code>pyzmq</code> 是否损坏；</li>
+<li>原生扩展是否因架构或动态库冲突崩溃；</li>
+<li>杀毒软件、权限或磁盘空间是否阻止进程启动。</li>
+</ul>
+<h3 id="6-端口被占用">6. 端口被占用</h3>
+<p>直接换端口：</p>
+<pre><code class="language-bash">jupyter lab --port 8890
+</code></pre>
+<p>查看现有服务：</p>
+<pre><code class="language-bash">jupyter server list
+</code></pre>
+<p><strong>Windows 查看端口</strong></p>
+<pre><code class="language-powershell">Get-NetTCPConnection -LocalPort 8888 -ErrorAction SilentlyContinue
+</code></pre>
+<p><strong>macOS / Linux</strong></p>
+<pre><code class="language-bash">lsof -i :8888
+</code></pre>
+<h3 id="7-浏览器没有自动打开">7. 浏览器没有自动打开</h3>
+<pre><code class="language-bash">jupyter lab --no-browser
+</code></pre>
+<p>复制终端输出中包含 token 的本地 URL 到浏览器。不要把 token 发到公开聊天、工单或截图中。</p>
+<h3 id="8-conda-求解很慢或发生依赖冲突">8. Conda 求解很慢或发生依赖冲突</h3>
+<p>先查看渠道和优先级：</p>
+<pre><code class="language-bash">conda config --show channels
+conda config --show channel_priority
+</code></pre>
+<p>处理顺序：</p>
+<ol>
+<li>明确 Python 和关键库版本；</li>
+<li>一次安装相关依赖，让求解器统一计算；</li>
+<li>避免在同一环境混用多个不兼容渠道；</li>
+<li>新建最小环境验证；</li>
+<li>根据 <code>environment.yml</code> 重建，而不是长期修补；</li>
+<li>不要把升级所有包当成第一反应。</li>
+</ol>
+<h3 id="9-ssl-代理或证书错误">9. SSL、代理或证书错误</h3>
+<p>不要通过长期关闭 SSL 验证来“解决”：</p>
+<pre><code class="language-bash">conda config --set ssl_verify false
+</code></pre>
+<p>这会降低供应链安全。正确方向是：</p>
+<ul>
+<li>检查系统时间；</li>
+<li>配置组织 HTTP/HTTPS 代理；</li>
+<li>导入组织 CA 证书；</li>
+<li>将 <code>ssl_verify</code> 指向可信 CA 文件；</li>
+<li>请网络或安全管理员确认 TLS 检查设备配置。</li>
+</ul>
+<p>查看相关配置：</p>
+<pre><code class="language-bash">conda config --show proxy_servers
+conda config --show ssl_verify
+</code></pre>
+<h3 id="10-pip-安装成功但导入失败">10. <code>pip</code> 安装成功但导入失败</h3>
+<p>Notebook 内检查：</p>
+<pre><code class="language-python">import sys
+print(sys.executable)
+</code></pre>
+<p>然后执行：</p>
+<pre><code class="language-python">%pip show package-name
+</code></pre>
+<p>如果安装位置不属于当前 <code>sys.executable</code> 对应环境，说明包装错了环境。切换内核或在当前内核中使用 <code>%pip</code> 安装。</p>
+<h3 id="11-matplotlib-不显示图">11. Matplotlib 不显示图</h3>
+<p>Jupyter 中通常可直接显示：</p>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+
+plt.plot([1, 2, 3], [1, 4, 9])
+plt.show()
+</code></pre>
+<p>必要时：</p>
+<pre><code class="language-python">%matplotlib inline
+</code></pre>
+<p>若远程服务器报 GUI 后端错误，使用非 GUI 后端或直接在 Notebook 中内嵌显示，不要依赖服务器桌面环境。</p>
+<h3 id="12-环境名称存在但目录损坏">12. 环境名称存在但目录损坏</h3>
+<p>查看环境路径：</p>
+<pre><code class="language-bash">conda info --envs
+</code></pre>
+<p>若环境无法修复，优先使用环境定义重建：</p>
+<pre><code class="language-bash">conda remove -n broken-env --all
+conda env create -f environment.yml
+</code></pre>
+<p>删除前确认其中没有未导出的依赖信息或重要文件。</p>
+<hr />
+<h2 id="十七-升级-备份与卸载">十七、升级、备份与卸载</h2>
+<h3 id="1-升级前备份">1. 升级前备份</h3>
+<pre><code class="language-bash">conda env export -n data-lab &gt; data-lab-full.yml
+conda env export -n data-lab --from-history &gt; data-lab-history.yml
+jupyter kernelspec list
+</code></pre>
+<p>大型升级建议克隆环境验证：</p>
+<pre><code class="language-bash">conda create -n data-lab-upgrade --clone data-lab
+</code></pre>
+<h3 id="2-更新-jupyterlab">2. 更新 JupyterLab</h3>
+<pre><code class="language-bash">conda activate jupyter-tools
+conda update jupyterlab
+</code></pre>
+<p>更新后检查：</p>
+<pre><code class="language-bash">jupyter lab --version
+jupyter server --version
+jupyter kernelspec list
+</code></pre>
+<h3 id="3-windows-卸载">3. Windows 卸载</h3>
+<ol>
+<li>导出需要保留的环境；</li>
+<li>执行 <code>conda init --reverse --all</code>；</li>
+<li>在 Windows“已安装的应用”中卸载 Miniconda；</li>
+<li>检查并按需删除用户配置与缓存。</li>
+</ol>
+<p>不要误删项目代码和 Notebook。</p>
+<h3 id="4-macos-linux-卸载">4. macOS / Linux 卸载</h3>
+<p>先撤销 Shell 初始化：</p>
+<pre><code class="language-bash">conda init --reverse --all
+</code></pre>
+<p>关闭终端后，删除实际安装目录。假设安装在 <code>~/miniconda3</code>：</p>
+<pre><code class="language-bash">rm -rf ~/miniconda3
+</code></pre>
+<p>可选的用户配置和缓存包括：</p>
+<pre><code class="language-text">~/.condarc
+~/.conda/
+~/.continuum/
+~/.jupyter/
+~/.local/share/jupyter/
+</code></pre>
+<p>这些位置可能包含其他 Conda 发行版、Jupyter 配置或内核。逐项确认用途后再删除，不要直接批量清理。</p>
+<hr />
+<h2 id="十八-推荐的最终实践">十八、推荐的最终实践</h2>
+<h3 id="1-个人单项目">1. 个人单项目</h3>
+<pre><code class="language-bash">conda create -n data-lab python=3.12 pip
+conda activate data-lab
+conda install jupyterlab ipykernel numpy pandas matplotlib
+jupyter lab
+</code></pre>
+<h3 id="2-多项目">2. 多项目</h3>
+<pre><code class="language-bash"># Jupyter 服务环境
+conda create -n jupyter-tools python=3.12 jupyterlab
+
+# 项目环境
+conda create -n project-a python=3.12 pip ipykernel numpy pandas
+conda activate project-a
+python -m ipykernel install \
+  --user \
+  --name project-a \
+  --display-name &quot;Python (project-a)&quot;
+
+# 启动服务
+conda activate jupyter-tools
+jupyter lab
+</code></pre>
+<h3 id="3-团队项目">3. 团队项目</h3>
+<p>项目仓库至少包含：</p>
+<ul>
+<li>人工维护的 <code>environment.yml</code>；</li>
+<li>明确的 Python 版本；</li>
+<li>统一的 Conda channel；</li>
+<li>Conda 与 pip 的依赖边界；</li>
+<li>启动与内核注册说明；</li>
+<li>数据集来源和下载方式；</li>
+<li>不进入版本库的敏感信息清单；</li>
+<li>CI 中的环境重建验证。</li>
+</ul>
+<h3 id="4-生产检查清单">4. 生产检查清单</h3>
+<ul>
+<li>☐ 安装器来自官方渠道并完成 SHA-256 校验；</li>
+<li>☐ CPU 架构与安装器、依赖架构一致；</li>
+<li>☐ Conda 安装在用户可写目录，不依赖管理员权限；</li>
+<li>☐ <code>base</code> 只维护 Conda，不承载项目依赖；</li>
+<li>☐ 每个项目拥有独立环境；</li>
+<li>☐ <code>python</code>、<code>pip</code> 和 Notebook <code>sys.executable</code> 指向预期环境；</li>
+<li>☐ 内核名称清晰且能追溯到项目环境；</li>
+<li>☐ 依赖通过 <code>environment.yml</code> 维护；</li>
+<li>☐ 跨平台文件不包含平台专属构建列表；</li>
+<li>☐ 优先使用一个统一 channel；</li>
+<li>☐ Conda 包先安装，pip 包后安装；</li>
+<li>☐ Notebook 中使用 <code>%pip</code>，避免误装到其他解释器；</li>
+<li>☐ Jupyter 只监听需要的网络接口；</li>
+<li>☐ 远程访问使用 SSH 隧道、HTTPS 或受控网关；</li>
+<li>☐ 未关闭 token、密码和 TLS 校验来规避问题；</li>
+<li>☐ 升级前已导出环境并验证可重建；</li>
+<li>☐ 密钥、token、原始敏感数据不保存在 Notebook 输出中。</li>
+</ul>
+<hr />
+<h2 id="十九-命令速查">十九、命令速查</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>任务</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>查看 Conda 版本</td>
+<td><code>conda --version</code></td>
+</tr>
+<tr>
+<td>查看完整信息</td>
+<td><code>conda info</code></td>
+</tr>
+<tr>
+<td>查看环境</td>
+<td><code>conda env list</code></td>
+</tr>
+<tr>
+<td>创建环境</td>
+<td><code>conda create -n myenv python=3.12 pip</code></td>
+</tr>
+<tr>
+<td>激活环境</td>
+<td><code>conda activate myenv</code></td>
+</tr>
+<tr>
+<td>退出环境</td>
+<td><code>conda deactivate</code></td>
+</tr>
+<tr>
+<td>删除环境</td>
+<td><code>conda remove -n myenv --all</code></td>
+</tr>
+<tr>
+<td>查看包</td>
+<td><code>conda list</code></td>
+</tr>
+<tr>
+<td>安装包</td>
+<td><code>conda install package-name</code></td>
+</tr>
+<tr>
+<td>安装 PyPI 包</td>
+<td><code>python -m pip install package-name</code></td>
+</tr>
+<tr>
+<td>从 YAML 创建</td>
+<td><code>conda env create -f environment.yml</code></td>
+</tr>
+<tr>
+<td>更新环境</td>
+<td><code>conda env update -f environment.yml --prune</code></td>
+</tr>
+<tr>
+<td>导出直接依赖</td>
+<td><code>conda env export --from-history &gt; environment.yml</code></td>
+</tr>
+<tr>
+<td>安装内核</td>
+<td><code>python -m ipykernel install --user --name myenv --display-name "Python (myenv)"</code></td>
+</tr>
+<tr>
+<td>查看内核</td>
+<td><code>jupyter kernelspec list</code></td>
+</tr>
+<tr>
+<td>删除内核</td>
+<td><code>jupyter kernelspec remove myenv</code></td>
+</tr>
+<tr>
+<td>启动 JupyterLab</td>
+<td><code>jupyter lab</code></td>
+</tr>
+<tr>
+<td>不打开浏览器</td>
+<td><code>jupyter lab --no-browser</code></td>
+</tr>
+<tr>
+<td>查看 Jupyter 服务</td>
+<td><code>jupyter server list</code></td>
+</tr>
+<tr>
+<td>查看配置路径</td>
+<td><code>jupyter --paths</code></td>
+</tr>
+<tr>
+<td>清理 Conda 缓存</td>
+<td><code>conda clean --dry-run --all</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="二十-参考资料">二十、参考资料</h2>
+<ul>
+<li>Conda 安装指南：<a href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/">https://docs.conda.io/projects/conda/en/latest/user-guide/install/</a></li>
+<li>Conda 入门指南：<a href="https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html">https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html</a></li>
+<li>Conda 环境管理：<a href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html</a></li>
+<li><code>conda init</code> 参考：<a href="https://docs.conda.io/projects/conda/en/latest/commands/init.html">https://docs.conda.io/projects/conda/en/latest/commands/init.html</a></li>
+<li>Conda 环境导出：<a href="https://docs.conda.io/projects/conda/en/latest/commands/export.html">https://docs.conda.io/projects/conda/en/latest/commands/export.html</a></li>
+<li>Miniforge：<a href="https://conda-forge.org/download/">https://conda-forge.org/download/</a></li>
+<li>Jupyter 安装指南：<a href="https://jupyter.org/install">https://jupyter.org/install</a></li>
+<li>Jupyter 内核指南：<a href="https://docs.jupyter.org/en/latest/install/kernels.html">https://docs.jupyter.org/en/latest/install/kernels.html</a></li>
+<li>IPython 内核安装：<a href="https://ipython.readthedocs.io/en/stable/install/kernel_install.html">https://ipython.readthedocs.io/en/stable/install/kernel_install.html</a></li>
+</ul>
+<hr />
+<h2 id="结语">结语</h2>
+<p>一套稳定的 Conda + Jupyter 环境，关键不在于安装了多少工具，而在于边界是否清晰：</p>
+<pre><code class="language-text">Conda 管理环境
+JupyterLab 提供界面
+ipykernel 连接项目 Python
+environment.yml 保证环境可重建
+</code></pre>
+<p>遇到问题时，首先检查 Notebook 中的 <code>sys.executable</code>，再检查 Conda 环境、kernelspec 和包安装位置。只要解释器路径与环境边界正确，大多数“包已安装却无法导入”“Jupyter 找不到环境”的问题都能快速定位。</p></div>
+      <nav class="post-pager" aria-label="上下篇"><a class="pager-link" href="%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html"><em>上一篇</em><b>学习路线</b></a><a class="pager-link next" href="C%20%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html"><em>下一篇</em><b>此时会生成 a.out（windows 会生成 a.exe）</b></a></nav>
+    </article>
+  </main>
+</div>
+<footer class="blog-foot">
+  <div class="wrap foot-inner">
+    <span>© 2026 逐梦笔记 · 由 <code>scripts/build_blog.py</code> 从 docs/ 自动生成</span>
+    <span>内容来源：<a href="https://github.com/ShiQianzhi/note" target="_blank" rel="noopener noreferrer">ShiQianzhi/note</a> · 同步于 2026-11-26</span>
+  </div>
+</footer>
+<script src="../../blog.js"></script>
+</body>
+</html>

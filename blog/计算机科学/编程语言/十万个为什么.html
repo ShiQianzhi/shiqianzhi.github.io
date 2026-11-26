@@ -1,0 +1,3345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>计算机科学与编程十万个为什么 · 逐梦笔记</title>
+<meta name="description" content="本文系统整理计算机领域各方向的常见问题，从问题产生的由来、具体细节、底层执行原理，到解决方式与后续发展，由浅至深，力求吃透底层原理。 阅读建议：先浏览下方汇总表格建立全局认知，再按分类深入阅读每个问题的完整解析。">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../../blog.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="../../../index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../../../index.html">首页</a>
+      <div class="nav-drop">
+        <a href="../../../knowledge.html">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="../../../knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="../../../knowledge.html#domains">五大知识域</a>
+          <a href="../../../knowledge.html#cross">交叉与前沿</a>
+          <a href="../../../knowledge.html#axes">三条贯穿轴</a>
+          <a href="../../../knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="../../../career.html">世界职业体系</a>
+      <a href="../../index.html" class="active">博客</a>
+      <a class="nav-cta" href="../../../knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-wrap">
+  
+    <aside class="blog-side">
+      <div class="side-head">
+        <a class="blog-brand" href="../../index.html">逐梦笔记<span>NOTES</span></a>
+        <button class="side-toggle" id="sideToggle" aria-expanded="false" aria-controls="sideBody">目录</button>
+      </div>
+      <div class="side-body" id="sideBody">
+        <div class="tree-search">
+          <input id="treeQ" type="search" placeholder="筛选 197 篇笔记…" aria-label="筛选笔记">
+        </div>
+        <nav class="tree" aria-label="博客目录"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI创作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI短剧制作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI写周报，把我写成了公司CEO</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E5%86%99%E5%91%A8%E6%8A%A5%EF%BC%8C%E6%8A%8A%E6%88%91%E5%86%99%E6%88%90%E4%BA%86%E5%85%AC%E5%8F%B8CEO/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI的最后一活</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%B4%BB/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%9B%E4%BD%9C%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html" title="AI 短剧创作保姆级教程：从一个想法到成片发布">AI 短剧创作保姆级教程：从一个想法到成片发布</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人生感悟</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/%E5%9C%A8%E5%89%A7%E5%8F%98%E4%B8%AD%E5%AF%BB%E8%B7%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8AI%E6%B5%AA%E6%BD%AE%E4%B8%8B%E6%8A%93%E4%BD%8F%E6%9C%BA%E9%81%87.html" title="在剧变中寻路：如何在 AI 浪潮下抓住机遇">在剧变中寻路：如何在 AI 浪潮下抓住机遇</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础学科</span><span class="tree-count">22</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数学</span><span class="tree-count">13</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">初等代数</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5.html" title="数的概念">数的概念</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E7%B1%BB%E5%88%AB.html" title="数的类别">数的类别</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E9%87%8F.html" title="数量">数量</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性代数</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F.html" title="向量（Vector）：从几何箭头到 AI 数据表示">向量（Vector）：从几何箭头到 AI 数据表示</a></div></details><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%8C%87%E6%95%B0%E8%BF%90%E7%AE%97.html" title="什么是指数运算">什么是指数运算</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%85%B3%E7%B3%BB.html" title="什么是线性关系">什么是线性关系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%87%A0%E4%BD%95%E5%85%A5%E9%97%A8.html" title="几何入门">几何入门</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97.html" title="四则运算">四则运算</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9F%BA%E6%9C%AC%E4%BB%A3%E6%95%B0.html" title="基本代数">基本代数</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E6%95%B0%E5%AD%A6.html" title="如何学习数学">如何学习数学</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%9A%E4%BB%8E0%E5%88%B0%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6.html" title="数学学习路线图：从0到高等数学">数学学习路线图：从0到高等数学</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E8%A1%A8%E7%A4%BA.html" title="数的分类与表示">数的分类与表示</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%AE%97%E6%9C%AF%E5%9F%BA%E7%A1%80.html" title="算术基础">算术基础</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">物理</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E4%BB%8E%E5%BE%AE%E8%A7%82%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E7%89%A9%E8%B4%A8%EF%BC%9A%E5%8E%9F%E5%AD%90%E3%80%81%E7%B2%92%E5%AD%90%E4%B8%8E%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8.html" title="从微观角度理解物质：原子、粒子与相互作用">从微观角度理解物质：原子、粒子与相互作用</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%89%A9%E8%B4%A8%E5%92%8C%E8%83%BD%E9%87%8F%E7%9A%84%E5%85%B3%E7%B3%BB.html" title="物质和能量的关系">物质和能量的关系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%90%86%E8%A7%A3%E7%94%B5%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%89%A9%E7%90%86%E5%9F%BA%E7%A1%80.html" title="理解电必须掌握的物理基础">理解电必须掌握的物理基础</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E%E5%8E%86%E5%8F%B2%E5%88%B0%E6%9C%AC%E8%B4%A8.html" title="电是什么：从历史到本质">电是什么：从历史到本质</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.html" title="电的原理与应用场景">电的原理与应用场景</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%A3%81%EF%BC%9A%E4%BB%8E%E7%94%B5%E5%9C%BA%E7%A3%81%E5%9C%BA%E5%88%B0%E7%94%B5%E7%A3%81%E6%B3%A2.html" title="电磁：从电场磁场到电磁波">电磁：从电场磁场到电磁波</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">语言</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">英语</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="英语学习笔记">英语学习笔记</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95.html" title="英语语法">英语语法</a></div></details><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%AF%AD%E6%B3%95.html" title="语法">语法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">心情随笔</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/%E5%85%AD%E7%A7%8D%E5%80%BC%E5%BE%97%E7%BB%93%E4%BA%A4%E4%B8%80%E8%BE%88%E5%AD%90%E7%9A%84%E4%BA%BA.html" title="六种值得结交一辈子的人">六种值得结交一辈子的人</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">生活常识</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">买房攻略</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98.html" title="下面是我总结了买房相关常见问题：">下面是我总结了买房相关常见问题：</a><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5.html" title="买房攻略">买房攻略</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">考驾照</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E8%80%83%E9%A9%BE%E7%85%A7/%E7%A7%91%E7%9B%AE%E4%B8%80.html" title="科目一刷题笔记">科目一刷题笔记</a></div></details><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E5%90%84%E8%A1%8C%E4%B8%9A%E5%85%A8%E6%99%AF%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%AE%9A%E4%B9%89%E3%80%81%E7%8E%B0%E7%8A%B6%E4%B8%8EAI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%9C%AA%E6%9D%A5.html" title="各行业全景解析：定义、现状与 AI 时代的未来">各行业全景解析：定义、现状与 AI 时代的未来</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">计算机科学</span><span class="tree-count">160</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Agent 开发</span><span class="tree-count">11</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">docs</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">superpowers</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">specs</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/docs/superpowers/specs/2026-11-06-enterprise-agent-course-design.html" title="企业级 Agent 混合架构课程设计">企业级 Agent 混合架构课程设计</a></div></details></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">learning-records</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/learning-records/0001-python-worker-first.html" title="Learning Record 0001: Python Agent Worker First">Learning Record 0001: Python Agent Worker First</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/learning-records/0002-agent-state-checkpoint-recovery.html" title="Learning Record 0002: Agent State and Checkpoint Recovery">Learning Record 0002: Agent State and Checkpoint Recovery</a></div></details><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Agent%20%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="Agent 开发学习路线">Agent 开发学习路线</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Agent%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.html" title="Agent开发核心知识点">Agent开发核心知识点</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Go-Python%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BD%ACAgent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B.html" title="Go/Python 后端工程师转 Agent 开发实战教程">Go/Python 后端工程师转 Agent 开发实战教程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/MISSION.html" title="Mission: 从 Python Agent Worker 学会企业级 Agent 开发">Mission: 从 Python Agent Worker 学会企业级 Agent 开发</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RAG.html" title="RAG">RAG</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RAG%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%A6%E7%BB%86%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html" title="RAG系统的详细工作流程">RAG系统的详细工作流程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E9%AB%98%E5%B9%B6%E5%8F%91%E4%BC%81%E4%B8%9A%E7%BA%A7Agent%E7%B3%BB%E7%BB%9F%E6%95%99%E7%A8%8B.html" title="从零搭建高并发企业级 Agent 系统教程">从零搭建高并发企业级 Agent 系统教程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RESOURCES.html" title="企业级 Agent 开发资源">企业级 Agent 开发资源</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人工智能</span><span class="tree-count">33</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI行业基础知识相关概念</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAI.html" title="什么是 AI">什么是 AI</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAIGC.html" title="什么是 AIGC">什么是 AIGC</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAgent.html" title="什么是 Agent">什么是 Agent</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG">什么是 RAG</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE.html" title="什么是向量数据">什么是向量数据</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是大模型">什么是大模型</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是语言大模型">什么是语言大模型</a></div></details><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93.html" title="AI 学习笔记总结">AI 学习笔记总结</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E5%BA%94%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="AI 应用工程师从入门到实战的最佳学习路线">AI 应用工程师从入门到实战的最佳学习路线</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Chroma%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Chroma 入门手册：从零上手最轻量的向量数据库">Chroma 入门手册：从零上手最轻量的向量数据库</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/LangChain%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="LangChain 入门手册：用搭积木的方式编排大模型应用">LangChain 入门手册：用搭积木的方式编排大模型应用</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Transformer%20%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.html" title="Transformer 注意力机制详解">Transformer 注意力机制详解</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BB%8B%E7%BB%8D.html" title="人工智能介绍">人工智能介绍</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%A6%E7%90%86%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="人工智能伦理与安全">人工智能伦理与安全</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG：检索增强生成从原理到实战">什么是 RAG：检索增强生成从原理到实战</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%8D%E5%90%91%E9%87%8F.html" title="什么是词向量">什么是词向量</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BANLP%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html" title="从零搭建NLP模型完全指南">从零搭建NLP模型完全指南</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%85%B3%E4%BA%8EAI%E7%9A%84%E7%95%85%E6%83%B3%E5%92%8C%E6%80%9D%E8%80%83.html" title="关于AI的畅想和思考">关于AI的畅想和思考</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%80%85AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师">后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93.html" title="向量数据库：语义搜索的存储与检索引擎">向量数据库：语义搜索的存储与检索引擎</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BA%B2.html" title="大模型应用实战知识总纲">大模型应用实战知识总纲</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAAgent.html" title="如何搭建一个 Agent">如何搭建一个 Agent</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="学习笔记">学习笔记</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html" title="强化学习">强化学习</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%96%87%E6%9C%AC%E6%98%AF%E5%A6%82%E4%BD%95%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E7%9A%84.html" title="文本是如何变成向量的：Embedding 推理管线全解析">文本是如何变成向量的：Embedding 推理管线全解析</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html" title="机器学习-线性回归">机器学习-线性回归</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="机器学习基础">机器学习基础</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="深度学习基础">深度学习基础</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html" title="神经网络">神经网络</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Agent%20%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="网页版知识库 Agent 搭建实战">网页版知识库 Agent 搭建实战</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86.html" title="自然语言处理">自然语言处理</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89.html" title="计算机视觉">计算机视觉</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E9%AB%98%E7%BB%B4%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%91%E9%87%8F%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%90%91%E9%87%8D%E5%BB%BA.html" title="高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容">高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础知识</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/DNS.html" title="DNS：从域名到 IP 地址的分布式解析系统">DNS：从域名到 IP 地址的分布式解析系统</a><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/HTTP.html" title="HTTP：从一次请求到现代 Web 传输体系">HTTP：从一次请求到现代 Web 传输体系</a><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84.html" title="互联网是如何工作的">互联网是如何工作的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%9F%E7%90%86.html" title="操作系统的原理">操作系统的原理</a><a class="tree-link" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F.html" title="深入理解计算机系统">深入理解计算机系统</a><a class="tree-link" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84.html" title="计算机是如何编码数据的">计算机是如何编码数据的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">8</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Elasticsearch</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/%E5%AE%89%E8%A3%85.html" title="创建网络">创建网络</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MongoDB</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念">基本概念</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%AE%89%E8%A3%85mongodb.html" title="安装mongodb">安装mongodb</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" title="数据库不存在会自动创建">数据库不存在会自动创建</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MySQL</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%9E%B6%E6%9E%84.html" title="MySQL 架构">MySQL 架构</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="MySQL数据库知识大纲">MySQL数据库知识大纲</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.html" title="存储引擎">存储引擎</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E7%B4%A2%E5%BC%95.html" title="索引">索引</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构与算法</span><span class="tree-count">10</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构</span><span class="tree-count">6</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数组和字符串</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C.html" title="数组的操作">数组的操作</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%A6%82%E8%BF%B0.html" title="概述">概述</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">树</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/%E6%A0%91.html" title="树">树</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性表</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8.html" title="线性表">线性表</a></div></details><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD.html" title="基本概念和术语">基本概念和术语</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E5%92%8C%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84.html" title="逻辑结构和物理结构">逻辑结构和物理结构</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">算法</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/K-Means.html" title="K-Means 聚类算法">K-Means 聚类算法</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97%E8%AF%A6%E8%A7%A3.html" title="位运算详解">位运算详解</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95.html" title="算法效率分析方法">算法效率分析方法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程笔记</span><span class="tree-count">54</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C 语言学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/C%20%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="此时会生成 a.out（windows 会生成 a.exe）">此时会生成 a.out（windows 会生成 a.exe）</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Docker</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Docker/docker%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Docker 入门手册：编写 Dockerfile、构建镜像与容器管理">Docker 入门手册：编写 Dockerfile、构建镜像与容器管理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言之旅</span><span class="tree-count">12</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架源码剖析</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Gin%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Gin%20%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Gin%E6%A1%86%E6%9E%B6%E5%BC%95%E6%93%8E%E5%AE%9E%E4%BE%8B.html" title="深入理解Gin框架引擎实例">深入理解Gin框架引擎实例</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言设计与实现</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%BA%90%E4%BB%A3%E7%A0%81.html" title="自己需要那个版本的 Go 标签，就用那个">自己需要那个版本的 Go 标签，就用那个</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言高级开发工程</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html" title="Go 单元测试">Go 单元测试</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E9%98%B6%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7.html" title="Go 语言高阶实战技巧">Go 语言高阶实战技巧</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Lua</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Lua/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BLua%E8%84%9A%E6%9C%AC.html" title="&quot;Hello, scripting!&quot;">&quot;Hello, scripting!&quot;</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">kubernetes</span><span class="tree-count">17</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">从入门到实战</span><span class="tree-count">16</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/K8s%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2.html" title="Kubernetes 从入门到实战：完整知识学习大纲">Kubernetes 从入门到实战：完整知识学习大纲</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC10%E7%AB%A0-Ingress%E4%B8%8E%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1.html" title="第10章：Ingress 与流量路由">第10章：Ingress 与流量路由</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC11%E7%AB%A0-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%9B%E9%98%B6.html" title="第11章 控制器进阶">第11章 控制器进阶</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC12%E7%AB%A0-RBAC%E6%9D%83%E9%99%90%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="第12章 RBAC 权限与安全">第12章 RBAC 权限与安全</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html" title="第13章 监控日志与可观测性">第13章 监控日志与可观测性</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC14%E7%AB%A0-Helm%E5%8C%85%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第14章 Helm 包管理与应用部署">第14章 Helm 包管理与应用部署</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC15%E7%AB%A0-%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98-%E5%AE%8C%E6%95%B4%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2.html" title="第15章 综合实战：完整微服务项目部署">第15章 综合实战：完整微服务项目部署</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC1%E7%AB%A0-K8s%E6%A6%82%E8%BF%B0%E4%B8%8E%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3.html" title="第1章 K8s 概述与架构理解">第1章 K8s 概述与架构理解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC2%E7%AB%A0-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="第2章 环境搭建实战">第2章 环境搭建实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC3%E7%AB%A0-Pod%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E6%88%98.html" title="第3章 Pod 核心概念与实战">第3章 Pod 核心概念与实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第4章 Deployment 与应用部署">第4章 Deployment 与应用部署</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC5%E7%AB%A0-Service%E4%B8%8E%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1.html" title="第5章：Service 与网络通信">第5章：Service 与网络通信</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC6%E7%AB%A0-ConfigMap%E4%B8%8ESecret%E7%AE%A1%E7%90%86.html" title="第6章：ConfigMap 与 Secret 管理">第6章：ConfigMap 与 Secret 管理</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC7%E7%AB%A0-Volume%E4%B8%8E%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8.html" title="第7章：Volume 与持久化存储">第7章：Volume 与持久化存储</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC8%E7%AB%A0-Namespace%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.html" title="第8章：Namespace 与资源管理">第8章：Namespace 与资源管理</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC9%E7%AB%A0-%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6%E4%B8%8E%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86.html" title="第9章：调度机制与节点管理">第9章：调度机制与节点管理</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/HPA%E5%92%8CVPA%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="HPA 和 VPA 的区别">HPA 和 VPA 的区别</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">其他</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%85%B6%E4%BB%96/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80UML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="统一建模语言UML学习笔记">统一建模语言UML学习笔记</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Linux</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Centos</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/yum.html" title="yum">yum</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/CentosStream8%20%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html" title="刷新配置">刷新配置</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/Centos7.9%20%E5%AE%89%E8%A3%85%20node20%20%E5%AE%9E%E6%88%98.html" title="安装 nvm">安装 nvm</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86.html" title="查看文件的大小">查看文件的大小</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">mysql</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%AE%89%E8%A3%85mysql.html" title="CentOS Linux release 8.5.2111">CentOS Linux release 8.5.2111</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E4%BB%80%E4%B9%88%E6%98%AFmysql.html" title="什么是mysql">什么是mysql</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.html" title="注意不同的密码验证策略要求密码复杂度不一样。">注意不同的密码验证策略要求密码复杂度不一样。</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">缓存</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98/redis%20%E7%BC%93%E5%AD%98%E5%AE%9E%E6%88%98.html" title="redis 缓存实战">redis 缓存实战</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">软件开发与设计规范</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/%E6%8C%87%E5%AF%BC%E6%80%9D%E6%83%B3.html" title="指导思想">指导思想</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">领域驱动设计</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E4%BB%80%E4%B9%88%E6%98%AFDDD.html" title="什么是DDD">什么是DDD</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E5%89%8D%E8%A8%80.html" title="前言">前言</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Cookie%20%E8%AF%A6%E8%A7%A3.html" title="Cookie 详解">Cookie 详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/JWT%E8%AF%A6%E8%A7%A3.html" title="JWT 详解">JWT 详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Raft%20%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3.html" title="Raft 协议详解">Raft 协议详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/WebRTC%20%E5%BA%95%E5%B1%82%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.html" title="WebRTC 底层工作原理详解">WebRTC 底层工作原理详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/curl%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="curl 使用手册">curl 使用手册</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Git%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" title="克隆指定分支">克隆指定分支</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95.html" title="分布式一致性算法">分布式一致性算法</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="学习路线">学习路线</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%90%AD%E5%BB%BA%20Conda%20%2B%20Jupyter%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" title="搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南">搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">编程语言</span><span class="tree-count">18</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="C/C%20%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="C 语言快速入门">C 语言快速入门</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="Go/Go%20benchmark%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go Benchmark 最佳实战">Go Benchmark 最佳实战</a><a class="tree-link" href="Go/Go%20pprof%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go pprof 最佳实战：从开发诊断到生产调优">Go pprof 最佳实战：从开发诊断到生产调优</a><a class="tree-link" href="Go/Go%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5.html" title="Go 底层原理与工程化实践">Go 底层原理与工程化实践</a><a class="tree-link" href="Go/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码">Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码</a><a class="tree-link" href="Go/Go%E8%AF%AD%E8%A8%80%E9%AB%98%E6%95%88%E7%BC%96%E7%A8%8B%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8C%96.html" title="Go 语言高效编程：原理、可观测性与优化">Go 语言高效编程：原理、可观测性与优化</a><a class="tree-link" href="Go/Go%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A.html" title="Go开发工程师必知必会">Go开发工程师必知必会</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Python</span><span class="tree-count">8</span></summary><div class="tree-children"><a class="tree-link" href="Python/NumPy%20%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="NumPy 使用手册">NumPy 使用手册</a><a class="tree-link" href="Python/NumPy%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="NumPy 使用指南：从 ndarray 到数值计算实践">NumPy 使用指南：从 ndarray 到数值计算实践</a><a class="tree-link" href="Python/Pandas%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="Pandas 使用指南：从 Series/DataFrame 到数据分析实践">Pandas 使用指南：从 Series/DataFrame 到数据分析实践</a><a class="tree-link" href="Python/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html" title="Python 异步编程：从原理到实战">Python 异步编程：从原理到实战</a><a class="tree-link" href="Python/Python%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="Python 快速入门">Python 快速入门</a><a class="tree-link" href="Python/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Decorator%EF%BC%89%E6%80%BB%E7%BB%93.html" title="Python 装饰器（Decorator）总结">Python 装饰器（Decorator）总结</a><a class="tree-link" href="Python/%E8%AE%A4%E8%AF%86Python.html" title="认识Python">认识Python</a><a class="tree-link" href="Python/Python%20%40staticmethod%20%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="静态方法是类的属性">静态方法是类的属性</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Rust</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="Rust/Rust%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Rust 入门手册：面向 Go 与 Python 开发者">Rust 入门手册：面向 Go 与 Python 开发者</a></div></details><a class="tree-link" href="%E7%A8%8B%E5%BA%8F%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86.html" title="程序底层执行原理：从一行源码到进程退出">程序底层执行原理：从一行源码到进程退出</a><a class="tree-link active" href="%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88.html" title="计算机科学与编程十万个为什么">计算机科学与编程十万个为什么</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机组成原理</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%BC%96%E7%A0%81.html" title="《编码》：从手电筒到计算机">《编码》：从手电筒到计算机</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%98%BE%E7%A4%BA%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="显示器的工作原理">显示器的工作原理</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%99%B6%E4%BD%93%E7%AE%A1.html" title="晶体管：小学生也能看懂的计算机“小开关”">晶体管：小学生也能看懂的计算机“小开关”</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84.html" title="程序是如何执行的">程序是如何执行的</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.html" title="计算机底层原理：程序、数据与网络如何从 0 到 1 运转">计算机底层原理：程序、数据与网络如何从 0 到 1 运转</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html" title="计算机组成">计算机组成</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="计算机组成原理">计算机组成原理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机网络</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BATCP-IP%E5%8D%8F%E8%AE%AE.html" title="深入浅出TCP-IP协议">深入浅出TCP-IP协议</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20OSI.html" title="计算机网络 - OSI">计算机网络 - OSI</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html" title="计算机网络 - 概述">计算机网络 - 概述</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="计算机网络工作原理：从输入 URL 到数据跨越互联网">计算机网络工作原理：从输入 URL 到数据跨越互联网</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">高性能服务设计与实现</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1.html" title="什么是高性能服务">什么是高性能服务</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88.html" title="后端服务安全方案">后端服务安全方案</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%AF%B4%E6%98%8E.html" title="后端服务性能指标体系">后端服务性能指标体系</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E7%99%BE%E4%B8%87%E7%BA%A7QPS%20API%E7%BD%91%E5%85%B3%E8%AE%BE%E8%AE%A1.html" title="如何设计一个支持百万级 QPS 的 API 网关">如何设计一个支持百万级 QPS 的 API 网关</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%99%90%E6%B5%81%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1.html" title="限流方案设计">限流方案设计</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%20Agent%20%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="高性能 Agent 服务架构设计与实现">高性能 Agent 服务架构设计与实现</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8F%AF%E8%A1%8C%E6%80%A7%E6%96%B9%E6%A1%88.html" title="高性能服务架构可行性方案">高性能服务架构可行性方案</a></div></details><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E5%A4%A7%E7%BA%B2.html" title="计算机知识学习先后顺序大纲">计算机知识学习先后顺序大纲</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="计算机科学知识大纲">计算机科学知识大纲</a></div></details><div class="tree-label">散篇</div><a class="tree-link" href="../../TODO.html" title="TODO">TODO</a><a class="tree-link" href="../../%E4%B8%AA%E4%BA%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E9%87%8D%E9%93%B8%E8%AE%A1%E5%88%92.html" title="个人基础知识重铸计划">个人基础知识重铸计划</a><a class="tree-link" href="../../%E5%8F%A5%E5%AD%90.html" title="句子">句子</a><a class="tree-link" href="../../%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E5%AD%A6%E4%B9%A0.html" title="如何高效的学习">如何高效的学习</a><a class="tree-link" href="../../%E6%97%B6%E9%97%B4%E8%83%B6%E5%9B%8A.html" title="时间胶囊">时间胶囊</a><a class="tree-link" href="../../%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA.html" title="网站导航">网站导航</a></nav>
+      </div>
+    </aside>
+  <main class="blog-main">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../../index.html">博客</a><span>/</span><span>计算机科学</span><span>/</span><span>编程语言</span><span>/</span><span>计算机科学与编程十万个为什么</span></nav>
+    <article class="post">
+      <header class="post-head">
+        <div class="post-kicker">计算机科学 / 编程语言</div>
+        <h1>计算机科学与编程十万个为什么</h1>
+        <div class="post-meta"><span>计算机科学/编程语言/十万个为什么.md</span><span>约 16,736 字</span></div>
+      </header>
+      <div class="prose"><blockquote>
+<p>本文系统整理计算机领域各方向的常见问题，从问题产生的由来、具体细节、底层执行原理，到解决方式与后续发展，由浅至深，力求吃透底层原理。</p>
+<p>阅读建议：先浏览下方汇总表格建立全局认知，再按分类深入阅读每个问题的完整解析。</p>
+</blockquote>
+<hr />
+<h2 id="汇总-全问题索引">汇总：全问题索引</h2>
+<h3 id="一-计算机网络">一、计算机网络</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TCP</td>
+<td>为什么 TCP 需要三次握手而不是两次或四次？</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>为什么 TCP 断开连接需要四次挥手？</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>为什么 TIME_WAIT 状态需要等待 2MSL？</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>什么是粘包/拆包？如何解决？</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>TCP 滑动窗口是如何工作的？</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>TCP 拥塞控制的四个阶段是什么？</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>为什么 TCP 是可靠的而 UDP 不是？</td>
+</tr>
+<tr>
+<td>UDP</td>
+<td>UDP 如何实现可靠传输（如 KCP、QUIC）？</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>GET 和 POST 的本质区别是什么？</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>HTTP 长连接和短连接的区别？</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>HTTP 缓存机制（强缓存与协商缓存）是如何工作的？</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>什么是幂等性？哪些 HTTP 方法是幂等的？</td>
+</tr>
+<tr>
+<td>HTTPS</td>
+<td>HTTPS 的握手过程是怎样的？</td>
+</tr>
+<tr>
+<td>HTTPS</td>
+<td>为什么 HTTPS 同时使用对称加密和非对称加密？</td>
+</tr>
+<tr>
+<td>HTTPS</td>
+<td>数字证书是如何验证身份的？</td>
+</tr>
+<tr>
+<td>DNS</td>
+<td>DNS 解析的完整过程是怎样的？</td>
+</tr>
+<tr>
+<td>DNS</td>
+<td>为什么 DNS 同时使用 UDP 和 TCP？</td>
+</tr>
+<tr>
+<td>网络安全</td>
+<td>什么是跨域？如何解决 CORS？</td>
+</tr>
+<tr>
+<td>网络安全</td>
+<td>CSRF 与 XSS 的区别与防御</td>
+</tr>
+<tr>
+<td>网络安全</td>
+<td>SQL 注入的原理与防御</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="二-操作系统">二、操作系统</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>进程线程</td>
+<td>进程、线程、协程的区别是什么？</td>
+</tr>
+<tr>
+<td>进程线程</td>
+<td>进程间通信（IPC）有哪些方式？</td>
+</tr>
+<tr>
+<td>进程线程</td>
+<td>什么是死锁？如何预防和避免？</td>
+</tr>
+<tr>
+<td>内存管理</td>
+<td>什么是虚拟内存？为什么需要它？</td>
+</tr>
+<tr>
+<td>内存管理</td>
+<td>页面置换算法有哪些？</td>
+</tr>
+<tr>
+<td>内存管理</td>
+<td>什么是内存碎片？如何解决？</td>
+</tr>
+<tr>
+<td>调度</td>
+<td>进程调度算法有哪些？</td>
+</tr>
+<tr>
+<td>系统调用</td>
+<td>用户态和内核态的区别？为什么需要切换？</td>
+</tr>
+<tr>
+<td>IO</td>
+<td>什么是零拷贝？</td>
+</tr>
+<tr>
+<td>IO</td>
+<td>IO 多路复用（select/poll/epoll）的区别？</td>
+</tr>
+<tr>
+<td>文件系统</td>
+<td>inode 是什么？文件是如何存储的？</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="三-数据库">三、数据库</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>索引</td>
+<td>为什么数据库索引用 B+ 树而不是 B 树或红黑树？</td>
+</tr>
+<tr>
+<td>索引</td>
+<td>什么是聚簇索引和非聚簇索引？</td>
+</tr>
+<tr>
+<td>索引</td>
+<td>什么是覆盖索引、最左前缀原则？</td>
+</tr>
+<tr>
+<td>事务</td>
+<td>事务的 ACID 特性是什么？</td>
+</tr>
+<tr>
+<td>事务</td>
+<td>数据库的四种隔离级别是什么？</td>
+</tr>
+<tr>
+<td>事务</td>
+<td>MVCC（多版本并发控制）是如何实现的？</td>
+</tr>
+<tr>
+<td>锁</td>
+<td>MySQL 的行锁、表锁、间隙锁是什么？</td>
+</tr>
+<tr>
+<td>锁</td>
+<td>什么是幻读？如何解决？</td>
+</tr>
+<tr>
+<td>Redis</td>
+<td>Redis 为什么这么快？</td>
+</tr>
+<tr>
+<td>Redis</td>
+<td>Redis 的五种基本数据结构底层实现</td>
+</tr>
+<tr>
+<td>Redis</td>
+<td>Redis 持久化 RDB 和 AOF 的区别？</td>
+</tr>
+<tr>
+<td>Redis</td>
+<td>缓存穿透、缓存击穿、缓存雪崩是什么？</td>
+</tr>
+<tr>
+<td>分布式</td>
+<td>分布式事务的解决方案（2PC/3PC/TCC/Saga）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="四-数据结构与算法">四、数据结构与算法</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>线性结构</td>
+<td>数组和链表的区别？</td>
+</tr>
+<tr>
+<td>哈希</td>
+<td>哈希冲突如何解决？为什么用链地址法？</td>
+</tr>
+<tr>
+<td>树</td>
+<td>红黑树的性质和应用场景</td>
+</tr>
+<tr>
+<td>树</td>
+<td>B 树和 B+ 树的区别</td>
+</tr>
+<tr>
+<td>排序</td>
+<td>快速排序和归并排序的优劣对比</td>
+</tr>
+<tr>
+<td>跳表</td>
+<td>跳表的原理与 Redis 为什么用跳表</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="五-编程语言与编译原理">五、编程语言与编译原理</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>编译</td>
+<td>编译型语言和解释型语言的区别？</td>
+</tr>
+<tr>
+<td>编译</td>
+<td>JIT 编译是什么？为什么比纯解释快？</td>
+</tr>
+<tr>
+<td>内存</td>
+<td>垃圾回收（GC）的算法有哪些？</td>
+</tr>
+<tr>
+<td>内存</td>
+<td>什么是分代收集？</td>
+</tr>
+<tr>
+<td>并发</td>
+<td>什么是协程？与线程的区别？</td>
+</tr>
+<tr>
+<td>语言特性</td>
+<td>什么是闭包？</td>
+</tr>
+<tr>
+<td>语言特性</td>
+<td>值传递和引用传递的区别？</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="六-分布式系统">六、分布式系统</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>理论</td>
+<td>CAP 定理是什么？为什么不能同时满足？</td>
+</tr>
+<tr>
+<td>一致性</td>
+<td>一致性哈希的原理是什么？</td>
+</tr>
+<tr>
+<td>一致性</td>
+<td>Raft 算法的核心流程</td>
+</tr>
+<tr>
+<td>锁</td>
+<td>分布式锁的实现方案（Redis/Zookeeper）</td>
+</tr>
+<tr>
+<td>消息队列</td>
+<td>消息队列如何保证消息不丢失？</td>
+</tr>
+<tr>
+<td>消息队列</td>
+<td>如何保证消息的顺序消费？</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h1 id="一-计算机网络_1">一、计算机网络</h1>
+<h2 id="网络协议">网络协议</h2>
+<h3 id="tcp">TCP</h3>
+<h4 id="为什么-tcp-需要三次握手而不是两次或四次">为什么 TCP 需要三次握手而不是两次或四次？</h4>
+<p><strong>上下文知识</strong></p>
+<p>TCP（Transmission Control Protocol，传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层协议。在通信双方开始传输数据之前，必须先建立连接，这个过程就是"握手"。握手的核心目标是：双方确认彼此的发送能力和接收能力都正常，并协商初始序列号（ISN, Initial Sequence Number）。</p>
+<p><strong>问题的由来</strong></p>
+<p>为什么需要握手？因为 IP 网络层是不可靠的（只管尽力转发，不保证到达），而 TCP 要在不可靠的网络之上提供可靠的字节流服务。为了实现可靠传输，TCP 必须在通信前确认双方都"在线"且收发能力正常，否则可能出现"对端已关闭但本端还在发数据"的资源浪费问题。</p>
+<p><strong>两次握手为什么不行</strong></p>
+<p>假设只有两次握手（客户端发 SYN，服务端回 SYN+ACK 就算建立连接），会出现以下问题：</p>
+<p>考虑一种经典场景：客户端发送的第一个 SYN 数据包因为网络拥堵迟迟未到，客户端超时重传了第二个 SYN。第二个 SYN 正常到达并完成握手、传输数据、释放连接。此时第一个延迟的 SYN 才姗姗来迟到达服务端。</p>
+<p>在两次握手下，服务端收到这个迟到的 SYN 会认为是新的连接请求，立即分配资源、建立连接，并向客户端回 SYN+ACK。但客户端此时并不想建立连接，会忽略这个 ACK，导致服务端的连接一直挂着，资源被白白浪费——这就是<strong>历史失效连接请求导致的资源浪费</strong>。</p>
+<p>三次握手时，服务端收到迟到的 SYN 后回 SYN+ACK，但客户端不会回第三次 ACK，服务端收不到 ACK 就不会真正建立连接，从而避免了资源浪费。</p>
+<p><strong>四次握手为什么没必要</strong></p>
+<p>三次握手已经能确认双方的收发能力：</p>
+<ul>
+<li>第一次：服务端收到客户端的 SYN → 服务端确认客户端的发送能力、自己的接收能力正常。</li>
+<li>第二次：客户端收到服务端的 SYN+ACK → 客户端确认服务端的发送、接收能力，自己的发送、接收能力都正常。</li>
+<li>第三次：服务端收到客户端的 ACK → 服务端确认自己的发送能力、客户端的接收能力正常。</li>
+</ul>
+<p>四次握手在功能上是冗余的。服务端的 SYN 和 ACK 可以合并在一个报文里发送，因此三次足够。</p>
+<p><strong>底层执行原理</strong></p>
+<pre><code>客户端（Client）                          服务端（Server）
+    |                                         |
+    | ----- SYN (seq=x) --------------------&gt; |  第一次握手：客户端请求连接
+    | 状态：SYN_SENT                          |
+    |                                         |
+    | &lt;---- SYN+ACK (seq=y, ack=x+1) -------- |  第二次握手：服务端确认并请求
+    | 状态：ESTABLISHED                       | 状态：SYN_RCVD
+    |                                         |
+    | ----- ACK (ack=y+1) ------------------&gt; |  第三次握手：客户端确认
+    |                                         | 状态：ESTABLISHED
+    |                                         |
+    | &lt;========= 数据传输开始 =========&gt;     |
+</code></pre>
+<p><img loading="lazy" decoding="async" alt="TCP 三次握手" src="images/tcp-three-way-handshake.svg" /></p>
+<p>关键点：
+- 双方各自维护一个<strong>序列号（sequence number）</strong>，用于标识字节流中的位置。
+- 初始序列号 ISN 不是固定的 0，而是随时间动态生成，防止旧报文被误认为新连接的有效数据。
+- 第三次握手的 ACK 报文可以携带数据，这也是为什么三次握手不能省略——如果省掉，客户端无法确认服务端的接收能力。</p>
+<p><strong>解决方式与设计原因</strong></p>
+<p>三次握手是<strong>最少次数</strong>能够满足"双向确认收发能力 + 协商序列号 + 防止旧连接"的方案。这是 TCP 可靠性的基石。</p>
+<p><strong>后续发展</strong></p>
+<p>随着网络环境变化，TCP 也在演进：
+- <strong>TCP Fast Open (TFO)</strong>：允许在握手阶段就携带数据，减少一次 RTT。
+- <strong>TCP 快速打开与 SYN Cookie</strong>：应对 SYN Flood 攻击，服务端不必为每个 SYN 分配资源。
+- <strong>QUIC</strong>：基于 UDP 的新一代传输协议，将握手和加密合并，0-RTT 建立连接。</p>
+<hr />
+<h4 id="为什么-tcp-断开连接需要四次挥手">为什么 TCP 断开连接需要四次挥手？</h4>
+<p><strong>上下文知识</strong></p>
+<p>TCP 是全双工（full-duplex）协议，通信双方都可以独立地发送和接收数据。因此，关闭连接时，每个方向都需要单独关闭——这就是四次挥手（FIN, ACK, FIN, ACK）的根本原因。</p>
+<p><strong>问题的由来</strong></p>
+<p>建立连接时三次握手是因为服务端的 SYN 和 ACK 可以合并。但断开时，服务端收到客户端的 FIN 后，可能还有数据没发完，不能立即回 FIN，所以 FIN 和 ACK 必须分开发送，就多了一次。</p>
+<p><strong>具体原因</strong></p>
+<ul>
+<li>客户端发送 FIN 表示"我没有数据要发了"，但客户端可能还要接收服务端的数据。</li>
+<li>服务端收到 FIN 后先回 ACK，表示"知道了你不发了"，但服务端自己可能还有数据要发。</li>
+<li>服务端数据发完后，再发 FIN 表示"我也发完了"。</li>
+<li>客户端回 ACK，连接彻底关闭。</li>
+</ul>
+<p>如果合并（三次挥手），意味着服务端收到 FIN 后必须立即停止发送，这在全双工场景下不现实。</p>
+<p><strong>底层执行原理</strong></p>
+<pre><code>客户端（Client）                          服务端（Server）
+    |                                         |
+    | ----- FIN (seq=u) --------------------&gt; |  第一次挥手：客户端请求关闭
+    | 状态：FIN_WAIT_1                        |
+    |                                         |
+    | &lt;---- ACK (ack=u+1) ------------------- |  第二次挥手：服务端确认
+    | 状态：FIN_WAIT_2                        | 状态：CLOSE_WAIT
+    |                                         |
+    |         （服务端可能继续发送剩余数据）        |
+    |                                         |
+    | &lt;---- FIN (seq=w) --------------------- |  第三次挥手：服务端请求关闭
+    |                                         | 状态：LAST_ACK
+    |                                         |
+    | ----- ACK (ack=w+1) ------------------&gt; |  第四次挥手：客户端确认
+    | 状态：TIME_WAIT                         | 状态：CLOSED
+    | （等待 2MSL 后关闭）                       |
+</code></pre>
+<p><img loading="lazy" decoding="async" alt="TCP 四次挥手" src="images/tcp-four-way-wave.svg" /></p>
+<p><strong>解决方式与设计原因</strong></p>
+<p>四次挥手保证了全双工连接的双向优雅关闭，任何一方都可以在自己发送完数据后才关闭发送通道。</p>
+<hr />
+<h4 id="为什么-time_wait-状态需要等待-2msl">为什么 TIME_WAIT 状态需要等待 2MSL？</h4>
+<p><strong>上下文知识</strong></p>
+<p>MSL（Maximum Segment Lifetime，报文最大生存时间）是 TCP 报文在网络中能存在的最长时间，RFC 793 建议为 2 分钟，实际系统中常设为 30 秒或 60 秒。TIME_WAIT 是主动关闭方（客户端）在发送最后一个 ACK 后进入的状态。</p>
+<p><strong>问题的由来</strong></p>
+<p>主动关闭方发送最后一个 ACK 后，不能立即关闭连接，需要等待 2MSL 时间。为什么？</p>
+<p><strong>具体原因与原理</strong></p>
+<ol>
+<li>
+<p><strong>保证最后一个 ACK 能到达对端</strong>：如果客户端发的 ACK 丢失了，服务端会超时重传 FIN。客户端必须在 TIME_WAIT 状态下才能重发 ACK。如果客户端立即关闭，服务端收不到 ACK 会一直重传 FIN，浪费资源。等待 2MSL 足以覆盖"ACK 丢失 + FIN 重传到达"的时间。</p>
+</li>
+<li>
+<p><strong>让旧连接的报文在网络中消失</strong>：如果新连接复用了和旧连接相同的四元组（源IP、源端口、目的IP、目的端口），旧连接的延迟报文可能被误认为新连接的数据。等待 2MSL 确保网络中所有旧连接的报文都已过期消失。</p>
+</li>
+</ol>
+<p><strong>为什么是 2MSL</strong></p>
+<ul>
+<li>一个 MSL 是报文在单向网络中的最大存活时间。</li>
+<li>最后一个 ACK 从客户端到服务端最多需要 1 MSL。</li>
+<li>如果 ACK 丢失，服务端重传的 FIN 回到客户端最多需要 1 MSL。</li>
+<li>两者相加就是 2MSL。</li>
+</ul>
+<p><strong>优化</strong></p>
+<p>TIME_WAIT 会导致端口资源占用，高并发短连接场景下可能耗尽端口。常见优化：
+- 打开 <code>net.ipv4.tcp_tw_reuse</code>（需配合 <code>tcp_timestamps</code>）。
+- 调整 <code>net.ipv4.ip_local_port_range</code> 扩大端口范围。
+- 让服务端主动关闭连接（TIME_WAIT 落在服务端，服务端端口更充足）。</p>
+<hr />
+<h4 id="什么是粘包-拆包-如何解决">什么是粘包/拆包？如何解决？</h4>
+<p><strong>上下文知识</strong></p>
+<p>TCP 是面向<strong>字节流</strong>的协议，没有消息边界的概念。应用层交给 TCP 的数据会被当作连续的字节流，TCP 只负责按序、可靠地传输字节，不保证一次 <code>send</code> 对应一次 <code>recv</code>。</p>
+<p><strong>问题的由来</strong></p>
+<p>当应用层基于 TCP 传输有明确边界的消息时（比如一个完整的 JSON 对象、一个定长的协议包），就可能出现粘包或拆包。</p>
+<p><strong>具体原因</strong></p>
+<ol>
+<li><strong>发送方</strong>：TCP 有 Nagle 算法，会将多个小包合并成一个大包发送，导致多个消息粘在一起（粘包）。</li>
+<li><strong>接收方</strong>：接收方的缓冲区可能一次读取了多个消息的数据（粘包），也可能一个消息太大被分成多次读取（拆包）。</li>
+<li><strong>MSS/MTU 限制</strong>：当消息长度超过 MSS 时，TCP 会分片传输，接收方需要多次读取才能拼出完整消息（拆包）。</li>
+</ol>
+<p><strong>底层原理</strong></p>
+<pre><code>应用层消息 A | 消息 B | 消息 C
+         ↓ TCP 字节流视角
+[A 的字节][B 的字节][C 的字节]  ← 无边界
+         ↓ 接收方读取
+可能读到：[A 的一部分]  → 拆包
+可能读到：[A 全部 + B 全部]  → 粘包
+</code></pre>
+<p><strong>解决方式</strong></p>
+<ol>
+<li><strong>固定长度</strong>：每条消息固定长度，不足补齐。简单但浪费带宽。</li>
+<li><strong>特殊分隔符</strong>：用 <code>\n</code> 或 <code>\r\n</code> 等分隔符划分消息边界（如 HTTP 头部、Redis RESP 协议的简单类型）。</li>
+<li><strong>长度前缀</strong>：在消息头部加一个固定长度的字段表示消息体长度（最常用，如 Protobuf、自定义协议）。</li>
+<li><strong>关闭 Nagle 算法</strong>：设置 <code>TCP_NODELAY</code> 选项，小包立即发送，但仍无法解决接收方粘包。</li>
+</ol>
+<p><strong>最佳实践</strong></p>
+<p>工业界最常用的是<strong>长度前缀 + 协议头</strong>的方式，典型结构：</p>
+<pre><code>+----------------+----------------+
+|  固定长度头部    |  消息体         |
+|  (含消息体长度)  |  (变长)         |
++----------------+----------------+
+</code></pre>
+<p>接收方先读取固定长度的头部，解析出消息体长度，再按长度读取完整消息体。</p>
+<hr />
+<h4 id="tcp-滑动窗口是如何工作的">TCP 滑动窗口是如何工作的？</h4>
+<p><strong>上下文知识</strong></p>
+<p>如果每发一个包都等对端 ACK 再发下一个，网络利用率极低（停等协议）。滑动窗口（Sliding Window）允许发送方在收到 ACK 之前连续发送多个包，从而提升吞吐量。</p>
+<p><strong>核心原理</strong></p>
+<p>滑动窗口本质上是一个<strong>缓冲区 + 指针</strong>的机制，分为发送窗口和接收窗口。</p>
+<p><strong>发送方窗口</strong>：</p>
+<pre><code>已发送并确认 | 已发送未确认 | 可发送未发送 | 不可发送
+[1][2][3]   | [4][5][6]   | [7][8]      | [9][10]...
+            ↑             ↑
+        左边界         右边界
+</code></pre>
+<ul>
+<li>左边界：已确认的最后一个字节的下一个位置。</li>
+<li>右边界：左边界 + 窗口大小。</li>
+<li>窗口内的数据可以连续发送，无需等待 ACK。</li>
+<li>当收到 ACK 时，左边界右移，窗口滑动，新的字节可以发送。</li>
+</ul>
+<p><strong>接收方窗口</strong>：</p>
+<p>接收方维护一个接收缓冲区，告知发送方自己还能接收多少数据（通过 TCP 头部的 Window Size 字段）。</p>
+<p><strong>流量控制</strong></p>
+<p>接收方通过通告窗口大小（rwnd）告诉发送方自己的接收能力。如果接收方处理不过来，会通告窗口为 0，发送方停止发送（但会定时发送窗口探测包）。</p>
+<p><strong>与拥塞窗口的关系</strong></p>
+<p>发送方实际窗口大小 = min(rwnd, cwnd)：
+- rwnd（receiver window）：接收方通告的流量控制窗口。
+- cwnd（congestion window）：拥塞控制窗口，根据网络拥塞程度动态调整。</p>
+<hr />
+<h4 id="tcp-拥塞控制的四个阶段是什么">TCP 拥塞控制的四个阶段是什么？</h4>
+<p><strong>上下文知识</strong></p>
+<p>流量控制解决的是接收方处理能力的问题，而拥塞控制解决的是<strong>网络中间链路</strong>承受能力的问题。如果发送方发得太快，网络中的路由器队列溢出、丢包，反而降低整体吞吐。TCP 拥塞控制就是通过动态调整 cwnd（拥塞窗口）来适配网络承载能力。</p>
+<p><strong>四个阶段</strong></p>
+<ol>
+<li>
+<p><strong>慢启动（Slow Start）</strong>：cwnd 从 1 个 MSS 开始，每收到一个 ACK，cwnd 翻倍（指数增长）。虽然叫"慢启动"，但其实增长很快。慢启动的目的是快速探测网络容量。</p>
+</li>
+<li>
+<p><strong>拥塞避免（Congestion Avoidance）</strong>：当 cwnd 达到慢启动阈值（ssthresh）后，进入拥塞避免阶段。此时每收到一个 ACK，cwnd 只增加 1/cwnd 个 MSS（即一个 RTT 内 cwnd 增加 1 个 MSS），呈线性增长。目的是在接近网络容量时缓慢增加，避免立即过载。</p>
+</li>
+<li>
+<p><strong>快重传（Fast Retransmit）</strong>：当发送方收到 3 个重复 ACK（duplicate ACK）时，说明某个包丢失了，但后续包都到达了。此时不必等超时定时器，立即重传丢失的包。</p>
+</li>
+<li>
+<p><strong>快恢复（Fast Recovery）</strong>：快重传后，不直接回到慢启动（那样太慢），而是将 ssthresh 设为当前 cwnd 的一半，cwnd 设为 ssthresh + 3，然后执行拥塞避免（线性增长）。</p>
+</li>
+</ol>
+<p><strong>状态转换</strong></p>
+<pre><code>慢启动 (指数增长)
+    ↓ cwnd 达到 ssthresh
+拥塞避免 (线性增长)
+    ↓ 收到 3 个重复 ACK
+快重传 + 快恢复 (ssthresh=cwnd/2, cwnd=ssthresh)
+    ↓ 拥塞避免
+    ↓ 超时（RTO）
+慢启动 (ssthresh=cwnd/2, cwnd=1)
+</code></pre>
+<p><strong>后续发展</strong></p>
+<p>经典的 Reno 算法之后，出现了 CUBIC（Linux 默认）、BBR 等更先进的拥塞控制算法。BBR 不依赖丢包信号，而是基于带宽和延迟的估计来控制发送速率，在高带宽时延积网络中表现更好。</p>
+<hr />
+<h4 id="为什么-tcp-是可靠的而-udp-不是">为什么 TCP 是可靠的而 UDP 不是？</h4>
+<p><strong>上下文知识</strong></p>
+<p>TCP 和 UDP 都是传输层协议，但设计目标完全不同：TCP 追求可靠性，UDP 追求低延迟和高效率。</p>
+<p><strong>TCP 如何保证可靠</strong></p>
+<ol>
+<li><strong>序列号与确认应答（ACK）</strong>：每个字节都有编号，接收方收到后回 ACK 确认。如果发送方超时未收到 ACK，会重传。</li>
+<li><strong>超时重传</strong>：发送方维护一个定时器，超过 RTO（Retransmission Timeout）未收到 ACK 就重传。</li>
+<li><strong>校验和（Checksum）</strong>：检测传输过程中的数据损坏。</li>
+<li><strong>滑动窗口 + 流量控制</strong>：防止接收方被淹没。</li>
+<li><strong>拥塞控制</strong>：适应网络承载能力。</li>
+<li><strong>面向连接</strong>：三次握手建立连接，四次挥手优雅断开。</li>
+</ol>
+<p><strong>UDP 为什么不可靠</strong></p>
+<p>UDP 只提供：
+- 复用/分用（通过端口）
+- 差错检测（校验和，可选）</p>
+<p>UDP 不保证：
+- 不丢包（没有重传）
+- 有序到达（没有序列号重排）
+- 不重复
+- 流量控制和拥塞控制</p>
+<p><strong>为什么 UDP 还存在</strong></p>
+<ul>
+<li><strong>开销小</strong>：UDP 头部只有 8 字节，TCP 头部最少 20 字节。</li>
+<li><strong>无连接</strong>：不需要握手，延迟低。</li>
+<li><strong>支持广播和多播</strong>：TCP 只能一对一。</li>
+</ul>
+<p>适用场景：DNS 查询、实时音视频（WebRTC）、游戏、QUIC（在 UDP 之上自己实现可靠机制）。</p>
+<hr />
+<h3 id="udp">UDP</h3>
+<h4 id="udp-如何实现可靠传输-如-kcp-quic">UDP 如何实现可靠传输（如 KCP、QUIC）？</h4>
+<p><strong>上下文知识</strong></p>
+<p>UDP 本身不可靠，但某些场景既需要 UDP 的低延迟，又需要一定的可靠性。这时就需要在应用层或 UDP 之上实现可靠机制。</p>
+<p><strong>常见方案</strong></p>
+<ol>
+<li>
+<p><strong>KCP</strong>：一个快速可靠协议，在 UDP 之上实现 ARQ（自动重传请求）。相比 TCP，KCP 牺牲部分带宽换取更低的延迟。
+   - 特性：选择性重传（只重传丢失的包）、非延迟 ACK、可调节的发送窗口。
+   - 常用场景：游戏、实时通信。</p>
+</li>
+<li>
+<p><strong>QUIC</strong>：Google 提出的基于 UDP 的传输协议，已被 HTTP/3 采用。
+   - 特性：0-RTT/1-RTT 握手、内置 TLS 1.3 加密、多路复用（无队头阻塞）、连接迁移（网络切换不断连）。
+   - QUIC 在用户态实现可靠传输、拥塞控制、流量控制，不依赖操作系统内核的 TCP 栈。</p>
+</li>
+<li>
+<p><strong>RUDP（Reliable UDP）</strong>：在 UDP 上增加 ACK、序列号、重传等机制。</p>
+</li>
+</ol>
+<p><strong>核心机制</strong></p>
+<p>无论哪种方案，实现可靠传输都需要：
+- <strong>序列号</strong>：标识每个包，用于排序和去重。
+- <strong>ACK 确认</strong>：接收方告知发送方已收到哪些包。
+- <strong>超时重传</strong>：未收到 ACK 的包超时重传。
+- <strong>滑动窗口</strong>：控制在途包数量。
+- <strong>校验和</strong>：检测数据损坏。</p>
+<hr />
+<h3 id="http">HTTP</h3>
+<h4 id="get-和-post-的本质区别是什么">GET 和 POST 的本质区别是什么？</h4>
+<p><strong>上下文知识</strong></p>
+<p>HTTP 定义了多种请求方法（Method），GET 和 POST 是最常用的两个。很多人以为区别只是"参数在 URL 还是 body"，但这是实现细节，不是本质。</p>
+<p><strong>本质区别：语义不同</strong></p>
+<ul>
+<li><strong>GET</strong>：幂等的、安全的、用于<strong>获取资源</strong>的方法。</li>
+<li><strong>POST</strong>：非幂等的、用于<strong>提交数据/修改资源</strong>的方法。</li>
+</ul>
+<p>这里的"安全"指不修改服务器资源状态；"幂等"指多次执行结果相同。</p>
+<p><strong>常见误解的澄清</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>误解</th>
+<th>真相</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET 参数只能放 URL</td>
+<td>GET 也可以带 body，但不规范，部分服务器/客户端不支持</td>
+</tr>
+<tr>
+<td>POST 参数只能放 body</td>
+<td>POST 也可以在 URL 带参数</td>
+</tr>
+<tr>
+<td>GET 有长度限制</td>
+<td>长度限制是浏览器或服务器的实现限制，不是 HTTP 协议规定</td>
+</tr>
+<tr>
+<td>POST 比 GET 安全</td>
+<td>两者在 HTTP 明文传输下都不安全，HTTPS 下都安全</td>
+</tr>
+<tr>
+<td>GET 会被缓存 POST 不会</td>
+<td>是否缓存由 Cache-Control 等头决定，不是方法本身</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>为什么浏览器对 GET 有长度限制</strong></p>
+<p>URL 太长会影响服务器解析性能和日志记录，因此浏览器（通常 2048~8192 字符）和服务器（如 Apache 默认 8190 字节）对 URL 长度有限制。</p>
+<hr />
+<h4 id="http-长连接和短连接的区别">HTTP 长连接和短连接的区别？</h4>
+<p><strong>上下文知识</strong></p>
+<p>HTTP 基于 TCP，每次 HTTP 请求都需要 TCP 连接。短连接是每次请求都新建 TCP 连接，长连接是复用同一个 TCP 连接发送多个请求。</p>
+<p><strong>短连接的问题</strong></p>
+<p>每次请求都要经历三次握手 + 四次挥手，开销大。特别是 HTTPS 还要加 TLS 握手，延迟更高。</p>
+<p><strong>长连接（Keep-Alive）</strong></p>
+<ul>
+<li>HTTP/1.0 默认短连接，需显式设置 <code>Connection: keep-alive</code> 开启长连接。</li>
+<li>HTTP/1.1 默认长连接（<code>Connection: keep-alive</code>），需设置 <code>Connection: close</code> 才关闭。</li>
+<li>复用 TCP 连接，减少握手开销。</li>
+</ul>
+<p><strong>长连接的问题：队头阻塞</strong></p>
+<p>HTTP/1.1 的长连接虽然复用 TCP，但同一个连接上的请求必须串行处理（一个请求响应完才能发下一个），如果前面的请求慢，后面的请求被阻塞——这就是队头阻塞（Head-of-Line Blocking）。</p>
+<p><strong>HTTP/2 的多路复用</strong></p>
+<p>HTTP/2 引入二进制分帧层，在一个 TCP 连接上可以并行发送多个请求和响应，解决了 HTTP/1.1 的队头阻塞问题。但 TCP 层的丢包重传仍会导致所有流阻塞。</p>
+<p><strong>HTTP/3（QUIC）</strong></p>
+<p>基于 UDP，彻底解决 TCP 层的队头阻塞。</p>
+<hr />
+<h4 id="http-缓存机制-强缓存与协商缓存-是如何工作的">HTTP 缓存机制（强缓存与协商缓存）是如何工作的？</h4>
+<p><strong>上下文知识</strong></p>
+<p>浏览器缓存是性能优化的重要手段。HTTP 缓存分为强缓存和协商缓存两级。</p>
+<p><strong>强缓存（不发请求）</strong></p>
+<p>浏览器判断本地缓存是否过期，未过期直接使用，不发送请求。</p>
+<p>控制字段：
+- <code>Expires</code>：HTTP/1.0，绝对时间，受客户端时间影响，不可靠。
+- <code>Cache-Control: max-age=3600</code>：HTTP/1.1，相对秒数，优先级高于 Expires。</p>
+<p><strong>协商缓存（发请求验证）</strong></p>
+<p>强缓存过期后，浏览器发请求到服务器，服务器判断资源是否修改。</p>
+<p>控制字段：
+- <code>Last-Modified</code> / <code>If-Modified-Since</code>：基于修改时间，精度秒级，可能存在"一秒内修改但时间未变"的问题。
+- <code>ETag</code> / <code>If-None-Match</code>：基于内容哈希，精度更高，优先级高于 Last-Modified。</p>
+<p>服务器返回 304 Not Modified 表示未修改，浏览器使用本地缓存；返回 200 并带新内容表示已修改。</p>
+<p><strong>整体流程</strong></p>
+<pre><code>浏览器请求资源
+    ↓
+是否有本地缓存？──否──&gt; 发请求，服务器返回资源
+    ↓ 是
+强缓存是否有效？──是──&gt; 直接使用缓存
+    ↓ 否
+发协商请求（带 If-Modified-Since / If-None-Match）
+    ↓
+服务器返回 304？──是──&gt; 使用缓存
+    ↓ 否
+返回 200 + 新资源，更新缓存
+</code></pre>
+<hr />
+<h4 id="什么是幂等性-哪些-http-方法是幂等的">什么是幂等性？哪些 HTTP 方法是幂等的？</h4>
+<p><strong>上下文知识</strong></p>
+<p>幂等（Idempotent）是数学概念，指多次执行同一个操作结果与执行一次相同。在 HTTP 中，幂等性关系到重试和缓存的安全性。</p>
+<p><strong>HTTP 方法的幂等性</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>幂等</th>
+<th>安全</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>是</td>
+<td>是</td>
+<td>获取资源，不修改</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>是</td>
+<td>是</td>
+<td>获取头部，不修改</td>
+</tr>
+<tr>
+<td>OPTIONS</td>
+<td>是</td>
+<td>是</td>
+<td>获取支持的方法</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>是</td>
+<td>否</td>
+<td>全量替换资源，多次执行结果相同</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>是</td>
+<td>否</td>
+<td>删除资源，多次删除结果相同（都没了）</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>否</td>
+<td>否</td>
+<td>创建资源，多次执行会创建多个</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td>否</td>
+<td>否</td>
+<td>部分更新，可能非幂等（如自增操作）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>幂等性的实际意义</strong></p>
+<ul>
+<li>网络超时后，客户端可以安全地重试幂等请求。</li>
+<li>网关、代理可以对幂等请求做缓存或自动重试。</li>
+<li>支付场景下，幂等性至关重要：必须保证重复调用支付接口不会重复扣款。</li>
+</ul>
+<p><strong>实现幂等的常见方式</strong></p>
+<ul>
+<li>唯一请求 ID（Request ID）：服务端记录已处理的请求 ID，重复请求直接返回上次结果。</li>
+<li>数据库唯一约束：如订单号唯一索引。</li>
+<li>乐观锁：版本号匹配才更新。</li>
+<li>状态机：只有特定状态才能执行某个操作。</li>
+</ul>
+<hr />
+<h3 id="https">HTTPS</h3>
+<h4 id="https-的握手过程是怎样的">HTTPS 的握手过程是怎样的？</h4>
+<p><strong>上下文知识</strong></p>
+<p>HTTPS = HTTP + TLS/SSL。TLS（Transport Layer Security）是 SSL 的继任者，在 TCP 之上、HTTP 之下提供加密、认证和完整性保护。当前主流版本是 TLS 1.2 和 TLS 1.3。</p>
+<p><strong>TLS 1.2 握手过程（RSA 密钥交换）</strong></p>
+<pre><code>客户端                                       服务端
+  |                                            |
+  | -- ClientHello (支持的加密套件、随机数1) --&gt; |  1. 客户端发起握手
+  |                                            |
+  | &lt;- ServerHello (选定加密套件、随机数2) ----- |  2. 服务端回应
+  | &lt;- Certificate (证书) ---------------------- |  3. 服务端发证书
+  | &lt;- ServerHelloDone ------------------------- |
+  |                                            |
+  | -- ClientKeyExchange (预主密钥，用服务端公钥加密) -&gt; |  4. 客户端加密预主密钥
+  | -- ChangeCipherSpec ----------------------&gt; |  5. 通知后续加密
+  | -- Finished (加密) -----------------------&gt; |
+  |                                            |
+  | &lt;- ChangeCipherSpec ---------------------- |  6. 服务端通知
+  | &lt;- Finished (加密) ------------------------ |
+  |                                            |
+  | &lt;====== 加密数据传输 ======&gt;               |
+</code></pre>
+<p>核心要点：
+- 客户端和服务端各自生成一个随机数，加上客户端用服务端公钥加密的预主密钥，三者共同生成<strong>会话密钥</strong>。
+- 后续通信使用会话密钥进行<strong>对称加密</strong>。</p>
+<p><strong>TLS 1.3 的改进</strong></p>
+<ul>
+<li>握手从 2-RTT 降到 1-RTT（甚至 0-RTT）。</li>
+<li>移除了不安全的加密算法（如 RSA 密钥交换、静态 DH），只保留前向安全的 ECDHE。</li>
+<li>握手消息全部加密。</li>
+</ul>
+<hr />
+<h4 id="为什么-https-同时使用对称加密和非对称加密">为什么 HTTPS 同时使用对称加密和非对称加密？</h4>
+<p><strong>上下文知识</strong></p>
+<ul>
+<li><strong>对称加密</strong>：加解密用同一密钥，速度快（如 AES）。问题是如何安全地交换密钥。</li>
+<li><strong>非对称加密</strong>：公钥加密、私钥解密（如 RSA），无需交换密钥，但速度慢（比对称慢 1000 倍左右）。</li>
+</ul>
+<p><strong>为什么不能只用非对称加密</strong></p>
+<p>非对称加密太慢，如果所有通信数据都用非对称加密，性能无法接受。</p>
+<p><strong>为什么不能只用对称加密</strong></p>
+<p>对称加密需要双方共享密钥，但在不安全的网络上无法安全地传输密钥（直接传会被窃听）。</p>
+<p><strong>结合方案</strong></p>
+<ol>
+<li>用非对称加密<strong>安全地交换对称密钥</strong>（密钥小，一次加密即可）。</li>
+<li>用对称加密<strong>加密实际通信数据</strong>（速度快）。</li>
+</ol>
+<p>这就是 TLS 的核心思路：非对称加密用于密钥协商，对称加密用于数据加密。</p>
+<p><strong>前向安全（Forward Secrecy）</strong></p>
+<p>如果仅用 RSA 做密钥交换，一旦服务端私钥泄露，所有历史会话的密钥都能被破解（因为预主密钥是用服务端公钥加密的）。</p>
+<p>TLS 1.3 强制使用 ECDHE（椭圆曲线 Diffie-Hellman 临时密钥交换），每次会话生成临时密钥对，即使长期私钥泄露也无法解密历史会话——这就是前向安全。</p>
+<hr />
+<h4 id="数字证书是如何验证身份的">数字证书是如何验证身份的？</h4>
+<p><strong>上下文知识</strong></p>
+<p>非对称加密解决了密钥交换问题，但引入了新问题：如何确认你拿到的公钥确实属于对方，而不是中间人伪造的？这就是数字证书要解决的问题。</p>
+<p><strong>数字证书的结构</strong></p>
+<p>证书由 CA（Certificate Authority，证书颁发机构）签发，包含：
+- 证书持有者信息（域名、组织等）
+- 持有者公钥
+- 证书有效期
+- 证书签名算法
+- CA 的数字签名</p>
+<p><strong>验证过程</strong></p>
+<ol>
+<li>浏览器拿到服务端的证书。</li>
+<li>浏览器读取证书中的签发者信息，找到对应的 CA 根证书（内置在操作系统/浏览器中）。</li>
+<li>用 CA 根证书的公钥验证证书上的数字签名。</li>
+<li>验证通过，说明证书确实由该 CA 签发，未被篡改。</li>
+<li>再检查证书的域名是否匹配、是否在有效期内、是否被吊销（CRL/OCSP）。</li>
+</ol>
+<p><strong>数字签名原理</strong></p>
+<p>CA 签发证书时：
+1. 对证书内容做哈希（如 SHA-256）。
+2. 用 CA 的私钥对哈希值加密，得到数字签名。</p>
+<p>验证时：
+1. 用 CA 公钥解密数字签名，得到哈希值 H1。
+2. 对证书内容做同样的哈希，得到 H2。
+3. 如果 H1 == H2，说明证书未被篡改。</p>
+<p><strong>信任链</strong></p>
+<p>服务端证书可能由中间 CA 签发，中间 CA 由根 CA 签发。验证时沿着证书链一路验证到根证书，根证书是内置受信任的。</p>
+<hr />
+<h3 id="dns">DNS</h3>
+<h4 id="dns-解析的完整过程是怎样的">DNS 解析的完整过程是怎样的？</h4>
+<p><strong>上下文知识</strong></p>
+<p>DNS（Domain Name System，域名系统）将人类可读的域名（如 <code>www.example.com</code>）转换为 IP 地址。DNS 是互联网的"电话簿"。</p>
+<p><strong>完整解析过程</strong></p>
+<p>以访问 <code>www.example.com</code> 为例：</p>
+<ol>
+<li><strong>浏览器缓存</strong>：浏览器先查自己的 DNS 缓存，有则直接返回。</li>
+<li><strong>操作系统缓存</strong>：浏览器没有则查操作系统缓存（如 macOS 的 lookupd，Windows 的 DNS Client 服务）。</li>
+<li><strong>hosts 文件</strong>：操作系统缓存没有则查本地 hosts 文件。</li>
+<li><strong>本地 DNS 服务器（LDNS）</strong>：都没有则向本地 DNS 服务器（通常是 ISP 提供或如 8.8.8.8 的公共 DNS）发起递归查询。</li>
+<li><strong>根域名服务器</strong>：LDNS 没有缓存，则向根域名服务器（13 组根）查询，根服务器返回顶级域（.com）的权威服务器地址。</li>
+<li><strong>顶级域服务器</strong>：LDNS 向 .com 顶级域服务器查询，返回 example.com 的权威服务器地址。</li>
+<li><strong>权威服务器</strong>：LDNS 向 example.com 权威服务器查询，返回 www.example.com 的 IP 地址。</li>
+<li>LDNS 缓存结果并返回给客户端。</li>
+</ol>
+<pre><code>客户端 ──&gt; LDNS ──&gt; 根服务器 ──&gt; .com服务器 ──&gt; example.com权威服务器
+  ↑          ↓
+  └── 返回 IP ──┘
+</code></pre>
+<p><strong>递归查询 vs 迭代查询</strong></p>
+<ul>
+<li>客户端 → LDNS：递归查询（LDNS 负责到底，返回最终结果）。</li>
+<li>LDNS → 根/顶级/权威服务器：迭代查询（每步返回下一步的地址，LDNS 自己继续查）。</li>
+</ul>
+<hr />
+<h4 id="为什么-dns-同时使用-udp-和-tcp">为什么 DNS 同时使用 UDP 和 TCP？</h4>
+<p><strong>上下文知识</strong></p>
+<p>DNS 默认使用 UDP 53 端口，但在某些情况下会使用 TCP 53 端口。</p>
+<p><strong>为什么主要用 UDP</strong></p>
+<ul>
+<li>DNS 查询通常很小（请求几十字节，响应几百字节），UDP 开销小、速度快。</li>
+<li>DNS 对实时性要求高，不希望因为握手和重传增加延迟。</li>
+<li>DNS 查询可以容忍丢失（客户端会超时重试）。</li>
+</ul>
+<p><strong>什么时候用 TCP</strong></p>
+<ol>
+<li><strong>响应超过 512 字节</strong>：UDP 报文超过 512 字节（启用 EDNS0 后可更大）时，DNS 服务器会在响应中设置 TC（Truncated）标志位，客户端收到后改用 TCP 重新查询。</li>
+<li><strong>区域传输（Zone Transfer）</strong>：主 DNS 服务器向从 DNS 服务器同步整个区域数据时，数据量大，使用 TCP。</li>
+</ol>
+<p><strong>注意</strong></p>
+<p>TCP 的 DNS 查询也有头部（2 字节长度字段），因为 TCP 是字节流，需要标识 DNS 报文边界。</p>
+<hr />
+<h3 id="网络安全">网络安全</h3>
+<h4 id="什么是跨域-如何解决-cors">什么是跨域？如何解决 CORS？</h4>
+<p><strong>上下文知识</strong></p>
+<p>跨域是浏览器的<strong>同源策略</strong>（Same-Origin Policy）导致的。同源指协议、域名、端口三者完全相同。非同源的脚本不能读取对方的 DOM、Cookie、LocalStorage，也不能发起 AJAX 请求（默认）。</p>
+<p><strong>CORS（Cross-Origin Resource Sharing）</strong></p>
+<p>CORS 是 W3C 标准，通过 HTTP 头允许服务器声明哪些源可以访问自己的资源。</p>
+<p><strong>简单请求</strong></p>
+<p>满足以下条件的是简单请求：
+- 方法：GET、HEAD、POST
+- Content-Type：text/plain、multipart/form-data、application/x-www-form-urlencoded
+- 没有自定义头</p>
+<p>简单请求直接发送，服务器响应头中包含 <code>Access-Control-Allow-Origin</code> 即可。</p>
+<p><strong>预检请求（Preflight）</strong></p>
+<p>不满足简单请求条件的（如 PUT、DELETE、自定义头、application/json），浏览器会先发一个 OPTIONS 请求询问服务器是否允许。</p>
+<p>服务器需要返回：
+- <code>Access-Control-Allow-Origin</code>：允许的源。
+- <code>Access-Control-Allow-Methods</code>：允许的方法。
+- <code>Access-Control-Allow-Headers</code>：允许的头。
+- <code>Access-Control-Allow-Credentials</code>：是否允许携带 Cookie。
+- <code>Access-Control-Max-Age</code>：预检结果缓存时间。</p>
+<p><strong>携带 Cookie 的跨域</strong></p>
+<ul>
+<li>客户端：<code>xhr.withCredentials = true</code>。</li>
+<li>服务端：<code>Access-Control-Allow-Origin</code> 不能是 <code>*</code>，必须指定具体域名；<code>Access-Control-Allow-Credentials: true</code>。</li>
+</ul>
+<p><strong>其他跨域解决方案</strong></p>
+<ul>
+<li><strong>JSONP</strong>：利用 <code>&lt;script&gt;</code> 标签不受同源策略限制，只支持 GET。</li>
+<li><strong>Nginx 反向代理</strong>：服务端代理请求，无跨域问题。</li>
+<li><strong>postMessage</strong>：窗口间通信。</li>
+<li><strong>WebSocket</strong>：不受同源策略限制。</li>
+</ul>
+<hr />
+<h4 id="csrf-与-xss-的区别与防御">CSRF 与 XSS 的区别与防御</h4>
+<p><strong>上下文知识</strong></p>
+<p>CSRF 和 XSS 是两种常见的 Web 安全漏洞，都涉及跨站，但原理完全不同。</p>
+<p><strong>XSS（Cross-Site Scripting，跨站脚本攻击）</strong></p>
+<p>原理：攻击者在页面中注入恶意脚本，脚本在用户浏览器中执行，窃取 Cookie 或执行操作。</p>
+<p>类型：
+- <strong>存储型 XSS</strong>：恶意脚本存入数据库，其他用户访问时执行。
+- <strong>反射型 XSS</strong>：恶意脚本在 URL 参数中，服务端反射回页面执行。
+- <strong>DOM 型 XSS</strong>：纯前端操作 DOM 时引入恶意脚本。</p>
+<p>防御：
+- 输出转义（HTML 转义、JS 转义、URL 转义）。
+- CSP（Content Security Policy）限制脚本来源。
+- HttpOnly Cookie 防止 JS 读取 Cookie。</p>
+<p><strong>CSRF（Cross-Site Request Forgery，跨站请求伪造）</strong></p>
+<p>原理：攻击者诱导已登录用户访问恶意页面，恶意页面利用用户的登录态（Cookie 自动携带）向目标网站发起请求。</p>
+<pre><code>用户已登录 bank.com（Cookie 存在）
+    ↓
+用户访问 evil.com
+    ↓
+evil.com 中的 &lt;img src=&quot;https://bank.com/transfer?to=attacker&amp;amount=1000&quot;&gt;
+    ↓
+浏览器自动带上 bank.com 的 Cookie 发起请求
+    ↓
+银行服务器认为是用户本人操作
+</code></pre>
+<p>防御：
+- <strong>CSRF Token</strong>：服务端生成随机 Token，要求请求携带，攻击者无法获取。
+- <strong>SameSite Cookie</strong>：设置 <code>SameSite=Strict</code> 或 <code>Lax</code>，阻止跨站请求携带 Cookie。
+- <strong>验证 Referer</strong>：检查请求来源。
+- <strong>二次验证</strong>：敏感操作要求输入密码或验证码。</p>
+<p><strong>核心区别</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>XSS</th>
+<th>CSRF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>攻击方式</td>
+<td>注入脚本在受害者站点执行</td>
+<td>利用受害者身份发起请求</td>
+</tr>
+<tr>
+<td>是否需要登录态</td>
+<td>不一定</td>
+<td>必须</td>
+</tr>
+<tr>
+<td>防御核心</td>
+<td>输出转义/CSP</td>
+<td>Token/SameSite Cookie</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h4 id="sql-注入的原理与防御">SQL 注入的原理与防御</h4>
+<p><strong>上下文知识</strong></p>
+<p>SQL 注入是最古老也最危险的 Web 漏洞之一。当应用程序将用户输入直接拼接到 SQL 语句中时，攻击者可以构造恶意输入改变 SQL 语义。</p>
+<p><strong>原理示例</strong></p>
+<p>假设有登录逻辑：</p>
+<pre><code class="language-java">String sql = &quot;SELECT * FROM users WHERE name='&quot; + username + &quot;' AND password='&quot; + password + &quot;'&quot;;
+</code></pre>
+<p>攻击者输入用户名 <code>' OR '1'='1</code>，密码任意，SQL 变成：</p>
+<pre><code class="language-sql">SELECT * FROM users WHERE name='' OR '1'='1' AND password='xxx'
+</code></pre>
+<p>由于 <code>'1'='1'</code> 为真，查询返回所有用户，绕过登录。</p>
+<p><strong>防御方式</strong></p>
+<ol>
+<li><strong>参数化查询（预编译语句）</strong>：使用 <code>PreparedStatement</code>，SQL 模板和参数分离，数据库只把参数当值，不当语法。
+   <code>java
+   String sql = "SELECT * FROM users WHERE name=? AND password=?";
+   PreparedStatement ps = conn.prepareStatement(sql);
+   ps.setString(1, username);
+   ps.setString(2, password);</code></li>
+<li><strong>ORM 框架</strong>：如 MyBatis 的 <code>#{}</code>（预编译），避免 <code>${}</code>（字符串拼接）。</li>
+<li><strong>输入校验</strong>：白名单校验，拒绝非法字符。</li>
+<li><strong>最小权限</strong>：数据库账户只授予必要权限，避免 DROP、ALTER 等危险操作。</li>
+<li><strong>WAF</strong>：Web 应用防火墙检测并拦截 SQL 注入特征。</li>
+</ol>
+<p><strong>核心原则</strong>：永远不要信任用户输入，永远不要拼接 SQL。</p>
+<hr />
+<h1 id="二-操作系统_1">二、操作系统</h1>
+<h2 id="进程与线程">进程与线程</h2>
+<h4 id="进程-线程-协程的区别是什么">进程、线程、协程的区别是什么？</h4>
+<p><strong>上下文知识</strong></p>
+<p>操作系统需要同时运行多个程序，这就需要"执行单元"的抽象。从粗到细，依次是进程、线程、协程。</p>
+<p><strong>进程（Process）</strong></p>
+<p>进程是<strong>资源分配的基本单位</strong>。每个进程拥有独立的地址空间、文件描述符、内存映射等资源。进程之间相互隔离，一个进程崩溃不影响其他进程。</p>
+<ul>
+<li>创建开销大：需要分配独立地址空间、复制父进程资源（fork）。</li>
+<li>切换开销大：需要切换页表、刷新 TLB、保存/恢复寄存器。</li>
+<li>通信需要 IPC（管道、消息队列、共享内存等）。</li>
+</ul>
+<p><strong>线程（Thread）</strong></p>
+<p>线程是<strong>CPU 调度的基本单位</strong>。同一进程内的线程共享进程的地址空间和资源，但有各自独立的栈和寄存器。</p>
+<ul>
+<li>创建开销小：只分配栈和寄存器。</li>
+<li>切换开销小：同进程内切换不需要切换页表。</li>
+<li>通信方便：直接读写共享内存，但需要同步机制（锁、信号量）。</li>
+</ul>
+<p><strong>协程（Coroutine）</strong></p>
+<p>协程是<strong>用户态的轻量级线程</strong>，由程序自己调度，不依赖操作系统。协程切换在用户态完成，不需要陷入内核。</p>
+<ul>
+<li>创建开销极小：只需几 KB 栈空间。</li>
+<li>切换开销极小：只保存少量寄存器。</li>
+<li>适合 IO 密集型场景：遇到 IO 自动让出 CPU。</li>
+</ul>
+<p><strong>对比表</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>进程</th>
+<th>线程</th>
+<th>协程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>调度者</td>
+<td>操作系统</td>
+<td>操作系统</td>
+<td>用户程序</td>
+</tr>
+<tr>
+<td>资源</td>
+<td>独立地址空间</td>
+<td>共享进程资源</td>
+<td>共享线程资源</td>
+</tr>
+<tr>
+<td>创建开销</td>
+<td>大</td>
+<td>中</td>
+<td>极小</td>
+</tr>
+<tr>
+<td>切换开销</td>
+<td>大</td>
+<td>中</td>
+<td>极小</td>
+</tr>
+<tr>
+<td>通信方式</td>
+<td>IPC</td>
+<td>共享内存+同步</td>
+<td>直接读写</td>
+</tr>
+<tr>
+<td>崩溃影响</td>
+<td>不影响其他进程</td>
+<td>同进程线程受影响</td>
+<td>同线程协程受影响</td>
+</tr>
+</tbody>
+</table></div>
+<p><img loading="lazy" decoding="async" alt="进程线程协程关系" src="images/process-thread-coroutine.svg" /></p>
+<p><strong>为什么需要这么多层抽象</strong></p>
+<ul>
+<li>进程解决"隔离"问题：程序之间互不干扰。</li>
+<li>线程解决"并发"问题：一个程序内同时做多件事。</li>
+<li>协程解决"效率"问题：高并发 IO 场景下，线程切换成本太高。</li>
+</ul>
+<hr />
+<h4 id="进程间通信-ipc-有哪些方式">进程间通信（IPC）有哪些方式？</h4>
+<p><strong>上下文知识</strong></p>
+<p>进程有独立的地址空间，无法直接访问对方的内存。当进程需要协作时，必须通过 IPC（Inter-Process Communication）机制交换数据。</p>
+<p><strong>常见 IPC 方式</strong></p>
+<ol>
+<li>
+<p><strong>管道（Pipe）</strong>
+   - 半双工，数据只能单向流动。
+   - 只能在有亲缘关系的进程间使用（父子进程）。
+   - 命名管道（FIFO）：可以在无亲缘关系的进程间使用。
+   - 本质是内核缓冲区，读写操作。</p>
+</li>
+<li>
+<p><strong>消息队列（Message Queue）</strong>
+   - 消息的链表，存放在内核中。
+   - 消息有类型，可以按类型读取，不必按顺序。
+   - 独立于读写进程，进程结束消息仍在。
+   - 有大小限制。</p>
+</li>
+<li>
+<p><strong>共享内存（Shared Memory）</strong>
+   - 将同一块物理内存映射到多个进程的地址空间。
+   - 速度最快（直接读写内存，无需拷贝）。
+   - 需要配合同步机制（信号量、互斥锁）。</p>
+</li>
+<li>
+<p><strong>信号量（Semaphore）</strong>
+   - 计数器，用于控制多个进程对共享资源的访问。
+   - P 操作（等待）：计数减 1，为 0 则阻塞。
+   - V 操作（释放）：计数加 1，唤醒等待进程。
+   - 二元信号量（互斥锁）用于互斥访问。</p>
+</li>
+<li>
+<p><strong>套接字（Socket）</strong>
+   - 可用于不同机器的进程通信。
+   - 支持 TCP/UDP。
+   - 也可用于本机进程间通信（Unix Domain Socket）。</p>
+</li>
+<li>
+<p><strong>信号（Signal）</strong>
+   - 用于通知进程发生了某个事件。
+   - 如 SIGKILL、SIGTERM、SIGCHLD。
+   - 只能传递信号编号，不能携带数据。</p>
+</li>
+</ol>
+<p><strong>对比与选择</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方式</th>
+<th>适用场景</th>
+<th>性能</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>管道</td>
+<td>简单数据流</td>
+<td>中</td>
+<td>低</td>
+</tr>
+<tr>
+<td>消息队列</td>
+<td>结构化消息</td>
+<td>中</td>
+<td>中</td>
+</tr>
+<tr>
+<td>共享内存</td>
+<td>大数据量、高频</td>
+<td>最高</td>
+<td>高（需同步）</td>
+</tr>
+<tr>
+<td>信号量</td>
+<td>同步/互斥</td>
+<td>-</td>
+<td>中</td>
+</tr>
+<tr>
+<td>Socket</td>
+<td>跨机器/通用</td>
+<td>低</td>
+<td>中</td>
+</tr>
+<tr>
+<td>信号</td>
+<td>事件通知</td>
+<td>-</td>
+<td>低</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h4 id="什么是死锁-如何预防和避免">什么是死锁？如何预防和避免？</h4>
+<p><strong>上下文知识</strong></p>
+<p>当多个进程互相等待对方持有的资源，且都不释放自己的资源时，就会陷入永久等待——这就是死锁（Deadlock）。</p>
+<p><strong>死锁的四个必要条件（Coffee 条件）</strong></p>
+<ol>
+<li><strong>互斥（Mutual Exclusion）</strong>：资源一次只能被一个进程使用。</li>
+<li><strong>请求并保持（Hold and Wait）</strong>：进程持有资源的同时又请求其他资源。</li>
+<li><strong>不可剥夺（No Preemption）</strong>：已获得的资源不能被强制剥夺。</li>
+<li><strong>循环等待（Circular Wait）</strong>：存在进程资源的循环等待链。</li>
+</ol>
+<p>四个条件同时满足才会发生死锁，破坏其中任意一个即可预防死锁。</p>
+<p><strong>经典问题：哲学家进餐</strong></p>
+<p>5 个哲学家围坐圆桌，每人左右各一根筷子。哲学家要么思考，要么进餐（需要同时拿到左右两根筷子）。如果每人都拿了左边的筷子等右边的，就会死锁。</p>
+<p><strong>死锁的处理策略</strong></p>
+<ol>
+<li>
+<p><strong>预防死锁</strong>：破坏四个必要条件之一。
+   - 破坏请求并保持：一次性申请所有资源。
+   - 破坏不可剥夺：申请不到时释放已持有资源。
+   - 破坏循环等待：对资源编号，按序申请。</p>
+</li>
+<li>
+<p><strong>避免死锁</strong>：在分配资源前判断是否会导致死锁（银行家算法）。</p>
+</li>
+<li>
+<p><strong>检测与解除</strong>：允许死锁发生，定期检测，发现后解除（杀死进程或剥夺资源）。</p>
+</li>
+</ol>
+<p><strong>银行家算法</strong></p>
+<p>核心思想：在分配资源前，检查系统是否处于安全状态。安全状态指存在一个安全序列，按此序列分配资源，所有进程都能完成。如果分配后系统不安全，则拒绝分配。</p>
+<hr />
+<h2 id="内存管理">内存管理</h2>
+<h4 id="什么是虚拟内存-为什么需要它">什么是虚拟内存？为什么需要它？</h4>
+<p><strong>上下文知识</strong></p>
+<p>早期计算机中，程序直接操作物理内存。随着多任务操作系统出现，多个程序共享物理内存带来了一系列问题：地址冲突、内存不够用、安全隔离。虚拟内存（Virtual Memory）就是为了解决这些问题。</p>
+<p><strong>虚拟内存是什么</strong></p>
+<p>虚拟内存为每个进程提供一个连续的、私有的地址空间。进程看到的是虚拟地址，由操作系统和硬件（MMU）翻译成物理地址。</p>
+<p><strong>为什么需要虚拟内存</strong></p>
+<ol>
+<li><strong>进程隔离</strong>：每个进程有独立的地址空间，一个进程不能读写其他进程的内存，保证安全。</li>
+<li><strong>简化编程</strong>：程序员不需要关心物理内存的实际位置，只需要操作虚拟地址。</li>
+<li><strong>内存超售</strong>：通过页面置换，进程可以使用比物理内存更大的地址空间（部分数据放在磁盘上）。</li>
+<li><strong>内存共享</strong>：多个进程可以映射同一块物理内存（如共享库、共享内存）。</li>
+</ol>
+<p><strong>地址翻译过程</strong></p>
+<pre><code>虚拟地址 → [MMU + 页表] → 物理地址
+                ↓
+            TLB 缓存
+</code></pre>
+<ul>
+<li>页表（Page Table）：记录虚拟页号到物理页号的映射。</li>
+<li>MMU（Memory Management Unit）：硬件负责地址翻译。</li>
+<li>TLB（Translation Lookaside Buffer）：页表项的缓存，加速翻译。</li>
+</ul>
+<p><strong>分页与分段</strong></p>
+<ul>
+<li><strong>分页（Paging）</strong>：将内存分成固定大小的页（通常 4KB），以页为单位分配。无外部碎片，有内部碎片。</li>
+<li><strong>分段（Segmentation）</strong>：按逻辑段（代码段、数据段、栈段）划分，段长可变。有外部碎片。</li>
+<li><strong>段页式</strong>：先分段，段内再分页，结合两者优点。</li>
+</ul>
+<hr />
+<h4 id="页面置换算法有哪些">页面置换算法有哪些？</h4>
+<p><strong>上下文知识</strong></p>
+<p>当物理内存满了，又有新页面需要载入时，必须选择一个旧页面换出到磁盘。选择哪个页面换出的算法就是页面置换算法。目标是减少缺页中断次数。</p>
+<p><strong>常见算法</strong></p>
+<ol>
+<li>
+<p><strong>最佳置换算法（OPT, Optimal）</strong>
+   - 选择未来最长时间不会被访问的页面置换。
+   - 理论最优，但无法实现（不知道未来访问情况）。
+   - 作为衡量其他算法的基准。</p>
+</li>
+<li>
+<p><strong>先进先出（FIFO）</strong>
+   - 选择最早进入内存的页面置换。
+   - 实现简单，但性能差，可能出现 Belady 异常（增加物理页反而缺页更多）。</p>
+</li>
+<li>
+<p><strong>最近最久未使用（LRU, Least Recently Used）</strong>
+   - 选择最长时间没有被访问的页面置换。
+   - 性能好，接近 OPT。
+   - 实现需要记录访问时间，开销较大。</p>
+</li>
+<li>
+<p><strong>时钟算法（Clock）</strong>
+   - LRU 的近似实现，用环形链表 + 访问位。
+   - 指针循环扫描，遇到访问位为 1 的置 0，遇到 0 的置换。
+   - 性能接近 LRU，开销小。</p>
+</li>
+<li>
+<p><strong>最不经常使用（LFU, Least Frequently Used）</strong>
+   - 选择访问次数最少的页面置换。
+   - 需要计数器，开销大。</p>
+</li>
+</ol>
+<p><strong>Belady 异常</strong></p>
+<p>FIFO 算法在某些访问序列下，增加物理页数反而导致缺页率上升。LRU 和 Clock 不会出现 Belady 异常，因为它们属于栈算法。</p>
+<hr />
+<h4 id="什么是内存碎片-如何解决">什么是内存碎片？如何解决？</h4>
+<p><strong>上下文知识</strong></p>
+<p>内存分配过程中，由于频繁地申请和释放，会产生无法利用的小内存块，称为内存碎片。</p>
+<p><strong>两种碎片</strong></p>
+<ol>
+<li>
+<p><strong>内部碎片</strong>：分配给进程的内存大于实际需要，多出来的部分无法被其他进程使用。
+   - 例如：请求 100 字节，分配 128 字节，多出 28 字节是内部碎片。
+   - 固定大小分配（分页）会产生内部碎片。</p>
+</li>
+<li>
+<p><strong>外部碎片</strong>：空闲内存总量足够，但不连续，无法满足大的分配请求。
+   - 例如：有 3 块 100MB 的空闲，但请求 250MB 无法满足。
+   - 可变大小分配（分段）会产生外部碎片。</p>
+</li>
+</ol>
+<p><strong>解决方式</strong></p>
+<ul>
+<li><strong>内部碎片</strong>：无法完全消除，通过调整分配粒度减少。</li>
+<li><strong>外部碎片</strong>：</li>
+<li><strong>紧凑（Compaction）</strong>：移动进程，将空闲内存合并成连续块。开销大，需要暂停所有进程。</li>
+<li><strong>分页机制</strong>：将内存分成固定页，通过页表映射，逻辑上连续物理上可不连续，从根本上消除外部碎片。</li>
+<li><strong>内存池</strong>：预分配一大块内存，自行管理分配，避免向系统频繁申请。</li>
+</ul>
+<hr />
+<h2 id="调度">调度</h2>
+<h4 id="进程调度算法有哪些">进程调度算法有哪些？</h4>
+<p><strong>上下文知识</strong></p>
+<p>单 CPU 情况下，多个进程需要轮流占用 CPU。调度器（Scheduler）决定哪个进程获得 CPU。调度算法的目标包括：公平性、吞吐量、响应时间、周转时间。</p>
+<p><strong>常见算法</strong></p>
+<ol>
+<li>
+<p><strong>先来先服务（FCFS, First Come First Served）</strong>
+   - 按到达顺序执行，非抢占。
+   - 简单公平，但短作业可能被长作业阻塞（护航效应）。</p>
+</li>
+<li>
+<p><strong>短作业优先（SJF, Shortest Job First）</strong>
+   - 优先执行预计运行时间最短的作业。
+   - 平均周转时间最优，但可能导致长作业饥饿。
+   - 需要预知作业运行时间。</p>
+</li>
+<li>
+<p><strong>优先级调度（Priority Scheduling）</strong>
+   - 按优先级分配 CPU。
+   - 优先级高的先执行，低的可能饥饿。
+   - 解决饥饿：老化（Aging），随时间提升等待进程的优先级。</p>
+</li>
+<li>
+<p><strong>时间片轮转（Round Robin）</strong>
+   - 每个进程分配一个时间片，用完后切换。
+   - 公平，响应快，适合交互式系统。
+   - 时间片太长退化为 FCFS，太短切换开销大。</p>
+</li>
+<li>
+<p><strong>多级反馈队列（MLFQ, Multilevel Feedback Queue）</strong>
+   - 多个队列，优先级从高到低，时间片从小到大。
+   - 新进程进入最高优先级队列；时间片用完降级；在时间片内完成则保持。
+   - 结合了 SJF 和 RR 的优点，既能响应短作业/IO 密集型，又能处理长作业。</p>
+</li>
+</ol>
+<p><strong>Linux CFS 调度器</strong></p>
+<p>Linux 内核使用完全公平调度器（CFS, Completely Fair Scheduler），基于红黑树管理进程，按虚拟运行时间（vruntime）调度，vruntime 最小的先运行，实现 CPU 时间的公平分配。</p>
+<hr />
+<h2 id="系统调用与-io">系统调用与 IO</h2>
+<h4 id="用户态和内核态的区别-为什么需要切换">用户态和内核态的区别？为什么需要切换？</h4>
+<p><strong>上下文知识</strong></p>
+<p>操作系统为了保护内核和硬件，将 CPU 运行状态分为用户态（User Mode）和内核态（Kernel Mode）。</p>
+<p><strong>区别</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>用户态</th>
+<th>内核态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>权限</td>
+<td>低，只能访问受限资源</td>
+<td>高，可访问所有资源</td>
+</tr>
+<tr>
+<td>可执行指令</td>
+<td>非特权指令</td>
+<td>全部指令</td>
+</tr>
+<tr>
+<td>可访问内存</td>
+<td>用户空间</td>
+<td>用户空间 + 内核空间</td>
+</tr>
+<tr>
+<td>运行代码</td>
+<td>应用程序</td>
+<td>操作系统内核</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>为什么需要切换</strong></p>
+<p>应用程序要完成某些操作（如读写文件、分配内存、发送网络数据），必须由内核代劳，因为这些操作涉及硬件和特权指令。这个过程就是<strong>系统调用（System Call）</strong>，会触发用户态到内核态的切换。</p>
+<p><strong>切换的开销</strong></p>
+<ul>
+<li>保存用户态寄存器状态。</li>
+<li>切换页表、刷新 TLB。</li>
+<li>内核执行系统调用。</li>
+<li>恢复用户态状态。</li>
+</ul>
+<p>一次系统调用的开销约几百纳秒到几微秒，频繁的系统调用会影响性能（如高频小数据 IO）。</p>
+<p><strong>如何减少切换开销</strong></p>
+<ul>
+<li><strong>批量操作</strong>：减少系统调用次数（如批量读写）。</li>
+<li><strong>内存映射</strong>：通过 mmap 将文件映射到用户空间，直接读写，避免 read/write 系统调用。</li>
+<li><strong>用户态协议栈</strong>：如 DPDK，将网络协议栈移到用户态。</li>
+</ul>
+<hr />
+<h4 id="什么是零拷贝">什么是零拷贝？</h4>
+<p><strong>上下文知识</strong></p>
+<p>传统的 IO 操作（如读取文件再发送到网络）需要多次数据拷贝和上下文切换，效率低下。零拷贝（Zero Copy）通过减少拷贝次数和上下文切换来提升 IO 性能。</p>
+<p><strong>传统 IO 的过程</strong></p>
+<p>以 <code>read(file) → write(socket)</code> 为例：</p>
+<pre><code>磁盘 → 内核缓冲区 → 用户缓冲区 → 内核 Socket 缓冲区 → 网卡
+        ① DMA        ② CPU        ③ CPU         ④ DMA
+</code></pre>
+<p>涉及 4 次数据拷贝（2 次 DMA，2 次 CPU）和 4 次上下文切换（用户→内核→用户→内核→用户）。</p>
+<p><strong>零拷贝方案</strong></p>
+<ol>
+<li>
+<p><strong>mmap + write</strong>
+   - 用 mmap 将文件映射到用户空间，write 时内核直接从内核缓冲区拷贝到 Socket 缓冲区。
+   - 减少 1 次 CPU 拷贝，共 3 次拷贝。
+   - 上下文切换：3 次。</p>
+</li>
+<li>
+<p><strong>sendfile</strong>
+   - 直接从内核缓冲区拷贝到 Socket 缓冲区，不经过用户空间。
+   - 共 3 次拷贝（2 DMA + 1 CPU），2 次上下文切换。
+   - Linux 2.4 后，sendfile 支持 DMA 直接从内核缓冲区到网卡，实现真正的零拷贝（2 次 DMA，0 次 CPU 拷贝）。</p>
+</li>
+<li>
+<p><strong>splice</strong>
+   - 在两个文件描述符之间移动数据，不经过用户空间。</p>
+</li>
+</ol>
+<p><strong>零拷贝的应用</strong></p>
+<ul>
+<li>Nginx、Kafka、Netty 等高性能组件大量使用 sendfile。</li>
+<li>Kafka 消费数据时用 sendfile 直接将磁盘数据发送到网络。</li>
+</ul>
+<hr />
+<h4 id="io-多路复用-select-poll-epoll-的区别">IO 多路复用（select/poll/epoll）的区别？</h4>
+<p><strong>上下文知识</strong></p>
+<p>当需要同时监听大量连接时，如果每个连接开一个线程或阻塞 read，资源消耗巨大。IO 多路复用允许一个线程同时监听多个文件描述符，有事件时才处理。</p>
+<p><strong>select</strong></p>
+<ul>
+<li>使用一个 <code>fd_set</code> 位图（最多 1024 个 fd）。</li>
+<li>每次调用都要将 <code>fd_set</code> 从用户态拷贝到内核态。</li>
+<li>内核遍历所有 fd 检查是否就绪。</li>
+<li>返回后用户态也需要遍历所有 fd 找出就绪的。</li>
+<li>缺点：fd 数量限制、全量拷贝、全量遍历。</li>
+</ul>
+<p><strong>poll</strong></p>
+<ul>
+<li>使用链表存储 fd，没有 1024 数量限制。</li>
+<li>仍然需要全量拷贝和全量遍历。</li>
+<li>相比 select 只是去掉了数量限制，性能本质相同。</li>
+</ul>
+<p><strong>epoll</strong></p>
+<ul>
+<li>内核维护一个事件表（红黑树），通过 <code>epoll_ctl</code> 增删 fd，不需要每次全量拷贝。</li>
+<li>使用回调机制：fd 就绪时，内核将其放入就绪链表（双向链表）。</li>
+<li><code>epoll_wait</code> 只返回就绪的 fd，不需要遍历所有。</li>
+<li>支持水平触发（LT）和边缘触发（ET）。</li>
+</ul>
+<p><strong>对比</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>select</th>
+<th>poll</th>
+<th>epoll</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fd 数量限制</td>
+<td>1024</td>
+<td>无</td>
+<td>无</td>
+</tr>
+<tr>
+<td>数据拷贝</td>
+<td>每次全量拷贝</td>
+<td>每次全量拷贝</td>
+<td>只拷贝一次</td>
+</tr>
+<tr>
+<td>查找就绪 fd</td>
+<td>全量遍历 O(n)</td>
+<td>全量遍历 O(n)</td>
+<td>直接返回 O(1)</td>
+</tr>
+<tr>
+<td>触发模式</td>
+<td>水平触发</td>
+<td>水平触发</td>
+<td>水平/边缘触发</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>epoll 为什么快</strong></p>
+<ul>
+<li>红黑树管理 fd，增删查都是 O(log n)。</li>
+<li>就绪链表，返回就绪 fd 是 O(1)。</li>
+<li>回调机制避免了轮询。</li>
+</ul>
+<p><strong>适用场景</strong></p>
+<ul>
+<li>连接数少且都活跃：select/poll 与 epoll 差距不大。</li>
+<li>连接数多但活跃少：epoll 优势明显（C10K/C100K 问题）。</li>
+</ul>
+<hr />
+<h2 id="文件系统">文件系统</h2>
+<h4 id="inode-是什么-文件是如何存储的">inode 是什么？文件是如何存储的？</h4>
+<p><strong>上下文知识</strong></p>
+<p>文件系统需要将文件存储到磁盘上。磁盘按扇区（通常 512 字节）组织，文件系统按块（通常 4KB）分配。文件系统需要一种方式来记录文件的元数据和数据块位置——这就是 inode。</p>
+<p><strong>inode（索引节点）</strong></p>
+<p>每个文件对应一个 inode，存储文件的元数据：
+- 文件大小
+- 文件所有者、权限
+- 时间戳（创建、修改、访问）
+- 数据块的位置（指针）</p>
+<p>注意：inode 中<strong>不存储文件名</strong>。文件名存储在目录项（dentry）中，目录项是"文件名 → inode 号"的映射。</p>
+<p><strong>数据块指针</strong></p>
+<p>inode 中用指针指向数据块。为了支持大文件，使用多级索引：</p>
+<pre><code>inode
+├── 直接块指针 ×12  → 直接指向数据块（12 × 4KB = 48KB）
+├── 一级间接指针    → 指向一个块，块中存的是数据块指针
+├── 二级间接指针    → 指向一个块，块中存一级间接指针
+└── 三级间接指针    → 指向一个块，块中存二级间接指针
+</code></pre>
+<ul>
+<li>直接块：12 × 4KB = 48KB</li>
+<li>一级间接：1024 × 4KB = 4MB（每块 4KB，每个指针 4 字节，共 1024 个指针）</li>
+<li>二级间接：1024 × 1024 × 4KB = 4GB</li>
+<li>三级间接：1024³ × 4KB = 4TB</li>
+</ul>
+<p><strong>目录项（dentry）</strong></p>
+<p>目录本身也是一个文件，它的内容是一系列目录项。每个目录项包含：文件名、inode 号、文件类型等。</p>
+<p>通过文件名查找文件的过程：
+1. 解析路径，从根目录开始。
+2. 查找目录项，找到对应文件名的 inode 号。
+3. 读取 inode，获得数据块指针。
+4. 读取数据块。</p>
+<p><strong>硬链接 vs 软链接</strong></p>
+<ul>
+<li><strong>硬链接</strong>：多个目录项指向同一个 inode，inode 引用计数 +1。删除一个链接不影响文件，只有引用计数为 0 时才真正删除。不能跨文件系统，不能链接目录。</li>
+<li><strong>软链接（符号链接）</strong>：一个独立的文件，内容是目标文件的路径。删除目标文件后软链接失效。可跨文件系统，可链接目录。</li>
+</ul>
+<hr />
+<h1 id="三-数据库_1">三、数据库</h1>
+<h2 id="索引">索引</h2>
+<h4 id="为什么数据库索引用-b-树而不是-b-树或红黑树">为什么数据库索引用 B+ 树而不是 B 树或红黑树？</h4>
+<p><strong>上下文知识</strong></p>
+<p>索引的目的是加速数据查询。数据库存储在磁盘上，磁盘 IO 是性能瓶颈（一次随机 IO 约 10ms，是内存访问的 10 万倍）。因此索引的数据结构设计核心目标是<strong>减少磁盘 IO 次数</strong>。</p>
+<p><strong>为什么不用红黑树</strong></p>
+<p>红黑树是二叉树，每个节点只有两个子节点，树的高度约为 log₂(N)。对于 1000 万条数据，高度约 24。每次查询需要 24 次磁盘 IO，太慢。</p>
+<p><strong>为什么不用 B 树</strong></p>
+<p>B 树是多叉树，每个节点可以有多个子节点，高度比二叉树低得多。但 B 树有一个问题：每个节点都存储数据（不仅是键），导致每个节点能存储的键数量减少，树的高度增加。</p>
+<p><strong>为什么用 B+ 树</strong></p>
+<p>B+ 树是 B 树的变体，有以下优势：</p>
+<ol>
+<li><strong>非叶子节点只存键，不存数据</strong>：每个节点能存更多键，树更矮（通常 3~4 层就能存千万级数据），磁盘 IO 更少。</li>
+<li><strong>叶子节点形成双向链表</strong>：范围查询只需在叶子节点上顺序遍历，无需中序遍历整棵树。</li>
+<li><strong>查询稳定</strong>：所有数据都在叶子节点，每次查询都要走到叶子，IO 次数相同，性能稳定。</li>
+<li><strong>叶子节点数据有序</strong>：支持范围查询、排序、分组等操作。</li>
+</ol>
+<p><strong>B 树 vs B+ 树</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>B 树</th>
+<th>B+ 树</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>非叶子节点</td>
+<td>存键 + 数据</td>
+<td>只存键</td>
+</tr>
+<tr>
+<td>查询效率</td>
+<td>不稳定（可能在中间找到）</td>
+<td>稳定（必须到叶子）</td>
+</tr>
+<tr>
+<td>范围查询</td>
+<td>需要中序遍历</td>
+<td>叶子链表顺序遍历</td>
+</tr>
+<tr>
+<td>树高度</td>
+<td>较高</td>
+<td>更矮</td>
+</tr>
+<tr>
+<td>磁盘 IO</td>
+<td>较多</td>
+<td>较少</td>
+</tr>
+</tbody>
+</table></div>
+<p><img loading="lazy" decoding="async" alt="B+ 树结构" src="images/bplus-tree-structure.svg" /></p>
+<p><strong>为什么 B+ 树适合磁盘</strong></p>
+<ul>
+<li>磁盘按块（通常 4KB 或 8KB）读取，B+ 树的一个节点大小通常等于一个磁盘块，一次 IO 读一个节点。</li>
+<li>非叶子节点只存键，4KB 的节点能存上百个键，分叉多，树矮。</li>
+</ul>
+<hr />
+<h4 id="什么是聚簇索引和非聚簇索引">什么是聚簇索引和非聚簇索引？</h4>
+<p><strong>上下文知识</strong></p>
+<p>InnoDB 存储引擎中，索引分为聚簇索引（Clustered Index）和非聚簇索引（Secondary Index，二级索引）。</p>
+<p><strong>聚簇索引</strong></p>
+<ul>
+<li>数据行按主键顺序存储在聚簇索引的叶子节点中。</li>
+<li>叶子节点存储完整的数据行。</li>
+<li>一个表只能有一个聚簇索引（通常是主键）。</li>
+<li>如果没有定义主键，InnoDB 会选择第一个唯一非空索引；如果都没有，会隐式创建一个 6 字节的 rowid 作为聚簇索引。</li>
+</ul>
+<p><strong>非聚簇索引（二级索引）</strong></p>
+<ul>
+<li>叶子节点存储的是主键值，而不是完整数据。</li>
+<li>通过二级索引查询时，先找到主键值，再通过聚簇索引查找完整数据行——这个过程叫<strong>回表</strong>。</li>
+<li>一个表可以有多个二级索引。</li>
+</ul>
+<p><strong>回表示例</strong></p>
+<p>假设有表 <code>user(id PK, name, age)</code>，在 <code>name</code> 上建了索引。</p>
+<pre><code class="language-sql">SELECT * FROM user WHERE name = '张三';
+</code></pre>
+<p>查询过程：
+1. 在 name 的二级索引中找到 name='张三' 的记录，得到主键 id=5。
+2. 用 id=5 在聚簇索引中找到完整数据行（回表）。</p>
+<p>如果查询的列都在索引中（覆盖索引），就不需要回表。</p>
+<p><strong>覆盖索引（Covering Index）</strong></p>
+<p>查询的列全部包含在索引中，不需要回表。例如：</p>
+<pre><code class="language-sql">SELECT id, name FROM user WHERE name = '张三';
+</code></pre>
+<p>因为 id（主键）和 name（索引列）都在二级索引的叶子节点中，直接返回即可。</p>
+<hr />
+<h4 id="什么是覆盖索引-最左前缀原则">什么是覆盖索引、最左前缀原则？</h4>
+<p><strong>上下文知识</strong></p>
+<p>联合索引（Composite Index）是在多个列上建立的索引。理解联合索引的查询规则对性能优化至关重要。</p>
+<p><strong>最左前缀原则（Leftmost Prefix Rule）</strong></p>
+<p>联合索引 <code>(a, b, c)</code> 实际上建立了三个索引：<code>(a)</code>、<code>(a, b)</code>、<code>(a, b, c)</code>。查询时必须从最左列开始，且不能跳过中间列。</p>
+<pre><code>索引 (a, b, c)
+
+WHERE a = 1              ✅ 用到 a
+WHERE a = 1 AND b = 2    ✅ 用到 a, b
+WHERE a = 1 AND b = 2 AND c = 3  ✅ 用到 a, b, c
+WHERE b = 2              ❌ 没用到索引（跳过了 a）
+WHERE a = 1 AND c = 3    ✅ 只用到 a（b 被跳过，c 用不到）
+WHERE a &gt; 1 AND b = 2    ✅ 只用到 a（范围查询后列用不到）
+</code></pre>
+<p>注意：范围查询（&gt;、&lt;、BETWEEN、LIKE 左匹配）会导致后面的列无法使用索引。</p>
+<p><strong>覆盖索引（Covering Index）</strong></p>
+<p>如果查询的所有列都在索引中，数据库可以直接从索引中获取数据，不需要回表。</p>
+<p>例如索引 <code>(name, age)</code>：</p>
+<pre><code class="language-sql">-- 覆盖索引，无需回表
+SELECT name, age FROM user WHERE name = '张三';
+
+-- 需要回表，因为 id 不在二级索引叶子节点（其实主键 id 在）
+-- 实际上二级索引叶子节点存的是主键，所以 SELECT id, name, age 也覆盖
+SELECT id, name, age FROM user WHERE name = '张三';
+
+-- 需要回表，因为 email 不在索引中
+SELECT email FROM user WHERE name = '张三';
+</code></pre>
+<p><strong>如何判断是否用了覆盖索引</strong></p>
+<p>EXPLAIN 结果中，如果 Extra 列出现 <code>Using index</code>，表示使用了覆盖索引。</p>
+<hr />
+<h2 id="事务">事务</h2>
+<h4 id="事务的-acid-特性是什么">事务的 ACID 特性是什么？</h4>
+<p><strong>上下文知识</strong></p>
+<p>事务（Transaction）是一组要么全部成功、要么全部失败的数据库操作。ACID 是事务的四个基本特性。</p>
+<p><strong>ACID</strong></p>
+<ol>
+<li>
+<p><strong>原子性（Atomicity）</strong>
+   - 事务中的操作要么全部执行，要么全部不执行。
+   - 实现：Undo Log（回滚日志）。事务执行失败时，通过 Undo Log 回滚已执行的操作。</p>
+</li>
+<li>
+<p><strong>一致性（Consistency）</strong>
+   - 事务执行前后，数据库从一个一致状态转变到另一个一致状态。
+   - 一致性是事务的最终目标，由原子性、隔离性、持久性共同保证，同时也需要应用层保证（如约束、触发器）。</p>
+</li>
+<li>
+<p><strong>隔离性（Isolation）</strong>
+   - 多个事务并发执行时，互不干扰。
+   - 实现：锁机制 + MVCC。
+   - 不同的隔离级别提供不同程度的隔离。</p>
+</li>
+<li>
+<p><strong>持久性（Durability）</strong>
+   - 事务一旦提交，其修改就永久保存在数据库中，即使系统崩溃也不会丢失。
+   - 实现：Redo Log（重做日志）。提交时先写 Redo Log，即使数据页未落盘，崩溃后也能通过 Redo Log 恢复。</p>
+</li>
+</ol>
+<p><strong>Undo Log 与 Redo Log</strong></p>
+<ul>
+<li><strong>Undo Log</strong>：记录数据修改前的状态，用于回滚和 MVCC 的快照读。</li>
+<li><strong>Redo Log</strong>：记录数据修改后的状态，用于崩溃恢复。是物理日志（记录哪个数据页做了什么修改）。</li>
+<li><strong>Binlog</strong>：MySQL Server 层的日志，记录所有修改操作，用于主从复制和数据恢复。是逻辑日志（记录 SQL 语句或行变更）。</li>
+</ul>
+<hr />
+<h4 id="数据库的四种隔离级别是什么">数据库的四种隔离级别是什么？</h4>
+<p><strong>上下文知识</strong></p>
+<p>多个事务并发执行时，如果没有隔离，会出现脏读、不可重复读、幻读等问题。SQL 标准定义了四种隔离级别，级别越高，隔离性越强，但并发性能越低。</p>
+<p><strong>并发问题</strong></p>
+<ol>
+<li><strong>脏读（Dirty Read）</strong>：一个事务读到了另一个未提交事务的修改。如果那个事务回滚，读到的就是无效数据。</li>
+<li><strong>不可重复读（Non-Repeatable Read）</strong>：一个事务内两次读取同一行数据，结果不同（因为另一个事务修改并提交了）。</li>
+<li><strong>幻读（Phantom Read）</strong>：一个事务内两次范围查询，结果集行数不同（因为另一个事务插入/删除了行）。</li>
+</ol>
+<p><strong>四种隔离级别</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>读未提交（Read Uncommitted）</td>
+<td>可能</td>
+<td>可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>读已提交（Read Committed, RC）</td>
+<td>避免</td>
+<td>可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>可重复读（Repeatable Read, RR）</td>
+<td>避免</td>
+<td>避免</td>
+<td>可能（InnoDB 用间隙锁避免）</td>
+</tr>
+<tr>
+<td>串行化（Serializable）</td>
+<td>避免</td>
+<td>避免</td>
+<td>避免</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>各数据库的默认隔离级别</strong></p>
+<ul>
+<li>MySQL InnoDB：可重复读（RR）</li>
+<li>Oracle、PostgreSQL、SQL Server：读已提交（RC）</li>
+</ul>
+<p><strong>InnoDB 为什么在 RR 级别能避免幻读</strong></p>
+<p>InnoDB 在 RR 级别下，通过<strong>间隙锁（Gap Lock）</strong> + <strong>临键锁（Next-Key Lock）</strong> 防止其他事务在范围内插入数据，从而避免幻读。</p>
+<hr />
+<h4 id="mvcc-多版本并发控制-是如何实现的">MVCC（多版本并发控制）是如何实现的？</h4>
+<p><strong>上下文知识</strong></p>
+<p>MVCC（Multi-Version Concurrency Control）通过维护数据的多个版本，让读写操作不互相阻塞，从而提高并发性能。InnoDB 在 RC 和 RR 隔离级别下使用 MVCC。</p>
+<p><strong>核心组件</strong></p>
+<ol>
+<li>
+<p><strong>隐藏字段</strong>：每行数据有两个隐藏字段：
+   - <code>trx_id</code>：最后修改该行的事务 ID。
+   - <code>roll_pointer</code>：指向 Undo Log 中该行的上一个版本。</p>
+</li>
+<li>
+<p><strong>Undo Log 版本链</strong>：每次修改数据，都会将旧版本写入 Undo Log，并通过 <code>roll_pointer</code> 形成一条版本链。</p>
+</li>
+<li>
+<p><strong>ReadView（一致性视图）</strong>：事务开始时生成的快照，包含：
+   - <code>m_ids</code>：当前活跃的（未提交的）事务 ID 列表。
+   - <code>min_trx_id</code>：m_ids 中的最小事务 ID。
+   - <code>max_trx_id</code>：下一个要分配的事务 ID。
+   - <code>creator_trx_id</code>：创建该 ReadView 的事务 ID。</p>
+</li>
+</ol>
+<p><strong>可见性判断规则</strong></p>
+<p>从版本链的最新版本开始，逐个判断每个版本的 <code>trx_id</code> 是否对当前事务可见：</p>
+<ol>
+<li>如果 <code>trx_id == creator_trx_id</code>：可见（自己修改的）。</li>
+<li>如果 <code>trx_id &lt; min_trx_id</code>：可见（该事务在 ReadView 创建前已提交）。</li>
+<li>如果 <code>trx_id &gt;= max_trx_id</code>：不可见（该事务在 ReadView 创建后才启动）。</li>
+<li>如果 <code>min_trx_id &lt;= trx_id &lt; max_trx_id</code>：
+   - 如果 <code>trx_id</code> 在 <code>m_ids</code> 中：不可见（该事务还未提交）。
+   - 如果不在 <code>m_ids</code> 中：可见（该事务已提交）。</li>
+</ol>
+<p>如果当前版本不可见，就沿版本链找下一个版本，直到找到可见版本或版本链结束。</p>
+<p><strong>RC 与 RR 的区别</strong></p>
+<ul>
+<li><strong>RC</strong>：每次 SELECT 都生成新的 ReadView。因此每次读可能看到不同的数据（不可重复读）。</li>
+<li><strong>RR</strong>：事务的第一次 SELECT 生成 ReadView，后续 SELECT 复用。因此整个事务内读到的是一致的数据（可重复读）。</li>
+</ul>
+<p><strong>快照读与当前读</strong></p>
+<ul>
+<li><strong>快照读</strong>：普通 SELECT，基于 MVCC 读历史版本，不加锁。</li>
+<li><strong>当前读</strong>：<code>SELECT ... FOR UPDATE</code>、<code>SELECT ... LOCK IN SHARE MODE</code>、<code>INSERT</code>、<code>UPDATE</code>、<code>DELETE</code>，读取最新版本并加锁。</li>
+</ul>
+<hr />
+<h2 id="锁">锁</h2>
+<h4 id="mysql-的行锁-表锁-间隙锁是什么">MySQL 的行锁、表锁、间隙锁是什么？</h4>
+<p><strong>上下文知识</strong></p>
+<p>InnoDB 支持多种粒度的锁，用于保证并发操作的数据一致性。</p>
+<p><strong>表锁（Table Lock）</strong></p>
+<ul>
+<li>锁定整张表。</li>
+<li>开销小，加锁快，但并发度低。</li>
+<li>类型：表读锁（共享锁）、表写锁（排他锁）。</li>
+<li>使用场景：全表操作（如 ALTER TABLE）。</li>
+</ul>
+<p><strong>行锁（Row Lock）</strong></p>
+<ul>
+<li>锁定单行数据。</li>
+<li>开销大，加锁慢，但并发度高。</li>
+<li>类型：共享锁（S Lock）、排他锁（X Lock）。</li>
+<li>S Lock：读锁，多个事务可同时持有。</li>
+<li>X Lock：写锁，只能一个事务持有，会阻塞其他 S 和 X 锁。</li>
+</ul>
+<p>InnoDB 的行锁是基于索引实现的，如果查询没有用到索引，会升级为表锁（实际上是锁定所有扫描的行，效果等同表锁）。</p>
+<p><strong>间隙锁（Gap Lock）</strong></p>
+<ul>
+<li>锁定索引记录之间的间隙，防止其他事务在间隙中插入数据。</li>
+<li>用于解决幻读问题。</li>
+<li>只在 RR 隔离级别下存在。</li>
+</ul>
+<p><strong>临键锁（Next-Key Lock）</strong></p>
+<ul>
+<li>行锁 + 间隙锁的组合，锁定一个左开右闭的区间。</li>
+<li>InnoDB 默认的行锁算法。</li>
+<li>例如索引有值 10、20、30，临键锁区间为：(-∞, 10]、(10, 20]、(20, 30]、(30, +∞)。</li>
+</ul>
+<p><strong>意向锁（Intention Lock）</strong></p>
+<ul>
+<li>表级锁，用于快速判断表中是否有行锁。</li>
+<li>意向共享锁（IS）：事务打算给表中行加 S 锁。</li>
+<li>意向排他锁（IX）：事务打算给表中行加 X 锁。</li>
+<li>意向锁之间互不冲突，但与表级 S/X 锁有冲突规则。</li>
+</ul>
+<p><strong>锁的兼容性</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>S</th>
+<th>X</th>
+<th>IS</th>
+<th>IX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>X</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>IS</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>IX</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h4 id="什么是幻读-如何解决">什么是幻读？如何解决？</h4>
+<p><strong>上下文知识</strong></p>
+<p>幻读是事务并发的三大问题之一，指一个事务内两次相同的范围查询返回的行数不同。</p>
+<p><strong>幻读示例</strong></p>
+<pre><code>事务 A：SELECT * FROM user WHERE age &gt; 20;  -- 返回 5 行
+事务 B：INSERT INTO user VALUES (..., 25); COMMIT;
+事务 A：SELECT * FROM user WHERE age &gt; 20;  -- 返回 6 行（幻读）
+</code></pre>
+<p><strong>为什么 MVCC 不能完全解决幻读</strong></p>
+<p>MVCC 的快照读确实能保证一个事务内看到的数据一致（RR 级别）。但如果事务中使用了当前读（<code>SELECT ... FOR UPDATE</code>），就会读到最新数据，此时其他事务插入的行就会被读到，产生幻读。</p>
+<p><strong>InnoDB 的解决方案：间隙锁 + 临键锁</strong></p>
+<p>在 RR 隔离级别下，InnoDB 对范围查询的当前读使用临键锁（Next-Key Lock），锁定查询范围内的所有间隙，防止其他事务插入新行。</p>
+<pre><code class="language-sql">-- 事务 A
+SELECT * FROM user WHERE age &gt; 20 FOR UPDATE;
+-- 锁定 age &gt; 20 的所有行和间隙
+
+-- 事务 B
+INSERT INTO user VALUES (..., 25);  -- 被阻塞，等待事务 A 提交
+</code></pre>
+<p><strong>InnoDB 幻读问题总结</strong></p>
+<ul>
+<li>快照读：MVCC 保证可重复读，不会出现幻读。</li>
+<li>当前读：间隙锁 + 临键锁防止幻读。</li>
+</ul>
+<p>因此 InnoDB 在 RR 级别下实际上避免了幻读（这也是 InnoDB 不需要 Serializable 就能避免幻读的原因）。</p>
+<hr />
+<h2 id="redis">Redis</h2>
+<h4 id="redis-为什么这么快">Redis 为什么这么快？</h4>
+<p><strong>上下文知识</strong></p>
+<p>Redis 是基于内存的键值数据库，性能极高，单机可达 10 万+ QPS。它的高性能来自多个方面的设计。</p>
+<p><strong>快的原因</strong></p>
+<ol>
+<li>
+<p><strong>纯内存操作</strong>
+   - 数据存储在内存中，读写速度是磁盘的 10 万倍。
+   - 这是 Redis 快的根本原因。</p>
+</li>
+<li>
+<p><strong>单线程模型</strong>
+   - Redis 用单线程处理命令，避免了多线程的上下文切换和锁竞争。
+   - 注意：Redis 6.0 引入了多线程 IO，但命令执行仍是单线程。</p>
+</li>
+<li>
+<p><strong>IO 多路复用</strong>
+   - 使用 epoll（Linux）/kqueue（macOS）实现 IO 多路复用。
+   - 一个线程处理大量并发连接，避免阻塞。</p>
+</li>
+<li>
+<p><strong>高效的数据结构</strong>
+   - Redis 的数据结构经过精心设计，针对不同场景优化。
+   - 如 ziplist、quicklist、skiplist 等。</p>
+</li>
+<li>
+<p><strong>简单的协议</strong>
+   - RESP（REdis Serialization Protocol）协议简单高效，解析快。</p>
+</li>
+</ol>
+<p><strong>单线程为什么还能这么快</strong></p>
+<ul>
+<li>CPU 不是 Redis 的瓶颈，内存和网络才是。</li>
+<li>单线程避免了锁竞争和上下文切换开销。</li>
+<li>大部分命令的时间复杂度是 O(1)。</li>
+<li>IO 多路复用让单线程能处理大量并发连接。</li>
+</ul>
+<p><strong>Redis 6.0 多线程</strong></p>
+<ul>
+<li>多线程只用于网络 IO 的读写（解析命令、写回响应）。</li>
+<li>命令执行仍然是单线程，保证了数据一致性。</li>
+<li>提升了大流量场景下的网络吞吐。</li>
+</ul>
+<hr />
+<h4 id="redis-的五种基本数据结构底层实现">Redis 的五种基本数据结构底层实现</h4>
+<p><strong>上下文知识</strong></p>
+<p>Redis 提供五种基本数据类型：String、List、Hash、Set、ZSet。每种类型在不同数据量和场景下使用不同的底层编码。</p>
+<p><strong>String</strong></p>
+<ul>
+<li>底层：SDS（Simple Dynamic String，简单动态字符串）。</li>
+<li>SDS 相比 C 字符串的优势：</li>
+<li>O(1) 获取长度（C 字符串是 O(n)）。</li>
+<li>二进制安全（不以 \0 结尾判断）。</li>
+<li>预分配空间，减少内存重分配。</li>
+<li>惰性释放，避免频繁分配。</li>
+<li>编码：int（小整数）、embstr（短字符串，≤44 字节）、raw（长字符串）。</li>
+</ul>
+<p><strong>List</strong></p>
+<ul>
+<li>Redis 3.2 之前：ziplist（元素少且小）或 linkedlist。</li>
+<li>Redis 3.2 之后：quicklist（ziplist + linkedlist 的结合）。</li>
+<li>quicklist 是一个双向链表，每个节点是一个 ziplist。</li>
+<li>结合了 ziplist 的紧凑内存和 linkedlist 的灵活插入。</li>
+</ul>
+<p><strong>Hash</strong></p>
+<ul>
+<li>编码：ziplist（键值对少且值小）或 hashtable。</li>
+<li>ziplist：键和值连续存储，内存紧凑。</li>
+<li>hashtable：哈希表，O(1) 查找。</li>
+</ul>
+<p><strong>Set</strong></p>
+<ul>
+<li>编码：intset（全是整数且数量少）或 hashtable。</li>
+<li>intset：有序整数数组，二分查找，内存紧凑。</li>
+</ul>
+<p><strong>ZSet（Sorted Set）</strong></p>
+<ul>
+<li>编码：ziplist（元素少且成员小）或 skiplist + hashtable。</li>
+<li>skiplist（跳表）：O(log n) 查找、插入、删除，支持范围查询。</li>
+<li>hashtable：存储 member → score 的映射，O(1) 查找 score。</li>
+<li>为什么用跳表而不是红黑树：</li>
+<li>跳表实现简单。</li>
+<li>范围查询更高效（跳表底层是有序链表）。</li>
+<li>内存更灵活（跳表节点层级随机生成）。</li>
+</ul>
+<p><strong>编码转换的触发条件</strong></p>
+<p>每种数据类型在数据量小或值小时用紧凑编码（ziplist/intset/embstr），超过阈值后转为标准编码（hashtable/skiplist/quicklist/raw）。阈值可通过配置调整。</p>
+<hr />
+<h4 id="redis-持久化-rdb-和-aof-的区别">Redis 持久化 RDB 和 AOF 的区别？</h4>
+<p><strong>上下文知识</strong></p>
+<p>Redis 数据在内存中，一旦进程退出数据丢失。为了持久化，Redis 提供了 RDB 和 AOF 两种方式。</p>
+<p><strong>RDB（Redis Database）</strong></p>
+<ul>
+<li>原理：在某个时间点将内存中的数据快照写入磁盘。</li>
+<li>触发方式：</li>
+<li>手动：<code>SAVE</code>（阻塞）、<code>BGSAVE</code>（fork 子进程，不阻塞）。</li>
+<li>自动：配置 <code>save 900 1</code>（900 秒内至少 1 次修改）。</li>
+<li>优点：</li>
+<li>文件紧凑，适合备份和恢复。</li>
+<li>恢复速度快（直接加载二进制数据）。</li>
+<li>对性能影响小（fork 子进程，主进程继续服务）。</li>
+<li>缺点：</li>
+<li>可能丢失最后一次快照后的数据。</li>
+<li>fork 时如果数据量大，耗时较长，可能阻塞。</li>
+</ul>
+<p><strong>AOF（Append Only File）</strong></p>
+<ul>
+<li>原理：将每个写命令追加到日志文件中，恢复时重新执行所有命令。</li>
+<li>刷盘策略（appendfsync）：</li>
+<li><code>always</code>：每次写都刷盘，最安全，性能差。</li>
+<li><code>everysec</code>（默认）：每秒刷盘，最多丢 1 秒数据。</li>
+<li><code>no</code>：由操作系统决定刷盘时机，性能好，丢数据风险大。</li>
+<li>AOF 重写（BGREWRITEAOF）：</li>
+<li>AOF 文件会越来越大，重写可以压缩。</li>
+<li>原理：fork 子进程，读取当前内存数据，生成最小命令集写入新 AOF。</li>
+<li>优点：</li>
+<li>数据安全性高（最多丢 1 秒）。</li>
+<li>AOF 文件可读性好。</li>
+<li>缺点：</li>
+<li>文件比 RDB 大。</li>
+<li>恢复速度慢（需要重新执行命令）。</li>
+</ul>
+<p><strong>混合持久化（Redis 4.0+）</strong></p>
+<ul>
+<li>AOF 重写时，先将当前数据以 RDB 格式写入 AOF 文件开头，后续的写命令以 AOF 格式追加。</li>
+<li>结合了 RDB 的快速恢复和 AOF 的高安全性。</li>
+<li>恢复时先加载 RDB 部分，再执行 AOF 命令。</li>
+</ul>
+<p><strong>如何选择</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>RDB</th>
+<th>AOF</th>
+<th>混合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据安全</td>
+<td>可能丢较多</td>
+<td>最多丢 1 秒</td>
+<td>最多丢 1 秒</td>
+</tr>
+<tr>
+<td>恢复速度</td>
+<td>快</td>
+<td>慢</td>
+<td>快</td>
+</tr>
+<tr>
+<td>文件大小</td>
+<td>小</td>
+<td>大</td>
+<td>中</td>
+</tr>
+<tr>
+<td>性能影响</td>
+<td>小</td>
+<td>较大</td>
+<td>中</td>
+</tr>
+</tbody>
+</table></div>
+<p>生产环境通常开启混合持久化。</p>
+<hr />
+<h4 id="缓存穿透-缓存击穿-缓存雪崩是什么">缓存穿透、缓存击穿、缓存雪崩是什么？</h4>
+<p><strong>上下文知识</strong></p>
+<p>在使用 Redis 作为数据库缓存时，有三种典型的缓存问题需要防范。</p>
+<p><strong>缓存穿透（Cache Penetration）</strong></p>
+<ul>
+<li>现象：查询一个<strong>不存在</strong>的数据，缓存和数据库都没有，每次请求都打到数据库。</li>
+<li>攻击场景：恶意构造大量不存在的 key 查询，压垮数据库。</li>
+<li>解决方案：
+  1. <strong>缓存空值</strong>：查询不到也缓存一个空值（短 TTL），避免频繁查库。
+  2. <strong>布隆过滤器（Bloom Filter）</strong>：在缓存前加一层布隆过滤器，不存在的 key 直接过滤。
+  3. <strong>接口校验</strong>：对请求参数做合法性校验，拦截明显非法的请求。</li>
+</ul>
+<p><strong>缓存击穿（Cache Breakdown）</strong></p>
+<ul>
+<li>现象：一个<strong>热点 key</strong> 过期的瞬间，大量并发请求打到数据库。</li>
+<li>与穿透的区别：数据存在，只是缓存过期。</li>
+<li>解决方案：
+  1. <strong>互斥锁（Mutex）</strong>：缓存失效时，只让一个请求去查库并重建缓存，其他请求等待。
+  2. <strong>热点 key 永不过期</strong>：逻辑过期（在 value 中存过期时间，由后台异步更新）。
+  3. <strong>提前续期</strong>：在 key 过期前异步刷新。</li>
+</ul>
+<p><strong>缓存雪崩（Cache Avalanche）</strong></p>
+<ul>
+<li>现象：大量 key<strong>同时过期</strong>或 Redis 宕机，所有请求打到数据库。</li>
+<li>解决方案：
+  1. <strong>过期时间加随机值</strong>：避免大量 key 同时过期。
+  2. <strong>集群部署</strong>：Redis 集群，避免单点故障。
+  3. <strong>多级缓存</strong>：本地缓存 + Redis 缓存。
+  4. <strong>限流降级</strong>：数据库过载时限流，返回降级数据。
+  5. <strong>缓存预热</strong>：启动时提前加载热点数据。</li>
+</ul>
+<p><strong>三者对比</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>缓存穿透</th>
+<th>缓存击穿</th>
+<th>缓存雪崩</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原因</td>
+<td>查询不存在的数据</td>
+<td>热点 key 过期</td>
+<td>大量 key 同时过期/Redis 宕机</td>
+</tr>
+<tr>
+<td>影响</td>
+<td>少量请求打库</td>
+<td>大量请求打库</td>
+<td>海量请求打库</td>
+</tr>
+<tr>
+<td>核心方案</td>
+<td>布隆过滤器/缓存空值</td>
+<td>互斥锁/逻辑过期</td>
+<td>随机过期/集群/限流</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="分布式数据库">分布式数据库</h2>
+<h4 id="分布式事务的解决方案-2pc-3pc-tcc-saga">分布式事务的解决方案（2PC/3PC/TCC/Saga）</h4>
+<p><strong>上下文知识</strong></p>
+<p>单数据库事务由本地数据库保证 ACID。但在分布式系统中，一个业务操作可能涉及多个数据库（或多个服务），需要分布式事务来保证数据一致性。</p>
+<p><strong>2PC（Two-Phase Commit，两阶段提交）</strong></p>
+<ul>
+<li>角色：协调者（Coordinator）+ 参与者（Participants）。</li>
+<li>阶段一（准备）：协调者向所有参与者发送 prepare 请求，参与者执行事务但不提交，返回 Yes/No。</li>
+<li>阶段二（提交/回滚）：如果所有参与者返回 Yes，协调者发送 commit；否则发送 rollback。</li>
+<li>问题：</li>
+<li>同步阻塞：参与者在等待协调者指令时锁定资源。</li>
+<li>单点故障：协调者挂了，参与者一直阻塞。</li>
+<li>数据不一致：网络分区时可能部分提交部分回滚。</li>
+</ul>
+<p><strong>3PC（Three-Phase Commit，三阶段提交）</strong></p>
+<ul>
+<li>在 2PC 基础上增加了一个 CanCommit 阶段，并引入超时机制。</li>
+<li>三个阶段：CanCommit → PreCommit → DoCommit。</li>
+<li>改进：参与者有超时机制，减少阻塞；降低了数据不一致的概率。</li>
+<li>问题：仍可能数据不一致，实现复杂，实际很少用。</li>
+</ul>
+<p><strong>TCC（Try-Confirm-Cancel）</strong></p>
+<ul>
+<li>业务层面的两阶段提交，将事务分为三个操作：</li>
+<li>Try：预留资源（如冻结库存、冻结余额）。</li>
+<li>Confirm：确认执行（如扣减库存、扣减余额）。</li>
+<li>Cancel：回滚执行（如解冻库存、解冻余额）。</li>
+<li>优点：不锁资源太久，性能好。</li>
+<li>缺点：需要业务实现三个接口，侵入性强。</li>
+<li>需要保证 Confirm 和 Cancel 的幂等性。</li>
+</ul>
+<p><strong>Saga 模式</strong></p>
+<ul>
+<li>将长事务拆分为一系列本地事务，每个本地事务有对应的补偿操作。</li>
+<li>执行流程：T1 → T2 → T3 → ...，如果某个 Ti 失败，执行反向补偿：Ci → ... → C2 → C1。</li>
+<li>优点：长事务不需要一直锁资源，适合微服务场景。</li>
+<li>缺点：不保证隔离性（中间状态对外可见），补偿逻辑复杂。</li>
+<li>实现方式：</li>
+<li>编排式（Orchestration）：中心协调者控制流程。</li>
+<li>协同式（Choreography）：各服务通过事件通信，自行决定下一步。</li>
+</ul>
+<p><strong>本地消息表 + 消息队列（最终一致性）</strong></p>
+<ul>
+<li>业务操作和消息写入放在同一个本地事务中。</li>
+<li>后台定时任务扫描消息表，将未发送的消息投递给 MQ。</li>
+<li>消费者消费消息，保证幂等。</li>
+<li>优点：实现简单，性能好。</li>
+<li>缺点：有延迟，最终一致。</li>
+</ul>
+<p><strong>如何选择</strong></p>
+<ul>
+<li>强一致性要求高：2PC（如 XA 协议），但性能差。</li>
+<li>性能要求高、可业务改造：TCC。</li>
+<li>微服务长事务：Saga。</li>
+<li>允许最终一致：本地消息表 + MQ。</li>
+</ul>
+<hr />
+<h1 id="四-数据结构与算法_1">四、数据结构与算法</h1>
+<h2 id="线性结构">线性结构</h2>
+<h4 id="数组和链表的区别">数组和链表的区别？</h4>
+<p><strong>上下文知识</strong></p>
+<p>数组和链表是最基础的两种线性数据结构，理解它们的区别是理解更复杂数据结构的基础。</p>
+<p><strong>数组（Array）</strong></p>
+<ul>
+<li>在内存中<strong>连续存储</strong>。</li>
+<li>通过下标直接访问，时间复杂度 O(1)。</li>
+<li>插入和删除需要移动元素，平均 O(n)。</li>
+<li>内存连续，缓存命中率高。</li>
+</ul>
+<p><strong>链表（Linked List）</strong></p>
+<ul>
+<li>节点通过指针连接，<strong>内存不连续</strong>。</li>
+<li>访问某个元素需要遍历，O(n)。</li>
+<li>插入和删除只需修改指针，O(1)（已知节点位置时）。</li>
+<li>内存不连续，缓存命中率低。</li>
+</ul>
+<p><strong>对比</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>数组</th>
+<th>链表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内存</td>
+<td>连续</td>
+<td>不连续</td>
+</tr>
+<tr>
+<td>随机访问</td>
+<td>O(1)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>插入/删除</td>
+<td>O(n)</td>
+<td>O(1)（已知位置）</td>
+</tr>
+<tr>
+<td>缓存友好</td>
+<td>是</td>
+<td>否</td>
+</tr>
+<tr>
+<td>扩容</td>
+<td>需重新分配</td>
+<td>动态扩展</td>
+</tr>
+<tr>
+<td>内存开销</td>
+<td>小（只存数据）</td>
+<td>大（额外指针）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>如何选择</strong></p>
+<ul>
+<li>频繁访问、数据量固定：数组。</li>
+<li>频繁插入删除、数据量变化大：链表。</li>
+<li>实际工程中，由于缓存的存在，数组的性能通常优于链表（即使有频繁插入），除非链表的优势特别明显。</li>
+</ul>
+<p><strong>为什么数组下标从 0 开始</strong></p>
+<ul>
+<li>计算地址：<code>a[i]</code> 的地址 = 首地址 + i × 元素大小。从 0 开始时，i 就是偏移量，计算最简单。</li>
+<li>从 1 开始则需要 <code>首地址 + (i-1) × 元素大小</code>，多一次减法。</li>
+</ul>
+<hr />
+<h2 id="哈希">哈希</h2>
+<h4 id="哈希冲突如何解决-为什么用链地址法">哈希冲突如何解决？为什么用链地址法？</h4>
+<p><strong>上下文知识</strong></p>
+<p>哈希表通过哈希函数将 key 映射到数组下标。但不同的 key 可能映射到同一个下标，这就是哈希冲突。</p>
+<p><strong>解决哈希冲突的方法</strong></p>
+<ol>
+<li>
+<p><strong>链地址法（Separate Chaining）</strong>
+   - 每个数组位置是一个链表，冲突的元素挂在同一个链表上。
+   - Java HashMap、Go map 采用。
+   - 优点：简单，删除方便，装载因子可超过 1。
+   - 缺点：链表过长时查询退化到 O(n)，可转为红黑树优化（Java HashMap 链表长度 &gt; 8 转红黑树）。</p>
+</li>
+<li>
+<p><strong>开放寻址法（Open Addressing）</strong>
+   - 冲突时在数组中找下一个空位。
+   - 线性探测：依次找下一个位置（容易聚集）。
+   - 二次探测：按二次方偏移。
+   - 双重哈希：用第二个哈希函数计算步长。
+   - Python dict、Redis dict 采用。
+   - 优点：内存紧凑，缓存友好。
+   - 缺点：装载因子不能太高（通常 &lt; 0.7），删除复杂。</p>
+</li>
+<li>
+<p><strong>再哈希法</strong>：用多个哈希函数，冲突时换下一个。</p>
+</li>
+<li>
+<p><strong>公共溢出区</strong>：建立一个溢出区，冲突的元素放进去。</p>
+</li>
+</ol>
+<p><strong>为什么 Java HashMap 用链地址法</strong></p>
+<ul>
+<li>装载因子可以超过 1，空间利用率高。</li>
+<li>链表可转为红黑树，避免极端情况下 O(n) 的查询。</li>
+<li>删除操作简单。</li>
+</ul>
+<p><strong>为什么 Redis dict 用开放寻址法</strong></p>
+<ul>
+<li>内存紧凑，适合内存数据库。</li>
+<li>缓存友好，性能好。</li>
+<li>Redis 控制装载因子不超过 1（默认 1，rehash 阈值 1:1）。</li>
+</ul>
+<hr />
+<h2 id="树">树</h2>
+<h4 id="红黑树的性质和应用场景">红黑树的性质和应用场景</h4>
+<p><strong>上下文知识</strong></p>
+<p>红黑树是一种自平衡的二叉搜索树，通过颜色和旋转操作保持树的平衡，保证插入、删除、查找的时间复杂度为 O(log n)。</p>
+<p><strong>红黑树的五条性质</strong></p>
+<ol>
+<li>节点是红色或黑色。</li>
+<li>根节点是黑色。</li>
+<li>叶子节点（NIL）是黑色。</li>
+<li>红色节点的两个子节点都是黑色（不能有连续的红色）。</li>
+<li>从任意节点到其所有叶子节点的路径上，黑色节点数量相同（黑高相同）。</li>
+</ol>
+<p><strong>为什么这些性质能保证平衡</strong></p>
+<p>性质 4 和 5 保证了最长路径不超过最短路径的 2 倍。最短路径全是黑色节点，最长路径是红黑交替，因此黑高相同意味着最长路径 ≤ 2 × 最短路径，树的高度是 O(log n)。</p>
+<p><strong>插入与删除</strong></p>
+<ul>
+<li>插入新节点默认为红色（不违反性质 5），可能违反性质 4（父节点也是红色），需要通过变色和旋转修复。</li>
+<li>删除更复杂，可能违反性质 5，需要更多的旋转和变色操作。</li>
+</ul>
+<p><strong>红黑树 vs AVL 树</strong></p>
+<ul>
+<li>AVL 树是严格平衡（左右子树高度差 ≤ 1），查询更快，但插入删除旋转更多。</li>
+<li>红黑树是近似平衡，插入删除旋转更少，整体性能更稳定。</li>
+<li>工程中红黑树更常用（如 Java HashMap、Linux CFS、epoll）。</li>
+</ul>
+<p><strong>应用场景</strong></p>
+<ul>
+<li>Java HashMap：链表过长（&gt; 8）时转为红黑树。</li>
+<li>Java TreeMap：底层红黑树。</li>
+<li>Linux 内核：CFS 调度器用红黑树管理进程。</li>
+<li>epoll：用红黑树管理文件描述符。</li>
+<li>Nginx：用红黑树管理定时器。</li>
+</ul>
+<hr />
+<h4 id="b-树和-b-树的区别">B 树和 B+ 树的区别</h4>
+<p><strong>上下文知识</strong></p>
+<p>B 树（B-Tree）和 B+ 树都是多叉平衡搜索树，主要用于数据库和文件系统的索引。</p>
+<p><strong>B 树</strong></p>
+<ul>
+<li>每个节点存储键和数据。</li>
+<li>所有节点都可能包含数据。</li>
+<li>查询可能在中间节点就找到数据（不稳定）。</li>
+<li>范围查询需要中序遍历。</li>
+</ul>
+<p><strong>B+ 树</strong></p>
+<ul>
+<li>非叶子节点只存键，不存数据。</li>
+<li>所有数据都在叶子节点。</li>
+<li>叶子节点通过双向链表连接。</li>
+<li>查询必须走到叶子（稳定）。</li>
+<li>范围查询在叶子链表上顺序遍历。</li>
+</ul>
+<p><strong>核心区别总结</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>B 树</th>
+<th>B+ 树</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据存储</td>
+<td>所有节点</td>
+<td>只在叶子节点</td>
+</tr>
+<tr>
+<td>非叶子节点</td>
+<td>键 + 数据</td>
+<td>只存键</td>
+</tr>
+<tr>
+<td>查询效率</td>
+<td>不稳定</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>范围查询</td>
+<td>中序遍历</td>
+<td>叶子链表遍历</td>
+</tr>
+<tr>
+<td>树高度</td>
+<td>较高</td>
+<td>更矮</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>为什么数据库用 B+ 树</strong></p>
+<p>B+ 树的非叶子节点只存键，一个磁盘块能存更多键，树更矮，磁盘 IO 更少。叶子链表便于范围查询。详细分析见数据库章节。</p>
+<hr />
+<h2 id="排序">排序</h2>
+<h4 id="快速排序和归并排序的优劣对比">快速排序和归并排序的优劣对比</h4>
+<p><strong>上下文知识</strong></p>
+<p>快速排序（Quick Sort）和归并排序（Merge Sort）都是分治思想的排序算法，平均时间复杂度都是 O(n log n)，但在实际表现和适用场景上有差异。</p>
+<p><strong>快速排序</strong></p>
+<ul>
+<li>思想：选一个基准（pivot），将数组分为小于和大于基准的两部分，递归排序。</li>
+<li>平均时间复杂度：O(n log n)。</li>
+<li>最坏时间复杂度：O(n²)（基准选得不好，如已排序数组选第一个元素）。</li>
+<li>空间复杂度：O(log n)（递归栈）。</li>
+<li>不稳定排序。</li>
+<li>原地排序。</li>
+</ul>
+<p><strong>归并排序</strong></p>
+<ul>
+<li>思想：将数组分成两半，分别排序后合并。</li>
+<li>时间复杂度：O(n log n)（稳定，无最坏情况）。</li>
+<li>空间复杂度：O(n)（需要额外数组合并）。</li>
+<li>稳定排序。</li>
+<li>非原地排序。</li>
+</ul>
+<p><strong>对比</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>快速排序</th>
+<th>归并排序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>平均时间</td>
+<td>O(n log n)</td>
+<td>O(n log n)</td>
+</tr>
+<tr>
+<td>最坏时间</td>
+<td>O(n²)</td>
+<td>O(n log n)</td>
+</tr>
+<tr>
+<td>空间</td>
+<td>O(log n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>稳定性</td>
+<td>不稳定</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>原地</td>
+<td>是</td>
+<td>否</td>
+</tr>
+<tr>
+<td>缓存友好</td>
+<td>好</td>
+<td>一般</td>
+</tr>
+<tr>
+<td>最坏情况优化</td>
+<td>三数取中、随机基准</td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>为什么快速排序通常更快</strong></p>
+<ul>
+<li>原地排序，空间局部性好，缓存命中率高。</li>
+<li>常数因子小。</li>
+<li>实际中 O(n²) 极少见（通过随机化或三数取中避免）。</li>
+</ul>
+<p><strong>什么时候用归并排序</strong></p>
+<ul>
+<li>需要稳定排序时。</li>
+<li>数据量大且内存足够时。</li>
+<li>链表排序（归并排序适合链表，不需要额外空间）。</li>
+<li>外部排序（数据在磁盘上，归并排序可以分批处理）。</li>
+</ul>
+<p><strong>其他常见排序</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>平均时间</th>
+<th>最坏时间</th>
+<th>空间</th>
+<th>稳定</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>冒泡</td>
+<td>O(n²)</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>是</td>
+<td>教学</td>
+</tr>
+<tr>
+<td>选择</td>
+<td>O(n²)</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>否</td>
+<td>教学</td>
+</tr>
+<tr>
+<td>插入</td>
+<td>O(n²)</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>是</td>
+<td>小数据/基本有序</td>
+</tr>
+<tr>
+<td>希尔</td>
+<td>O(n^1.3)</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>否</td>
+<td>中等数据</td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td>O(n log n)</td>
+<td>O(n log n)</td>
+<td>O(1)</td>
+<td>否</td>
+<td>前 K 大</td>
+</tr>
+<tr>
+<td>计数</td>
+<td>O(n+k)</td>
+<td>O(n+k)</td>
+<td>O(k)</td>
+<td>是</td>
+<td>数据范围小的整数</td>
+</tr>
+<tr>
+<td>桶排序</td>
+<td>O(n+k)</td>
+<td>O(n²)</td>
+<td>O(n+k)</td>
+<td>是</td>
+<td>数据分布均匀</td>
+</tr>
+<tr>
+<td>基数</td>
+<td>O(d(n+k))</td>
+<td>O(d(n+k))</td>
+<td>O(n+k)</td>
+<td>是</td>
+<td>定长数字/字符串</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h4 id="跳表的原理与-redis-为什么用跳表">跳表的原理与 Redis 为什么用跳表</h4>
+<p><strong>上下文知识</strong></p>
+<p>跳表（Skip List）是一种基于有序链表的概率性数据结构，通过建立多级索引实现 O(log n) 的查找、插入、删除。</p>
+<p><strong>原理</strong></p>
+<p>跳表在有序链表的基础上，为部分节点建立多级索引：</p>
+<pre><code>Level 3:  1 ─────────────────────────────────&gt; 10
+Level 2:  1 ───────────&gt; 5 ─────────────&gt; 9 ─&gt; 10
+Level 1:  1 ──&gt; 3 ──&gt; 5 ──&gt; 7 ──&gt; 9 ──&gt; 10
+</code></pre>
+<p>查找时从最高层开始，如果下一个节点大于目标值，则下降一层，直到找到目标或到达底层。</p>
+<p><strong>时间复杂度</strong></p>
+<ul>
+<li>查找：O(log n)。</li>
+<li>插入：O(log n)（先查找位置，再插入，随机决定是否建立索引）。</li>
+<li>删除：O(log n)。</li>
+</ul>
+<p><strong>空间复杂度</strong>：O(n)。</p>
+<p><strong>为什么 Redis ZSet 用跳表而不是红黑树</strong></p>
+<ol>
+<li><strong>范围查询更高效</strong>：跳表底层是有序链表，范围查询只需在底层链表上顺序遍历；红黑树需要中序遍历，实现复杂。</li>
+<li><strong>实现简单</strong>：跳表的插入删除逻辑比红黑树简单得多，不需要复杂的旋转和变色。</li>
+<li><strong>内存灵活</strong>：跳表的节点层级随机生成，可以根据数据量自动调整；红黑树是严格平衡的。</li>
+<li><strong>并发友好</strong>：跳表的局部修改对其他部分影响小，更容易实现并发（虽然 Redis 是单线程）。</li>
+</ol>
+<p><strong>跳表的索引层级如何决定</strong></p>
+<ul>
+<li>每个新节点插入时，通过随机算法决定它的最高层级。</li>
+<li>概率公式：<code>P(level &gt;= k) = p^(k-1)</code>，Redis 中 p = 0.25。</li>
+<li>这意味着大约 25% 的节点有第二层索引，6.25% 有第三层，以此类推。</li>
+</ul>
+<hr />
+<h1 id="五-编程语言与编译原理_1">五、编程语言与编译原理</h1>
+<h2 id="编译原理">编译原理</h2>
+<h4 id="编译型语言和解释型语言的区别">编译型语言和解释型语言的区别？</h4>
+<p><strong>上下文知识</strong></p>
+<p>高级语言需要转换为机器码才能被 CPU 执行。根据转换方式的不同，分为编译型和解释型。</p>
+<p><strong>编译型语言（Compiled）</strong></p>
+<ul>
+<li>源代码通过编译器（Compiler）一次性翻译成机器码，生成可执行文件。</li>
+<li>运行时直接执行机器码，不需要翻译。</li>
+<li>代表语言：C、C++、Go、Rust。</li>
+</ul>
+<p><strong>解释型语言（Interpreted）</strong></p>
+<ul>
+<li>源代码由解释器（Interpreter）逐行翻译执行，不生成独立的可执行文件。</li>
+<li>每次运行都需要解释器参与。</li>
+<li>代表语言：Python、JavaScript、PHP、Ruby。</li>
+</ul>
+<p><strong>对比</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>编译型</th>
+<th>解释型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>执行效率</td>
+<td>高（直接运行机器码）</td>
+<td>低（逐行翻译）</td>
+</tr>
+<tr>
+<td>开发效率</td>
+<td>低（需编译）</td>
+<td>高（改完即运行）</td>
+</tr>
+<tr>
+<td>跨平台</td>
+<td>差（不同平台需重新编译）</td>
+<td>好（同一代码在不同解释器上运行）</td>
+</tr>
+<tr>
+<td>错误检查</td>
+<td>编译期检查</td>
+<td>运行期检查</td>
+</tr>
+<tr>
+<td>部署</td>
+<td>可执行文件</td>
+<td>需安装解释器</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>为什么不是非黑即白</strong></p>
+<p>现代语言的界限越来越模糊：</p>
+<ul>
+<li><strong>Java</strong>：先编译成字节码（.class），运行时由 JVM 解释执行或 JIT 编译为机器码。属于"半编译半解释"。</li>
+<li><strong>C#</strong>：类似 Java，编译为 IL，运行时由 CLR 处理。</li>
+<li><strong>Python</strong>：先编译为字节码（.pyc），再由解释器执行，也算半编译。</li>
+<li><strong>V8（JavaScript）</strong>：使用 JIT 技术，热点代码编译为机器码执行。</li>
+</ul>
+<p><strong>JIT 编译</strong></p>
+<p>JIT（Just-In-Time）编译器结合了编译和解释的优点：
+- 启动时用解释器执行，启动快。
+- 运行时收集热点信息，将频繁执行的代码编译为机器码。
+- 可以基于运行时信息做优化（如内联缓存、分支预测）。</p>
+<hr />
+<h4 id="jit-编译是什么-为什么比纯解释快">JIT 编译是什么？为什么比纯解释快？</h4>
+<p><strong>上下文知识</strong></p>
+<p>纯解释器逐行翻译执行，效率低。JIT 编译在运行时将热点代码编译为机器码，大幅提升性能。</p>
+<p><strong>JIT 的工作原理</strong></p>
+<ol>
+<li><strong>解释执行</strong>：程序启动时，解释器逐行执行字节码。</li>
+<li><strong>热点探测</strong>：运行时统计各代码块的执行次数，超过阈值的标记为"热点"。</li>
+<li><strong>编译优化</strong>：将热点代码编译为本地机器码，并进行优化（内联、循环展开、逃逸分析等）。</li>
+<li><strong>替换执行</strong>：后续调用直接执行机器码。</li>
+</ol>
+<p><strong>为什么比纯解释快</strong></p>
+<ol>
+<li><strong>减少翻译开销</strong>：热点代码只编译一次，之后直接执行机器码。</li>
+<li><strong>运行时优化</strong>：JIT 可以基于实际运行数据做优化，这是 AOT（Ahead-Of-Time）编译做不到的：
+   - <strong>类型反馈</strong>：动态语言如 JS，JIT 可以假设类型稳定，生成优化的机器码（假设失败则去优化）。
+   - <strong>内联缓存</strong>：记录方法调用的实际类型，直接跳转。
+   - <strong>分支预测</strong>：根据运行时的分支概率优化。</li>
+<li><strong>逃逸分析</strong>：判断对象是否逃逸出方法，未逃逸的可以在栈上分配，减少 GC。</li>
+</ol>
+<p><strong>JIT 的代价</strong></p>
+<ul>
+<li>启动慢（需要预热）。</li>
+<li>占用更多内存（存编译后的代码）。</li>
+<li>编译本身消耗 CPU。</li>
+</ul>
+<p><strong>经典 JIT 实现</strong></p>
+<ul>
+<li><strong>Java HotSpot VM</strong>：Client Compiler（C1，快速编译）+ Server Compiler（C2，深度优化），分层编译。</li>
+<li><strong>V8（Chrome/Node.js）</strong>：Ignition 解释器 + Turbofan 编译器。</li>
+<li><strong>PyPy</strong>：Python 的 JIT 实现，比 CPython 快得多。</li>
+</ul>
+<hr />
+<h2 id="内存管理_1">内存管理</h2>
+<h4 id="垃圾回收-gc-的算法有哪些">垃圾回收（GC）的算法有哪些？</h4>
+<p><strong>上下文知识</strong></p>
+<p>垃圾回收（Garbage Collection）是自动内存管理机制，回收不再使用的内存。C/C++ 手动管理内存容易出错（内存泄漏、悬空指针），Java、Go、Python 等语言提供 GC。</p>
+<p><strong>判断对象是否存活</strong></p>
+<ol>
+<li>
+<p><strong>引用计数法（Reference Counting）</strong>
+   - 每个对象维护一个引用计数器，被引用时 +1，引用失效时 -1。
+   - 计数器为 0 时回收。
+   - 缺点：无法解决循环引用（A 引用 B，B 引用 A，都不为 0）。
+   - Python 使用引用计数 + 分代 GC 解决循环引用。</p>
+</li>
+<li>
+<p><strong>可达性分析（Reachability Analysis）</strong>
+   - 从 GC Roots 出发，遍历引用链，不可达的对象回收。
+   - GC Roots：栈中引用的对象、静态变量、常量、JNI 引用等。
+   - Java、Go、C# 使用此方法。
+   - 可以解决循环引用。</p>
+</li>
+</ol>
+<p><strong>GC 算法</strong></p>
+<ol>
+<li>
+<p><strong>标记-清除（Mark-Sweep）</strong>
+   - 标记：从 GC Roots 遍历，标记可达对象。
+   - 清除：回收未标记的对象。
+   - 缺点：产生内存碎片。</p>
+</li>
+<li>
+<p><strong>标记-整理（Mark-Compact）</strong>
+   - 标记后，将存活对象向一端移动，清理边界外的内存。
+   - 优点：无碎片。
+   - 缺点：移动对象开销大。</p>
+</li>
+<li>
+<p><strong>复制算法（Copying）</strong>
+   - 将内存分为两块，每次只用一块。
+   - GC 时将存活对象复制到另一块，清空当前块。
+   - 优点：无碎片，复制时不需要标记清除。
+   - 缺点：内存利用率低（只用一半）。
+   - 适用于存活率低的场景（年轻代）。</p>
+</li>
+<li>
+<p><strong>分代收集（Generational Collection）</strong>
+   - 将对象按存活时间分为年轻代和老年代。
+   - 年轻代：大部分对象朝生夕灭，用复制算法。
+   - 老年代：对象存活率高，用标记-清除或标记-整理。
+   - 这是 JVM 的核心 GC 策略。</p>
+</li>
+</ol>
+<p><strong>现代 GC</strong></p>
+<ul>
+<li><strong>JVM G1</strong>：将堆分成多个 Region，可预测停顿时间。</li>
+<li><strong>JVM ZGC/Shenandoah</strong>：低延迟 GC，停顿时间 &lt; 10ms。</li>
+<li><strong>Go GC</strong>：三色标记 + 写屏障，并发标记，低停顿。</li>
+<li><strong>Python GC</strong>：引用计数 + 分代回收。</li>
+</ul>
+<hr />
+<h4 id="什么是分代收集">什么是分代收集？</h4>
+<p><strong>上下文知识</strong></p>
+<p>分代收集基于一个观察：<strong>大部分对象的生命周期很短</strong>（朝生夕灭），少部分对象会长期存活。针对不同生命周期的对象采用不同的回收策略，可以提高 GC 效率。</p>
+<p><strong>JVM 的分代模型</strong></p>
+<pre><code>堆内存
+├── 年轻代（Young Generation）
+│   ├── Eden 区
+│   ├── Survivor From
+│   └── Survivor To
+└── 老年代（Old Generation）
+</code></pre>
+<p><strong>年轻代</strong></p>
+<ul>
+<li>新创建的对象放在 Eden 区。</li>
+<li>Eden 满了触发 Minor GC，将存活对象复制到 Survivor 区。</li>
+<li>使用复制算法（因为存活率低）。</li>
+<li>对象在 Survivor 区每经历一次 GC，年龄 +1，达到阈值（默认 15）晋升到老年代。</li>
+</ul>
+<p><strong>老年代</strong></p>
+<ul>
+<li>存放长期存活的对象和大对象。</li>
+<li>老年代满了触发 Major GC/Full GC。</li>
+<li>使用标记-清除或标记-整理（因为存活率高，复制算法浪费空间）。</li>
+</ul>
+<p><strong>为什么分代有效</strong></p>
+<ul>
+<li>年轻代对象存活率低，复制算法效率高，Minor GC 频率高但速度快。</li>
+<li>老年代对象存活率高，标记-整理避免碎片，Major GC 频率低但耗时长。</li>
+<li>两者结合，整体 GC 效率最优。</li>
+</ul>
+<p><strong>对象晋升条件</strong></p>
+<ol>
+<li>年龄达到阈值（-XX:MaxTenuringThreshold，默认 15）。</li>
+<li>Survivor 区中相同年龄的对象大小总和超过 Survivor 区一半，则年龄 ≥ 该年龄的对象晋升。</li>
+<li>大对象直接进入老年代（-XX:PretenureSizeThreshold）。</li>
+</ol>
+<hr />
+<h2 id="并发与语言特性">并发与语言特性</h2>
+<h4 id="什么是协程-与线程的区别">什么是协程？与线程的区别？</h4>
+<p><strong>上下文知识</strong></p>
+<p>协程（Coroutine）是一种用户态的轻量级线程，由程序自身调度，不依赖操作系统。Go 的 goroutine、Python 的 asyncio、Kotlin 的 coroutine 都是协程的实现。</p>
+<p><strong>协程的核心特性</strong></p>
+<ol>
+<li><strong>用户态调度</strong>：协程的切换在用户态完成，不需要陷入内核，切换开销极小。</li>
+<li><strong>协作式调度</strong>：协程主动让出 CPU（yield），而不是被操作系统抢占。</li>
+<li><strong>轻量</strong>：一个协程只需几 KB 栈空间，一个进程可以创建上百万个协程。</li>
+<li><strong>适合 IO 密集型</strong>：遇到 IO 时自动让出 CPU，不阻塞线程。</li>
+</ol>
+<p><strong>协程 vs 线程</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>线程</th>
+<th>协程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>调度者</td>
+<td>操作系统（抢占式）</td>
+<td>用户程序（协作式）</td>
+</tr>
+<tr>
+<td>切换开销</td>
+<td>大（内核态）</td>
+<td>小（用户态）</td>
+</tr>
+<tr>
+<td>创建开销</td>
+<td>大（MB 级栈）</td>
+<td>小（KB 级栈）</td>
+</tr>
+<tr>
+<td>数量上限</td>
+<td>几千个</td>
+<td>上百万个</td>
+</tr>
+<tr>
+<td>同步</td>
+<td>需要锁</td>
+<td>不需要锁（单线程内顺序执行）</td>
+</tr>
+<tr>
+<td>多核利用</td>
+<td>天然支持</td>
+<td>需配合多线程</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>协程的调度模型：GMP（Go 为例）</strong></p>
+<ul>
+<li><strong>G（Goroutine）</strong>：协程。</li>
+<li><strong>M（Machine）</strong>：操作系统线程。</li>
+<li><strong>P（Processor）</strong>：逻辑处理器，持有 G 的队列。</li>
+<li>M 绑定 P 后，从 P 的队列中取出 G 执行。G 遇到 IO 阻塞时，M 与 P 解绑，P 绑定其他 M 继续执行队列中的 G。</li>
+</ul>
+<p><strong>协程的优势场景</strong></p>
+<ul>
+<li>高并发 IO：如 Web 服务器、爬虫、网关。</li>
+<li>大量并发任务：如定时任务、消息处理。</li>
+</ul>
+<p><strong>协程的局限</strong></p>
+<ul>
+<li>CPU 密集型任务无法发挥优势（协程不会被抢占，一个协程占满 CPU 会阻塞其他协程）。</li>
+<li>需要语言/运行时支持（C/C++ 需要库如 libco、Boost.Coroutine）。</li>
+</ul>
+<hr />
+<h4 id="什么是闭包">什么是闭包？</h4>
+<p><strong>上下文知识</strong></p>
+<p>闭包（Closure）是函数式编程的重要概念，指一个函数捕获了其定义环境中的变量，即使在定义环境之外执行，也能访问这些变量。</p>
+<p><strong>闭包的定义</strong></p>
+<p>闭包 = 函数 + 其引用的自由变量（非参数、非局部变量）。</p>
+<pre><code class="language-javascript">function makeCounter() {
+  let count = 0;
+  return function() {
+    return ++count;
+  };
+}
+
+const counter = makeCounter();
+console.log(counter()); // 1
+console.log(counter()); // 2
+console.log(counter()); // 3
+</code></pre>
+<p><code>makeCounter</code> 返回的匿名函数捕获了 <code>count</code> 变量，形成闭包。每次调用 <code>counter()</code>，<code>count</code> 都在闭包中保持状态。</p>
+<p><strong>闭包的底层实现</strong></p>
+<ul>
+<li>编译器将闭包捕获的变量从栈上移到堆上（逃逸）。</li>
+<li>闭包函数持有一个指向捕获变量的指针。</li>
+<li>多个闭包可以共享同一个捕获变量。</li>
+</ul>
+<p><strong>闭包的用途</strong></p>
+<ol>
+<li><strong>数据封装/私有变量</strong>：如上例，<code>count</code> 只能通过闭包访问。</li>
+<li><strong>回调函数</strong>：异步编程中捕获上下文。</li>
+<li><strong>函数工厂</strong>：生成定制化的函数。</li>
+<li><strong>装饰器</strong>：Python 装饰器基于闭包实现。</li>
+</ol>
+<p><strong>闭包的注意事项</strong></p>
+<ul>
+<li><strong>内存泄漏</strong>：闭包持有变量引用，可能导致变量无法被 GC。</li>
+<li><strong>循环捕获</strong>：循环中创建闭包时，注意捕获的是循环变量本身（可能所有闭包共享同一个变量）。</li>
+</ul>
+<pre><code class="language-javascript">// 错误示例：所有 setTimeout 都打印 5
+for (var i = 0; i &lt; 5; i++) {
+  setTimeout(() =&gt; console.log(i), 0);
+}
+
+// 正确示例：用 let 或 IIFE 隔离
+for (let i = 0; i &lt; 5; i++) {
+  setTimeout(() =&gt; console.log(i), 0);
+}
+</code></pre>
+<hr />
+<h4 id="值传递和引用传递的区别">值传递和引用传递的区别？</h4>
+<p><strong>上下文知识</strong></p>
+<p>函数参数传递方式决定了实参和形参之间的关系。理解这个区别对避免 bug 至关重要。</p>
+<p><strong>值传递（Pass by Value）</strong></p>
+<ul>
+<li>形参是实参的副本，修改形参不影响实参。</li>
+<li>C、C++（基本类型）、Java（基本类型）、Go 都是值传递。</li>
+</ul>
+<pre><code class="language-c">void swap(int a, int b) {
+  int temp = a;
+  a = b;
+  b = temp;
+}
+// 调用后实参不变，因为只是副本交换
+</code></pre>
+<p><strong>引用传递（Pass by Reference）</strong></p>
+<ul>
+<li>形参是实参的别名，修改形参会影响实参。</li>
+<li>C++ 的引用（&amp;）、PHP 的 &amp; 是引用传递。</li>
+</ul>
+<pre><code class="language-cpp">void swap(int&amp; a, int&amp; b) {
+  int temp = a;
+  a = b;
+  b = temp;
+}
+// 调用后实参交换
+</code></pre>
+<p><strong>Java 的情况：只有值传递</strong></p>
+<p>很多人误以为 Java 对象是引用传递，实际上 Java 只有值传递：
+- 基本类型：传递值的副本。
+- 对象类型：传递引用的副本（即地址值的副本）。</p>
+<pre><code class="language-java">void modify(User user) {
+  user.setName(&quot;new&quot;);  // 通过引用副本修改对象，实参看到变化
+  user = new User();    // 修改引用副本指向新对象，实参不变化
+}
+</code></pre>
+<p><strong>Python 的情况：对象引用传递</strong></p>
+<ul>
+<li>传递的是对象的引用。</li>
+<li>不可变对象（int、str、tuple）：修改会创建新对象，不影响实参。</li>
+<li>可变对象（list、dict）：原地修改会影响实参。</li>
+</ul>
+<pre><code class="language-python">def modify(lst):
+  lst.append(1)  # 原地修改，实参变化
+
+def reassign(lst):
+  lst = [1, 2]   # 重新绑定，实参不变化
+</code></pre>
+<p><strong>总结</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>语言</th>
+<th>基本类型</th>
+<th>对象类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C/C++</td>
+<td>值传递</td>
+<td>值传递（指针）/引用传递（&amp;）</td>
+</tr>
+<tr>
+<td>Java</td>
+<td>值传递</td>
+<td>值传递（引用的副本）</td>
+</tr>
+<tr>
+<td>Go</td>
+<td>值传递</td>
+<td>值传递</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>对象引用传递</td>
+<td>对象引用传递</td>
+</tr>
+<tr>
+<td>JavaScript</td>
+<td>值传递（原始类型）</td>
+<td>共享传递（对象引用的副本）</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h1 id="六-分布式系统_1">六、分布式系统</h1>
+<h2 id="理论基础">理论基础</h2>
+<h4 id="cap-定理是什么-为什么不能同时满足">CAP 定理是什么？为什么不能同时满足？</h4>
+<p><strong>上下文知识</strong></p>
+<p>CAP 定理是分布式系统的基础理论，由 Eric Brewer 在 2000 年提出。它指出一个分布式系统不可能同时满足一致性、可用性和分区容错性。</p>
+<p><strong>CAP 三要素</strong></p>
+<ol>
+<li><strong>一致性（Consistency, C）</strong>：所有节点在同一时刻看到相同的数据。这里指强一致性。</li>
+<li><strong>可用性（Availability, A）</strong>：每个请求都能收到非错误的响应（不保证是最新数据）。</li>
+<li><strong>分区容错性（Partition Tolerance, P）</strong>：网络分区（节点间无法通信）时，系统仍能正常运行。</li>
+</ol>
+<p><strong>为什么不能同时满足</strong></p>
+<p>在分布式系统中，网络分区是不可避免的（P 是必须满足的前提）。当发生网络分区时：</p>
+<ul>
+<li>选择 <strong>CP</strong>：为了保证一致性，当节点间无法通信时，拒绝部分请求（牺牲可用性）。如 ZooKeeper、etcd、HBase。</li>
+<li>选择 <strong>AP</strong>：为了保证可用性，即使节点间无法通信，也继续响应请求，但可能返回不一致的数据（牺牲一致性）。如 Cassandra、DynamoDB、Eureka。</li>
+</ul>
+<p><strong>CAP 的注意事项</strong></p>
+<ul>
+<li>CAP 不是"三选二"那么简单，而是在网络分区时在 C 和 A 之间权衡。</li>
+<li>没有网络分区时（正常情况），可以同时满足 C 和 A。</li>
+<li>CAP 中的一致性是强一致性，最终一致性不属于 C。</li>
+</ul>
+<p><strong>BASE 理论</strong></p>
+<p>BASE 是对 CAP 的延伸，适用于大规模分布式系统：</p>
+<ul>
+<li><strong>Basically Available（基本可用）</strong>：允许部分功能不可用，核心功能可用。</li>
+<li><strong>Soft state（软状态）</strong>：允许系统存在中间状态。</li>
+<li><strong>Eventually consistent（最终一致性）</strong>：数据在一段时间后最终一致。</li>
+</ul>
+<p>大部分互联网系统采用 BASE，追求高可用和最终一致性。</p>
+<hr />
+<h4 id="一致性哈希的原理是什么">一致性哈希的原理是什么？</h4>
+<p><strong>上下文知识</strong></p>
+<p>在分布式缓存中，需要将 key 映射到不同的节点。简单的取模哈希（<code>hash(key) % N</code>）在节点增减时，大量 key 需要重新映射，导致缓存雪崩。一致性哈希（Consistent Hashing）解决了这个问题。</p>
+<p><strong>原理</strong></p>
+<ol>
+<li><strong>哈希环</strong>：将哈希空间（0 ~ 2^32-1）组织成一个环。</li>
+<li><strong>节点映射</strong>：将每个服务器节点通过哈希映射到环上的某个位置。</li>
+<li><strong>数据映射</strong>：将每个 key 通过哈希映射到环上，顺时针找到的第一个节点就是存储节点。</li>
+</ol>
+<pre><code>        节点 A
+       /      \
+  key1        节点 B
+     |          |
+  节点 D ---- 节点 C
+</code></pre>
+<p><strong>节点增减的影响</strong></p>
+<ul>
+<li>增加节点：只有新节点和它逆时针方向的前一个节点之间的 key 需要重新映射，其他 key 不受影响。</li>
+<li>删除节点：只有被删除节点上的 key 需要重新映射到下一个节点。</li>
+</ul>
+<p>因此，一致性哈希在节点增减时，只影响少量 key 的映射，避免了大规模缓存失效。</p>
+<p><strong>虚拟节点</strong></p>
+<ul>
+<li>问题：如果节点数量少，可能分布不均匀，导致负载倾斜。</li>
+<li>解决：为每个物理节点创建多个虚拟节点（如 100 个），分散在环上。</li>
+<li>好处：分布更均匀，节点增减时负载迁移更平滑。</li>
+</ul>
+<p><strong>应用场景</strong></p>
+<ul>
+<li>分布式缓存：Memcached、Redis Cluster。</li>
+<li>负载均衡：Nginx 的一致性哈希模块。</li>
+<li>分布式存储：Dynamo、Cassandra。</li>
+</ul>
+<hr />
+<h4 id="raft-算法的核心流程">Raft 算法的核心流程</h4>
+<p><strong>上下文知识</strong></p>
+<p>Raft 是一种易于理解的分布式一致性算法，用于管理复制日志（Replicated Log）。它是 Paxos 的替代品，目标是在保证正确性的前提下更易理解和实现。etcd、Consul、TiKV 等都使用 Raft。</p>
+<p><strong>Raft 的三个角色</strong></p>
+<ol>
+<li><strong>Leader（领导者）</strong>：处理客户端请求，复制日志到跟随者。</li>
+<li><strong>Follower（跟随者）</strong>：被动接收 Leader 的日志复制。</li>
+<li><strong>Candidate（候选人）</strong>：选举过程中的临时角色。</li>
+</ol>
+<p><strong>核心流程</strong></p>
+<p><strong>1. Leader 选举（Leader Election）</strong></p>
+<ul>
+<li>系统启动时所有节点都是 Follower。</li>
+<li>如果 Follower 在选举超时时间（election timeout，随机 150~300ms）内没收到 Leader 的心跳，就变为 Candidate。</li>
+<li>Candidate 给自己投票，向其他节点请求投票（RequestVote）。</li>
+<li>获得多数派（超过半数）投票的 Candidate 成为 Leader。</li>
+<li>Leader 定期向 Follower 发送心跳（AppendEntries）维持地位。</li>
+<li>随机超时避免多个 Candidate 同时竞选导致票数分散。</li>
+</ul>
+<p><strong>2. 日志复制（Log Replication）</strong></p>
+<ul>
+<li>客户端请求到达 Leader，Leader 将命令追加到本地日志。</li>
+<li>Leader 通过 AppendEntries RPC 将日志复制到所有 Follower。</li>
+<li>Follower 收到后追加到本地日志，返回确认。</li>
+<li>Leader 收到多数派确认后，提交该日志（committed），并应用到状态机。</li>
+<li>Leader 在下一次 AppendEntries 中通知 Follower 提交。</li>
+</ul>
+<p><strong>3. 安全性（Safety）</strong></p>
+<ul>
+<li>只允许 Leader 提交日志。</li>
+<li>Leader 只能提交当前任期的日志，不能直接提交旧任期的日志。</li>
+<li>选举时，Candidate 必须拥有所有已提交的日志（通过日志的 term 和 index 比较）才能当选。</li>
+</ul>
+<p><strong>任期（Term）</strong></p>
+<ul>
+<li>每个 Leader 有一个任期号，单调递增。</li>
+<li>任期号用于识别过期的 Leader（旧 Leader 网络恢复后，发现任期号落后，自动降级为 Follower）。</li>
+</ul>
+<p><strong>Raft vs Paxos</strong></p>
+<ul>
+<li>Raft 强调可理解性，将问题分解为选举、复制、安全性三个子问题。</li>
+<li>Paxos 更简洁但难以理解和实现。</li>
+<li>工程中 Raft 更流行。</li>
+</ul>
+<hr />
+<h2 id="分布式锁">分布式锁</h2>
+<h4 id="分布式锁的实现方案-redis-zookeeper">分布式锁的实现方案（Redis/Zookeeper）</h4>
+<p><strong>上下文知识</strong></p>
+<p>在分布式系统中，多个进程/节点需要协调访问共享资源，需要分布式锁。分布式锁需要满足：互斥性、防死锁、可重入、高可用。</p>
+<p><strong>Redis 实现分布式锁</strong></p>
+<p><strong>基本实现：SETNX</strong></p>
+<pre><code>SET lock_key unique_value NX EX 30
+</code></pre>
+<ul>
+<li><code>NX</code>：只在 key 不存在时设置（互斥）。</li>
+<li><code>EX 30</code>：30 秒后自动过期（防死锁）。</li>
+<li><code>unique_value</code>：唯一标识，释放锁时校验，防止误删别人的锁。</li>
+</ul>
+<p>释放锁（用 Lua 脚本保证原子性）：</p>
+<pre><code class="language-lua">if redis.call(&quot;get&quot;, KEYS[1]) == ARGV[1] then
+  return redis.call(&quot;del&quot;, KEYS[1])
+else
+  return 0
+end
+</code></pre>
+<p><strong>RedLock（红锁）</strong></p>
+<ul>
+<li>为了解决 Redis 单点故障问题，部署 N 个（通常 5 个）独立的 Redis 实例。</li>
+<li>客户端向所有实例请求锁，获得超过半数（N/2 + 1）的锁才算成功。</li>
+<li>实现复杂，且存在争议（Martin Kleppmann 与 Redis 作者 antirez 的争论）。</li>
+</ul>
+<p><strong>Redis 锁的问题</strong></p>
+<ul>
+<li>锁过期时间不好设置：太长影响可用性，太短业务没执行完就释放。</li>
+<li>续期问题：可以用看门狗（watchdog）机制自动续期（如 Redisson）。</li>
+<li>Redis 主从切换时可能丢失锁（主节点写入但未同步到从节点就宕机）。</li>
+</ul>
+<p><strong>Zookeeper 实现分布式锁</strong></p>
+<ul>
+<li>创建临时有序节点（EPHEMERAL_SEQUENTIAL）。</li>
+<li>判断自己的节点是否是序号最小的，如果是则获得锁。</li>
+<li>否则监听前一个节点的删除事件，当前一个节点删除时，再次判断自己是否是最小的。</li>
+<li>锁释放：删除自己的节点（会话断开也会自动删除临时节点）。</li>
+</ul>
+<p><strong>对比</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>Redis</th>
+<th>Zookeeper</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>性能</td>
+<td>高（内存）</td>
+<td>中</td>
+</tr>
+<tr>
+<td>可靠性</td>
+<td>一般（主从可能丢锁）</td>
+<td>高（ZAB 协议强一致）</td>
+</tr>
+<tr>
+<td>实现复杂度</td>
+<td>低</td>
+<td>中</td>
+</tr>
+<tr>
+<td>自动释放</td>
+<td>需设置过期时间</td>
+<td>会话断开自动释放</td>
+</tr>
+<tr>
+<td>锁续期</td>
+<td>需自己实现</td>
+<td>无需（心跳维持会话）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>如何选择</strong></p>
+<ul>
+<li>对性能要求高、可容忍偶尔锁失效：Redis。</li>
+<li>对可靠性要求高：Zookeeper 或 etcd（Raft）。</li>
+</ul>
+<hr />
+<h2 id="消息队列">消息队列</h2>
+<h4 id="消息队列如何保证消息不丢失">消息队列如何保证消息不丢失？</h4>
+<p><strong>上下文知识</strong></p>
+<p>消息队列（MQ）用于系统间异步通信、解耦、削峰。但消息在传输过程中可能丢失，需要从生产端、MQ 本身、消费端三个环节保证不丢失。</p>
+<p><strong>三个环节</strong></p>
+<p><strong>1. 生产端：消息可靠投递到 MQ</strong></p>
+<ul>
+<li><strong>生产者确认（Producer ACK）</strong>：生产者发送消息后，MQ 返回确认。如果未收到确认，生产者重试。</li>
+<li>Kafka：<code>acks=all</code>（ISR 所有副本都确认），<code>retries</code> 设置重试次数。</li>
+<li>RabbitMQ：开启 Publisher Confirm 机制。</li>
+<li><strong>事务消息</strong>：本地事务和消息发送的原子性。如 RocketMQ 的事务消息、Kafka 的事务 API。</li>
+<li><strong>本地消息表</strong>：将消息写入本地数据库，和业务操作在同一个事务中，后台定时扫描未发送的消息投递到 MQ。</li>
+</ul>
+<p><strong>2. MQ 本身：消息持久化</strong></p>
+<ul>
+<li><strong>持久化存储</strong>：消息写入磁盘，MQ 宕机后可恢复。</li>
+<li>Kafka：消息写入磁盘（顺序写，性能高），多副本复制。</li>
+<li>RabbitMQ：队列和消息都设置持久化。</li>
+<li><strong>多副本</strong>：消息复制到多个 Broker，一个宕机不丢失。</li>
+<li>Kafka：ISR（In-Sync Replicas）机制，Leader 写入后同步到 Follower。</li>
+<li>RabbitMQ：镜像队列（Mirrored Queue）。</li>
+</ul>
+<p><strong>3. 消费端：消息成功处理</strong></p>
+<ul>
+<li><strong>手动 ACK</strong>：消费者处理完消息后手动确认，MQ 才删除消息。如果消费者宕机，MQ 会重新投递。</li>
+<li>Kafka：关闭自动提交 offset，处理完后手动提交。</li>
+<li>RabbitMQ：关闭 auto_ack，处理完后手动 ack。</li>
+<li><strong>幂等消费</strong>：消息可能重复投递（如消费者处理完但 ACK 丢失），消费者需要保证幂等。</li>
+<li>唯一消息 ID + 去重表。</li>
+<li>业务唯一键（如订单号）。</li>
+</ul>
+<p><strong>总结：消息不丢失的方案</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>环节</th>
+<th>方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>生产端</td>
+<td>生产者确认、事务消息、本地消息表</td>
+</tr>
+<tr>
+<td>MQ</td>
+<td>持久化、多副本</td>
+</tr>
+<tr>
+<td>消费端</td>
+<td>手动 ACK、幂等消费</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h4 id="如何保证消息的顺序消费">如何保证消息的顺序消费？</h4>
+<p><strong>上下文知识</strong></p>
+<p>某些业务场景要求消息严格按顺序消费（如订单状态变更：创建 → 支付 → 发货 → 完成）。但 MQ 的并发消费可能破坏顺序。</p>
+<p><strong>顺序消费的难点</strong></p>
+<ul>
+<li>生产者发送顺序：消息可能乱序到达 Broker（网络延迟）。</li>
+<li>Broker 存储顺序：多分区/多队列导致消息分散。</li>
+<li>消费者消费顺序：多线程并发消费导致乱序。</li>
+</ul>
+<p><strong>保证顺序的方案</strong></p>
+<p><strong>1. 单队列 + 单消费者</strong></p>
+<ul>
+<li>将同一业务 key 的消息发到同一个队列，只有一个消费者消费。</li>
+<li>优点：简单，严格有序。</li>
+<li>缺点：吞吐量低，无法水平扩展。</li>
+</ul>
+<p><strong>2. 按业务 key 分区 + 单线程消费</strong></p>
+<ul>
+<li>生产者按业务 key（如订单 ID）做哈希，同一 key 的消息发到同一个分区/队列。</li>
+<li>每个分区只有一个消费者线程消费。</li>
+<li>Kafka：同一 key 的消息发往同一 partition，每个 partition 只能被一个消费者消费。</li>
+<li>RabbitMQ：用不同的 Queue 区分，每个 Queue 一个消费者。</li>
+</ul>
+<p><strong>3. 消费者端排序</strong></p>
+<ul>
+<li>消息带序列号，消费者端缓存乱序消息，按序处理。</li>
+<li>适用于对延迟不敏感的场景。</li>
+</ul>
+<p><strong>Kafka 的顺序消费</strong></p>
+<ul>
+<li>生产端：用订单 ID 作为 key，<code>producer.send(record, key=orderId)</code>，同一订单的消息发往同一 partition。</li>
+<li>消费端：每个 partition 只用一个线程消费。</li>
+<li>注意：不能跨 partition 保证顺序，因此同一业务的消息必须在同一 partition。</li>
+</ul>
+<p><strong>RocketMQ 的顺序消费</strong></p>
+<ul>
+<li>MessageQueueSelector：选择指定的队列。</li>
+<li>消费端：<code>MessageListenerOrderly</code>，每个队列单线程消费。</li>
+<li>支持分布式顺序（同一队列全局有序）。</li>
+</ul>
+<p><strong>顺序消费的代价</strong></p>
+<ul>
+<li>吞吐量下降（单线程消费）。</li>
+<li>一个消息处理失败会阻塞后续消息（需要重试策略）。</li>
+</ul>
+<hr />
+<blockquote>
+<p>本文持续更新中，后续将补充更多领域的问题与解析。</p>
+</blockquote></div>
+      <nav class="post-pager" aria-label="上下篇"><a class="pager-link" href="%E7%A8%8B%E5%BA%8F%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86.html"><em>上一篇</em><b>程序底层执行原理：从一行源码到进程退出</b></a><a class="pager-link next" href="C/C%20%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html"><em>下一篇</em><b>C 语言快速入门</b></a></nav>
+    </article>
+  </main>
+</div>
+<footer class="blog-foot">
+  <div class="wrap foot-inner">
+    <span>© 2026 逐梦笔记 · 由 <code>scripts/build_blog.py</code> 从 docs/ 自动生成</span>
+    <span>内容来源：<a href="https://github.com/ShiQianzhi/note" target="_blank" rel="noopener noreferrer">ShiQianzhi/note</a> · 同步于 2026-11-26</span>
+  </div>
+</footer>
+<script src="../../blog.js"></script>
+</body>
+</html>

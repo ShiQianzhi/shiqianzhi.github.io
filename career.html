@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>世界职业体系结构 · 职业地图</title>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --bg:#0a0e16; --panel:rgba(255,255,255,.045); --panel2:rgba(255,255,255,.075);
+  --line:rgba(255,255,255,.11); --soft:rgba(255,255,255,.06);
+  --text:#e8ecf4; --dim:#9aa4b8; --dim2:#6d778c; --gold:#d9b25a;
+  --serif:"Noto Serif SC",Songti SC,SimSun,serif;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-top:62px}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(900px 620px at 8% -10%,rgba(124,156,255,.16),transparent 62%),
+             radial-gradient(760px 520px at 96% 2%,rgba(217,178,90,.13),transparent 60%),
+             radial-gradient(900px 700px at 50% 108%,rgba(79,209,197,.10),transparent 62%);}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.45;
+  background-image:linear-gradient(rgba(255,255,255,.033) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.033) 1px,transparent 1px);
+  background-size:76px 76px;mask-image:radial-gradient(circle at 50% 24%,#000 28%,transparent 84%)}
+.wrap{max-width:1220px;margin:0 auto;padding:0 26px}
+
+/* ---------- 站点导航 ---------- */
+.site-nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(8,11,18,.74);
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.nav-inner{max-width:1180px;margin:0 auto;padding:0 26px;height:62px;display:flex;align-items:center;gap:22px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#eef2f9;font-family:var(--serif);font-size:15px;letter-spacing:.16em;white-space:nowrap}
+.brand .mark{width:18px;height:18px;position:relative;flex:none}
+.brand .mark::before{content:"";position:absolute;inset:0;border:1px solid rgba(217,178,90,.7);border-radius:2px;transform:rotate(45deg)}
+.brand .mark::after{content:"";position:absolute;inset:6px;background:var(--gold);border-radius:1px}
+.brand em{font-style:normal;font-family:var(--sans);font-size:11px;letter-spacing:.24em;color:var(--dim2);border-left:1px solid rgba(255,255,255,.14);margin-left:4px;padding-left:12px}
+.nav-links{display:flex;align-items:center;gap:4px;margin-left:auto}
+.nav-links > a{position:relative;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:100px;font-size:13.5px;color:#aab4c6;text-decoration:none;transition:.18s}
+.nav-links > a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav-links > a.active{color:#f2dda9;background:rgba(217,178,90,.12)}
+.nav-cta{margin-left:8px;border:1px solid rgba(217,178,90,.42);color:#f0d9a4 !important;background:rgba(217,178,90,.08)}
+.nav-cta:hover{background:rgba(217,178,90,.18) !important;border-color:rgba(217,178,90,.7)}
+.menu-btn{display:none;flex-direction:column;justify-content:center;gap:5px;width:38px;height:34px;margin-left:auto;padding:0 6px;background:none;border:0;cursor:pointer}
+.menu-btn span{display:block;height:1.5px;background:#cbd4e4;border-radius:2px;transition:.22s}
+.menu-btn.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.menu-btn.open span:nth-child(2){opacity:0}
+.menu-btn.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ---------- hero ---------- */
+.hero{padding:78px 0 34px}
+.kicker{display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:.28em;color:var(--gold);
+  text-transform:uppercase;padding:7px 15px;border:1px solid rgba(217,178,90,.34);border-radius:100px;background:rgba(217,178,90,.07)}
+.kicker i{width:5px;height:5px;border-radius:50%;background:var(--gold)}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(36px,5.6vw,70px);line-height:1.12;margin-top:26px}
+h1 .thin{display:block;font-family:var(--sans);font-weight:400;font-size:clamp(15px,1.7vw,18px);letter-spacing:.3em;color:var(--dim);margin-top:18px}
+.lede{max-width:780px;margin-top:24px;font-size:16.5px;color:#b9c2d3}
+.lede em{font-style:normal;color:var(--gold)}
+.stats{display:flex;flex-wrap:wrap;gap:44px;margin-top:38px;padding-top:26px;border-top:1px solid var(--soft)}
+.stat b{display:block;font-family:var(--serif);font-size:33px;line-height:1.2}
+.stat span{font-size:12.5px;letter-spacing:.16em;color:var(--dim2)}
+.note{margin-top:26px;padding:14px 18px;border-left:2px solid rgba(217,178,90,.5);background:rgba(217,178,90,.05);border-radius:0 10px 10px 0;font-size:13.5px;color:#b6c0d2;max-width:840px}
+.note b{color:#f0d9a4;font-weight:500}
+
+/* ---------- toolbar ---------- */
+.toolbar{position:sticky;top:62px;z-index:60;padding:11px 0;background:rgba(10,14,22,.85);backdrop-filter:blur(18px);border-bottom:1px solid var(--soft)}
+.tb{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.search{flex:1 1 250px;min-width:210px;position:relative}
+.search input{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:100px;
+  padding:11px 18px 11px 42px;color:var(--text);font-family:var(--sans);font-size:14px;outline:none;transition:.2s}
+.search input:focus{border-color:rgba(217,178,90,.6);background:rgba(255,255,255,.09)}
+.search input::placeholder{color:var(--dim2)}
+.search svg{position:absolute;left:15px;top:13px;width:16px;height:16px;stroke:var(--dim2);fill:none;stroke-width:1.8}
+.seg{display:flex;border:1px solid var(--line);border-radius:100px;overflow:hidden;background:rgba(255,255,255,.03)}
+.seg button{border:0;background:transparent;color:#a9b3c6;font-family:var(--sans);font-size:12.5px;
+  padding:9px 14px;cursor:pointer;transition:.18s;white-space:nowrap;border-right:1px solid rgba(255,255,255,.06)}
+.seg button:last-child{border-right:0}
+.seg button.on{background:rgba(217,178,90,.18);color:#f2ddad}
+.counter{font-size:12.5px;color:var(--dim2);white-space:nowrap}
+
+/* ---------- layout ---------- */
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:46px;align-items:start;padding:44px 0 20px}
+.index{position:sticky;top:140px}
+.index .ih{font-size:11.5px;letter-spacing:.2em;color:var(--dim2);margin-bottom:14px}
+.nav-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:0;
+  color:#aab4c6;font-family:var(--sans);font-size:13.5px;padding:9px 10px;border-radius:9px;cursor:pointer;transition:.18s;line-height:1.4}
+.nav-item:hover{background:rgba(255,255,255,.06);color:#fff}
+.nav-item .dot{width:7px;height:7px;border-radius:50%;flex:0 0 auto}
+.nav-item .cnt{margin-left:auto;font-size:11.5px;color:var(--dim2)}
+.nav-item.active{background:rgba(255,255,255,.08);color:#fff}
+
+/* ---------- section ---------- */
+.sec{margin-bottom:58px;scroll-margin-top:146px}
+.sec-head{display:flex;gap:16px;align-items:flex-start;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--soft)}
+.sec-num{font-family:var(--serif);font-size:13px;letter-spacing:.16em;color:var(--c);padding-top:7px;min-width:26px}
+.sec-t{flex:1}
+.sec-t h2{font-family:var(--serif);font-size:clamp(20px,2.3vw,26px);font-weight:700;letter-spacing:.05em;line-height:1.35}
+.sec-t .en{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim2);margin-top:5px}
+.sec-t p{font-size:13.5px;color:#a4aec1;margin-top:11px;max-width:720px;line-height:1.75}
+.sec-cnt{font-size:11.5px;color:var(--dim2);padding-top:8px;white-space:nowrap}
+
+.jobs{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:12px;align-items:start}
+.job{
+  display:flex;flex-direction:column;
+  position:relative;text-align:left;background:var(--panel);border:1px solid var(--soft);border-radius:13px;
+  padding:16px 17px 14px;cursor:pointer;font-family:var(--sans);transition:transform .2s,border-color .2s,background .2s;overflow:hidden;
+}
+.job:hover{transform:translateY(-2px);background:var(--panel2);border-color:color-mix(in srgb,var(--c) 55%,transparent)}
+.job::before{content:"";position:absolute;left:0;top:0;width:3px;height:100%;background:var(--c);opacity:.55}
+.job .row1{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.job b{font-size:15.5px;font-weight:700;letter-spacing:.03em;color:#edf1f8}
+.job .en2{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim2)}
+.job .d2{font-size:12.5px;color:#98a2b6;margin-top:7px;line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.job .foot{display:flex;gap:6px;align-items:center;margin-top:11px;flex-wrap:wrap}
+.ai-b{font-size:10.5px; padding:2px 7px;border-radius:5px;letter-spacing:.04em;border:1px solid transparent}
+.ai-低{color:#7cd8a8;background:rgba(82,201,138,.13);border-color:rgba(82,201,138,.32)}
+.ai-中{color:#e0bd72;background:rgba(217,178,90,.13);border-color:rgba(217,178,90,.32)}
+.ai-高{color:#f0997a;background:rgba(224,128,90,.14);border-color:rgba(224,128,90,.34)}
+.sk2{font-size:11px;color:#9ba6ba;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.06);padding:2px 7px;border-radius:5px}
+.job.hide{display:none}
+.sec.hide{display:none}
+
+/* ---------- 职业详情弹窗 ---------- */
+.scrim{position:fixed;inset:0;background:rgba(4,7,13,.7);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:.28s;z-index:200}
+.scrim.on{opacity:1;pointer-events:auto}
+.modal{
+  position:fixed;z-index:210;left:50%;top:50%;
+  width:min(920px,calc(100vw - 56px));height:min(84vh,820px);
+  background:#0c111d;border:1px solid rgba(255,255,255,.14);border-radius:20px;
+  box-shadow:0 40px 120px rgba(0,0,0,.66);
+  display:flex;flex-direction:column;overflow:hidden;
+  opacity:0;pointer-events:none;
+  transform:translate(-50%,-48%) scale(.97);
+  transition:transform .3s cubic-bezier(.22,.82,.28,1),opacity .25s;
+}
+.modal.on{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.dw-head{position:relative;padding:22px 24px 20px;border-bottom:1px solid rgba(255,255,255,.08);flex:0 0 auto;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--gc) 26%,transparent),rgba(255,255,255,.015) 72%)}
+.dw-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.dw-cat{font-size:11.5px;letter-spacing:.16em;color:var(--gc)}
+.dw-close{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);
+  color:#dfe6f2;font-size:16px;line-height:1;cursor:pointer;transition:.18s;font-family:var(--sans)}
+.dw-close:hover{background:rgba(255,255,255,.16)}
+.dw-head h3{font-family:var(--serif);font-size:27px;font-weight:700;letter-spacing:.04em;line-height:1.3;padding-right:10px}
+.dw-en{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim2);margin-top:7px}
+.dw-badges{display:flex;gap:7px;margin-top:14px;flex-wrap:wrap}
+.dw-body{flex:1 1 auto;overflow-y:auto;padding:24px 30px 30px;scrollbar-width:thin;display:grid;grid-template-columns:1fr 1fr;gap:0 38px;align-content:start}
+.dw-body::-webkit-scrollbar{width:8px}
+.dw-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:8px}
+.blk{margin-bottom:26px}
+.blk h4{font-size:11.5px;letter-spacing:.18em;color:var(--gc);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.blk h4::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.07)}
+.blk p{font-size:14px;color:#c3cbdb;line-height:1.85}
+.blk ul{list-style:none;display:grid;gap:8px}
+.blk ul li{position:relative;padding-left:18px;font-size:13.5px;color:#bcc5d6;line-height:1.7}
+.blk ul li::before{content:"";position:absolute;left:2px;top:9px;width:5px;height:5px;border-radius:50%;background:var(--gc);opacity:.75}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chips span{font-size:12.5px;padding:5px 11px;border-radius:7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#c8d1e2}
+.two{display:grid;grid-template-columns:1fr;gap:22px}
+.ainote{font-size:13.5px;color:#b9c3d5;padding:12px 14px;border-radius:9px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07)}
+.ainote b{color:#e6ecf7}
+.relbtn{font-size:12.5px;padding:6px 12px;border-radius:7px;border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);color:#dbe3f1;cursor:pointer;font-family:var(--sans);transition:.18s}
+.relbtn:hover{background:rgba(255,255,255,.13);border-color:rgba(217,178,90,.5);color:#fff}
+.dw-foot{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:13px 20px;border-top:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02)}
+.dw-foot button{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#cfd7e6;
+  font-family:var(--sans);font-size:12.5px;padding:8px 14px;border-radius:100px;cursor:pointer;transition:.18s}
+.dw-foot button:hover:not(:disabled){background:rgba(255,255,255,.13);color:#fff}
+.dw-foot button:disabled{opacity:.35;cursor:default}
+.dw-foot .pos{font-size:11.5px;color:var(--dim2);letter-spacing:.08em}
+
+/* ---------- axes + footer ---------- */
+.axes-wrap{padding:16px 0 0}
+.axes{display:grid;gap:14px}
+.axis{display:grid;grid-template-columns:170px 1fr;gap:18px;align-items:center;padding:17px 22px;border-radius:13px;
+  background:var(--panel);border:1px solid var(--soft)}
+.axis .an{font-family:var(--serif);font-size:14px;color:var(--gold);letter-spacing:.06em;line-height:1.5}
+.axis .an small{display:block;font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;color:var(--dim2);margin-top:3px}
+.axis .steps{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#c3ccdb}
+.axis .steps span{padding:5px 11px;border-radius:7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.axis .steps u{text-decoration:none;color:var(--dim2)}
+footer.foot{margin-top:56px;padding:30px 0 66px;border-top:1px solid var(--soft);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--dim2);line-height:1.85}
+.foot span,footer.foot span{max-width:660px}
+
+@media (max-width:980px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:0;padding-top:30px}
+  .index{position:static;margin-bottom:24px}
+  .index .ih{margin-bottom:10px}
+  #nav{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+  #nav::-webkit-scrollbar{display:none}
+  .nav-item{width:auto;flex:0 0 auto;background:rgba(255,255,255,.05);border:1px solid var(--soft);border-radius:100px;padding:7px 13px;font-size:12.5px}
+  .nav-item .cnt{display:none}
+  .sec-cnt{display:none}
+  .axis{grid-template-columns:1fr;gap:10px}
+  .jobs{grid-template-columns:1fr}
+  .hero{padding:54px 0 26px}
+}
+@media (max-width:860px){
+  body{padding-top:58px}
+  .nav-inner{padding:0 20px;height:58px}
+  .brand em{display:none}
+  .menu-btn{display:flex}
+  .nav-links{
+    display:none;position:absolute;left:0;right:0;top:58px;flex-direction:column;align-items:stretch;gap:2px;
+    padding:10px 16px 18px;background:rgba(10,14,22,.98);border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .nav-links.open{display:flex}
+  .nav-links > a{padding:11px 12px;font-size:14px;border-radius:10px}
+  .nav-cta{margin:8px 0 0;justify-content:center}
+  .toolbar{top:58px}
+  .modal{width:calc(100vw - 20px);height:86vh;border-radius:14px}
+  .dw-head{padding:18px 20px 16px}
+  .dw-head h3{font-size:23px}
+  .dw-body{grid-template-columns:1fr;padding:18px 20px 24px}
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">首页</a>
+      <a href="knowledge.html">世界知识体系</a>
+      <a href="career.html" class="active">世界职业体系</a>
+      <a href="blog/index.html">博客</a>
+      <a class="nav-cta" href="knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<header class="wrap hero">
+  <div class="kicker"><i></i>World Career Atlas · 职业地图</div>
+  <h1>世界职业体系
+    <span class="thin">按「做什么」与「凭什么准入」划分的 10 大类 · 90 个职业</span>
+  </h1>
+  <p class="lede">
+    职业不是按学科分的，而是按<em>工作对象</em>、<em>准入方式</em>和<em>结果如何被验证</em>分的。同样是“研究”，高校教授看论文，咨询顾问看客户买单，分析师看市场是否认账——<em>同一份能力，验证机制不同，就是三种职业</em>。
+  </p>
+  <div class="stats">
+    <div class="stat"><b>10</b><span>职业大类</span></div>
+    <div class="stat"><b id="sJobs">90</b><span>具体职业</span></div>
+    <div class="stat"><b>3</b><span>定位轴</span></div>
+    <div class="stat"><b>AI</b><span>影响分级</span></div>
+  </div>
+  <div class="note">
+    <b>怎么用：</b>点任意职业卡片，弹窗会展开它的定义、日常任务、能力要求、入行路径、收入形态、AI 影响与相邻职业。相邻职业可继续点开，用来找“可迁移的下一步”。
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="wrap tb">
+    <div class="search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg>
+      <input id="q" type="text" placeholder="搜职业或能力：律师、SQL、谈判、注册…">
+    </div>
+    <div class="seg" id="aiSeg">
+      <button class="on" data-ai="all">全部</button>
+      <button data-ai="低">AI 影响低</button>
+      <button data-ai="中">中等</button>
+      <button data-ai="高">高</button>
+    </div>
+    <span class="counter" id="counter"></span>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <aside class="index">
+    <div class="ih">按大类浏览</div>
+    <div id="nav"></div>
+  </aside>
+  <main id="sections"></main>
+</div>
+
+<section class="wrap axes-wrap">
+  <div class="sec-head" style="--c:#d9b25a">
+    <div class="sec-num">轴</div>
+    <div class="sec-t">
+      <h2>三条定位轴 · 判断一个职业的真实位置</h2>
+      <p>大类只说明“干什么”。真正决定收入、稳定性和风险的是这三条轴上的坐标。</p>
+    </div>
+  </div>
+  <div class="axes" id="axes"></div>
+</section>
+
+<footer class="wrap foot">
+  <span>职业地图不是答案，是坐标系。它帮你判断：现在的位置离目标差几步，以及那几步是靠考试、靠作品，还是靠客户。</span>
+  <span>World Career Atlas · 2026</span>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="职业详情" aria-hidden="true"></div>
+
+<script>
+/* ================= 移动端导航 ================= */
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+menuBtn.addEventListener("click", () => {
+  const open = navLinks.classList.toggle("open");
+  menuBtn.classList.toggle("open", open);
+  menuBtn.setAttribute("aria-expanded", String(open));
+});
+navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+  navLinks.classList.remove("open");
+  menuBtn.classList.remove("open");
+  menuBtn.setAttribute("aria-expanded", "false");
+}));
+
+const DATA = {"groups": [{"id": "gov", "name": "治理与公共事务", "en": "Governance & Public Affairs", "c": "#7c9cff", "desc": "以公共权力与公共资源为对象，处理的是「谁受益、谁担责」的问题。准入多靠公开考试，稳定性高、裁量空间大、也最容易被问责。", "jobs": [{"n": "公务员", "a": "Civil Servant", "d": "在党政机关承担政策执行、公共管理与公共服务职责的编制内人员。", "t": ["落实上级政策并转化为本地可执行方案", "办理审批、许可、登记等公共服务事项", "处理信访诉求、协调部门并应对突发事务"], "s": ["公文与政策写作", "依法行政", "沟通协调", "台账与数据管理"], "p": "公开招考进入（国考／省考／选调），试用期满定级；晋升走领导职务与职级并行两条路。", "y": "中等偏上｜固定薪级＋津贴，地区与职级差异大，稳定性强", "ai": "中", "r": "编制总量收紧、考核趋严；事务性环节被政务系统自动化，但裁量与担责仍由人承担。", "rel": ["政策研究员", "社区工作者", "应急管理专员"]}, {"n": "政策研究员", "a": "Policy Analyst", "d": "为政府部门或智库做问题诊断、证据收集与方案设计的研究者。", "t": ["界定问题、画出利益相关方地图", "做定量建模或田野调研", "撰写政策建议书与影响评估"], "s": ["研究方法（定量／定性）", "数据分析", "结构化写作", "领域专业知识"], "p": "公共管理、经济学、社会学等硕士起步；进智库、高校或部门研究室，靠报告质量积累声誉。", "y": "中等偏上｜研究机构薪酬为主，项目经费补充，天花板取决于影响力", "ai": "中", "r": "检索与初稿被 AI 提速，稀缺的是判断力与对真实约束的理解；空谈型研究最先被淘汰。", "rel": ["数据分析师", "管理咨询顾问", "高校教师与研究员"]}, {"n": "外交与国际组织职员", "a": "Diplomat / International Civil Servant", "d": "代表国家或国际机构处理对外事务、谈判与多边合作的人员。", "t": ["双边磋商与立场协调", "会谈、文件起草与对外沟通", "领事保护与危机处置"], "s": ["外语（含工作语言）", "国际法与规则", "跨文化沟通", "谈判与写作"], "p": "外语、国际关系、法律背景，通过外交人员招录或国际组织公开选拔；多岗轮换，驻外经历关键。", "y": "较高｜固定薪级＋驻外补贴，福利稳定，流动性强", "ai": "低", "r": "地缘政治波动直接影响岗位价值；信息类工作被工具替代，人与人之间的信任建立不能。", "rel": ["公务员", "翻译与本地化", "政策研究员"]}, {"n": "社区工作者", "a": "Community Worker", "d": "在街道社区一线做居民服务、矛盾调解与基层治理的人员。", "t": ["走访入户、掌握人群与需求", "组织活动、链接社会资源", "调解纠纷、上报风险隐患"], "s": ["群众沟通", "资源整合", "应急处置", "台账与信息化操作"], "p": "大专以上即可入行，多通过社区招聘；可考社会工作者职业资格，优秀者可定向考录公务员。", "y": "中等偏下｜以财政购买服务薪酬为主，地区差异极大", "ai": "低", "r": "老龄化与基层治理精细化让需求上升；强度高、情绪消耗大、晋升通道相对窄。", "rel": ["公务员", "心理咨询师", "育儿嫂与家政服务"]}, {"n": "应急管理专员", "a": "Emergency Management Officer", "d": "负责预案编制、风险排查与突发事件处置协调的专业人员。", "t": ["编制并组织演练应急预案", "开展风险普查与隐患整改", "事故现场协调、调度与信息报送"], "s": ["风险评估", "预案与演练设计", "调度协调", "法规与技术标准"], "p": "安全工程、消防、防灾相关专业；进应急管理部门、园区或大型企业 EHS 岗。", "y": "中等偏上｜体制内或大企业 EHS，责任津贴与风险挂钩", "ai": "低", "r": "极端天气与产业链风险上升，需求稳定增长；一旦出事追责压力极大。", "rel": ["环境与能源工程师", "公务员", "质量工程师"]}, {"n": "统计调查员", "a": "Statistical Officer", "d": "设计调查、采集与核验数据，为决策提供事实底数的专业人员。", "t": ["设计抽样方案与问卷", "组织入户／企业调查并核验", "清洗数据、产出统计报告"], "s": ["统计与抽样", "数据清洗", "问卷设计", "统计软件"], "p": "统计学、经济学背景；进统计部门、调查队或市场研究公司。", "y": "中等｜体制内稳定，市场研究公司随项目波动", "ai": "高", "r": "基础采集与清洗正被自动化替代，价值转向指标设计与数据可信度治理。", "rel": ["数据分析师", "政策研究员", "数据工程师"]}, {"n": "税务专员", "a": "Tax Specialist", "d": "负责税收征管、纳税服务与税务风险识别的专业人员。", "t": ["办理申报征收与退税", "风险筛查与稽查辅助", "政策辅导与纳税服务"], "s": ["税法", "财务与会计", "数据比对", "执法规范与沟通"], "p": "财税、会计专业，通过公务员考试或税务师事务所进入；注册税务师证书加分。", "y": "中等偏上｜体制内稳定；事务所方向与业绩挂钩", "ai": "中", "r": "征管系统自动化程度高，重复审核减少；跨境税务与复杂筹划仍靠人。", "rel": ["会计师", "审计师", "企业法务"]}, {"n": "海关与边检人员", "a": "Customs & Border Officer", "d": "在口岸执行货物监管、关税征收与人员出入境检查的人员。", "t": ["查验货物、单证与运输工具", "征收关税、查缉违规与走私", "出入境人员证件与行李检查"], "s": ["法规与税则", "查验技术与设备", "风险研判", "外语与执法规范"], "p": "通过公务员招录进入海关／边检系统，需体能测试与政审；轮班作业。", "y": "中等偏上｜体制内固定薪级＋口岸补贴", "ai": "中", "r": "智能审图与大数据布控替代部分人工查验；一线处置与临场判断仍需要人。", "rel": ["公务员", "物流与仓储管理", "税务专员"]}]}, {"id": "sci", "name": "科学与工程", "en": "Science & Engineering", "c": "#4fd1c5", "desc": "把「世界为什么这样」变成「能算、能造、能验收」。判据是可重复、可预测、可交付，而不是说法漂亮。", "jobs": [{"n": "基础科学研究员", "a": "Research Scientist", "d": "在高校或研究所从事数学、物理、化学等基础问题研究的科研人员。", "t": ["提出可检验的问题与假说", "设计实验或构造证明", "发表论文、申请课题、指导学生"], "s": ["抽象建模", "实验与推导", "学术写作", "长期专注"], "p": "博士为起点，博士后基本成为常态；以论文与项目竞争教职或研究员岗位。", "y": "分化大｜编制内稳定但起薪一般，成果转化与人才计划可显著提升", "ai": "低", "r": "AI 加速文献与计算，但选题、判方向仍是人的核心；教职竞争极其激烈。", "rel": ["高校教师与研究员", "生物科学家", "AI 应用工程师"]}, {"n": "生物科学家", "a": "Life Scientist", "d": "研究分子、细胞、遗传与生态层面生命机制的科研人员。", "t": ["设计实验与培养样本", "做测序、成像与数据分析", "撰写论文，或转向药物靶点验证"], "s": ["实验操作", "生物信息分析", "统计", "规范与耐心"], "p": "生物／医学／农学硕博；进高校、研究所、药企研发或 CRO。", "y": "中等偏上｜学术岗稳定，产业岗（医药／生物制造）上限更高", "ai": "中", "r": "结构预测与自动化实验大幅提效；湿实验判断与实验设计仍稀缺。", "rel": ["基础科学研究员", "医学影像与检验技师", "兽医"]}, {"n": "材料工程师", "a": "Materials Engineer", "d": "为特定性能需求设计、选材与验证材料的研发与工程人员。", "t": ["按性能指标筛选与设计配方", "做力学、热学与失效测试", "对接工艺放大与量产验证"], "s": ["材料表征", "工艺—结构—性能关联", "实验设计", "跨部门沟通"], "p": "材料、化工、物理专业本硕；进新能源、半导体、航空或研究院。", "y": "中等偏上｜制造业与半导体方向溢价明显", "ai": "中", "r": "计算材料与高通量实验加速筛选；量产良率与失效分析仍靠经验。", "rel": ["化工工程师", "机械工程师", "工艺与智能制造工程师"]}, {"n": "机械工程师", "a": "Mechanical Engineer", "d": "设计机械结构、传动与整机，保障其强度、精度与可制造性。", "t": ["结构设计与三维建模", "强度、振动与热仿真", "样机装配调试与量产导入"], "s": ["CAD/CAE", "公差与工艺", "材料与力学", "现场问题定位"], "p": "机械、车辆、航空专业；从助理工程师做起，走技术专家或项目负责两条路。", "y": "中等｜制造业为主，头部装备与机器人方向偏高", "ai": "中", "r": "绘图与常规仿真被工具替代，机电软一体的复合型工程师需求上升。", "rel": ["电气工程师", "工艺与智能制造工程师", "数控与高级技师"]}, {"n": "电气工程师", "a": "Electrical Engineer", "d": "负责供配电、电机驱动与电气控制系统的设计、调试与运维。", "t": ["配电与控制系统设计", "选型、计算与图纸出图", "现场调试、故障排查与验收"], "s": ["电路与电机", "PLC／变频与自动化", "规范与安全", "现场动手能力"], "p": "电气工程及其自动化专业；考注册电气工程师（供配电／发输电）提升执业资质。", "y": "中等偏上｜电力、数据中心、新能源方向需求强", "ai": "中", "r": "设计工具越来越智能，但带电现场判断与合规责任无法外包给模型。", "rel": ["机械工程师", "环境与能源工程师", "轨道交通运营"]}, {"n": "土木与结构工程师", "a": "Civil & Structural Engineer", "d": "设计建筑与基础设施的承重体系，保证安全、耐久与经济。", "t": ["结构计算与配筋设计", "施工图与节点深化", "现场验收与技术交底"], "s": ["结构力学", "规范与计算软件", "施工工艺", "责任意识"], "p": "土木工程专业；考一级／二级注册结构工程师，进设计院、施工方或地产。", "y": "中等｜设计院与施工方差异大，海外项目补贴高", "ai": "低", "r": "行业周期性强，新建放缓而存量改造、检测运维上升；BIM 与装配式成为门槛。", "rel": ["建筑师", "施工与项目管理", "环境与能源工程师"]}, {"n": "化工工程师", "a": "Chemical Engineer", "d": "把实验室反应放大为可稳定运行的工业化生产过程。", "t": ["工艺路线与设备选型", "物料与热量衡算", "开停车、异常处置与安全评估"], "s": ["化工原理", "过程安全（HAZOP）", "工艺计算", "现场协调"], "p": "化学工程与工艺专业；注册化工工程师与安全类证书是加分项。", "y": "中等偏上｜石化、新能源材料、精细化工差异明显", "ai": "中", "r": "流程模拟已高度工具化；安全与放大经验仍是不可替代的核心。", "rel": ["材料工程师", "环境与能源工程师", "质量工程师"]}, {"n": "建筑师", "a": "Architect", "d": "设计建筑的形态、空间与使用方式，并协调结构与设备专业落地。", "t": ["方案设计与功能布局", "绘制施工图、协调各专业", "报建、现场配合与效果控制"], "s": ["空间与尺度感", "规范与制图", "沟通协调", "审美与表达"], "p": "建筑学专业（五年制）＋注册建筑师资格；进设计院或事务所，从助理建筑师做起。", "y": "中等偏上｜设计院稳定，明星事务所与商业地产项目差异大", "ai": "中", "r": "AI 生成方案压缩前期概念工作，法规、协调与落地仍是核心；行业周期性强。", "rel": ["土木与结构工程师", "施工与项目管理", "品牌与平面设计师"]}, {"n": "环境与能源工程师", "a": "Environmental & Energy Engineer", "d": "负责污染治理、能耗优化与低碳／新能源系统的方案设计与落地。", "t": ["做排放核算与治理工艺设计", "能源审计与节能改造", "碳盘查、环评与合规申报"], "s": ["环境工程／能源系统", "法规与标准", "数据分析", "项目落地能力"], "p": "环境工程、能源动力专业；进环保企业、设计院、园区或双碳咨询机构。", "y": "中等偏上｜双碳与 ESG 咨询方向近年需求上升", "ai": "中", "r": "政策驱动强、周期明显；核算类工作易被软件替代，方案落地与合规判断值钱。", "rel": ["化工工程师", "应急管理专员", "政策研究员"]}]}, {"id": "dig", "name": "信息与数字技术", "en": "Digital & Information Technology", "c": "#58a6ff", "desc": "离屏幕最近的一域，也是被 AI 改造最彻底的一域。这里的核心变化不是「会不会写代码」，而是「能不能判断什么值得做、什么必须稳」。", "jobs": [{"n": "后端工程师", "a": "Backend Engineer", "d": "构建服务端逻辑、接口与数据存储，支撑产品稳定运行。", "t": ["设计接口与数据模型", "实现业务逻辑与并发处理", "排查线上故障、做性能优化"], "s": ["一门主语言＋工程化", "数据库与缓存", "分布式与网络", "调试与可观测性"], "p": "计算机相关专业或自学转行；以项目与代码质量进入，1–3 年定型方向。", "y": "中上｜一线城市中位偏高，外包与自研差异大", "ai": "中", "r": "CRUD 型工作正被 AI 编码工具压缩，值钱的是系统设计、稳定性与复杂故障处理。", "rel": ["前端工程师", "数据工程师", "测试与运维工程师（SRE）"]}, {"n": "前端工程师", "a": "Frontend Engineer", "d": "把设计稿变成可交互界面，负责性能、兼容与体验细节。", "t": ["实现页面与组件库", "对接接口与状态管理", "优化加载性能与多端适配"], "s": ["JS/TS 与现代框架", "CSS 与交互细节", "性能与可访问性", "工程化工具链"], "p": "计算机或设计背景均可；作品集与线上项目比学历更有效。", "y": "中上｜与后端接近，可视化、端侧方向有溢价", "ai": "中", "r": "页面搭建被低代码与 AI 生成侵蚀；复杂交互、性能与设计还原度仍是人的地盘。", "rel": ["后端工程师", "UX / 交互设计师", "产品经理"]}, {"n": "算法工程师", "a": "Algorithm / ML Engineer", "d": "用模型与算法解决预测、推荐、识别等任务，并对线上效果负责。", "t": ["定义指标与构造数据", "训练、评估与迭代模型", "部署推理服务、监控效果衰减"], "s": ["数学与统计", "深度学习框架", "数据工程", "实验设计与归因"], "p": "硕博为主，或本科加上扎实项目；论文、竞赛、大厂实习是硬通货。", "y": "高｜头部公司显著高于普通开发，但岗位集中在少数公司", "ai": "低", "r": "门槛与天花板同时上移：调参被自动化，定义问题与数据质量决定成败。", "rel": ["数据分析师", "AI 应用工程师", "数据工程师"]}, {"n": "数据工程师", "a": "Data Engineer", "d": "搭建数据采集、清洗、存储与调度管道，让数据可用可信。", "t": ["设计数仓分层与数据模型", "开发批／流处理任务", "治理数据质量与元数据"], "s": ["SQL 与建模", "分布式计算", "调度与治理", "业务理解"], "p": "计算机、统计背景；从 SQL 开发或 ETL 起步，向数据平台架构演进。", "y": "中上｜稳定，数据平台方向偏高", "ai": "中", "r": "管道搭建工具化明显；数据治理、口径统一与成本控制仍是长期痛点。", "rel": ["数据分析师", "后端工程师", "算法工程师"]}, {"n": "数据分析师", "a": "Data Analyst", "d": "把业务问题翻译成指标与数据，给出可执行的结论。", "t": ["取数、清洗与指标定义", "做漏斗、留存与归因分析", "输出报告并推动落地"], "s": ["SQL 与统计", "业务建模", "可视化", "表达与说服"], "p": "统计、经济、商科或计算机背景；作品集与业务理解胜过证书。", "y": "中等偏上｜互联网偏高，传统行业偏低且容易职能化", "ai": "高", "r": "取数与基础报表正被自然语言查询吃掉；价值转向问题定义与因果判断。", "rel": ["数据工程师", "产品经理", "管理咨询顾问"]}, {"n": "产品经理", "a": "Product Manager", "d": "在资源与约束下定义做什么、不做什么，并对结果负责。", "t": ["用户研究与需求优先级", "写方案、定指标、推动研发落地", "上线后复盘与迭代"], "s": ["问题拆解", "数据与商业判断", "跨团队推动", "写作表达"], "p": "无固定专业；从助理产品、运营或开发转岗，项目结果最有力。", "y": "中上｜与业务体量强相关，天花板在业务线负责人", "ai": "中", "r": "原型与文档被工具提速，判断力与协调能力更吃重；同质化岗位在收缩。", "rel": ["UX / 交互设计师", "数据分析师", "市场营销专员"]}, {"n": "UX / 交互设计师", "a": "UX Designer", "d": "研究用户如何使用产品，设计信息结构与操作流程。", "t": ["用户访谈与可用性测试", "画信息架构与交互流程", "产出原型并跟进实现"], "s": ["用户研究", "交互逻辑", "原型工具", "审美与表达"], "p": "设计、心理、人机交互背景；作品集决定机会，要能讲清每个决策的依据。", "y": "中等偏上｜大厂与硬件、汽车 HMI 方向溢价", "ai": "中", "r": "视觉与排版被生成式工具替代，研究与体验策略更值钱。", "rel": ["前端工程师", "产品经理", "品牌与平面设计师"]}, {"n": "测试与运维工程师（SRE）", "a": "QA / SRE", "d": "保障系统可用性与发布质量，做自动化测试与稳定性建设。", "t": ["设计用例与自动化脚本", "搭建监控告警与容量规划", "故障演练与应急恢复"], "s": ["脚本与工具开发", "系统与网络", "监控体系", "严谨与应急能力"], "p": "计算机背景；从功能测试到自动化再到 SRE，路径清晰。", "y": "中等偏上｜SRE 与云原生方向高于功能测试", "ai": "高", "r": "手工用例与常规巡检被自动化替代；容灾设计与故障归因仍是刚需。", "rel": ["后端工程师", "网络安全工程师", "数据工程师"]}, {"n": "网络安全工程师", "a": "Cybersecurity Engineer", "d": "发现并修复系统弱点，建设检测、响应与合规体系。", "t": ["渗透测试与漏洞验证", "部署防护与检测规则", "应急响应、溯源与整改"], "s": ["网络与系统底层", "攻防技术", "日志分析", "法规与合规"], "p": "计算机、信息安全背景；CISP、OSCP 等证书有帮助，实战与 CTF 经验更有效。", "y": "中上｜金融、政企与安全厂商需求稳定，稀缺方向溢价高", "ai": "中", "r": "攻击面随云与 AI 扩大，需求长期向上；合规驱动的岗位相对稳定。", "rel": ["测试与运维工程师（SRE）", "企业合规官", "数据工程师"]}, {"n": "AI 应用工程师", "a": "AI Application Engineer", "d": "把大模型能力接进真实业务：做检索、工具调用、评测与成本控制。", "t": ["设计 Agent 工作流与提示策略", "搭建知识库与工具接口", "建立评测集，控成本、控幻觉"], "s": ["LLM 工程（RAG／Agent）", "后端与接口", "评测与实验设计", "业务理解"], "p": "后端或算法背景转型最快；能拿出可用产品与评测数据的人最抢手。", "y": "较高｜岗位新、波动大，头部溢价明显", "ai": "低", "r": "技术栈半年一换，红利与泡沫并存；沉淀「评测＋落地」方法论才不易被替代。", "rel": ["算法工程师", "后端工程师", "产品经理"]}]}, {"id": "med", "name": "生命健康", "en": "Life & Health", "c": "#52c98a", "desc": "直接对人负责的一域：错了不是重做，而是回不来。准入靠学历与执照，成长靠年资与病例，稳定性来自需求刚性。", "jobs": [{"n": "临床医生", "a": "Clinician", "d": "在内科等科室做诊断、治疗与长期随访的医师。", "t": ["问诊、查体与开具检查", "判读结果、制定诊疗方案", "病程管理与健康宣教"], "s": ["临床推理", "沟通与共情", "指南与循证", "抗压与体力"], "p": "临床医学本科＋规培 3 年＋执业医师资格；专科化需再进修。", "y": "中上｜公立医院稳定，绩效与科室差异大；周期长、投入高", "ai": "低", "r": "影像与辅助诊断被 AI 增强，责任与决策仍在医生；分级诊疗改变工作结构。", "rel": ["外科医生", "药师", "公共卫生医师"]}, {"n": "外科医生", "a": "Surgeon", "d": "以手术为主要手段处理创伤、肿瘤与器质性疾病的医师。", "t": ["术前评估与方案设计", "主刀或一助完成手术", "术后管理与并发症处理"], "s": ["解剖与手术技术", "临场决策", "团队协作", "体力与心理稳定"], "p": "临床医学＋外科规培，通常需硕博与专科培训；技术成长靠台次积累。", "y": "较高｜手术量与难度直接决定收入，成熟期长", "ai": "低", "r": "机器人辅助与影像导航提升精度，但开刀与判断不可替代；培养周期极长。", "rel": ["临床医生", "医学影像与检验技师", "康复治疗师"]}, {"n": "护士", "a": "Nurse", "d": "执行医嘱、观察病情并提供连续照护的核心岗位。", "t": ["给药、输液与基础护理", "病情观察、记录与危急上报", "患者与家属沟通宣教"], "s": ["护理操作", "观察与应急", "耐心与体力", "团队协作"], "p": "护理专业大专／本科＋护士执业资格；专科护士（ICU／手术室）需额外认证。", "y": "中等｜公立医院稳定，夜班强度大，编制内外差异明显", "ai": "低", "r": "护理人力长期短缺，需求刚性；文书被系统减轻，床旁照护更显价值。", "rel": ["临床医生", "康复治疗师", "育儿嫂与家政服务"]}, {"n": "药师", "a": "Pharmacist", "d": "负责处方审核、用药指导与药品管理的专业人员。", "t": ["审方与配伍禁忌核查", "用药教育与依从性管理", "药品采购、库存与不良反应监测"], "s": ["药理与药剂", "法规与 GSP", "细致严谨", "沟通"], "p": "药学专业＋执业药师资格；医院药房、连锁药店或药企三条路。", "y": "中等｜医院稳定，药店与药企随业绩波动", "ai": "中", "r": "自动发药与审方系统替代重复环节；慢病用药管理与临床药学是增长点。", "rel": ["临床医生", "公共卫生医师", "营养师"]}, {"n": "医学影像与检验技师", "a": "Medical Technologist", "d": "操作影像与检验设备，产出可用于诊断的图像与数据。", "t": ["按规范完成扫描与样本检测", "设备质控与校准", "初步判读与异常上报"], "s": ["设备操作", "影像／检验专业判断", "质控意识", "细致"], "p": "医学影像、检验技术专业本科，考技师资格；也可延伸至设备厂商。", "y": "中等｜公立医院稳定，第三方检验所随规模波动", "ai": "高", "r": "AI 辅助判读提高效率，纯操作岗位受挤压；质控与复杂病例复核仍需人。", "rel": ["临床医生", "生物科学家", "公共卫生医师"]}, {"n": "公共卫生医师", "a": "Public Health Physician", "d": "从人群层面做疾病监测、预防干预与健康政策评估。", "t": ["疫情与慢病监测、数据分析", "设计干预项目并评估效果", "健康教育与合作协调"], "s": ["流行病学与统计", "项目管理", "政策沟通", "数据能力"], "p": "预防医学、公共卫生背景，考公卫执业医师；进疾控、卫健部门或国际组织。", "y": "中等偏上｜体制内为主，稳定但上限受编制限制", "ai": "中", "r": "监测与建模工具增强，现场处置与组织动员仍是核心；应急期强度极高。", "rel": ["临床医生", "统计调查员", "政策研究员"]}, {"n": "心理咨询师", "a": "Counselor / Psychologist", "d": "通过评估与对话帮助来访者处理情绪、关系与行为问题。", "t": ["初始访谈与心理评估", "个案概念化与咨询实施", "危机识别与转介"], "s": ["倾听与共情", "评估工具", "伦理与边界", "理论与督导"], "p": "心理学、临床心理相关学历＋系统培训与督导；国内以学历与受训背景为主要门槛。", "y": "分化大｜机构任职稳定，私人执业与咨询时长挂钩", "ai": "低", "r": "情绪陪伴类工具增多，但关系与伦理责任无法交给机器；行业规范化仍在推进。", "rel": ["社区工作者", "中小学教师", "人力资源经理"]}, {"n": "康复治疗师", "a": "Rehabilitation Therapist", "d": "帮助术后、卒中与运动损伤人群恢复功能与生活能力。", "t": ["功能评估与方案制定", "手法治疗与训练指导", "辅具适配与家庭训练计划"], "s": ["解剖与运动学", "评估与手法", "耐心与鼓励", "团队协作"], "p": "康复治疗学本科，考康复治疗师资格；医院康复科、康复机构或运动队。", "y": "中等｜医院稳定，运动康复与高端机构溢价", "ai": "低", "r": "老龄化与慢病康复需求增长，是少数确定性向上的岗位。", "rel": ["护士", "健身教练", "中医师"]}, {"n": "中医师", "a": "TCM Practitioner", "d": "以中医理论与辨证方法做诊断、处方与针灸推拿治疗。", "t": ["四诊与辨证分型", "开方、针灸与手法治疗", "疗效随访与调方"], "s": ["中医理论与经典", "辨证思维", "针灸／手法技术", "沟通"], "p": "中医学专业＋执业医师（中医类别）；师承与确有专长路径也存在。", "y": "中等偏上｜公立中医院稳定，民营与自费项目差异大", "ai": "低", "r": "治未病与慢病调理需求上升；标准化难，个体经验价值高。", "rel": ["临床医生", "康复治疗师", "营养师"]}, {"n": "兽医", "a": "Veterinarian", "d": "诊治动物疾病，兼顾公共卫生与食品安全环节。", "t": ["问诊、检查与治疗", "手术以及影像、化验判读", "防疫、检疫与饲养建议"], "s": ["动物解剖与临床", "手术与影像", "与宠主／养殖户沟通", "防疫规范"], "p": "动物医学专业＋执业兽医资格；宠物医疗、养殖企业、检疫机构三条路。", "y": "分化大｜宠物医疗与专科方向快速上升", "ai": "低", "r": "宠物经济驱动需求增长；基层防疫岗位稳定但待遇一般。", "rel": ["生物科学家", "公共卫生医师", "养殖与水产技术员"]}]}, {"id": "edu", "name": "教育与研究", "en": "Education & Research", "c": "#9ec46a", "desc": "改变的是别人的能力曲线。它的特殊性在于：成果延迟十年才显现，且很难归因于某一个人。", "jobs": [{"n": "中小学教师", "a": "K-12 Teacher", "d": "承担学科教学、班级管理与学生成长支持的基础教育教师。", "t": ["备课、授课与作业反馈", "班级管理与家校沟通", "教研、命题与个别辅导"], "s": ["学科功底", "表达与课堂管理", "耐心与共情", "教研能力"], "p": "师范或相关专业＋教师资格证＋招聘考试；编制与合同制差异大。", "y": "中等｜公办稳定有编制，民办与培训机构波动大", "ai": "中", "r": "知识传授被工具分流，育人与课堂组织更重；部分地区学龄人口下降带来岗位收缩。", "rel": ["幼儿园教师", "课程与教育产品设计", "心理咨询师"]}, {"n": "高校教师与研究员", "a": "University Faculty / Researcher", "d": "在教学研究型大学同时承担科研、教学与社会服务职责。", "t": ["申报课题、做研究与发论文", "授课与指导研究生", "参与评审、学术服务与成果转化"], "s": ["学术写作", "独立研究", "授课表达", "项目争取能力"], "p": "博士＋博士后经历；以论文、项目与人才计划竞争教职，非升即走普遍。", "y": "分化极大｜编制内稳定，人才计划与横向课题决定上限", "ai": "中", "r": "考核压力上升、青年教职竞争白热化；AI 提效，但学术判断与选题更关键。", "rel": ["基础科学研究员", "政策研究员", "企业培训师"]}, {"n": "幼儿园教师", "a": "Preschool Teacher", "d": "负责 3–6 岁幼儿的照护、启蒙与习惯养成。", "t": ["一日生活照护与安全看护", "设计游戏化教学活动", "观察记录与家长沟通"], "s": ["儿童发展知识", "耐心与情绪稳定", "活动设计", "安全与卫生"], "p": "学前教育专业＋教师资格证；公办园需考编，民办园门槛较低。", "y": "中等偏下｜行业整体偏低，公办编制明显更好", "ai": "低", "r": "少子化压缩岗位总量；托育一体化与高质量照护人才仍然稀缺。", "rel": ["中小学教师", "育儿嫂与家政服务", "特殊教育教师"]}, {"n": "特殊教育教师", "a": "Special Education Teacher", "d": "为视听障碍、智力障碍、孤独症等学生提供个别化教育。", "t": ["评估能力基线、制定个别化教育计划", "课堂与康复训练结合", "家长指导与跨专业协作"], "s": ["特教方法与评估", "极大耐心", "行为干预", "团队协作"], "p": "特殊教育专业＋教师资格证；特教学校与康复机构为主要去向。", "y": "中等｜公办特教学校稳定且有特教津贴", "ai": "低", "r": "融合教育推进带来需求增长，专业人才长期短缺。", "rel": ["幼儿园教师", "康复治疗师", "心理咨询师"]}, {"n": "职业教育与技能培训师", "a": "Vocational Trainer", "d": "在职业院校或培训机构教授可直接上岗的实操技能。", "t": ["设计实操课程与工位任务", "带训、考核与安全规范", "对接企业岗位标准"], "s": ["一线实操经验", "课程设计", "安全与规范", "带人能力"], "p": "多由行业资深从业者转型，需教师或培训师资质；企业内训也常见。", "y": "中等｜院校稳定，市场化培训与课时、招生挂钩", "ai": "低", "r": "技能缺口扩大使需求上升；课程同质化竞争激烈，需紧跟产业变化。", "rel": ["企业培训师", "数控与高级技师", "课程与教育产品设计"]}, {"n": "课程与教育产品设计", "a": "Instructional Designer", "d": "把学习目标转化为课程结构、内容与评估方式。", "t": ["拆解能力目标与学习路径", "编写教材、脚本与练习题", "设计评估并迭代"], "s": ["教学法", "内容结构化", "写作", "与教研、技术协作"], "p": "教育学、心理学或学科背景；进教育出版社、教育科技公司或学校教研部门。", "y": "中等偏上｜教育科技与出版为主，随项目波动", "ai": "中", "r": "内容生成被 AI 加速，稀缺的是学习路径设计与效果验证。", "rel": ["中小学教师", "企业培训师", "内容创作者"]}, {"n": "企业培训师", "a": "Corporate Trainer", "d": "为组织内部员工设计并交付能力提升项目。", "t": ["做培训需求诊断", "开发课程与案例", "授课、评估与效果跟踪"], "s": ["表达与控场", "课程开发", "业务理解", "项目管理"], "p": "多从业务骨干或人力资源转型；讲师认证与口碑是主要资本。", "y": "中等偏上｜企业内固定薪，自由讲师按天计费且上限高", "ai": "中", "r": "知识类培训被在线内容替代，场景化训练与行为改变更被需要。", "rel": ["职业教育与技能培训师", "人力资源经理", "课程与教育产品设计"]}, {"n": "留学与升学顾问", "a": "Education Consultant", "d": "为家庭提供选校、申请与规划方案的咨询服务。", "t": ["评估背景、匹配院校与专业", "指导文书与申请材料", "规划语言考试与时间线"], "s": ["海外教育体系知识", "写作与沟通", "项目管理", "诚信与合规"], "p": "海归或教育行业背景入行；顾问口碑与成功案例决定客源。", "y": "中上｜底薪＋签约提成，旺季波动大", "ai": "中", "r": "信息差被工具抹平，靠真实规划能力与资源；签证与政策变化是主要风险。", "rel": ["中小学教师", "内容创作者", "市场营销专员"]}]}, {"id": "fin", "name": "金融与商业", "en": "Finance & Business", "c": "#d9b25a", "desc": "处理的是钱与决策，评价体系极端量化：不看努力，只看结果与规模。这里收入分化最大，也最容易被技术重排。", "jobs": [{"n": "银行客户经理", "a": "Relationship Manager", "d": "维护对公或零售客户，负责存贷、理财等业务落地。", "t": ["拓展与维护客户关系", "设计方案、完成授信与合规审核", "跟踪资产质量与风险预警"], "s": ["金融产品知识", "沟通与谈判", "风险识别", "指标抗压"], "p": "金融、经济类本科；从柜员或助理客户经理起步，资源与业绩决定晋升。", "y": "中上｜底薪＋绩效提成，收入与指标强相关", "ai": "中", "r": "标准化产品销售被线上渠道分流，复杂方案与客户信任仍靠人。", "rel": ["证券分析师", "保险代理人", "风险管理师"]}, {"n": "证券分析师", "a": "Equity / Industry Analyst", "d": "研究行业与公司基本面，输出投资观点与估值判断。", "t": ["搭建财务模型与估值", "调研产业链、做专家访谈", "撰写研报并向机构路演"], "s": ["财务建模", "行业知识", "写作与表达", "独立判断"], "p": "金融、经济背景＋CFA 等证书；从研究助理做起，买方与卖方两条路。", "y": "较高｜卖方与排名挂钩，买方更稳定但门槛更高", "ai": "中", "r": "数据处理被工具替代，差异化在产业洞察与非共识判断；合规约束趋严。", "rel": ["基金经理", "管理咨询顾问", "会计师"]}, {"n": "基金经理", "a": "Portfolio Manager", "d": "管理组合资产，在风险约束下做配置与择时决策。", "t": ["制定投资策略与仓位", "选券、选股与组合调整", "风险控制、汇报与合规"], "s": ["投资框架", "风险管理", "决断力", "抗压与纪律"], "p": "通常需多年研究或交易经历＋可验证的业绩记录；公募与私募路径不同。", "y": "高｜与业绩强挂钩，波动极大", "ai": "低", "r": "量化与 AI 改变边际，但资金托付靠信任与长期记录；容量与监管约束明显。", "rel": ["证券分析师", "精算师", "风险管理师"]}, {"n": "精算师", "a": "Actuary", "d": "用数学模型给保险与养老金定价、提准备金与量化风险。", "t": ["构建死亡率、发病率等假设模型", "产品定价与利润测试", "准备金评估与偿付能力测算"], "s": ["概率统计", "建模与编程", "保险与监管规则", "严谨"], "p": "精算、统计、数学背景；考精算师资格（多门考试，周期数年）。", "y": "较高｜持证后稳定且稀缺，保险公司与咨询机构为主", "ai": "中", "r": "模型工具普及，但假设设定与监管沟通责任在人；考试门槛形成护城河。", "rel": ["风险管理师", "数据分析师", "基金经理"]}, {"n": "风险管理师", "a": "Risk Manager", "d": "识别、计量并控制信用、市场与操作风险。", "t": ["风险识别与限额设定", "建模计量与压力测试", "制度落地、监控与报告"], "s": ["风险计量", "数据与建模", "制度设计", "跨部门沟通"], "p": "金融、统计背景；进银行、券商、保险的风控条线，FRM 证书加分。", "y": "中上｜机构稳定，模型与合规方向需求稳", "ai": "中", "r": "监控自动化提升，模型风险与新型风险（AI、供应链）成为新战场。", "rel": ["精算师", "企业合规官", "数据分析师"]}, {"n": "会计师", "a": "Accountant", "d": "核算经济业务、编制报表并保证账务真实合规。", "t": ["记账、核算与月末结账", "编报与税务申报", "内控执行与档案管理"], "s": ["会计准则", "细致严谨", "Excel 与财务系统", "沟通"], "p": "会计学、财务管理专业；初级→中级→CPA，事务所与企业两条路。", "y": "中等｜事务所起薪低但成长快，企业稳定", "ai": "高", "r": "记账与对账高度自动化，价值上移到业务财务、税务筹划与分析。", "rel": ["审计师", "税务专员", "风险管理师"]}, {"n": "审计师", "a": "Auditor", "d": "独立核查账务与内控，对报表真实性与合规性发表意见。", "t": ["制定审计计划与抽取凭证", "访谈、函证与穿行测试", "出具报告与整改建议"], "s": ["审计准则", "职业怀疑", "数据分析", "文档与沟通"], "p": "会计、审计专业，事务所从审计助理做起；CPA 是晋升硬门槛。", "y": "中上｜随级别与项目增长，四大起薪一般但跳板价值高", "ai": "中", "r": "抽凭与核对被工具替代，识别舞弊线索与业务实质仍靠人。", "rel": ["会计师", "企业合规官", "风险管理师"]}, {"n": "管理咨询顾问", "a": "Management Consultant", "d": "为企业诊断问题、设计方案并推动落地。", "t": ["访谈与数据诊断", "拆解问题、形成假设并验证", "输出方案、支持实施"], "s": ["结构化思维", "数据分析", "表达与呈现", "客户管理"], "p": "无固定专业，名校、MBA 或行业经验为常见入口；从分析师到项目经理。", "y": "较高｜头部机构高，工作强度与出差极高", "ai": "中", "r": "资料搜集与初稿被 AI 压缩，价值在判断与推动组织改变；同质化竞争加剧。", "rel": ["产品经理", "证券分析师", "人力资源经理"]}, {"n": "供应链与采购经理", "a": "Supply Chain Manager", "d": "保障物料与服务在正确的时间、成本与质量上到位。", "t": ["需求预测与计划排产", "供应商开发、比价与谈判", "库存、物流与交付异常处理"], "s": ["计划与库存模型", "谈判", "合同与合规", "跨部门协同"], "p": "供应链、物流、工商管理背景；从计划员或采购专员起步。", "y": "中上｜制造与零售差异大，跨境供应链溢价", "ai": "中", "r": "预测与调度算法提升效率；供应商关系与突发断供处置仍靠人。", "rel": ["物流与仓储管理", "质量工程师", "会计师"]}, {"n": "人力资源经理", "a": "HR Manager", "d": "负责招聘、绩效、薪酬与组织发展，让人与岗位匹配。", "t": ["招聘与人才盘点", "绩效与薪酬方案设计", "劳动关系处理与组织发展"], "s": ["劳动法与合规", "识人与面试", "数据与制度设计", "沟通与边界感"], "p": "人力资源、心理学、管理背景；从专员到模块负责人再到 HRBP／HRD。", "y": "中等偏上｜大厂与专业模块偏高", "ai": "中", "r": "筛选与事务被系统替代，组织诊断与劳动关系纠纷处理更值钱。", "rel": ["企业培训师", "管理咨询顾问", "心理咨询师"]}, {"n": "市场营销专员", "a": "Marketing Specialist", "d": "把产品价值翻译成用户能感知的信息，并带来可衡量的增长。", "t": ["市场与竞品研究、人群洞察", "策划活动、内容与投放", "渠道数据复盘与预算优化"], "s": ["用户洞察", "内容与创意", "投放与数据分析", "项目执行"], "p": "市场营销、传播、商科背景；从执行岗做起，品牌方与平台方路径不同。", "y": "中等偏上｜与预算规模挂钩，效果类岗位提成空间大", "ai": "中", "r": "素材生产与投放被 AI 大幅提效，稀缺的是洞察、品牌判断与预算取舍。", "rel": ["内容创作者", "品牌与平面设计师", "产品经理"]}]}, {"id": "law", "name": "法律与合规", "en": "Law & Compliance", "c": "#e08d5a", "desc": "用规则解决冲突。核心能力不是背法条，而是把混乱的事实剪成可判断的法律结构——这件事 AI 目前只做到一半。", "jobs": [{"n": "律师", "a": "Lawyer", "d": "接受委托提供法律意见、代理诉讼或处理非诉事务。", "t": ["事实梳理与法律检索", "方案设计与文书起草", "谈判、诉讼代理与合规意见"], "s": ["法条与判例理解", "证据与论证", "写作", "执业伦理与客户沟通"], "p": "法学本科＋法律职业资格＋实习一年；进律所从助理做起，专业化需 3–5 年。", "y": "分化极大｜合伙人制，前几年低，成长期与案源挂钩", "ai": "中", "r": "检索与文书初稿被 AI 加速，稀缺的是判断、谈判与客户信任；低端业务同质化严重。", "rel": ["企业法务", "法官与检察官", "知识产权代理"]}, {"n": "法官与检察官", "a": "Judge / Prosecutor", "d": "在司法系统中审理案件或审查起诉，依法作出裁判与决定。", "t": ["阅卷、庭审与证据审查", "适用法律、撰写裁判文书", "释法说理与矛盾化解"], "s": ["法律适用", "庭审驾驭", "文书写作", "中立与抗压"], "p": "法学背景＋法律职业资格＋公务员考试进入法检系统，需基层历练。", "y": "中等偏上｜体制内固定薪级＋司法津贴，稳定", "ai": "低", "r": "案多人少长期存在；AI 辅助类案检索提效，裁判责任不可转移。", "rel": ["律师", "公务员", "仲裁与公证员"]}, {"n": "企业法务", "a": "In-house Counsel", "d": "在企业内部处理合同、合规与争议，把风险前置。", "t": ["合同审核与条款设计", "交易结构与合规审查", "纠纷处理与外部律师管理"], "s": ["商法知识", "商业理解", "风险判断", "跨部门协作"], "p": "法学＋法考，从律所或公司法务起步；行业知识决定天花板。", "y": "中上｜企业固定薪＋奖金，稳定性优于律所", "ai": "中", "r": "合同初审被工具替代，交易设计与跨部门推动更值钱。", "rel": ["律师", "企业合规官", "知识产权代理"]}, {"n": "企业合规官", "a": "Compliance Officer", "d": "建立并运行合规体系，防范贿赂、数据与贸易等风险。", "t": ["制度与流程设计", "风险筛查与培训", "调查、整改与监管沟通"], "s": ["反腐败、数据与出口管制法规", "制度设计", "调查取证", "沟通"], "p": "法律、审计或风控背景转型；跨国公司、金融与医药行业需求集中。", "y": "中上｜外资与金融偏高，监管趋严时需求上升", "ai": "中", "r": "监管复杂度提升带来长期需求；工具可辅助扫描，判断与调查仍靠人。", "rel": ["企业法务", "风险管理师", "审计师"]}, {"n": "知识产权代理", "a": "IP Attorney / Agent", "d": "处理专利、商标的申请、布局与维权事务。", "t": ["撰写并答复专利审查意见", "检索与自由实施分析", "商标布局与侵权维权"], "s": ["技术理解（理工背景）", "专利法", "检索", "细致写作"], "p": "专利代理需理工科背景＋专利代理师资格；商标、版权业务门槛略低。", "y": "中上｜按件计费，涉外与诉讼方向溢价", "ai": "中", "r": "检索与撰写被 AI 提效，布局策略与侵权判断仍是核心；涉外业务增长。", "rel": ["律师", "企业法务", "基础科学研究员"]}, {"n": "仲裁与公证员", "a": "Arbitrator / Notary", "d": "以中立身份裁决商事争议或对法律事实予以证明。", "t": ["受理与审查材料", "组织庭审或核实事实", "出具裁决书、公证书"], "s": ["法律与程序规则", "中立判断", "文书规范", "沟通"], "p": "需法律职业资格与相应任职条件；公证员通过任职考试进入公证机构。", "y": "中等偏上｜机构制，稳定但地域差异明显", "ai": "低", "r": "线上化提升效率，公信力与程序正义仍依赖人；区域业务量分化。", "rel": ["法官与检察官", "律师", "公务员"]}]}, {"id": "art", "name": "文化创意与传媒", "en": "Creative & Media", "c": "#c58ce0", "desc": "评价标准最主观的一域：拼的不是正确率，而是注意力与辨识度。收入极端幂律分布，多数人靠兼业维持。", "jobs": [{"n": "记者与编辑", "a": "Journalist / Editor", "d": "采访、核实与组织信息，向公众呈现可核查的事实。", "t": ["选题、采访与信源核实", "写作、编辑与事实核查", "跟进反馈与深度报道"], "s": ["采访与写作", "事实核查", "领域知识", "伦理与抗压"], "p": "新闻传播、中文或某一专业领域背景；从实习记者到条线记者再到主编。", "y": "中等偏下｜机构媒体稳定但偏低，转型内容与公关可提升", "ai": "高", "r": "通稿与快讯被自动生成替代，调查、解释与信源关系更稀缺；机构媒体收缩。", "rel": ["内容创作者", "影视导演与制片", "市场营销专员"]}, {"n": "内容创作者", "a": "Creator / Influencer", "d": "持续产出内容并靠流量、广告或付费实现收入的人。", "t": ["选题与人设经营", "拍摄、写作与剪辑发布", "数据分析、商单与社群维护"], "s": ["内容表达", "选题嗅觉", "剪辑与写作工具", "商业谈判"], "p": "无门槛入行，成败取决于持续产出与差异化；签约 MCN 或独立运营。", "y": "分化极大｜头部极高，多数低于当地平均，收入波动大", "ai": "中", "r": "生成式工具降低制作门槛，注意力竞争更激烈；平台规则变化是最大风险。", "rel": ["记者与编辑", "品牌与平面设计师", "市场营销专员"]}, {"n": "编剧", "a": "Screenwriter", "d": "设计故事结构、人物与台词，为影视或短剧提供文本基础。", "t": ["题材开发与大纲提案", "分场、人物小传与台词", "跟组修改与配合拍摄"], "s": ["叙事结构", "人物塑造", "类型片知识", "抗压与协作"], "p": "戏文、文学背景或从写手、策划转；作品与剧本评估是唯一硬通货。", "y": "分化大｜项目制稿酬，署名与爆款决定议价", "ai": "中", "r": "套路化文本被工具量产，稀缺的是独特人物与结构创新；短剧带来新需求。", "rel": ["影视导演与制片", "内容创作者", "游戏美术与策划"]}, {"n": "影视导演与制片", "a": "Director / Producer", "d": "导演负责创作呈现，制片负责预算、进度与团队组织。", "t": ["剧本解读与视听设计", "选角、现场调度与拍摄", "预算、合同、进度与发行"], "s": ["视听语言", "团队领导", "预算与谈判", "抗压"], "p": "从场记、副导、制片助理做起；行业靠项目口碑与资源积累。", "y": "分化极大｜项目制，头尾差距悬殊", "ai": "低", "r": "制作工具平民化，内容供给过剩；融资与发行能力比技术更关键。", "rel": ["编剧", "摄影师与摄像师", "音乐人"]}, {"n": "摄影师与摄像师", "a": "Photographer / Videographer", "d": "用影像设备完成商业、纪实或艺术拍摄。", "t": ["方案、布光与机位设计", "拍摄与素材管理", "调色、剪辑与交付"], "s": ["构图与光线", "设备与后期", "沟通与执行", "审美"], "p": "无硬门槛，靠作品集与实操；商业摄影、婚礼、影视剧组分方向。", "y": "分化大｜自由职业按项目计费，稳定客源决定收入", "ai": "中", "r": "生成式影像冲击素材类需求；纪实、人物与现场把控仍值钱。", "rel": ["影视导演与制片", "品牌与平面设计师", "内容创作者"]}, {"n": "品牌与平面设计师", "a": "Designer (Brand / Graphics)", "d": "为品牌建立视觉系统，并落到物料与界面。", "t": ["品牌定位与视觉概念", "字体、色彩与版式系统", "物料、包装与界面落地"], "s": ["版式与字体", "品牌策略", "设计软件", "提案表达"], "p": "设计专业或自学＋作品集；从执行设计到主设再到设计负责人。", "y": "中等偏上｜4A 与品牌方稳定，自由设计分化大", "ai": "高", "r": "基础物料被生成式工具替代，品牌策略与系统化能力成为分水岭。", "rel": ["UX / 交互设计师", "内容创作者", "摄影师与摄像师"]}, {"n": "游戏美术与策划", "a": "Game Artist / Designer", "d": "构建游戏的美术风格与玩法规则。", "t": ["原画、场景与 UI 资产制作", "玩法、数值与关卡设计", "与程序、测试联调迭代"], "s": ["美术基础或系统设计", "引擎工具", "玩家心理", "协作"], "p": "美术岗看作品集与绘画功底；策划岗看玩法拆解与项目经验。", "y": "中上｜头部项目奖金高，行业周期性明显", "ai": "中", "r": "资产生成提效压缩原画需求；玩法创新与体验设计仍然稀缺。", "rel": ["UX / 交互设计师", "编剧", "影视导演与制片"]}, {"n": "音乐人", "a": "Musician / Producer", "d": "创作、演奏或制作音乐，并通过演出与版权变现。", "t": ["作曲、编曲与录音", "演奏演唱与现场演出", "混音母带、版权与发行"], "s": ["乐理与听力", "演奏或制作技术", "审美", "自我经营"], "p": "科班或自学均可；作品、现场与版权积累是资本。", "y": "分化极大｜少数头部极高，多数靠演出、教学、制作补贴", "ai": "中", "r": "AI 作曲冲击功能性配乐；现场与人格化表达更值钱。", "rel": ["影视导演与制片", "内容创作者", "摄影师与摄像师"]}, {"n": "翻译与本地化", "a": "Translator / Localization Specialist", "d": "跨语言转换文本、界面与影音，保持意义与语境一致。", "t": ["笔译与术语管理", "字幕、配音与界面本地化", "审校、质检与风格统一"], "s": ["双语能力", "领域知识", "术语与 CAT 工具", "细致"], "p": "外语、翻译专业或某一领域专长；法律、医学、技术翻译需领域积累。", "y": "中等｜机构与自由职业并存，低价机翻冲击中低端", "ai": "高", "r": "通用翻译被机翻＋译后编辑取代，稀缺的是领域专精、审校与创译。", "rel": ["记者与编辑", "外交与国际组织职员", "内容创作者"]}, {"n": "策展与文博", "a": "Curator / Museum Professional", "d": "策划展览、研究藏品并向公众解释文化价值。", "t": ["主题研究与展品遴选", "展陈设计、文本撰写与布展", "公共教育与藏品管理"], "s": ["艺术史或考古学", "研究写作", "展陈与项目管理", "公共表达"], "p": "文博、艺术史、考古背景；从助理策展或馆员做起，编制与项目制并存。", "y": "中等偏下｜体制内稳定，商业策展随项目波动", "ai": "低", "r": "公共文化投入与文旅融合带来机会；岗位总量小、竞争激烈。", "rel": ["影视导演与制片", "记者与编辑", "高校教师与研究员"]}]}, {"id": "svc", "name": "社会服务与生活服务", "en": "Social & Life Services", "c": "#f08fa5", "desc": "面对的是具体的人的一天：吃饭、变美、住哪、带娃、出行。门槛不高，但客户关系与口碑是复利资产。", "jobs": [{"n": "导游与旅行策划", "a": "Tour Guide / Travel Planner", "d": "设计行程并现场解说与服务，让旅行安全且有内容。", "t": ["路线与预算设计", "讲解、带队与突发处置", "资源对接与客户维护"], "s": ["目的地知识", "讲解与应变", "外语", "服务意识"], "p": "考导游资格证；从地接、领队做起，向定制旅行策划升级。", "y": "中等｜底薪＋带团补贴，旺淡季差异极大", "ai": "中", "r": "自由行与 AI 行程工具压缩传统跟团；深度定制与稀缺资源是出路。", "rel": ["酒店与餐饮管理", "内容创作者", "民航飞行员与乘务"]}, {"n": "酒店与餐饮管理", "a": "Hospitality Manager", "d": "负责门店或酒店的运营、服务标准与成本控制。", "t": ["排班、培训与服务标准落地", "成本、库存与供应链管理", "客诉处理与营收运营"], "s": ["运营与成本", "带团队", "服务与细节", "应急处理"], "p": "酒店管理、餐饮背景；从一线服务岗到主管、店长、区域经理。", "y": "中等｜店长与区域岗与业绩挂钩，连锁体系晋升较快", "ai": "低", "r": "标准化被系统提效，体验设计与团队管理仍是核心；人力成本压力大。", "rel": ["厨师", "导游与旅行策划", "供应链与采购经理"]}, {"n": "健身教练", "a": "Fitness Coach", "d": "为个体设计训练计划并指导动作与负荷。", "t": ["体测评估与目标设定", "制定与执行训练计划", "动作纠正、饮食建议与跟进"], "s": ["运动解剖与训练学", "示范与沟通", "激励", "安全意识"], "p": "体育、运动科学背景或考取认证（ACE、NSCA 等）；健身房与私教工作室为主。", "y": "分化大｜底薪＋课时提成，客源决定收入", "ai": "低", "r": "可穿戴与 AI 计划工具辅助，但动作纠正与陪伴不可替代。", "rel": ["康复治疗师", "营养师", "中小学教师"]}, {"n": "营养师", "a": "Dietitian / Nutritionist", "d": "评估饮食结构并给出个体化营养方案。", "t": ["膳食调查与体成分评估", "制定食谱与干预方案", "随访调整与科普"], "s": ["营养学", "慢病知识", "食谱设计", "沟通"], "p": "营养、食品、医学背景；注册营养师考试是主要资质。", "y": "中等｜医院与机构稳定，私域咨询分化大", "ai": "中", "r": "食谱生成被工具替代，慢病管理与行为改变更值钱。", "rel": ["临床医生", "健身教练", "厨师"]}, {"n": "厨师", "a": "Chef", "d": "设计菜品并稳定出品，控制成本与食品安全。", "t": ["备料、烹调与出品", "菜单研发与成本核算", "厨房分工、卫生与安全"], "s": ["刀工与火候", "味型与研发", "成本与卫生", "高压节奏"], "p": "从学徒、厨工做起，靠师承与出品积累；可考中式烹调师等级。", "y": "中等｜酒店与高端餐饮偏高，自主开店风险自担", "ai": "低", "r": "预制菜与自动化设备压缩基础岗位；研发与品质把控仍靠人。", "rel": ["酒店与餐饮管理", "营养师", "供应链与采购经理"]}, {"n": "美业从业者", "a": "Beauty Professional", "d": "提供美容、美发、美甲等形象服务与护理方案。", "t": ["咨询与方案设计", "操作服务与护理", "产品推荐与客户维护"], "s": ["手法与技术", "审美", "销售与沟通", "卫生规范"], "p": "门店学徒或培训学校入行；可考美容、美发职业技能等级。", "y": "分化大｜低底薪＋高提成，客源与口碑决定收入", "ai": "低", "r": "标准化项目价格战激烈；个人品牌与高客单护理是方向。", "rel": ["健身教练", "酒店与餐饮管理", "内容创作者"]}, {"n": "房产经纪人", "a": "Real Estate Agent", "d": "撮合房屋买卖与租赁，处理带看、议价与交易流程。", "t": ["房源开发与客户匹配", "带看、议价与签约", "贷款、过户与交付协同"], "s": ["本地市场知识", "销售与谈判", "流程与合规", "抗压"], "p": "无硬门槛，靠业绩；考房地产经纪人协理或经纪人证书加分。", "y": "分化极大｜低底薪＋佣金，市场周期决定收入", "ai": "中", "r": "信息匹配被平台与算法削弱，服务与交易保障仍靠人；行业周期性极强。", "rel": ["保险代理人", "银行客户经理", "市场营销专员"]}, {"n": "保险代理人", "a": "Insurance Agent", "d": "为客户配置保险方案并协助投保与理赔。", "t": ["需求分析与方案设计", "投保、核保与理赔协助", "客户维护与转介绍"], "s": ["产品与条款理解", "销售与沟通", "合规意识", "长期服务"], "p": "无硬门槛但需持证；从代理人到团队主管，或转向经纪、顾问模式。", "y": "分化极大｜佣金制，续期与团队决定稳定性", "ai": "中", "r": "标准化产品销售受线上冲击；专业规划与理赔服务仍有人情与信任价值。", "rel": ["房产经纪人", "风险管理师", "银行客户经理"]}, {"n": "育儿嫂与家政服务", "a": "Childcare / Domestic Service", "d": "在家庭场景提供婴幼儿照护、家务与老人陪护。", "t": ["婴幼儿喂养、睡眠与安全看护", "家务、餐食与清洁", "健康观察与家长沟通"], "s": ["照护技能", "耐心与责任心", "卫生与安全", "沟通"], "p": "多为技能培训＋证书入行（育婴员、母婴护理）；口碑与推荐是主要渠道。", "y": "中上｜一线城市住家岗溢价明显，按单或按月计费", "ai": "低", "r": "老龄化与双职工家庭支撑需求；从业者老龄化、供给紧张，规范化是趋势。", "rel": ["幼儿园教师", "护士", "社区工作者"]}]}, {"id": "prod", "name": "生产·农业·交通", "en": "Production, Agriculture & Transport", "c": "#8fa0b8", "desc": "让物理世界真的运转起来。这一域正在从「体力密集」转向「设备与工艺密集」，高级技师的稀缺度已超过不少白领岗位。", "jobs": [{"n": "工艺与智能制造工程师", "a": "Manufacturing Engineer", "d": "设计生产工艺、产线与自动化方案，保证良率与效率。", "t": ["工艺路线与工位设计", "自动化、机器人集成与调试", "良率分析与持续改善"], "s": ["工艺与精益", "自动化与 PLC", "数据分析", "现场改善"], "p": "机械、自动化、工业工程背景；从工艺工程师到产线或制造负责人。", "y": "中等偏上｜半导体、新能源制造溢价高", "ai": "中", "r": "自动化替代重复操作，工艺设计与系统集成需求上升。", "rel": ["机械工程师", "数控与高级技师", "质量工程师"]}, {"n": "数控与高级技师", "a": "CNC / Skilled Technician", "d": "操作与编程高精度设备，完成复杂零件加工与装调。", "t": ["读图、编程与对刀", "加工参数优化与精度控制", "设备维护与异常处理"], "s": ["识图与工艺", "编程（G 代码／CAM）", "精度与手感", "安全规范"], "p": "中职、高职起步，靠技能等级晋升（中级→高级→技师→高级技师）；技能大赛是快车道。", "y": "中上｜稀缺工种薪资已超部分白领，夜班与强度大", "ai": "中", "r": "简单件被自动化取代，五轴、精密装配与调试仍严重缺人。", "rel": ["工艺与智能制造工程师", "质量工程师", "机械工程师"]}, {"n": "质量工程师", "a": "Quality Engineer", "d": "建立检验标准与质量体系，定位并消除缺陷根因。", "t": ["制定检验规范与抽样方案", "过程审核与不良分析", "客诉处理与体系认证"], "s": ["统计过程控制", "失效分析", "标准与体系（ISO）", "跨部门推动"], "p": "理工科背景；从检验员、QE 做起，可考质量工程师或六西格玛证书。", "y": "中等偏上｜汽车、医疗、半导体质量岗要求高、待遇好", "ai": "中", "r": "检测自动化提升，根因分析与体系推动仍是人的核心。", "rel": ["工艺与智能制造工程师", "供应链与采购经理", "环境与能源工程师"]}, {"n": "施工与项目管理", "a": "Construction Project Manager", "d": "组织人、机、料、法、环，把图纸变成按期交付的工程。", "t": ["进度、成本与合同管理", "分包协调与现场安全", "质量验收与竣工交付"], "s": ["施工工艺", "进度与成本控制", "安全与法规", "现场领导力"], "p": "土木、工程管理背景；考一级建造师是执业与晋升关键。", "y": "中上｜项目经理与海外项目补贴高，流动性与强度大", "ai": "低", "r": "数字化建造（BIM、智慧工地）提升效率；行业周期影响岗位量。", "rel": ["土木与结构工程师", "质量工程师", "环境与能源工程师"]}, {"n": "农业技术员", "a": "Agronomist / Agri-tech", "d": "用品种、水肥与植保技术提升产量与品质。", "t": ["田间试验与品种筛选", "水肥、病虫害方案制定", "指导农户与数据记录"], "s": ["作物与土壤学", "植保", "田间试验", "与农户沟通"], "p": "农学、园艺、植保专业；进农技站、种业公司、农业园区或大型农场。", "y": "中等｜体制内稳定，种业与设施农业方向上升", "ai": "中", "r": "智慧农业与遥感提升效率；懂数据与设备的复合农技人才稀缺。", "rel": ["养殖与水产技术员", "生物科学家", "供应链与采购经理"]}, {"n": "养殖与水产技术员", "a": "Livestock / Aquaculture Technician", "d": "管理畜禽或水产的饲养、防疫与产出效率。", "t": ["饲养管理与环境控制", "防疫、免疫与疾病处置", "成本、产出与数据记录"], "s": ["动物营养", "疫病防控", "现场管理", "数据记录"], "p": "畜牧兽医、水产养殖专业；进养殖企业、饲料公司或自养场。", "y": "中等｜规模化企业稳定，场长与承包制上限高", "ai": "低", "r": "规模化与智能化提升效率；环保与疫病风险是主要变量。", "rel": ["兽医", "农业技术员", "质量工程师"]}, {"n": "物流与仓储管理", "a": "Logistics & Warehouse Manager", "d": "规划运输与仓储网络，保证时效与成本。", "t": ["仓网布局与库存策略", "运输调度与承运商管理", "履约时效与异常处理"], "s": ["物流系统与成本", "调度与数据分析", "合同与合规", "现场管理"], "p": "物流管理、供应链背景；从仓管、调度到主管、区域负责人。", "y": "中等｜电商与大三方偏高，基层强度大", "ai": "中", "r": "自动化仓与算法调度压缩基层岗位；网络规划与成本优化更值钱。", "rel": ["供应链与采购经理", "海关与边检人员", "工艺与智能制造工程师"]}, {"n": "民航飞行员与乘务", "a": "Pilot / Cabin Crew", "d": "驾驶航空器或保障客舱安全与服务。", "t": ["飞行前检查、航路与气象准备", "操纵、监控与异常处置", "客舱安全演示、服务与应急处置"], "s": ["航空知识与操纵", "规章与安全", "外语", "情绪稳定"], "p": "飞行员需航校养成或大毕改＋执照与体检；乘务通过航司招聘与培训。", "y": "较高（飞行员）｜与飞行小时、机型挂钩；乘务为中等", "ai": "低", "r": "自动化提升效率，安全责任与临场判断不可替代；招聘周期性强。", "rel": ["轨道交通运营", "导游与旅行策划", "酒店与餐饮管理"]}, {"n": "轨道交通运营", "a": "Rail Transit Operator", "d": "负责列车驾驶、调度或站务，保障城市轨道安全准点。", "t": ["驾驶、调度与信号确认", "站务组织、票务与客流疏导", "应急处置与设备巡检"], "s": ["规章与操作", "应急反应", "服务沟通", "注意力与纪律"], "p": "轨道交通、电气或运营专业；进地铁公司从学员到司机、调度，需执照与体检。", "y": "中等偏上｜国企稳定，夜班与倒班多", "ai": "中", "r": "自动化运行减少驾驶需求，调度与应急岗位需求稳定。", "rel": ["民航飞行员与乘务", "电气工程师", "施工与项目管理"]}]}], "axes": [{"n": "组织位置轴", "en": "POSITION", "s": ["一线执行", "熟练专家", "带团队／管项目", "业务决策", "规则制定"]}, {"n": "雇佣形态轴", "en": "EMPLOYMENT", "s": ["体制内编制", "企业雇员", "专业合伙（律所／事务所）", "自由职业", "创业者"]}, {"n": "能力来源轴", "en": "CREDENTIAL", "s": ["学历准入", "资格考试／执照", "作品与口碑", "客户与资源网络", "年限积累的隐性经验"]}]};
+const ROMAN = ["Ⅰ","Ⅱ","Ⅲ","Ⅳ","Ⅴ","Ⅵ","Ⅶ","Ⅷ","Ⅸ","Ⅹ","Ⅺ"];
+const AI_NOTE = {
+  "低":"<b>低。</b>核心判断、责任或现场操作难以被替代，工具主要提升效率，岗位价值稳定。",
+  "中":"<b>中。</b>常规环节明显自动化，价值向判断、协调与复杂场景集中；不升级就会被压缩。",
+  "高":"<b>高。</b>标准化环节已被工具替代，需要尽快向定义问题、审校与客户侧迁移。"
+};
+
+const ALL=[]; const BYKEY={};
+DATA.groups.forEach((g,gi)=>{
+  g.jobs.forEach((j,ji)=>{
+    j._g = gi; j._key = g.id + "/" + j.n; j._idx = ALL.length;
+    ALL.push(j); BYKEY[j._key]=j;
+  });
+});
+
+/* ---------- 渲染 ---------- */
+const navEl=document.getElementById("nav");
+const secEl=document.getElementById("sections");
+let navHTML="", secHTML="";
+
+DATA.groups.forEach((g,gi)=>{
+  navHTML += `<button class="nav-item" data-go="${g.id}"><span class="dot" style="background:${g.c}"></span>
+    <span>${g.name}</span><span class="cnt">${g.jobs.length}</span></button>`;
+
+  let cards="";
+  g.jobs.forEach(j=>{
+    cards += `<button class="job" data-key="${j._key}" style="--c:${g.c}">
+      <div class="row1"><b>${j.n}</b><span class="en2">${j.a}</span></div>
+      <div class="d2">${j.d}</div>
+      <div class="foot"><span class="ai-b ai-${j.ai}">AI ${j.ai}</span>
+        ${j.s.slice(0,2).map(s=>`<span class="sk2">${s}</span>`).join("")}</div>
+    </button>`;
+  });
+
+  secHTML += `<section class="sec" id="sec-${g.id}" style="--c:${g.c}">
+    <div class="sec-head">
+      <div class="sec-num">${ROMAN[gi]}</div>
+      <div class="sec-t">
+        <h2>${g.name}</h2>
+        <div class="en">${g.en}</div>
+        <p>${g.desc}</p>
+      </div>
+      <div class="sec-cnt">${g.jobs.length} 个职业</div>
+    </div>
+    <div class="jobs">${cards}</div>
+  </section>`;
+});
+
+navEl.innerHTML = navHTML;
+secEl.innerHTML = secHTML;
+
+/* 三轴 */
+document.getElementById("axes").innerHTML = DATA.axes.map(a=>`
+  <div class="axis">
+    <div class="an">${a.n}<small>${a.en}</small></div>
+    <div class="steps">${a.s.map((x,i)=> (i? '<u>→</u>':'') + `<span>${x}</span>`).join("")}</div>
+  </div>`).join("");
+
+/* ---------- 职业详情弹窗 ---------- */
+const modal=document.getElementById("modal");
+const scrim=document.getElementById("scrim");
+let curIdx=-1;
+let lastFocus=null;
+
+function openByIndex(i){
+  if(i<0||i>=ALL.length) return;
+  if(i===curIdx) return;
+  curIdx=i;
+  const j=ALL[i], g=DATA.groups[j._g];
+  modal.style.setProperty("--gc", g.c);
+  modal.innerHTML = `
+  <div class="dw-head">
+    <div class="dw-top">
+      <span class="dw-cat">${ROMAN[j._g]} · ${g.name}</span>
+      <button class="dw-close" id="dwClose" aria-label="关闭">✕</button>
+    </div>
+    <h3>${j.n}</h3>
+    <div class="dw-en">${j.a}</div>
+    <div class="dw-badges">
+      <span class="ai-b ai-${j.ai}">AI 影响：${j.ai}</span>
+      <span class="sk2">${j.s[0]}</span><span class="sk2">${j.s[1]}</span>
+    </div>
+  </div>
+  <div class="dw-body">
+    <div class="blk"><h4>一句话定义</h4><p>${j.d}</p></div>
+    <div class="blk"><h4>主要做什么</h4><ul>${j.t.map(t=>`<li>${t}</li>`).join("")}</ul></div>
+    <div class="blk"><h4>核心能力</h4><div class="chips">${j.s.map(s=>`<span>${s}</span>`).join("")}</div></div>
+    <div class="blk"><h4>入行路径</h4><p>${j.p}</p></div>
+    <div class="blk"><h4>收入与形态</h4><p>${j.y}</p></div>
+    <div class="blk"><h4>AI 之后</h4><div class="ainote">${AI_NOTE[j.ai]}</div></div>
+    <div class="blk"><h4>风险与趋势</h4><p>${j.r}</p></div>
+    <div class="blk"><h4>相邻职业（可迁移方向）</h4>
+      <div class="chips">${j.rel.map(r=>`<button class="relbtn" data-rel="${r}">${r} →</button>`).join("")}</div></div>
+  </div>
+  <div class="dw-foot">
+    <button id="prevBtn">‹ 上一个</button>
+    <span class="pos">${i+1} / ${ALL.length}</span>
+    <button id="nextBtn">下一个 ›</button>
+  </div>`;
+
+  document.getElementById("dwClose").onclick = closeModal;
+  document.getElementById("prevBtn").onclick = ()=>openByIndex(curIdx-1);
+  document.getElementById("nextBtn").onclick = ()=>openByIndex(curIdx+1);
+  document.getElementById("prevBtn").disabled = i===0;
+  document.getElementById("nextBtn").disabled = i===ALL.length-1;
+  modal.querySelectorAll("[data-rel]").forEach(b=>{
+    b.onclick = ()=>{
+      const target = ALL.find(x=>x.n===b.dataset.rel);
+      if(target) openByIndex(target._idx);
+    };
+  });
+  modal.querySelector(".dw-body").scrollTop = 0;
+  if(!modal.classList.contains("on")) lastFocus = document.activeElement;
+  modal.classList.add("on"); scrim.classList.add("on");
+  modal.setAttribute("aria-hidden","false");
+  document.getElementById("dwClose").focus({preventScroll:true});
+  document.body.style.overflow="hidden";
+}
+
+function closeModal(){
+  modal.classList.remove("on"); scrim.classList.remove("on");
+  modal.setAttribute("aria-hidden","true");
+  document.body.style.overflow="";
+  curIdx=-1;
+  if(lastFocus && lastFocus.isConnected) lastFocus.focus({preventScroll:true});
+  lastFocus=null;
+}
+
+document.querySelectorAll(".job").forEach(c=>{
+  c.addEventListener("click",()=>openByIndex(BYKEY[c.dataset.key]._idx));
+});
+scrim.addEventListener("click", closeModal);
+document.addEventListener("keydown", e=>{
+  if(e.key==="Escape") closeModal();
+  if(modal.classList.contains("on")){
+    if(e.key==="ArrowLeft" && curIdx>0) openByIndex(curIdx-1);
+    if(e.key==="ArrowRight" && curIdx<ALL.length-1) openByIndex(curIdx+1);
+  }
+});
+
+/* ---------- 导航 ---------- */
+document.querySelectorAll(".nav-item").forEach(b=>{
+  b.addEventListener("click",()=>{
+    const sec=document.getElementById("sec-"+b.dataset.go);
+    const top = sec.getBoundingClientRect().top + window.scrollY - 138;
+    window.scrollTo({top, behavior:"smooth"});
+    document.querySelectorAll(".nav-item").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+  });
+});
+
+/* ---------- 筛选 ---------- */
+const qEl=document.getElementById("q");
+const counter=document.getElementById("counter");
+let fAI="all";
+
+function applyFilter(){
+  const kw=qEl.value.trim().toLowerCase();
+  let visible=0;
+  DATA.groups.forEach((g,gi)=>{
+    let gv=0;
+    document.querySelectorAll(`#sec-${g.id} .job`).forEach(card=>{
+      const j=BYKEY[card.dataset.key];
+      const txt=(j.n+" "+j.a+" "+j.d+" "+j.p+" "+j.y+" "+j.r+" "+j.s.join(" ")+" "+j.t.join(" ")+" "+j.rel.join(" ")).toLowerCase();
+      const okAI = (fAI==="all") || (j.ai===fAI);
+      const okKw = !kw || txt.includes(kw);
+      const show = okAI && okKw;
+      card.classList.toggle("hide", !show);
+      if(show){ gv++; visible++; }
+    });
+    document.getElementById("sec-"+g.id).classList.toggle("hide", gv===0);
+    const ni=document.querySelector(`.nav-item[data-go="${g.id}"] .cnt`);
+    if(ni) ni.textContent = gv;
+  });
+  counter.textContent = `显示 ${visible} / ${ALL.length}`;
+}
+qEl.addEventListener("input", applyFilter);
+document.querySelectorAll("#aiSeg button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll("#aiSeg button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on"); fAI=b.dataset.ai; applyFilter();
+  });
+});
+applyFilter();
+</script>
+</body>
+</html>

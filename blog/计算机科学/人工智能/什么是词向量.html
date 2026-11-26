@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>什么是词向量 · 逐梦笔记</title>
+<meta name="description" content="词向量（Word Vector，也称 Word Embedding）是把自然语言中的词映射为实数向量的方法。">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../../blog.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="../../../index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../../../index.html">首页</a>
+      <div class="nav-drop">
+        <a href="../../../knowledge.html">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="../../../knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="../../../knowledge.html#domains">五大知识域</a>
+          <a href="../../../knowledge.html#cross">交叉与前沿</a>
+          <a href="../../../knowledge.html#axes">三条贯穿轴</a>
+          <a href="../../../knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="../../../career.html">世界职业体系</a>
+      <a href="../../index.html" class="active">博客</a>
+      <a class="nav-cta" href="../../../knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-wrap">
+  
+    <aside class="blog-side">
+      <div class="side-head">
+        <a class="blog-brand" href="../../index.html">逐梦笔记<span>NOTES</span></a>
+        <button class="side-toggle" id="sideToggle" aria-expanded="false" aria-controls="sideBody">目录</button>
+      </div>
+      <div class="side-body" id="sideBody">
+        <div class="tree-search">
+          <input id="treeQ" type="search" placeholder="筛选 197 篇笔记…" aria-label="筛选笔记">
+        </div>
+        <nav class="tree" aria-label="博客目录"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI创作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI短剧制作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI写周报，把我写成了公司CEO</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E5%86%99%E5%91%A8%E6%8A%A5%EF%BC%8C%E6%8A%8A%E6%88%91%E5%86%99%E6%88%90%E4%BA%86%E5%85%AC%E5%8F%B8CEO/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI的最后一活</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%B4%BB/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%9B%E4%BD%9C%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html" title="AI 短剧创作保姆级教程：从一个想法到成片发布">AI 短剧创作保姆级教程：从一个想法到成片发布</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人生感悟</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/%E5%9C%A8%E5%89%A7%E5%8F%98%E4%B8%AD%E5%AF%BB%E8%B7%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8AI%E6%B5%AA%E6%BD%AE%E4%B8%8B%E6%8A%93%E4%BD%8F%E6%9C%BA%E9%81%87.html" title="在剧变中寻路：如何在 AI 浪潮下抓住机遇">在剧变中寻路：如何在 AI 浪潮下抓住机遇</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础学科</span><span class="tree-count">22</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数学</span><span class="tree-count">13</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">初等代数</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5.html" title="数的概念">数的概念</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E7%B1%BB%E5%88%AB.html" title="数的类别">数的类别</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E9%87%8F.html" title="数量">数量</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性代数</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F.html" title="向量（Vector）：从几何箭头到 AI 数据表示">向量（Vector）：从几何箭头到 AI 数据表示</a></div></details><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%8C%87%E6%95%B0%E8%BF%90%E7%AE%97.html" title="什么是指数运算">什么是指数运算</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%85%B3%E7%B3%BB.html" title="什么是线性关系">什么是线性关系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%87%A0%E4%BD%95%E5%85%A5%E9%97%A8.html" title="几何入门">几何入门</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97.html" title="四则运算">四则运算</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9F%BA%E6%9C%AC%E4%BB%A3%E6%95%B0.html" title="基本代数">基本代数</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E6%95%B0%E5%AD%A6.html" title="如何学习数学">如何学习数学</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%9A%E4%BB%8E0%E5%88%B0%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6.html" title="数学学习路线图：从0到高等数学">数学学习路线图：从0到高等数学</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E8%A1%A8%E7%A4%BA.html" title="数的分类与表示">数的分类与表示</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%AE%97%E6%9C%AF%E5%9F%BA%E7%A1%80.html" title="算术基础">算术基础</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">物理</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E4%BB%8E%E5%BE%AE%E8%A7%82%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E7%89%A9%E8%B4%A8%EF%BC%9A%E5%8E%9F%E5%AD%90%E3%80%81%E7%B2%92%E5%AD%90%E4%B8%8E%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8.html" title="从微观角度理解物质：原子、粒子与相互作用">从微观角度理解物质：原子、粒子与相互作用</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%89%A9%E8%B4%A8%E5%92%8C%E8%83%BD%E9%87%8F%E7%9A%84%E5%85%B3%E7%B3%BB.html" title="物质和能量的关系">物质和能量的关系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%90%86%E8%A7%A3%E7%94%B5%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%89%A9%E7%90%86%E5%9F%BA%E7%A1%80.html" title="理解电必须掌握的物理基础">理解电必须掌握的物理基础</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E%E5%8E%86%E5%8F%B2%E5%88%B0%E6%9C%AC%E8%B4%A8.html" title="电是什么：从历史到本质">电是什么：从历史到本质</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.html" title="电的原理与应用场景">电的原理与应用场景</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%A3%81%EF%BC%9A%E4%BB%8E%E7%94%B5%E5%9C%BA%E7%A3%81%E5%9C%BA%E5%88%B0%E7%94%B5%E7%A3%81%E6%B3%A2.html" title="电磁：从电场磁场到电磁波">电磁：从电场磁场到电磁波</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">语言</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">英语</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="英语学习笔记">英语学习笔记</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95.html" title="英语语法">英语语法</a></div></details><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%AF%AD%E6%B3%95.html" title="语法">语法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">心情随笔</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/%E5%85%AD%E7%A7%8D%E5%80%BC%E5%BE%97%E7%BB%93%E4%BA%A4%E4%B8%80%E8%BE%88%E5%AD%90%E7%9A%84%E4%BA%BA.html" title="六种值得结交一辈子的人">六种值得结交一辈子的人</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">生活常识</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">买房攻略</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98.html" title="下面是我总结了买房相关常见问题：">下面是我总结了买房相关常见问题：</a><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5.html" title="买房攻略">买房攻略</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">考驾照</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E8%80%83%E9%A9%BE%E7%85%A7/%E7%A7%91%E7%9B%AE%E4%B8%80.html" title="科目一刷题笔记">科目一刷题笔记</a></div></details><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E5%90%84%E8%A1%8C%E4%B8%9A%E5%85%A8%E6%99%AF%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%AE%9A%E4%B9%89%E3%80%81%E7%8E%B0%E7%8A%B6%E4%B8%8EAI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%9C%AA%E6%9D%A5.html" title="各行业全景解析：定义、现状与 AI 时代的未来">各行业全景解析：定义、现状与 AI 时代的未来</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">计算机科学</span><span class="tree-count">160</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Agent 开发</span><span class="tree-count">11</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">docs</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">superpowers</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">specs</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/docs/superpowers/specs/2026-11-06-enterprise-agent-course-design.html" title="企业级 Agent 混合架构课程设计">企业级 Agent 混合架构课程设计</a></div></details></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">learning-records</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/learning-records/0001-python-worker-first.html" title="Learning Record 0001: Python Agent Worker First">Learning Record 0001: Python Agent Worker First</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/learning-records/0002-agent-state-checkpoint-recovery.html" title="Learning Record 0002: Agent State and Checkpoint Recovery">Learning Record 0002: Agent State and Checkpoint Recovery</a></div></details><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Agent%20%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="Agent 开发学习路线">Agent 开发学习路线</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Agent%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.html" title="Agent开发核心知识点">Agent开发核心知识点</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Go-Python%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BD%ACAgent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B.html" title="Go/Python 后端工程师转 Agent 开发实战教程">Go/Python 后端工程师转 Agent 开发实战教程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/MISSION.html" title="Mission: 从 Python Agent Worker 学会企业级 Agent 开发">Mission: 从 Python Agent Worker 学会企业级 Agent 开发</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RAG.html" title="RAG">RAG</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RAG%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%A6%E7%BB%86%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html" title="RAG系统的详细工作流程">RAG系统的详细工作流程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E9%AB%98%E5%B9%B6%E5%8F%91%E4%BC%81%E4%B8%9A%E7%BA%A7Agent%E7%B3%BB%E7%BB%9F%E6%95%99%E7%A8%8B.html" title="从零搭建高并发企业级 Agent 系统教程">从零搭建高并发企业级 Agent 系统教程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RESOURCES.html" title="企业级 Agent 开发资源">企业级 Agent 开发资源</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">人工智能</span><span class="tree-count">33</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI行业基础知识相关概念</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAI.html" title="什么是 AI">什么是 AI</a><a class="tree-link" href="AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAIGC.html" title="什么是 AIGC">什么是 AIGC</a><a class="tree-link" href="AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAgent.html" title="什么是 Agent">什么是 Agent</a><a class="tree-link" href="AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG">什么是 RAG</a><a class="tree-link" href="AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE.html" title="什么是向量数据">什么是向量数据</a><a class="tree-link" href="AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是大模型">什么是大模型</a><a class="tree-link" href="AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是语言大模型">什么是语言大模型</a></div></details><a class="tree-link" href="AI%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93.html" title="AI 学习笔记总结">AI 学习笔记总结</a><a class="tree-link" href="AI%E5%BA%94%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="AI 应用工程师从入门到实战的最佳学习路线">AI 应用工程师从入门到实战的最佳学习路线</a><a class="tree-link" href="Chroma%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Chroma 入门手册：从零上手最轻量的向量数据库">Chroma 入门手册：从零上手最轻量的向量数据库</a><a class="tree-link" href="LangChain%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="LangChain 入门手册：用搭积木的方式编排大模型应用">LangChain 入门手册：用搭积木的方式编排大模型应用</a><a class="tree-link" href="Transformer%20%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.html" title="Transformer 注意力机制详解">Transformer 注意力机制详解</a><a class="tree-link" href="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BB%8B%E7%BB%8D.html" title="人工智能介绍">人工智能介绍</a><a class="tree-link" href="%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%A6%E7%90%86%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="人工智能伦理与安全">人工智能伦理与安全</a><a class="tree-link" href="%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG：检索增强生成从原理到实战">什么是 RAG：检索增强生成从原理到实战</a><a class="tree-link active" href="%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%8D%E5%90%91%E9%87%8F.html" title="什么是词向量">什么是词向量</a><a class="tree-link" href="%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BANLP%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html" title="从零搭建NLP模型完全指南">从零搭建NLP模型完全指南</a><a class="tree-link" href="%E5%85%B3%E4%BA%8EAI%E7%9A%84%E7%95%85%E6%83%B3%E5%92%8C%E6%80%9D%E8%80%83.html" title="关于AI的畅想和思考">关于AI的畅想和思考</a><a class="tree-link" href="%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%80%85AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师">后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师</a><a class="tree-link" href="%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93.html" title="向量数据库：语义搜索的存储与检索引擎">向量数据库：语义搜索的存储与检索引擎</a><a class="tree-link" href="%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BA%B2.html" title="大模型应用实战知识总纲">大模型应用实战知识总纲</a><a class="tree-link" href="%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAAgent.html" title="如何搭建一个 Agent">如何搭建一个 Agent</a><a class="tree-link" href="%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="学习笔记">学习笔记</a><a class="tree-link" href="%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html" title="强化学习">强化学习</a><a class="tree-link" href="%E6%96%87%E6%9C%AC%E6%98%AF%E5%A6%82%E4%BD%95%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E7%9A%84.html" title="文本是如何变成向量的：Embedding 推理管线全解析">文本是如何变成向量的：Embedding 推理管线全解析</a><a class="tree-link" href="%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html" title="机器学习-线性回归">机器学习-线性回归</a><a class="tree-link" href="%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="机器学习基础">机器学习基础</a><a class="tree-link" href="%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="深度学习基础">深度学习基础</a><a class="tree-link" href="%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html" title="神经网络">神经网络</a><a class="tree-link" href="Agent%20%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="网页版知识库 Agent 搭建实战">网页版知识库 Agent 搭建实战</a><a class="tree-link" href="%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86.html" title="自然语言处理">自然语言处理</a><a class="tree-link" href="%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89.html" title="计算机视觉">计算机视觉</a><a class="tree-link" href="%E9%AB%98%E7%BB%B4%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%91%E9%87%8F%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%90%91%E9%87%8D%E5%BB%BA.html" title="高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容">高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础知识</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/DNS.html" title="DNS：从域名到 IP 地址的分布式解析系统">DNS：从域名到 IP 地址的分布式解析系统</a><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/HTTP.html" title="HTTP：从一次请求到现代 Web 传输体系">HTTP：从一次请求到现代 Web 传输体系</a><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84.html" title="互联网是如何工作的">互联网是如何工作的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%9F%E7%90%86.html" title="操作系统的原理">操作系统的原理</a><a class="tree-link" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F.html" title="深入理解计算机系统">深入理解计算机系统</a><a class="tree-link" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84.html" title="计算机是如何编码数据的">计算机是如何编码数据的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">8</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Elasticsearch</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/%E5%AE%89%E8%A3%85.html" title="创建网络">创建网络</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MongoDB</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念">基本概念</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%AE%89%E8%A3%85mongodb.html" title="安装mongodb">安装mongodb</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" title="数据库不存在会自动创建">数据库不存在会自动创建</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MySQL</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%9E%B6%E6%9E%84.html" title="MySQL 架构">MySQL 架构</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="MySQL数据库知识大纲">MySQL数据库知识大纲</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.html" title="存储引擎">存储引擎</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E7%B4%A2%E5%BC%95.html" title="索引">索引</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构与算法</span><span class="tree-count">10</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构</span><span class="tree-count">6</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数组和字符串</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C.html" title="数组的操作">数组的操作</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%A6%82%E8%BF%B0.html" title="概述">概述</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">树</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/%E6%A0%91.html" title="树">树</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性表</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8.html" title="线性表">线性表</a></div></details><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD.html" title="基本概念和术语">基本概念和术语</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E5%92%8C%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84.html" title="逻辑结构和物理结构">逻辑结构和物理结构</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">算法</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/K-Means.html" title="K-Means 聚类算法">K-Means 聚类算法</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97%E8%AF%A6%E8%A7%A3.html" title="位运算详解">位运算详解</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95.html" title="算法效率分析方法">算法效率分析方法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程笔记</span><span class="tree-count">54</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C 语言学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/C%20%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="此时会生成 a.out（windows 会生成 a.exe）">此时会生成 a.out（windows 会生成 a.exe）</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Docker</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Docker/docker%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Docker 入门手册：编写 Dockerfile、构建镜像与容器管理">Docker 入门手册：编写 Dockerfile、构建镜像与容器管理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言之旅</span><span class="tree-count">12</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架源码剖析</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Gin%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Gin%20%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Gin%E6%A1%86%E6%9E%B6%E5%BC%95%E6%93%8E%E5%AE%9E%E4%BE%8B.html" title="深入理解Gin框架引擎实例">深入理解Gin框架引擎实例</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言设计与实现</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%BA%90%E4%BB%A3%E7%A0%81.html" title="自己需要那个版本的 Go 标签，就用那个">自己需要那个版本的 Go 标签，就用那个</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言高级开发工程</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html" title="Go 单元测试">Go 单元测试</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E9%98%B6%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7.html" title="Go 语言高阶实战技巧">Go 语言高阶实战技巧</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Lua</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Lua/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BLua%E8%84%9A%E6%9C%AC.html" title="&quot;Hello, scripting!&quot;">&quot;Hello, scripting!&quot;</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">kubernetes</span><span class="tree-count">17</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">从入门到实战</span><span class="tree-count">16</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/K8s%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2.html" title="Kubernetes 从入门到实战：完整知识学习大纲">Kubernetes 从入门到实战：完整知识学习大纲</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC10%E7%AB%A0-Ingress%E4%B8%8E%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1.html" title="第10章：Ingress 与流量路由">第10章：Ingress 与流量路由</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC11%E7%AB%A0-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%9B%E9%98%B6.html" title="第11章 控制器进阶">第11章 控制器进阶</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC12%E7%AB%A0-RBAC%E6%9D%83%E9%99%90%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="第12章 RBAC 权限与安全">第12章 RBAC 权限与安全</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html" title="第13章 监控日志与可观测性">第13章 监控日志与可观测性</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC14%E7%AB%A0-Helm%E5%8C%85%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第14章 Helm 包管理与应用部署">第14章 Helm 包管理与应用部署</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC15%E7%AB%A0-%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98-%E5%AE%8C%E6%95%B4%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2.html" title="第15章 综合实战：完整微服务项目部署">第15章 综合实战：完整微服务项目部署</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC1%E7%AB%A0-K8s%E6%A6%82%E8%BF%B0%E4%B8%8E%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3.html" title="第1章 K8s 概述与架构理解">第1章 K8s 概述与架构理解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC2%E7%AB%A0-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="第2章 环境搭建实战">第2章 环境搭建实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC3%E7%AB%A0-Pod%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E6%88%98.html" title="第3章 Pod 核心概念与实战">第3章 Pod 核心概念与实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第4章 Deployment 与应用部署">第4章 Deployment 与应用部署</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC5%E7%AB%A0-Service%E4%B8%8E%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1.html" title="第5章：Service 与网络通信">第5章：Service 与网络通信</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC6%E7%AB%A0-ConfigMap%E4%B8%8ESecret%E7%AE%A1%E7%90%86.html" title="第6章：ConfigMap 与 Secret 管理">第6章：ConfigMap 与 Secret 管理</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC7%E7%AB%A0-Volume%E4%B8%8E%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8.html" title="第7章：Volume 与持久化存储">第7章：Volume 与持久化存储</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC8%E7%AB%A0-Namespace%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.html" title="第8章：Namespace 与资源管理">第8章：Namespace 与资源管理</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC9%E7%AB%A0-%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6%E4%B8%8E%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86.html" title="第9章：调度机制与节点管理">第9章：调度机制与节点管理</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/HPA%E5%92%8CVPA%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="HPA 和 VPA 的区别">HPA 和 VPA 的区别</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">其他</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%85%B6%E4%BB%96/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80UML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="统一建模语言UML学习笔记">统一建模语言UML学习笔记</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Linux</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Centos</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/yum.html" title="yum">yum</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/CentosStream8%20%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html" title="刷新配置">刷新配置</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/Centos7.9%20%E5%AE%89%E8%A3%85%20node20%20%E5%AE%9E%E6%88%98.html" title="安装 nvm">安装 nvm</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86.html" title="查看文件的大小">查看文件的大小</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">mysql</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%AE%89%E8%A3%85mysql.html" title="CentOS Linux release 8.5.2111">CentOS Linux release 8.5.2111</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E4%BB%80%E4%B9%88%E6%98%AFmysql.html" title="什么是mysql">什么是mysql</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.html" title="注意不同的密码验证策略要求密码复杂度不一样。">注意不同的密码验证策略要求密码复杂度不一样。</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">缓存</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98/redis%20%E7%BC%93%E5%AD%98%E5%AE%9E%E6%88%98.html" title="redis 缓存实战">redis 缓存实战</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">软件开发与设计规范</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/%E6%8C%87%E5%AF%BC%E6%80%9D%E6%83%B3.html" title="指导思想">指导思想</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">领域驱动设计</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E4%BB%80%E4%B9%88%E6%98%AFDDD.html" title="什么是DDD">什么是DDD</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E5%89%8D%E8%A8%80.html" title="前言">前言</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Cookie%20%E8%AF%A6%E8%A7%A3.html" title="Cookie 详解">Cookie 详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/JWT%E8%AF%A6%E8%A7%A3.html" title="JWT 详解">JWT 详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Raft%20%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3.html" title="Raft 协议详解">Raft 协议详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/WebRTC%20%E5%BA%95%E5%B1%82%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.html" title="WebRTC 底层工作原理详解">WebRTC 底层工作原理详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/curl%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="curl 使用手册">curl 使用手册</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Git%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" title="克隆指定分支">克隆指定分支</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95.html" title="分布式一致性算法">分布式一致性算法</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="学习路线">学习路线</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%90%AD%E5%BB%BA%20Conda%20%2B%20Jupyter%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" title="搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南">搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程语言</span><span class="tree-count">18</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/C%20%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="C 语言快速入门">C 语言快速入门</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20benchmark%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go Benchmark 最佳实战">Go Benchmark 最佳实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20pprof%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go pprof 最佳实战：从开发诊断到生产调优">Go pprof 最佳实战：从开发诊断到生产调优</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5.html" title="Go 底层原理与工程化实践">Go 底层原理与工程化实践</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码">Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E8%AF%AD%E8%A8%80%E9%AB%98%E6%95%88%E7%BC%96%E7%A8%8B%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8C%96.html" title="Go 语言高效编程：原理、可观测性与优化">Go 语言高效编程：原理、可观测性与优化</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A.html" title="Go开发工程师必知必会">Go开发工程师必知必会</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Python</span><span class="tree-count">8</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="NumPy 使用手册">NumPy 使用手册</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="NumPy 使用指南：从 ndarray 到数值计算实践">NumPy 使用指南：从 ndarray 到数值计算实践</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Pandas%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="Pandas 使用指南：从 Series/DataFrame 到数据分析实践">Pandas 使用指南：从 Series/DataFrame 到数据分析实践</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html" title="Python 异步编程：从原理到实战">Python 异步编程：从原理到实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="Python 快速入门">Python 快速入门</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Decorator%EF%BC%89%E6%80%BB%E7%BB%93.html" title="Python 装饰器（Decorator）总结">Python 装饰器（Decorator）总结</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E8%AE%A4%E8%AF%86Python.html" title="认识Python">认识Python</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%40staticmethod%20%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="静态方法是类的属性">静态方法是类的属性</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Rust</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Rust 入门手册：面向 Go 与 Python 开发者">Rust 入门手册：面向 Go 与 Python 开发者</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E7%A8%8B%E5%BA%8F%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86.html" title="程序底层执行原理：从一行源码到进程退出">程序底层执行原理：从一行源码到进程退出</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88.html" title="计算机科学与编程十万个为什么">计算机科学与编程十万个为什么</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机组成原理</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%BC%96%E7%A0%81.html" title="《编码》：从手电筒到计算机">《编码》：从手电筒到计算机</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%98%BE%E7%A4%BA%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="显示器的工作原理">显示器的工作原理</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%99%B6%E4%BD%93%E7%AE%A1.html" title="晶体管：小学生也能看懂的计算机“小开关”">晶体管：小学生也能看懂的计算机“小开关”</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84.html" title="程序是如何执行的">程序是如何执行的</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.html" title="计算机底层原理：程序、数据与网络如何从 0 到 1 运转">计算机底层原理：程序、数据与网络如何从 0 到 1 运转</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html" title="计算机组成">计算机组成</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="计算机组成原理">计算机组成原理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机网络</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BATCP-IP%E5%8D%8F%E8%AE%AE.html" title="深入浅出TCP-IP协议">深入浅出TCP-IP协议</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20OSI.html" title="计算机网络 - OSI">计算机网络 - OSI</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html" title="计算机网络 - 概述">计算机网络 - 概述</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="计算机网络工作原理：从输入 URL 到数据跨越互联网">计算机网络工作原理：从输入 URL 到数据跨越互联网</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">高性能服务设计与实现</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1.html" title="什么是高性能服务">什么是高性能服务</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88.html" title="后端服务安全方案">后端服务安全方案</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%AF%B4%E6%98%8E.html" title="后端服务性能指标体系">后端服务性能指标体系</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E7%99%BE%E4%B8%87%E7%BA%A7QPS%20API%E7%BD%91%E5%85%B3%E8%AE%BE%E8%AE%A1.html" title="如何设计一个支持百万级 QPS 的 API 网关">如何设计一个支持百万级 QPS 的 API 网关</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%99%90%E6%B5%81%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1.html" title="限流方案设计">限流方案设计</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%20Agent%20%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="高性能 Agent 服务架构设计与实现">高性能 Agent 服务架构设计与实现</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8F%AF%E8%A1%8C%E6%80%A7%E6%96%B9%E6%A1%88.html" title="高性能服务架构可行性方案">高性能服务架构可行性方案</a></div></details><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E5%A4%A7%E7%BA%B2.html" title="计算机知识学习先后顺序大纲">计算机知识学习先后顺序大纲</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="计算机科学知识大纲">计算机科学知识大纲</a></div></details><div class="tree-label">散篇</div><a class="tree-link" href="../../TODO.html" title="TODO">TODO</a><a class="tree-link" href="../../%E4%B8%AA%E4%BA%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E9%87%8D%E9%93%B8%E8%AE%A1%E5%88%92.html" title="个人基础知识重铸计划">个人基础知识重铸计划</a><a class="tree-link" href="../../%E5%8F%A5%E5%AD%90.html" title="句子">句子</a><a class="tree-link" href="../../%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E5%AD%A6%E4%B9%A0.html" title="如何高效的学习">如何高效的学习</a><a class="tree-link" href="../../%E6%97%B6%E9%97%B4%E8%83%B6%E5%9B%8A.html" title="时间胶囊">时间胶囊</a><a class="tree-link" href="../../%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA.html" title="网站导航">网站导航</a></nav>
+      </div>
+    </aside>
+  <main class="blog-main">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../../index.html">博客</a><span>/</span><span>计算机科学</span><span>/</span><span>人工智能</span><span>/</span><span>什么是词向量</span></nav>
+    <article class="post">
+      <header class="post-head">
+        <div class="post-kicker">计算机科学 / 人工智能</div>
+        <h1>什么是词向量</h1>
+        <div class="post-meta"><span>计算机科学/人工智能/什么是词向量.md</span><span>约 7,553 字</span></div>
+      </header>
+      <div class="prose"><p>词向量（Word Vector，也称 Word Embedding）是把自然语言中的词映射为实数向量的方法。</p>
+<p>从原始文本到最终可用的词向量，需要经过一条严格的流水线：</p>
+<pre><code class="language-text">可靠语料采集
+  → 文本清洗与标准化
+  → 分词与子词切分
+  → 构建词表与编号映射
+  → 模型训练（静态/上下文）
+  → 生成可计算向量
+</code></pre>
+<p><img loading="lazy" decoding="async" alt="从语料到词向量的完整流水线" src="images/text-to-vector-pipeline.svg" /></p>
+<hr />
+<h2 id="1-获取可靠的原始文本">1. 获取可靠的原始文本</h2>
+<p>词向量的质量上限由训练语料的质量决定。垃圾进、垃圾出（Garbage In, Garbage Out），这是所有 NLP 模型的铁律。</p>
+<h3 id="1-1-语料数据源的分级">1.1 语料数据源的分级</h3>
+<p>不同来源的语料在可信度、领域覆盖和版权合规性上差异极大，实际使用时应分层评估：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>语料来源</th>
+<th>典型代表</th>
+<th>可信度</th>
+<th>适用场景</th>
+<th>风险提示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>权威出版物</td>
+<td>人民出版社、剑桥大学出版社</td>
+<td>★★★★★</td>
+<td>基础语义训练、学术研究</td>
+<td>版权严格，需合规授权</td>
+</tr>
+<tr>
+<td>官方公开语料</td>
+<td>维基百科、政府公报、人民日报</td>
+<td>★★★★☆</td>
+<td>通用语义词向量</td>
+<td>时效性略弱，需要清洗引用标记</td>
+</tr>
+<tr>
+<td>开放学术语料</td>
+<td>Common Crawl、OSCAR、CLUECorpus</td>
+<td>★★★☆☆</td>
+<td>大规模预训练</td>
+<td>噪声大，需多层过滤去重</td>
+</tr>
+<tr>
+<td>垂直领域语料</td>
+<td>医学文献、法律判决书、行业白皮书</td>
+<td>★★★★☆</td>
+<td>领域专用词向量</td>
+<td>专业术语密度高，需领域专家校验</td>
+</tr>
+<tr>
+<td>社区UGC内容</td>
+<td>论坛、博客、问答平台</td>
+<td>★★☆☆☆</td>
+<td>口语化表达、热点词捕捉</td>
+<td>错别字多、存在灌水与低质内容</td>
+</tr>
+<tr>
+<td>爬虫爬取的未知网站</td>
+<td>—</td>
+<td>★☆☆☆☆</td>
+<td>不建议直接使用</td>
+<td>版权风险、数据污染、重复率极高</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="1-2-语料的质量评估指标">1.2 语料的质量评估指标</h3>
+<p>拿到一份语料后，至少评估以下指标再决定是否进入训练：</p>
+<p><strong>覆盖度（Coverage）</strong></p>
+<pre><code class="language-text">目标领域关键词的出现率。
+如果训练的是医疗词向量，但语料中极少出现&quot;靶点&quot;&quot;预后&quot;等关键词，说明覆盖度不足。
+</code></pre>
+<p><strong>均衡度（Balance）</strong></p>
+<pre><code class="language-text">不同主题、不同体裁、不同时期文本的比例是否合理。
+如果 90% 都是体育新闻，那&quot;病毒&quot;学到的可能主要是&quot;计算机病毒&quot;而非医学病毒。
+</code></pre>
+<p><strong>清洁度（Cleanliness）</strong></p>
+<pre><code class="language-text">- 乱码占比（UTF-8 解码错误、编码混杂）
+- 模板噪声占比（网页导航、广告横幅、Cookie 提示）
+- 重复文本比例（Exact Duplicate / Near Duplicate）
+- 非目标语言混入比例
+</code></pre>
+<p><strong>合规性（Compliance）</strong></p>
+<pre><code class="language-text">- 版权许可类型（CC0 / CC-BY / 专有许可）
+- 是否包含个人隐私信息（PII）
+- 是否涉及敏感或违法内容
+</code></pre>
+<h3 id="1-3-语料清洗的标准化步骤">1.3 语料清洗的标准化步骤</h3>
+<p>原始语料通常像一块原石，需要经过多道工序才能成为可用的数据。</p>
+<p><strong>第一步：编码与格式统一</strong></p>
+<pre><code class="language-python"># 1. 统一字符编码，修复乱码
+text = text.encode(&quot;latin-1&quot;, errors=&quot;ignore&quot;).decode(&quot;utf-8&quot;, errors=&quot;replace&quot;)
+
+# 2. 统一全角/半角字符
+#    全角 Ａ → 半角 A
+#    全角 １２３ → 半角 123
+
+# 3. 统一换行与空白
+#    \r\n → \n
+#    多个连续空格合并为一个
+</code></pre>
+<p><strong>第二步：模板与噪声剔除</strong></p>
+<pre><code class="language-text">需要剔除的典型噪声：
+├── HTML 标签（&lt;div&gt;、&lt;script&gt;、内联样式）
+├── 页面导航条（&quot;首页 / 新闻 / 国际 / 正文&quot;）
+├── 广告与推荐位（&quot;猜你喜欢&quot;&quot;相关推荐&quot;）
+├── 版权声明与页脚（&quot;© 2024 All Rights Reserved&quot;）
+├── 引用标记（[1]、[2]、参考资料链接）
+├── Cookie 弹窗、登录提示
+├── 重复的页眉页脚
+└── 社交平台分享按钮、评论数等界面元素
+</code></pre>
+<p><strong>第三步：内容级过滤</strong></p>
+<pre><code class="language-python">def should_discard(text: str) -&gt; bool:
+    # 过短的文本通常没有有效上下文
+    if len(text) &lt; 50:
+        return True
+
+    # 乱码字符比例过高
+    if ratio_of_garbage_chars(text) &gt; 0.05:
+        return True
+
+    # 大写字母/符号占比过高（通常是代码或配置文件混入）
+    if non_text_ratio(text) &gt; 0.3:
+        return True
+
+    # 重复句子比例过高
+    if duplicate_sentence_ratio(text) &gt; 0.5:
+        return True
+
+    return False
+</code></pre>
+<p><strong>第四步：去重（Deduplication）</strong></p>
+<p>语料中的重复会严重扭曲词的共现统计，导致高频词的向量被重复样本主导。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>去重级别</th>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>精确去重</td>
+<td>MD5 / SHA-256 哈希</td>
+<td>去掉完全相同的文档</td>
+</tr>
+<tr>
+<td>段落级去重</td>
+<td>滑动窗口 + 哈希</td>
+<td>检测文档内部重复段落</td>
+</tr>
+<tr>
+<td>近似去重（Near-Dup）</td>
+<td>MinHash + LSH</td>
+<td>相似度 &gt; 阈值的文档视为重复</td>
+</tr>
+<tr>
+<td>子串去重</td>
+<td>公共子串检测</td>
+<td>剔除不同文档共享的大段模板文本</td>
+</tr>
+</tbody>
+</table></div>
+<p>典型的近似去重算法 MinHash + LSH 的思路：</p>
+<pre><code class="language-text">1. 将文档拆成 shingle（如连续 5 个词构成的子串）
+2. 对每个 shingle 计算多个哈希值，得到签名
+3. 通过 LSH（Locality-Sensitive Hashing）把相似签名分到同一桶
+4. 同一桶内的文档做细粒度相似度比较，超过阈值则去重
+</code></pre>
+<p><strong>第五步：隐私与敏感内容过滤</strong></p>
+<pre><code class="language-text">- 个人身份信息（姓名、身份证号、手机号、邮箱、住址）使用 NER 或正则识别并打码
+- 违法违规、涉黄涉暴内容使用文本分类器拦截
+- 涉及商业机密的文本必须在源头脱敏
+</code></pre>
+<h3 id="1-4-语料标准化-让同一含义的文本看起来一致">1.4 语料标准化：让同一含义的文本看起来一致</h3>
+<p>标准化的目的是减少无意义的表示差异，让模型聚焦于真正的语义信息。</p>
+<p><strong>大小写折叠（Case Folding）</strong></p>
+<pre><code class="language-text">&quot;Apple&quot; → &quot;apple&quot;
+&quot;iPhone&quot; → &quot;iphone&quot;  （注意：专有名词有时需要保留，取决于任务）
+</code></pre>
+<p><strong>标点与符号统一</strong></p>
+<pre><code class="language-text">&quot;你好！！！&quot;   → &quot;你好！&quot;  （过度重复标点归一化）
+&quot;你好~~~&quot;     → &quot;你好&quot;
+中文引号 「」 → &quot;&quot;
+全角逗号 ，   → ，（中文文本中保留全角标点通常更自然）
+</code></pre>
+<p><strong>数字标准化</strong></p>
+<pre><code class="language-text">&quot;1234567&quot;    → &quot;[数字]&quot;  或保留为具体数字（取决于是否需要数值语义）
+&quot;2024年3月&quot;  → &quot;[日期]&quot;  或保持原格式
+</code></pre>
+<p><strong>特殊占位符</strong></p>
+<pre><code class="language-text">URL      → &quot;[URL]&quot;
+邮箱     → &quot;[邮箱]&quot;
+电话号码 → &quot;[电话]&quot;
+@用户名  → &quot;[用户]&quot;
+</code></pre>
+<blockquote>
+<p><strong>需要警惕的过度标准化</strong>：过度清洗可能破坏语义信息。例如在医学文本中，数字"38.5℃"如果被替换成"[数字]℃"，模型就无法学习到"高烧"与具体温度范围之间的关联。清洗策略必须与目标任务对齐。</p>
+</blockquote>
+<h3 id="1-5-典型数据集示例">1.5 典型数据集示例</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>语言</th>
+<th>规模</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wikipedia Dump</td>
+<td>多语言</td>
+<td>数十亿词</td>
+<td>质量高、领域广、权威</td>
+</tr>
+<tr>
+<td>Common Crawl</td>
+<td>多语言</td>
+<td>万亿级 Token</td>
+<td>规模极大、噪声极高</td>
+</tr>
+<tr>
+<td>OSCAR</td>
+<td>多语言</td>
+<td>数万亿 Token</td>
+<td>Common Crawl 清洗版</td>
+</tr>
+<tr>
+<td>CLUECorpus</td>
+<td>中文</td>
+<td>100GB+</td>
+<td>中文通用语料</td>
+</tr>
+<tr>
+<td>CSL (Chinese Scientific Literature)</td>
+<td>中文</td>
+<td>科研领域</td>
+<td>中文学术文本</td>
+</tr>
+<tr>
+<td>THUCNews</td>
+<td>中文</td>
+<td>~74万篇</td>
+<td>中文新闻分类</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="2-为什么计算机需要词向量">2. 为什么计算机需要词向量</h2>
+<p>计算机擅长处理数字，但原始文本由字符和符号组成，不能直接参与矩阵乘法、梯度下降等数值运算。</p>
+<p>例如，模型不会直接把“猫”理解成一种动物，而是把它表示成一组数字：</p>
+<pre><code class="language-text">猫 → [0.21, -0.37, 0.84, 0.12, ...]
+狗 → [0.25, -0.31, 0.79, 0.18, ...]
+汽车 → [-0.62, 0.44, 0.05, -0.73, ...]
+</code></pre>
+<p>这些数字不是词典释义，而是词在向量空间中的坐标。由于“猫”和“狗”经常出现在相似语境中，它们的向量通常比较接近；“猫”和“汽车”的使用语境差别较大，向量通常相距较远。</p>
+<p>词向量解决的核心问题是：</p>
+<pre><code class="language-text">如何把离散的语言符号转换成神经网络可以计算、比较和学习的连续数值表示？
+</code></pre>
+<p><img loading="lazy" decoding="async" alt="文本表示到词向量的演进" src="images/word-embedding-evolution.svg" /></p>
+<p>假设有一句话：</p>
+<pre><code class="language-text">我喜欢自然语言处理
+</code></pre>
+<p>文本模型通常先将其切分为词或子词：</p>
+<pre><code class="language-text">[&quot;我&quot;, &quot;喜欢&quot;, &quot;自然&quot;, &quot;语言&quot;, &quot;处理&quot;]
+</code></pre>
+<p>再将每个词或子词转换成编号：</p>
+<pre><code class="language-text">[15, 86, 120, 205, 309]
+</code></pre>
+<p>编号只能标识词的身份，编号之间的大小没有语义：</p>
+<pre><code class="language-text">“狗”的编号是 18，“猫”的编号是 200
+</code></pre>
+<p>这不代表“猫”比“狗”大，也不代表二者相差 <code>182</code> 个语义单位。因此，模型还需要把离散编号转换成能够表达语义关系的向量。</p>
+<hr />
+<h2 id="3-文本分词与编号">3. 文本分词与编号</h2>
+<p>清洗好的原始文本仍然是连续的字符流。计算机无法直接理解"我喜欢学习"是四个词还是四个字，需要先进行<strong>分词（Tokenization）</strong>，再把切分后的单元映射为整数<strong>编号（ID）</strong>。</p>
+<p>这个过程是从文本到向量的关键桥梁，任何一个环节出问题，后续的词向量都会偏离预期。</p>
+<p><img loading="lazy" decoding="async" alt="从文本到ID的完整流程" src="images/text-to-id-flow.svg" /></p>
+<h3 id="3-1-什么是分词单位-token">3.1 什么是分词单位（Token）</h3>
+<p>在正式讨论算法之前，先明确切分后的最小单元不一定是"词"。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>分词粒度</th>
+<th>示例（中文："我喜欢学习自然语言处理"）</th>
+<th>示例（英文："unbelievable results"）</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字/字符级</td>
+<td>["我", "喜", "欢", "学", "习", ...]</td>
+<td>["u", "n", "b", "e", "l", ...]</td>
+<td>词表最小、无OOV</td>
+<td>序列过长、语义单元过于细碎</td>
+</tr>
+<tr>
+<td>词级</td>
+<td>["我", "喜欢", "学习", "自然", "语言", "处理"]</td>
+<td>["unbelievable", "results"]</td>
+<td>符合人类直觉</td>
+<td>未登录词多、词表难以控制</td>
+</tr>
+<tr>
+<td>子词级</td>
+<td>["我", "喜欢", "学", "习", ...]</td>
+<td>["un", "believ", "able", "result", "s"]</td>
+<td>平衡词表与OOV</td>
+<td>切分结果不总是符合语言学直觉</td>
+</tr>
+<tr>
+<td>字节级</td>
+<td>每个UTF-8字节分别作为Token</td>
+<td>同上</td>
+<td>绝对无OOV，完全跨语言</td>
+<td>序列极长、效率低</td>
+</tr>
+</tbody>
+</table></div>
+<p>现代大模型几乎都采用<strong>子词（Subword）</strong> 方案，兼顾了词表规模和未登录词问题。</p>
+<h3 id="3-2-英文分词-从空格切分到子词">3.2 英文分词：从空格切分到子词</h3>
+<p>英文天然有空格作为分隔，但真正的分词远不止 <code>split()</code>。</p>
+<p><strong>基础空格切分的问题</strong></p>
+<pre><code class="language-python">raw = &quot;Don't stop believin', hold on to that feelin'!&quot;
+
+# 简单 split 切出了不规范的 token
+print(raw.split())
+# → [&quot;Don't&quot;, &quot;stop&quot;, &quot;believin',&quot;, &quot;hold&quot;, &quot;on&quot;, &quot;to&quot;, &quot;that&quot;, &quot;feelin'!&quot;]
+#    标点被错误地附着在单词上
+</code></pre>
+<p><strong>基于规则的英文分词（Penn Treebank 风格）</strong></p>
+<pre><code class="language-python">import re
+
+def ptb_tokenize(text: str) -&gt; list[str]:
+    # 分离标点
+    text = re.sub(r&quot;([.,!?;:])&quot;, r&quot; \1 &quot;, text)
+    # 缩约词拆分（简化版）
+    text = re.sub(r&quot;n't&quot;, &quot; n't&quot;, text)
+    text = re.sub(r&quot;'s&quot;, &quot; 's&quot;, text)
+    text = re.sub(r&quot;'ve&quot;, &quot; 've&quot;, text)
+    text = re.sub(r&quot;'re&quot;, &quot; 're&quot;, text)
+    text = re.sub(r&quot;'ll&quot;, &quot; 'll&quot;, text)
+    text = re.sub(r&quot;'d&quot;, &quot; 'd&quot;, text)
+    text = re.sub(r&quot;'m&quot;, &quot; 'm&quot;, text)
+    # 多空格合并
+    text = re.sub(r&quot;\s+&quot;, &quot; &quot;, text)
+    return text.strip().split()
+
+print(ptb_tokenize(&quot;Don't stop believin', hold on!&quot;))
+# → [&quot;Do&quot;, &quot;n't&quot;, &quot;stop&quot;, &quot;believin&quot;, &quot;'&quot;, &quot;,&quot;, &quot;hold&quot;, &quot;on&quot;, &quot;!&quot;]
+</code></pre>
+<p><strong>现代子词分词：BPE 算法详解</strong></p>
+<p>BPE（Byte Pair Encoding，字节对编码）最初是压缩算法，被 OpenAI、Google 等广泛用于大模型分词。它的核心思想非常朴素：</p>
+<pre><code class="language-text">把语料中最常共同出现的字符对，合并成一个新的符号。
+重复这个过程直到词表大小达到预设上限。
+</code></pre>
+<p><strong>BPE 训练步骤（简化版）：</strong></p>
+<pre><code class="language-text">步骤 0：初始化词表，包含所有基础字符。
+        例如英文：a b c ... z A B C ... Z 0 1 ... 9 , . ! ? ...
+
+步骤 1：将训练语料中的每个词拆成字符序列，并在末尾加 &lt;/w&gt; 标记词边界。
+        &quot;low&quot;      →  [&quot;l&quot;, &quot;o&quot;, &quot;w&quot;, &quot;&lt;/w&gt;&quot;]     频率：5
+        &quot;lower&quot;    →  [&quot;l&quot;, &quot;o&quot;, &quot;w&quot;, &quot;e&quot;, &quot;r&quot;, &quot;&lt;/w&gt;&quot;]   频率：2
+        &quot;newest&quot;   →  [&quot;n&quot;, &quot;e&quot;, &quot;w&quot;, &quot;e&quot;, &quot;s&quot;, &quot;t&quot;, &quot;&lt;/w&gt;&quot;]   频率：3
+        &quot;widest&quot;   →  [&quot;w&quot;, &quot;i&quot;, &quot;d&quot;, &quot;e&quot;, &quot;s&quot;, &quot;t&quot;, &quot;&lt;/w&gt;&quot;]   频率：2
+
+步骤 2：统计所有相邻字符对的出现频率，找到最高频的一对。
+        例如 &quot;e&quot; + &quot;s&quot; 在 &quot;newest&quot; 和 &quot;widest&quot; 中各出现一次，
+        总共频率 3+2 = 5，假设这是最高频对。
+
+步骤 3：将 &quot;es&quot; 合并为一个新符号，加入词表。
+        重新计算语料：
+        &quot;newest&quot; →  [&quot;n&quot;, &quot;e&quot;, &quot;w&quot;, &quot;es&quot;, &quot;t&quot;, &quot;&lt;/w&gt;&quot;]
+        &quot;widest&quot; →  [&quot;w&quot;, &quot;i&quot;, &quot;d&quot;, &quot;es&quot;, &quot;t&quot;, &quot;&lt;/w&gt;&quot;]
+
+步骤 4：重复步骤 2 和步骤 3，直到词表大小达到目标（如 32000、50257）。
+</code></pre>
+<p><strong>BPE 编码（推理时切分新文本）：</strong></p>
+<pre><code class="language-text">假设已训练好的 BPE 词表包含以下合并规则：
+  er  →  &lt;er&gt;
+  st  →  &lt;st&gt;
+  est →  &lt;est&gt;
+  low →  &lt;low&gt;
+
+对新词 &quot;lowest&quot; 进行编码：
+
+初始字符拆分：l o w e s t &lt;/w&gt;
+     应用合并规则：l o w → &lt;low&gt;
+          →  &lt;low&gt; e s t &lt;/w&gt;
+     应用合并规则：s t → &lt;st&gt;
+          →  &lt;low&gt; e &lt;st&gt; &lt;/w&gt;
+     应用合并规则：e &lt;st&gt; → &lt;est&gt;
+          →  &lt;low&gt; &lt;est&gt; &lt;/w&gt;
+
+最终结果：[&quot;&lt;low&gt;&quot;, &quot;&lt;est&gt;&quot;, &quot;&lt;/w&gt;&quot;]
+</code></pre>
+<p>BPE 的优势在于：<strong>从未见过的词也能通过已有子词组合出合理的切分。</strong> 例如新词"Transformer"虽然训练时没见过，但只要词表里有"Trans""form""er"等子词，就能正确切分。</p>
+<h3 id="3-3-中文分词-从词典匹配到深度学习">3.3 中文分词：从词典匹配到深度学习</h3>
+<p>中文没有天然空格分隔，分词难度显著高于英文。</p>
+<p><strong>基于词典的正向最大匹配（FMM）</strong></p>
+<pre><code class="language-python">def forward_max_match(text: str, word_dict: set[str], max_len: int = 4) -&gt; list[str]:
+    result = []
+    i = 0
+    while i &lt; len(text):
+        matched = None
+        # 从最长可能长度开始尝试
+        for length in range(max_len, 0, -1):
+            if i + length &gt; len(text):
+                continue
+            chunk = text[i : i + length]
+            if chunk in word_dict:
+                matched = chunk
+                break
+        if matched is None:
+            # 词典中没有匹配，单字作为回退
+            matched = text[i]
+            length = 1
+        result.append(matched)
+        i += length
+    return result
+
+word_dict = {&quot;我&quot;, &quot;喜欢&quot;, &quot;学习&quot;, &quot;自然&quot;, &quot;语言&quot;, &quot;处理&quot;, &quot;自然语言处理&quot;}
+print(forward_max_match(&quot;我喜欢学习自然语言处理&quot;, word_dict))
+# → [&quot;我&quot;, &quot;喜欢&quot;, &quot;学习&quot;, &quot;自然语言处理&quot;]
+</code></pre>
+<p>匹配方向会影响歧义切分。例如"北京大学生前来应聘"：</p>
+<pre><code class="language-text">正向最大匹配：北京 / 大学 / 生前 / 来 / 应聘    ← &quot;生前&quot; 切错
+反向最大匹配：北京 / 大学生 / 前来 / 应聘    ← 正确
+双向匹配同时失败时，再通过统计概率或规则裁决。
+</code></pre>
+<p><strong>基于统计模型的分词（HMM / CRF）</strong></p>
+<p>经典的 <code>jieba</code> 分词使用隐马尔可夫模型（HMM）处理未登录词：</p>
+<pre><code class="language-python">import jieba
+
+# 精确模式：最常用
+words = jieba.lcut(&quot;小明硕士毕业于中国科学院计算所&quot;)
+print(words)
+# → ['小明', '硕士', '毕业', '于', '中国科学院', '计算所']
+
+# 搜索引擎模式：对长词再次切分，适合检索
+words = jieba.lcut_for_search(&quot;小明硕士毕业于中国科学院计算所&quot;)
+print(words)
+# → ['小明', '硕士', '毕业', '于', '中国', '科学', '学院', '科学院',
+#    '中国科学院', '计算', '计算所']
+</code></pre>
+<p><strong>现代大模型的中文分词策略</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>模型系列</th>
+<th>分词方案</th>
+<th>词表示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BERT 中文（Google）</td>
+<td>字级切分</td>
+<td>"自然语言处理" → ["自", "然", "语", "言", "处", "理"]</td>
+</tr>
+<tr>
+<td>LLaMA、GPT-NeoX</td>
+<td>字节级 BPE</td>
+<td>支持中文，但子词粒度不稳定</td>
+</tr>
+<tr>
+<td>Qwen、Baichuan、ChatGLM</td>
+<td>中文优化的 BPE / SentencePiece</td>
+<td>词表中包含大量中文整词和高频子词</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>重要经验</strong>：不同模型的分词器（Tokenizer）对同一段中文文本的切分结果可能不同，进而导致下游任务效果差异。迁移预训练模型时，<strong>必须使用与之配套的 Tokenizer</strong>，不能混用。</p>
+</blockquote>
+<h3 id="3-4-sentencepiece-统一多语言分词方案">3.4 SentencePiece：统一多语言分词方案</h3>
+<p>SentencePiece 是 Google 提出的一种<strong>与语言无关</strong>的分词框架，被 T5、LLaMA 2 等广泛采用。</p>
+<p>它的两个关键创新：
+- <strong>把空格当作普通字符处理</strong>：用 <code>▁</code>（U+2581）代替空格，输入连中文也不需要先做词级分词。
+- <strong>直接从原始字节序列训练</strong>：不依赖语言的分词知识，理论上支持任何语言。</p>
+<pre><code class="language-text">原始文本：&quot;我喜欢NLP&quot;
+
+SentencePiece 处理流程：
+  1. 空格替换：&quot;我喜欢NLP&quot; → &quot;▁我喜欢NLP&quot;
+  2. 训练 BPE / Unigram LM：在字符序列上学习合并规则
+  3. 输出（示例）：[&quot;▁我&quot;, &quot;喜欢&quot;, &quot;N&quot;, &quot;L&quot;, &quot;P&quot;]
+</code></pre>
+<p>Unigram LM 是 SentencePiece 默认使用的子词算法，与 BPE 的核心区别：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>BPE</th>
+<th>Unigram LM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>合并规则</td>
+<td>贪心合并最高频字符对</td>
+<td>基于概率模型选择最优切分</td>
+</tr>
+<tr>
+<td>切分结果确定性</td>
+<td>确定，每次相同</td>
+<td>取概率最大的切分路径</td>
+</tr>
+<tr>
+<td>替换回退策略</td>
+<td>无</td>
+<td>提供多个备选切分方案</td>
+</tr>
+<tr>
+<td>词表大小控制</td>
+<td>通过合并次数</td>
+<td>通过词汇概率修剪</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="3-5-构建词表与特殊-token">3.5 构建词表与特殊 Token</h3>
+<p>完成分词后，需要把所有出现过的 Token 整理成一张映射表（词表 / Vocabulary）。</p>
+<p><strong>词表构建流程：</strong></p>
+<pre><code class="language-text">步骤 1：词频统计。遍历全部语料，统计每个 Token 的出现次数。
+步骤 2：低频截断。词频 &lt; min_freq 的 Token 通常丢弃，否则词表过大且信息不足。
+步骤 3：加入特殊 Token。
+步骤 4：为每个 Token 分配一个唯一的整数 ID。通常 0 留给 padding。
+</code></pre>
+<p><strong>必备的特殊 Token：</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>特殊 Token</th>
+<th>含义</th>
+<th>典型 ID</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[PAD]</code></td>
+<td>填充</td>
+<td>0</td>
+<td>批次内句子长度不一致时，用 PAD 补齐到相同长度</td>
+</tr>
+<tr>
+<td><code>[UNK]</code></td>
+<td>未知词（unknown）</td>
+<td>1</td>
+<td>词表中没有的 Token 用 UNK 代替，避免崩溃</td>
+</tr>
+<tr>
+<td><code>&lt;[BOS_never_used_51bce0c785ca2f68081bfa7d91973934]&gt;</code> / <code>&lt;s&gt;</code></td>
+<td>句子开始</td>
+<td>2</td>
+<td>标记输入序列的起始位置</td>
+</tr>
+<tr>
+<td><code>[SEP]</code> / <code>&lt;/s&gt;</code></td>
+<td>句子结束/分隔</td>
+<td>3</td>
+<td>标记句子结束或分隔两个句子（如 QA 的问题和答案）</td>
+</tr>
+<tr>
+<td><code>&lt;[BOS_never_used_51bce0c785ca2f68081bfa7d91973934]&gt;</code></td>
+<td>分类位</td>
+<td>4</td>
+<td>BERT 等模型的分类任务使用，&lt;[BOS_never_used_51bce0c785ca2f68081bfa7d91973934]&gt; 的向量代表整句语义</td>
+</tr>
+<tr>
+<td><code>[MASK]</code></td>
+<td>掩码位</td>
+<td>5</td>
+<td>MLM 预训练任务中，用来替换被预测的词</td>
+</tr>
+</tbody>
+</table></div>
+<pre><code class="language-python">def build_vocab(token_counter: dict[str, int], min_freq: int = 3) -&gt; dict[str, int]:
+    # 1. 先放特殊 Token，ID 固定
+    vocab = {
+        &quot;[PAD]&quot;: 0,
+        &quot;[UNK]&quot;: 1,
+        &quot;&lt;[BOS_never_used_51bce0c785ca2f68081bfa7d91973934]&gt;&quot;: 2,
+        &quot;[SEP]&quot;: 3,
+        &quot;&lt;[BOS_never_used_51bce0c785ca2f68081bfa7d91973934]&gt;&quot;: 4,
+        &quot;[MASK]&quot;: 5,
+    }
+    next_id = len(vocab)
+
+    # 2. 按词频从高到低加入词表
+    sorted_tokens = sorted(token_counter.items(), key=lambda x: -x[1])
+    for token, freq in sorted_tokens:
+        if freq &lt; min_freq:
+            continue
+        if token in vocab:
+            continue
+        vocab[token] = next_id
+        next_id += 1
+
+    return vocab
+</code></pre>
+<h3 id="3-6-从-token-到-id-编号映射">3.6 从 Token 到 ID：编号映射</h3>
+<p>词表构建完成后，每个 Token 都有唯一的整数 ID。编号映射就是查表过程：</p>
+<pre><code class="language-python">def tokens_to_ids(tokens: list[str], vocab: dict[str, int]) -&gt; list[int]:
+    unk_id = vocab[&quot;[UNK]&quot;]
+    return [vocab.get(token, unk_id) for token in tokens]
+
+# 假设词表：
+# &quot;我&quot; → 15
+# &quot;喜欢&quot; → 86
+# &quot;自然语言处理&quot; → 309
+# &quot;[UNK]&quot; → 1
+
+tokens = [&quot;我&quot;, &quot;喜欢&quot;, &quot;一个陌生的词&quot;]
+ids = tokens_to_ids(tokens, vocab)
+# → [15, 86, 1]   陌生词被映射为 [UNK] 的 ID 1
+</code></pre>
+<p><strong>反向映射（ID → Token）用于调试和解码：</strong></p>
+<pre><code class="language-python">def ids_to_tokens(ids: list[int], id2token: dict[int, str]) -&gt; list[str]:
+    return [id2token[id] for id in ids]
+</code></pre>
+<h3 id="3-7-处理批输入与序列长度对齐">3.7 处理批输入与序列长度对齐</h3>
+<p>实际训练时数据是成批进入模型的，同一批次内的序列长度必须相同。</p>
+<pre><code class="language-text">批次内的三条句子（已转 ID）：
+句子 A：[2, 15, 86, 309, 3]            长度 5
+句子 B：[2, 233, 86, 520, 128, 77, 3]  长度 7
+句子 C：[2, 42, 1024, 3]               长度 4
+
+补齐到最大长度 7（用 PAD=0 填充）：
+句子 A：[2, 15, 86, 309, 3, 0, 0]
+句子 B：[2, 233, 86, 520, 128, 77, 3]
+句子 C：[2, 42, 1024, 3, 0, 0, 0]
+
+同时生成 attention_mask 告诉模型哪些位置是填充（0=PAD，1=真实内容）：
+句子 A：[1, 1, 1, 1, 1, 0, 0]
+句子 B：[1, 1, 1, 1, 1, 1, 1]
+句子 C：[1, 1, 1, 1, 0, 0, 0]
+</code></pre>
+<p>如果不使用 mask，模型会把 PAD 位置的 0 向量也当作真实语义参与注意力计算，导致错误的上下文聚合。</p>
+<hr />
+<h2 id="4-从独热编码到词向量">4. 从独热编码到词向量</h2>
+<h3 id="4-1-独热编码">4.1 独热编码</h3>
+<p>独热编码（One-Hot Encoding）为词表中的每个词分配一个维度。假设词表为：</p>
+<pre><code class="language-text">[&quot;猫&quot;, &quot;狗&quot;, &quot;苹果&quot;, &quot;汽车&quot;]
+</code></pre>
+<p>对应表示为：</p>
+<pre><code class="language-text">猫   → [1, 0, 0, 0]
+狗   → [0, 1, 0, 0]
+苹果 → [0, 0, 1, 0]
+汽车 → [0, 0, 0, 1]
+</code></pre>
+<p>这种表示能区分词，但存在三个明显问题。</p>
+<h4 id="维度过高">维度过高</h4>
+<p>如果词表有 <code>100000</code> 个词，每个向量就有 <code>100000</code> 维。</p>
+<h4 id="数据稀疏">数据稀疏</h4>
+<p>向量中只有一个位置是 <code>1</code>，其余全是 <code>0</code>，存储和计算效率较低。</p>
+<h4 id="无法表达语义相似性">无法表达语义相似性</h4>
+<p>任意两个不同词的独热向量都互相正交：</p>
+<pre><code class="language-text">猫 · 狗 = 0
+猫 · 汽车 = 0
+</code></pre>
+<p>从独热编码看，“猫”和“狗”与“猫”和“汽车”同样不相似，这显然不符合语言直觉。</p>
+<h3 id="4-2-稠密词向量">4.2 稠密词向量</h3>
+<p>词向量通常是几十维到数千维的稠密实数向量：</p>
+<pre><code class="language-text">猫 → [0.21, -0.37, 0.84, ...]
+</code></pre>
+<p>与独热编码相比，它具有以下特点：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>独热编码</th>
+<th>词向量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>维度</td>
+<td>等于词表大小，通常很高</td>
+<td>通常为几十到数千维</td>
+</tr>
+<tr>
+<td>数据形式</td>
+<td>稀疏，大部分为 <code>0</code></td>
+<td>稠密，大部分维度有值</td>
+</tr>
+<tr>
+<td>是否学习得到</td>
+<td>通常不是</td>
+<td>通常通过训练学习</td>
+</tr>
+<tr>
+<td>语义关系</td>
+<td>无法直接表达</td>
+<td>可用距离或方向近似表达</td>
+</tr>
+<tr>
+<td>未登录词处理</td>
+<td>无法处理</td>
+<td>可结合子词方法处理</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="5-词向量的数学表示">5. 词向量的数学表示</h2>
+<p>设词表大小为 <code>V</code>，每个词向量的维度为 <code>d</code>，所有词向量可以组成一个嵌入矩阵：</p>
+<pre><code class="language-text">E ∈ R^(V×d)
+</code></pre>
+<p>其中：</p>
+<ul>
+<li><code>V</code>：词表中的词或 Token 数量。</li>
+<li><code>d</code>：每个向量的维度。</li>
+<li><code>E</code>：嵌入矩阵（Embedding Matrix）。</li>
+<li><code>E[i]</code>：第 <code>i</code> 个词对应的向量。</li>
+</ul>
+<p>假设：</p>
+<pre><code class="language-text">V = 50000
+d = 300
+</code></pre>
+<p>那么嵌入矩阵形状为：</p>
+<pre><code class="language-text">E.shape = (50000, 300)
+</code></pre>
+<p>当输入词的编号为 <code>203</code> 时，模型执行的核心操作就是查表：</p>
+<pre><code class="language-text">词向量 = E[203]
+</code></pre>
+<p>如果使用独热向量 <code>x</code> 表示该词，查表也可以写成矩阵乘法：</p>
+<pre><code class="language-text">v = xE
+</code></pre>
+<p>因为 <code>x</code> 只有第 <code>203</code> 个位置为 <code>1</code>，所以乘法结果正好取出 <code>E</code> 的第 <code>203</code> 行。实际工程通常直接使用索引查表，不会真的构造巨大的独热向量。</p>
+<h2 id="6-词向量为什么能够表达语义">6. 词向量为什么能够表达语义</h2>
+<p>词向量背后的重要思想是分布假设（Distributional Hypothesis）：</p>
+<blockquote>
+<p>一个词的含义，可以由它经常共同出现的上下文来刻画。</p>
+</blockquote>
+<p>例如：</p>
+<pre><code class="language-text">小猫是一种可爱的宠物
+小狗是一种忠诚的宠物
+小猫喜欢吃鱼
+小狗喜欢吃肉
+</code></pre>
+<p>“猫”和“狗”经常与“宠物”“可爱”“吃”等相似上下文共同出现。训练模型为了完成上下文预测任务，会对它们进行相似的参数更新，最终让二者的向量逐渐接近。</p>
+<p>这并不意味着某个维度一定能直接解释为“可爱程度”或“动物程度”。语义通常分布在多个维度的组合中，这也是“分布式表示”名称的来源。</p>
+<p><img loading="lazy" decoding="async" alt="词向量语义空间" src="images/word-vector-semantic-space.svg" /></p>
+<h2 id="7-如何衡量两个词是否相似">7. 如何衡量两个词是否相似</h2>
+<h3 id="7-1-余弦相似度">7.1 余弦相似度</h3>
+<p>词向量最常用的相似度指标是余弦相似度（Cosine Similarity）：</p>
+<pre><code class="language-text">cos(u, v) = (u · v) / (||u|| × ||v||)
+</code></pre>
+<p>其中：</p>
+<ul>
+<li><code>u · v</code>：两个向量的点积。</li>
+<li><code>||u||</code>：向量 <code>u</code> 的长度。</li>
+<li><code>||v||</code>：向量 <code>v</code> 的长度。</li>
+<li><code>cos(u, v)</code>：两个向量夹角的余弦值。</li>
+</ul>
+<p>通常可以这样理解：</p>
+<pre><code class="language-text">接近 1  → 方向接近，语义通常较相似
+接近 0  → 方向接近垂直，相关性通常较弱
+接近 -1 → 方向相反
+</code></pre>
+<p>余弦相似度关注向量方向，而弱化向量长度的影响，适合比较文本向量的语义方向。</p>
+<h3 id="7-2-计算示例">7.2 计算示例</h3>
+<pre><code class="language-python">import numpy as np
+
+
+def cosine_similarity(left: np.ndarray, right: np.ndarray) -&gt; float:
+    denominator = np.linalg.norm(left) * np.linalg.norm(right)
+    if denominator == 0:
+        raise ValueError(&quot;不能计算零向量的余弦相似度&quot;)
+    return float(np.dot(left, right) / denominator)
+
+
+cat = np.array([0.8, 0.6, 0.1], dtype=np.float64)
+dog = np.array([0.75, 0.65, 0.12], dtype=np.float64)
+car = np.array([-0.2, 0.1, 0.95], dtype=np.float64)
+
+cat_dog_similarity = cosine_similarity(cat, dog)
+cat_car_similarity = cosine_similarity(cat, car)
+
+assert cat_dog_similarity &gt; cat_car_similarity
+</code></pre>
+<p>这个例子中的向量是人工构造的，只用于说明计算过程。真实词向量应由模型从语料中学习。</p>
+<h3 id="7-3-欧氏距离">7.3 欧氏距离</h3>
+<p>也可以使用欧氏距离：</p>
+<pre><code class="language-text">distance(u, v) = √Σ(ui - vi)²
+</code></pre>
+<p>距离越小，两个向量越接近。但欧氏距离会受到向量长度影响，因此文本检索中常先对向量做归一化，或直接使用余弦相似度。</p>
+<h2 id="8-word2vec-如何学习词向量">8. Word2Vec 如何学习词向量</h2>
+<p>Word2Vec 是经典的静态词向量训练方法，主要包含两种架构：</p>
+<ul>
+<li>CBOW：根据上下文预测中心词。</li>
+<li>Skip-gram：根据中心词预测上下文。</li>
+</ul>
+<h3 id="8-1-训练样本如何产生">8.1 训练样本如何产生</h3>
+<p>假设句子为：</p>
+<pre><code class="language-text">我 喜欢 学习 自然 语言 处理
+</code></pre>
+<p>窗口大小为 <code>2</code>，中心词为“自然”，它附近的上下文为：</p>
+<pre><code class="language-text">[&quot;学习&quot;, &quot;语言&quot;]
+</code></pre>
+<p>Skip-gram 会构造正样本：</p>
+<pre><code class="language-text">(自然, 学习)
+(自然, 语言)
+</code></pre>
+<p>滑动窗口遍历整个语料，就能产生大量“中心词—上下文词”训练对。</p>
+<h3 id="8-2-cbow">8.2 CBOW</h3>
+<p>CBOW（Continuous Bag of Words）使用周围词预测中心词：</p>
+<pre><code class="language-text">输入：[&quot;我&quot;, &quot;喜欢&quot;, &quot;语言&quot;, &quot;处理&quot;]
+目标：&quot;自然&quot;
+</code></pre>
+<p>基本过程：</p>
+<pre><code class="language-text">上下文词向量
+    ↓
+求和或取平均
+    ↓
+预测中心词的概率分布
+</code></pre>
+<p>CBOW 通常训练较快，对高频词表现较好。</p>
+<h3 id="8-3-skip-gram">8.3 Skip-gram</h3>
+<p>Skip-gram 使用中心词预测周围词：</p>
+<pre><code class="language-text">输入：&quot;自然&quot;
+目标：[&quot;学习&quot;, &quot;语言&quot;]
+</code></pre>
+<p>给定中心词 <code>w</code>，预测上下文词 <code>c</code> 的概率可写为：</p>
+<pre><code class="language-text">P(c | w) = exp(u_c · v_w) / Σ exp(u_j · v_w)
+</code></pre>
+<p>其中：</p>
+<ul>
+<li><code>v_w</code>：中心词 <code>w</code> 的输入向量。</li>
+<li><code>u_c</code>：上下文词 <code>c</code> 的输出向量。</li>
+<li><code>u_c · v_w</code>：二者的点积。</li>
+<li>分母：对词表中所有候选词进行归一化。</li>
+</ul>
+<p>当真实上下文词和中心词的点积变大时，其预测概率会提高。训练完成后，模型保留学到的向量作为词向量。</p>
+<p>Skip-gram 对低频词和较小数据集通常更友好，但计算成本可能高于 CBOW。</p>
+<h2 id="9-softmax-与负采样">9. Softmax 与负采样</h2>
+<h3 id="9-1-完整-softmax-的问题">9.1 完整 Softmax 的问题</h3>
+<p>Skip-gram 的完整 Softmax 需要计算词表中每个词的分数：</p>
+<pre><code class="language-text">Σ exp(u_j · v_w)
+</code></pre>
+<p>如果词表有几十万项，每个训练样本都遍历整个词表，计算成本非常高。</p>
+<h3 id="9-2-负采样">9.2 负采样</h3>
+<p>负采样（Negative Sampling）的思路是：</p>
+<pre><code class="language-text">不与词表中的所有词比较，
+只选择一个真实上下文词和少量随机错误词进行训练。
+</code></pre>
+<p>对一个中心词 <code>w</code>、真实上下文词 <code>c</code> 和负样本 <code>n_i</code>，常见目标函数为：</p>
+<pre><code class="language-text">J = log σ(u_c · v_w)
+  + Σ log σ(-u_ni · v_w)
+</code></pre>
+<p>其中 Sigmoid 函数为：</p>
+<pre><code class="language-text">σ(z) = 1 / (1 + e^(-z))
+</code></pre>
+<p>两部分作用分别是：</p>
+<ul>
+<li><code>log σ(u_c · v_w)</code>：增大中心词与真实上下文词的点积。</li>
+<li><code>log σ(-u_ni · v_w)</code>：减小中心词与随机负样本的点积。</li>
+</ul>
+<p>直观上可以理解为：</p>
+<pre><code class="language-text">真实搭配拉近，随机搭配推远。
+</code></pre>
+<p>经过大量训练后，具有相似上下文的词会聚集到相近区域。</p>
+<h2 id="10-其他经典静态词向量">10. 其他经典静态词向量</h2>
+<h3 id="10-1-glove">10.1 GloVe</h3>
+<p>GloVe（Global Vectors for Word Representation）利用整个语料库中的词共现统计。</p>
+<p>它关注的问题是：</p>
+<pre><code class="language-text">词 i 和词 j 在整个语料中共同出现了多少次？
+</code></pre>
+<p>简化后的优化目标可以写成：</p>
+<pre><code class="language-text">J = Σ f(Xij)(wi · wj + bi + bj - log Xij)²
+</code></pre>
+<p>其中：</p>
+<ul>
+<li><code>Xij</code>：词 <code>i</code> 和词 <code>j</code> 的共现次数。</li>
+<li><code>wi</code>、<code>wj</code>：两个词的向量。</li>
+<li><code>bi</code>、<code>bj</code>：偏置项。</li>
+<li><code>f(Xij)</code>：权重函数，避免极高频共现主导训练。</li>
+</ul>
+<p>Word2Vec 更偏向局部上下文预测，GloVe 更显式地使用全局共现统计。</p>
+<h3 id="10-2-fasttext">10.2 FastText</h3>
+<p>FastText 不只为完整词学习向量，还把词拆成字符级子串（Character N-gram）。</p>
+<p>例如：</p>
+<pre><code class="language-text">“学习”可以由“学”“习”“学习”等子串共同表示
+</code></pre>
+<p>它的优势是：</p>
+<ul>
+<li>能利用词内部结构。</li>
+<li>对低频词更友好。</li>
+<li>可以为部分未登录词组合出向量。</li>
+<li>对形态变化丰富的语言尤其有效。</li>
+</ul>
+<h2 id="11-静态词向量的主要局限">11. 静态词向量的主要局限</h2>
+<p>Word2Vec、GloVe、FastText 通常属于静态词向量：一个词在所有句子中只有一个固定向量。</p>
+<h3 id="11-1-一词多义">11.1 一词多义</h3>
+<p>例如“苹果”出现在两个句子中：</p>
+<pre><code class="language-text">这个苹果很好吃。
+苹果发布了新手机。
+</code></pre>
+<p>第一个“苹果”表示水果，第二个“苹果”表示公司。但静态词向量只能为它们提供同一个向量，通常会把多个义项混合在一起。</p>
+<h3 id="11-2-无法充分表示语序">11.2 无法充分表示语序</h3>
+<p>单独的词向量不包含完整句子的顺序关系：</p>
+<pre><code class="language-text">狗咬人
+人咬狗
+</code></pre>
+<p>两句话包含相同的词，但含义不同。仅对词向量求平均会得到相同或非常接近的句子表示。</p>
+<h3 id="11-3-训练语料中的偏见">11.3 训练语料中的偏见</h3>
+<p>词向量会学习语料中的统计规律，也可能同时学习性别、职业、地域和文化偏见。词向量反映的是语料分布，不等于客观事实。</p>
+<h3 id="11-4-领域迁移问题">11.4 领域迁移问题</h3>
+<p>同一个词在不同领域可能含义不同：</p>
+<pre><code class="language-text">“病毒”在医学、网络安全和社交传播中的含义不同。
+</code></pre>
+<p>在新闻语料上训练的词向量，不一定适合医疗、法律或安全领域。</p>
+<hr />
+<h2 id="12-从静态词向量到上下文词向量">12. 从静态词向量到上下文词向量</h2>
+<p>ELMo、BERT、GPT 等模型会根据上下文动态生成 Token 向量。</p>
+<p>对于下面两个句子：</p>
+<pre><code class="language-text">这个苹果很好吃。
+苹果发布了新手机。
+</code></pre>
+<p>上下文模型产生的"苹果"向量不同：</p>
+<pre><code class="language-text">Embedding(&quot;苹果&quot; | 水果语境) ≠ Embedding(&quot;苹果&quot; | 公司语境)
+</code></pre>
+<p>这是因为 Transformer 会让每个 Token 通过注意力机制读取句子中的其他 Token，从而把上下文信息融入表示。</p>
+<h3 id="12-1-静态与上下文词向量对比">12.1 静态与上下文词向量对比</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>静态词向量</th>
+<th>上下文词向量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代表方法</td>
+<td>Word2Vec、GloVe、FastText</td>
+<td>ELMo、BERT、GPT</td>
+</tr>
+<tr>
+<td>一个词的向量数量</td>
+<td>通常固定一个</td>
+<td>随上下文变化</td>
+</tr>
+<tr>
+<td>一词多义</td>
+<td>表达能力有限</td>
+<td>能根据语境区分</td>
+</tr>
+<tr>
+<td>计算方式</td>
+<td>查固定词向量表</td>
+<td>需要经过神经网络</td>
+</tr>
+<tr>
+<td>计算成本</td>
+<td>较低</td>
+<td>较高</td>
+</tr>
+<tr>
+<td>语义表达能力</td>
+<td>基础语义</td>
+<td>上下文和句法语义更丰富</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="13-同一词如何产生不同的向量-深入上下文表示规则">13. 同一词如何产生不同的向量：深入上下文表示规则</h2>
+<p>第 11 章提到了静态词向量无法处理一词多义，第 12 章引入了上下文词向量的概念。但"上下文"具体是如何让同一个 Token ID 映射出不同向量的？这背后有一套精确的规则和计算流程，不是"模型自己领悟了语义"的黑魔法。</p>
+<p><img loading="lazy" decoding="async" alt="同一词产生不同向量的计算路径" src="images/same-word-different-vectors.svg" /></p>
+<h3 id="13-1-规则一-同一-token-id-始终先查同一个基础嵌入表">13.1 规则一：同一 Token ID 始终先查同一个基础嵌入表</h3>
+<p>无论出现在什么上下文中，同一个 Token ID 对应的<strong>基础嵌入向量（Token Embedding / Input Embedding）</strong> 始终是同一张表里的同一行。</p>
+<pre><code class="language-python"># 假设词表大小 V=50000，嵌入维度 d=768
+token_embedding = nn.Embedding(num_embeddings=50000, embedding_dim=768)
+
+# &quot;苹果&quot;的 Token ID 假设是 4821
+# 无论在什么句子里，先做的都是同一查表操作
+base_apple_vec_1 = token_embedding(torch.tensor(4821))  # 水果句
+base_apple_vec_2 = token_embedding(torch.tensor(4821))  # 公司句
+
+# → base_apple_vec_1 == base_apple_vec_2
+</code></pre>
+<p>这意味着：<strong>在进入 Transformer 之前，"苹果"在两个句子里的向量是完全相同的。</strong> 差异是之后逐层加上去的。</p>
+<h3 id="13-2-规则二-叠加位置编码-让-同一个词在句中不同位置-也不同">13.2 规则二：叠加位置编码，让"同一个词在句中不同位置"也不同</h3>
+<p>基础嵌入只告诉你"这是什么词"，但模型还需要知道"这个词出现在第几个位置"。</p>
+<p>以 BERT 的可学习位置编码为例：</p>
+<pre><code class="language-python"># BERT-base 最大支持 512 个位置
+position_embedding = nn.Embedding(num_embeddings=512, embedding_dim=768)
+
+# 句子 A：&quot;这个 苹果 很 好吃 。&quot;
+# 索引：    0    1    2   3    4
+apple_pos_in_A = torch.tensor(1)   # &quot;苹果&quot;在位置 1
+pos_vec_A = position_embedding(apple_pos_in_A)
+
+# 句子 B：&quot;苹果 发布 了 新 手机 。&quot;
+# 索引：    0    1    2  3   4    5
+apple_pos_in_B = torch.tensor(0)   # &quot;苹果&quot;在位置 0
+pos_vec_B = position_embedding(apple_pos_in_B)
+
+# 此时加上位置后就已经不同了
+input_A = base_apple_vec + pos_vec_A
+input_B = base_apple_vec + pos_vec_B
+</code></pre>
+<p>除了<strong>可学习位置编码</strong>（BERT、GPT-2/3 使用），还有<strong>正弦位置编码</strong>（原始 Transformer、T5 使用）：</p>
+<pre><code class="language-text">对于位置 pos、维度 i（偶数维度 i=2k，奇数维度 i=2k+1）：
+
+PE(pos, 2k)     = sin( pos / 10000^(2k/d) )
+PE(pos, 2k+1)   = cos( pos / 10000^(2k/d) )
+</code></pre>
+<p>正弦编码是固定的数学函数，不需要训练；可学习位置编码则通过数据学出更灵活的位置偏好。二者的目标一致：<strong>让"苹果"放在句首和句中时，输入到后续层的初始表示就已经有所区分。</strong></p>
+<blockquote>
+<p><strong>注意</strong>：位置编码只解决"位置不同"的问题，还不能解决"语境不同但位置相同"的词义消歧。真正做语义融合的是注意力机制。</p>
+</blockquote>
+<h3 id="13-3-规则三-段-类型编码区分句子边界-可选">13.3 规则三：段/类型编码区分句子边界（可选）</h3>
+<p>在 BERT 的 NSP（Next Sentence Prediction）预训练任务中，还会叠加<strong>段编码（Segment Embedding / Token Type Embedding）</strong>：</p>
+<pre><code class="language-python"># 单句任务：全部是 0
+# 句子对任务（如 QA）：问句 A=0，答句 B=1
+segment_embedding = nn.Embedding(num_embeddings=2, embedding_dim=768)
+
+# QA 示例：问题是&quot;苹果是什么？&quot;，答案是&quot;一种水果&quot;
+# 问句中的 &quot;苹果&quot; 是 segment 0
+# 答案中的 &quot;水果&quot; 是 segment 1
+</code></pre>
+<p>加上段编码后，输入层的最终向量为：</p>
+<pre><code class="language-text">h_0 = Token Embedding + Position Embedding + Segment Embedding
+</code></pre>
+<h3 id="13-4-规则四-自注意力让每个词读取上下文-逐层融入语境信息">13.4 规则四：自注意力让每个词读取上下文，逐层融入语境信息</h3>
+<p>这是"同一词产生不同向量"的<strong>核心机制</strong>。</p>
+<h4 id="自注意力的一次计算拆解-单层单头">自注意力的一次计算拆解（单层单头）</h4>
+<p>以句子"这个 苹果 很好吃"为例，观察"苹果"如何通过注意力读取上下文：</p>
+<pre><code class="language-text">步骤 1：每个 Token 从当前层向量 h 投影出 Q（查询）、K（键）、V（值）
+        &quot;这个&quot;  → Q_这个, K_这个, V_这个
+        &quot;苹果&quot;  → Q_苹果, K_苹果, V_苹果
+        &quot;很好吃&quot; → Q_很好吃, K_很好吃, V_很好吃
+
+步骤 2：Q_苹果 与每个 K 做点积，得到注意力分数
+        score_苹果→这个   = Q_苹果 · K_这个     = 0.3
+        score_苹果→苹果   = Q_苹果 · K_苹果     = 1.2    ← 通常对自己分数较高
+        score_苹果→很好吃 = Q_苹果 · K_很好吃   = 2.4    ← 注意！这个分数远高于其他
+
+步骤 3：Softmax 归一化，得到注意力权重（和为 1）
+        weight_苹果→这个   = 0.08
+        weight_苹果→苹果   = 0.25
+        weight_苹果→很好吃 = 0.67    ← 70% 的注意力集中在&quot;很好吃&quot;
+
+步骤 4：用权重加权求和 V 向量
+        context_苹果 = 0.08 × V_这个 + 0.25 × V_苹果 + 0.67 × V_很好吃
+
+步骤 5：与原&quot;苹果&quot;向量残差相加，再经过 LayerNorm 和 FFN
+        得到更新后的 &quot;苹果&quot; 向量 h_new_苹果
+</code></pre>
+<p>由于"很好吃"这个上下文提供了强烈的水果信号，<strong>更新后的"苹果"向量就朝着"水果苹果"的方向被拉动了</strong>。</p>
+<p>对比"苹果 发布 新手机"：</p>
+<pre><code class="language-text">同样是 &quot;苹果&quot;：
+  score_苹果→发布  = 2.1
+  score_苹果→新手机 = 2.3
+
+context_苹果 ≈ 0.1 × V_苹果 + 0.45 × V_发布 + 0.45 × V_新手机
+              ↓
+  更新后的 &quot;苹果&quot; 朝着 &quot;科技公司&quot; 的方向被拉动
+</code></pre>
+<p>经过 12 层（BERT-base）或更多层（GPT-3 96 层、LLaMA-70B 80 层）的<strong>反复迭代</strong>，每一层都会重新计算注意力、重新融合上下文信息。到最后一层输出时，两个"苹果"的向量已经相距甚远——尽管它们最初查的是 Token Embedding 表中的同一行。</p>
+<h3 id="13-5-规则五-多层叠加产生的表示差异-通常底层偏向句法-高层偏向语义">13.5 规则五：多层叠加产生的表示差异，通常底层偏向句法、高层偏向语义</h3>
+<p>学术界通过探针（Probing）实验发现，Transformer 不同层捕获的信息类型不同：</p>
+<pre><code class="language-text">第 1-2 层（底层）：
+  - 主要做浅层语义 + 句法信息融合
+  - 相邻词依赖、大小写、标点等局部特征最清晰
+  - 同词在不同语境的向量差异仍较小
+
+第 3-8 层（中层）：
+  - 词义消歧逐渐明显
+  - &quot;苹果（水果）&quot; 和 &quot;苹果（公司）&quot; 开始拉开距离
+  - 依存句法关系、指代关系逐步建立
+
+第 9-12 层（高层）：
+  - 深度语义融合
+  - 同形多义词的向量几乎完全分离
+  - 与任务标签直接相关的表示最突出
+</code></pre>
+<p>因此，如果下游任务只需要区分"水果 vs 公司"，可以使用倒数第 2-3 层的向量；如果需要更细微的语义（如情感极性），使用最后一层通常更好。</p>
+<h3 id="13-6-规则六-多头注意力从不同子空间并行读取不同类型的上下文">13.6 规则六：多头注意力从不同子空间并行读取不同类型的上下文</h3>
+<p>Transformer 不会只用一组 Q/K/V，而是把维度分成多组「头」（Head），<strong>不同头关注不同类型的关系</strong>。</p>
+<p>以 BERT-base（12 头，768 维 → 每头 64 维）为例：</p>
+<pre><code class="language-text">头 1：关注形容词修饰关系  → &quot;苹果&quot; 更关注 &quot;好吃/新鲜/美味&quot;
+头 2：关注主谓宾搭配     → &quot;苹果&quot; 更关注 &quot;发布/推出/收购&quot;
+头 3：关注指代           → &quot;它&quot; 更关注前面提到的实体
+头 4：关注否定           → &quot;不&quot; 对被修饰词的影响
+...
+头 12：关注全局话题
+</code></pre>
+<p>每头计算完各自的上下文向量后，再拼接（Concatenate）成 768 维，再通过线性投影混合。这就是为什么同一"苹果"能同时综合"水果属性""公司属性""语法属性"等多维度信息——不是一个维度变了，而是<strong>多个子空间各自被不同上下文重新加权</strong>。</p>
+<h3 id="13-7-规则七-同一词在同一上下文中-不同任务微调后的向量也会不同">13.7 规则七：同一词在同一上下文中，不同任务微调后的向量也会不同</h3>
+<p>即使是同一句"苹果很好吃"，经过不同目标微调后，"苹果"的输出向量也可能不同：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>微调任务</th>
+<th>"苹果"向量关注的重点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>情感分类</td>
+<td>与"好吃"的正面情绪绑定更强</td>
+</tr>
+<tr>
+<td>命名实体识别（NER）</td>
+<td>判断是否为食物类实体</td>
+</tr>
+<tr>
+<td>机器翻译</td>
+<td>与前后词的对齐关系、目标语言词形变化</td>
+</tr>
+<tr>
+<td>问答抽取</td>
+<td>是否为答案的一部分、与问题词的关联</td>
+</tr>
+</tbody>
+</table></div>
+<p>这是因为微调会调整 Transformer 的参数（有时是全部参数，有时只调 LoRA 适配器），导致注意力权重的分布发生变化，进而改变最终的输出表示。</p>
+<h3 id="13-8-一个完整的数字示例-简化">13.8 一个完整的数字示例（简化）</h3>
+<pre><code class="language-text">设：
+  V=4（词表只有 PAD/UNK/苹果/好吃），&quot;苹果&quot;ID=2，&quot;好吃&quot;ID=3
+  d=4（简化维度，真实模型通常 768+）
+
+步骤 A：查表得到基础 Token Embedding
+  E[2] = [0.5, 0.3, 0.1, 0.8]   ← &quot;苹果&quot;
+  E[3] = [0.2, 0.9, 0.4, 0.3]   ← &quot;好吃&quot;
+
+步骤 B：加上位置编码（苹果在位置1，好吃在位置2）
+  PE[1] = [0.1, 0.2, 0.0, 0.1]
+  PE[2] = [0.0, 0.1, 0.2, 0.0]
+  h0_苹果 = [0.6, 0.5, 0.1, 0.9]
+  h0_好吃 = [0.2, 1.0, 0.6, 0.3]
+
+步骤 C：进入第1层 Transformer
+  假设投影后 Q_苹果=[1,0,0,0]，K_好吃=[2,0,0,0]（点积=2 &gt;&gt; 其他）
+  → 注意力权重：苹果→好吃 = 0.8，苹果→苹果 = 0.2
+  → context_苹果 = 0.2·V_苹果 + 0.8·V_好吃
+  → 残差+FFN 后得到 h1_苹果 ≈ [0.3, 0.8, 0.4, 0.5]   ← 明显朝&quot;好吃&quot;方向偏移
+
+如果换句子&quot;苹果 发布 手机&quot;：
+  &quot;发布&quot;的 K 与 Q_苹果 点积最高
+  → context_苹果 朝&quot;发布/公司&quot;方向偏移
+  → 最终 h1_苹果（公司） ≠ h1_苹果（水果）
+
+经过 12 层累积，差异被放大为语义空间中显著的距离。
+</code></pre>
+<h3 id="13-9-总结-同一词产生不同向量的七条规则">13.9 总结：同一词产生不同向量的七条规则</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>规则序号</th>
+<th>机制</th>
+<th>使向量不同的原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>基础 Token Embedding</td>
+<td>查表层不区分，但这是计算起点</td>
+</tr>
+<tr>
+<td>2</td>
+<td>位置编码（正弦/可学习）</td>
+<td>同一词在句中位置不同 → 初始输入就不同</td>
+</tr>
+<tr>
+<td>3</td>
+<td>段/类型编码（可选）</td>
+<td>同词出现在问句 vs 答句 → 段编码不同</td>
+</tr>
+<tr>
+<td>4</td>
+<td>自注意力加权融合上下文</td>
+<td><strong>核心机制</strong>：不同上下文中 Q·K 的相似度不同 → 加权和不同 → 向量不同</td>
+</tr>
+<tr>
+<td>5</td>
+<td>多层堆叠</td>
+<td>差异逐层累积；底层偏句法，高层偏语义消歧</td>
+</tr>
+<tr>
+<td>6</td>
+<td>多头并行</td>
+<td>不同头在不同子空间读取不同关系；最终拼接混合</td>
+</tr>
+<tr>
+<td>7</td>
+<td>下游任务微调</td>
+<td>微调改变注意力权重，向量分布因任务目标而异</td>
+</tr>
+</tbody>
+</table></div>
+<p>理解了这七条规则，就能明白"上下文词向量"不是什么神秘魔法，而是一套可解释、可复现的精确计算流程。每个数字的变化都有明确的计算路径。</p>
+<hr />
+<h2 id="14-词-token-与子词向量">14. 词、Token 与子词向量</h2>
+<p>现代大语言模型通常不直接以完整“词”为最小单位，而是使用 Token。</p>
+<p>Token 可能是：</p>
+<ul>
+<li>一个完整汉字。</li>
+<li>一个完整英文单词。</li>
+<li>英文单词的一部分。</li>
+<li>标点符号。</li>
+<li>特殊控制符号。</li>
+</ul>
+<p>例如英文单词可能被拆分为：</p>
+<pre><code class="language-text">unbelievable → [&quot;un&quot;, &quot;believ&quot;, &quot;able&quot;]
+</code></pre>
+<p>因此在现代大模型中，更准确的术语通常是 Token Embedding，而不是传统意义上的 Word Embedding。</p>
+<p>子词方案的优势包括：</p>
+<ul>
+<li>控制词表规模。</li>
+<li>降低未登录词问题。</li>
+<li>复用词根、前缀和后缀。</li>
+<li>可以组合表示从未完整见过的新词。</li>
+</ul>
+<h2 id="15-词向量-句向量和文本嵌入的区别">15. 词向量、句向量和文本嵌入的区别</h2>
+<p>这些概念相关，但粒度不同。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>表示对象</th>
+<th>常见用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>词向量</td>
+<td>一个词或 Token</td>
+<td>序列模型输入、词义分析</td>
+</tr>
+<tr>
+<td>句向量</td>
+<td>一个句子</td>
+<td>句子相似度、语义匹配</td>
+</tr>
+<tr>
+<td>段落向量</td>
+<td>一个段落</td>
+<td>聚类、分类、检索</td>
+</tr>
+<tr>
+<td>文档向量</td>
+<td>一篇文档</td>
+<td>文档检索、推荐、去重</td>
+</tr>
+<tr>
+<td>多模态向量</td>
+<td>文本、图像等</td>
+<td>跨模态搜索、图文匹配</td>
+</tr>
+</tbody>
+</table></div>
+<p>不能简单地认为“把所有词向量取平均”就是高质量句向量。平均池化会丢失语序、否定关系和重点信息。</p>
+<p>例如：</p>
+<pre><code class="language-text">我喜欢这部电影。
+我不喜欢这部电影。
+</code></pre>
+<p>两句话只有一个词不同，简单平均后的向量可能仍然很接近，但实际语义相反。现代句向量模型会专门针对语义匹配任务进行训练。</p>
+<h2 id="16-词向量中的类比关系">16. 词向量中的类比关系</h2>
+<p>经典词向量常展示下面的向量关系：</p>
+<pre><code class="language-text">国王 - 男人 + 女人 ≈ 女王
+北京 - 中国 + 日本 ≈ 东京
+</code></pre>
+<p>这表示某些语义关系可能近似对应向量空间中的方向。</p>
+<p>但是需要注意：</p>
+<ul>
+<li>类比关系不是严格代数定律。</li>
+<li>结果依赖训练语料、分词方式和训练参数。</li>
+<li>向量空间可能包含社会偏见。</li>
+<li>并不是每种语义关系都能用简单加减表达。</li>
+</ul>
+<p>因此，类比运算适合帮助建立直觉，不应被理解为模型真正掌握了形式逻辑。</p>
+<h2 id="17-词向量的常见应用">17. 词向量的常见应用</h2>
+<h3 id="17-1-语义相似度">17.1 语义相似度</h3>
+<p>比较两个词是否语义接近：</p>
+<pre><code class="language-text">相似词推荐、同义词发现、术语归一化
+</code></pre>
+<h3 id="17-2-文本分类">17.2 文本分类</h3>
+<p>词向量作为神经网络输入，用于：</p>
+<pre><code class="language-text">情感分析、垃圾邮件识别、主题分类、意图识别
+</code></pre>
+<h3 id="17-3-信息检索">17.3 信息检索</h3>
+<p>把查询和文档映射到向量空间，根据距离召回相关内容：</p>
+<pre><code class="language-text">用户问题 → 查询向量
+知识库内容 → 文档向量
+相似度搜索 → 返回相关文档
+</code></pre>
+<p>现代 RAG 系统通常使用句子或段落级 Embedding，而不是直接使用传统词向量。</p>
+<h3 id="17-4-推荐系统">17.4 推荐系统</h3>
+<p>可以把用户、商品、标签等映射到同一或相关向量空间，根据相似度进行召回和推荐。</p>
+<h3 id="17-5-聚类与可视化">17.5 聚类与可视化</h3>
+<p>对词向量进行聚类，可以发现语义群组。通过 PCA、t-SNE、UMAP 等降维方法，可以将高维向量投影到二维平面进行观察。</p>
+<p>降维图只保留部分结构，二维位置不能完全代表原始高维空间中的真实距离。</p>
+<h2 id="18-如何选择词向量或-embedding-模型">18. 如何选择词向量或 Embedding 模型</h2>
+<p>选型时应先确定任务粒度，而不是只看向量维度。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>需求</th>
+<th>推荐方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>研究经典 NLP 原理</td>
+<td>Word2Vec、GloVe</td>
+</tr>
+<tr>
+<td>处理低频词和词形变化</td>
+<td>FastText</td>
+</tr>
+<tr>
+<td>Token 级序列标注</td>
+<td>BERT 等上下文编码器</td>
+</tr>
+<tr>
+<td>句子语义相似度</td>
+<td>专用 Sentence Embedding 模型</td>
+</tr>
+<tr>
+<td>RAG 文档检索</td>
+<td>检索型文本 Embedding 模型</td>
+</tr>
+<tr>
+<td>多语言检索</td>
+<td>多语言 Embedding 模型</td>
+</tr>
+<tr>
+<td>图文互搜</td>
+<td>多模态 Embedding 模型</td>
+</tr>
+</tbody>
+</table></div>
+<p>工程上还需要评估：</p>
+<ul>
+<li>是否适配中文和目标领域。</li>
+<li>最大输入长度。</li>
+<li>向量维度和存储成本。</li>
+<li>推理速度和并发能力。</li>
+<li>是否支持本地部署。</li>
+<li>查询与文档是否需要不同编码方式。</li>
+<li>在真实业务数据上的召回率和排序效果。</li>
+</ul>
+<h2 id="19-常见误区">19. 常见误区</h2>
+<h3 id="误区一-向量的每个维度都有明确名称">误区一：向量的每个维度都有明确名称</h3>
+<p>词向量的语义通常分散在多个维度中。某一维数值较大，不一定能直接解释成“积极”“动物”或“性别”。</p>
+<h3 id="误区二-向量越大-语义越重要">误区二：向量越大，语义越重要</h3>
+<p>向量分量的绝对值不能单独解释为词的重要程度。比较语义通常需要使用完整向量和合适的相似度函数。</p>
+<h3 id="误区三-余弦相似度高就代表事实关系正确">误区三：余弦相似度高就代表事实关系正确</h3>
+<p>向量相似只说明模型认为两段内容在训练分布中相近，不保证它们逻辑一致、事实正确或可以互相替换。</p>
+<h3 id="误区四-词向量和向量数据库是同一个概念">误区四：词向量和向量数据库是同一个概念</h3>
+<p>词向量是数值表示；向量数据库负责存储、索引和搜索向量。前者产生数据，后者管理和检索数据。</p>
+<h3 id="误区五-不同模型的向量可以直接比较">误区五：不同模型的向量可以直接比较</h3>
+<p>不同模型学习到的坐标系不同。即使向量维度相同，也不能直接计算来自不同模型的向量相似度。</p>
+<pre><code class="language-text">模型 A 生成的查询向量
+必须与模型 A 生成的文档向量比较
+</code></pre>
+<h2 id="20-一条完整的现代文本向量化链路">20. 一条完整的现代文本向量化链路</h2>
+<p>以语义检索为例：</p>
+<pre><code class="language-text">原始文本
+  ↓
+清洗与切分
+  ↓
+Tokenizer 转为 Token ID
+  ↓
+Embedding 模型生成向量
+  ↓
+向量归一化
+  ↓
+写入向量索引
+  ↓
+查询向量与文档向量计算相似度
+  ↓
+召回最相关结果
+</code></pre>
+<p>需要特别区分两层 Embedding：</p>
+<ol>
+<li>模型内部的 Token Embedding：把 Token ID 变成向量序列。</li>
+<li>对外输出的文本 Embedding：把整个句子或段落压缩成一个用于检索的向量。</li>
+</ol>
+<p>二者都叫 Embedding，但表示粒度和训练目标不同。</p>
+<h2 id="21-总结">21. 总结</h2>
+<p>词向量的本质是：</p>
+<pre><code class="language-text">把离散语言符号映射到连续向量空间，
+让语义关系能够通过数值计算近似表达。
+</code></pre>
+<p>其发展路线可以概括为：</p>
+<pre><code class="language-text">独热编码
+  → 静态词向量
+  → 子词向量
+  → 上下文 Token 向量
+  → 句子、段落和多模态 Embedding
+</code></pre>
+<p>理解词向量时应抓住四个核心点：</p>
+<ol>
+<li>向量是模型可计算的语言表示。</li>
+<li>相似上下文促使词获得相似表示。</li>
+<li>向量距离可以近似反映语义关系，但不等于逻辑或事实。</li>
+<li>现代 Embedding 已从固定词表示发展为上下文相关、任务相关的文本表示。</li>
+</ol>
+<p>词向量连接了自然语言和数值计算，是理解 Word2Vec、Transformer、语义检索、向量数据库和 RAG 的重要基础。</p></div>
+      <nav class="post-pager" aria-label="上下篇"><a class="pager-link" href="%E4%BB%80%E4%B9%88%E6%98%AFRAG.html"><em>上一篇</em><b>什么是 RAG：检索增强生成从原理到实战</b></a><a class="pager-link next" href="%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BANLP%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html"><em>下一篇</em><b>从零搭建NLP模型完全指南</b></a></nav>
+    </article>
+  </main>
+</div>
+<footer class="blog-foot">
+  <div class="wrap foot-inner">
+    <span>© 2026 逐梦笔记 · 由 <code>scripts/build_blog.py</code> 从 docs/ 自动生成</span>
+    <span>内容来源：<a href="https://github.com/ShiQianzhi/note" target="_blank" rel="noopener noreferrer">ShiQianzhi/note</a> · 同步于 2026-11-26</span>
+  </div>
+</footer>
+<script src="../../blog.js"></script>
+</body>
+</html>

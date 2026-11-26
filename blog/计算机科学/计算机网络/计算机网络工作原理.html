@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>计算机网络工作原理：从输入 URL 到数据跨越互联网 · 逐梦笔记</title>
+<meta name="description" content="本文不把计算机网络理解为一组孤立协议，而是追踪一份数据如何从应用程序出发，经操作系统、网卡、交换机、路由器和服务器，再沿原路返回。读完后应能回答：每一层解决什么问题、数据经过设备时发生了什么、为什么需要这些协议，以及网络故障应该从哪里查起。">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../../blog.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="../../../index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../../../index.html">首页</a>
+      <div class="nav-drop">
+        <a href="../../../knowledge.html">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="../../../knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="../../../knowledge.html#domains">五大知识域</a>
+          <a href="../../../knowledge.html#cross">交叉与前沿</a>
+          <a href="../../../knowledge.html#axes">三条贯穿轴</a>
+          <a href="../../../knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="../../../career.html">世界职业体系</a>
+      <a href="../../index.html" class="active">博客</a>
+      <a class="nav-cta" href="../../../knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-wrap">
+  
+    <aside class="blog-side">
+      <div class="side-head">
+        <a class="blog-brand" href="../../index.html">逐梦笔记<span>NOTES</span></a>
+        <button class="side-toggle" id="sideToggle" aria-expanded="false" aria-controls="sideBody">目录</button>
+      </div>
+      <div class="side-body" id="sideBody">
+        <div class="tree-search">
+          <input id="treeQ" type="search" placeholder="筛选 197 篇笔记…" aria-label="筛选笔记">
+        </div>
+        <nav class="tree" aria-label="博客目录"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI创作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI短剧制作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI写周报，把我写成了公司CEO</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E5%86%99%E5%91%A8%E6%8A%A5%EF%BC%8C%E6%8A%8A%E6%88%91%E5%86%99%E6%88%90%E4%BA%86%E5%85%AC%E5%8F%B8CEO/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI的最后一活</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%B4%BB/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><a class="tree-link" href="../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%9B%E4%BD%9C%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html" title="AI 短剧创作保姆级教程：从一个想法到成片发布">AI 短剧创作保姆级教程：从一个想法到成片发布</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人生感悟</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/%E5%9C%A8%E5%89%A7%E5%8F%98%E4%B8%AD%E5%AF%BB%E8%B7%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8AI%E6%B5%AA%E6%BD%AE%E4%B8%8B%E6%8A%93%E4%BD%8F%E6%9C%BA%E9%81%87.html" title="在剧变中寻路：如何在 AI 浪潮下抓住机遇">在剧变中寻路：如何在 AI 浪潮下抓住机遇</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础学科</span><span class="tree-count">22</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数学</span><span class="tree-count">13</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">初等代数</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5.html" title="数的概念">数的概念</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E7%B1%BB%E5%88%AB.html" title="数的类别">数的类别</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E9%87%8F.html" title="数量">数量</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性代数</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F.html" title="向量（Vector）：从几何箭头到 AI 数据表示">向量（Vector）：从几何箭头到 AI 数据表示</a></div></details><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%8C%87%E6%95%B0%E8%BF%90%E7%AE%97.html" title="什么是指数运算">什么是指数运算</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%85%B3%E7%B3%BB.html" title="什么是线性关系">什么是线性关系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%87%A0%E4%BD%95%E5%85%A5%E9%97%A8.html" title="几何入门">几何入门</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97.html" title="四则运算">四则运算</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9F%BA%E6%9C%AC%E4%BB%A3%E6%95%B0.html" title="基本代数">基本代数</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E6%95%B0%E5%AD%A6.html" title="如何学习数学">如何学习数学</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%9A%E4%BB%8E0%E5%88%B0%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6.html" title="数学学习路线图：从0到高等数学">数学学习路线图：从0到高等数学</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E8%A1%A8%E7%A4%BA.html" title="数的分类与表示">数的分类与表示</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%AE%97%E6%9C%AF%E5%9F%BA%E7%A1%80.html" title="算术基础">算术基础</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">物理</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E4%BB%8E%E5%BE%AE%E8%A7%82%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E7%89%A9%E8%B4%A8%EF%BC%9A%E5%8E%9F%E5%AD%90%E3%80%81%E7%B2%92%E5%AD%90%E4%B8%8E%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8.html" title="从微观角度理解物质：原子、粒子与相互作用">从微观角度理解物质：原子、粒子与相互作用</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%89%A9%E8%B4%A8%E5%92%8C%E8%83%BD%E9%87%8F%E7%9A%84%E5%85%B3%E7%B3%BB.html" title="物质和能量的关系">物质和能量的关系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%90%86%E8%A7%A3%E7%94%B5%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%89%A9%E7%90%86%E5%9F%BA%E7%A1%80.html" title="理解电必须掌握的物理基础">理解电必须掌握的物理基础</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E%E5%8E%86%E5%8F%B2%E5%88%B0%E6%9C%AC%E8%B4%A8.html" title="电是什么：从历史到本质">电是什么：从历史到本质</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.html" title="电的原理与应用场景">电的原理与应用场景</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%A3%81%EF%BC%9A%E4%BB%8E%E7%94%B5%E5%9C%BA%E7%A3%81%E5%9C%BA%E5%88%B0%E7%94%B5%E7%A3%81%E6%B3%A2.html" title="电磁：从电场磁场到电磁波">电磁：从电场磁场到电磁波</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">语言</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">英语</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="英语学习笔记">英语学习笔记</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95.html" title="英语语法">英语语法</a></div></details><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%AF%AD%E6%B3%95.html" title="语法">语法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">心情随笔</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/%E5%85%AD%E7%A7%8D%E5%80%BC%E5%BE%97%E7%BB%93%E4%BA%A4%E4%B8%80%E8%BE%88%E5%AD%90%E7%9A%84%E4%BA%BA.html" title="六种值得结交一辈子的人">六种值得结交一辈子的人</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">生活常识</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">买房攻略</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98.html" title="下面是我总结了买房相关常见问题：">下面是我总结了买房相关常见问题：</a><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5.html" title="买房攻略">买房攻略</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">考驾照</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E8%80%83%E9%A9%BE%E7%85%A7/%E7%A7%91%E7%9B%AE%E4%B8%80.html" title="科目一刷题笔记">科目一刷题笔记</a></div></details><a class="tree-link" href="../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E5%90%84%E8%A1%8C%E4%B8%9A%E5%85%A8%E6%99%AF%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%AE%9A%E4%B9%89%E3%80%81%E7%8E%B0%E7%8A%B6%E4%B8%8EAI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%9C%AA%E6%9D%A5.html" title="各行业全景解析：定义、现状与 AI 时代的未来">各行业全景解析：定义、现状与 AI 时代的未来</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">计算机科学</span><span class="tree-count">160</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Agent 开发</span><span class="tree-count">11</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">docs</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">superpowers</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">specs</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/docs/superpowers/specs/2026-11-06-enterprise-agent-course-design.html" title="企业级 Agent 混合架构课程设计">企业级 Agent 混合架构课程设计</a></div></details></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">learning-records</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/learning-records/0001-python-worker-first.html" title="Learning Record 0001: Python Agent Worker First">Learning Record 0001: Python Agent Worker First</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/learning-records/0002-agent-state-checkpoint-recovery.html" title="Learning Record 0002: Agent State and Checkpoint Recovery">Learning Record 0002: Agent State and Checkpoint Recovery</a></div></details><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Agent%20%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="Agent 开发学习路线">Agent 开发学习路线</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Agent%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.html" title="Agent开发核心知识点">Agent开发核心知识点</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/Go-Python%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BD%ACAgent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B.html" title="Go/Python 后端工程师转 Agent 开发实战教程">Go/Python 后端工程师转 Agent 开发实战教程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/MISSION.html" title="Mission: 从 Python Agent Worker 学会企业级 Agent 开发">Mission: 从 Python Agent Worker 学会企业级 Agent 开发</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RAG.html" title="RAG">RAG</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RAG%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%A6%E7%BB%86%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html" title="RAG系统的详细工作流程">RAG系统的详细工作流程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E9%AB%98%E5%B9%B6%E5%8F%91%E4%BC%81%E4%B8%9A%E7%BA%A7Agent%E7%B3%BB%E7%BB%9F%E6%95%99%E7%A8%8B.html" title="从零搭建高并发企业级 Agent 系统教程">从零搭建高并发企业级 Agent 系统教程</a><a class="tree-link" href="../Agent%20%E5%BC%80%E5%8F%91/RESOURCES.html" title="企业级 Agent 开发资源">企业级 Agent 开发资源</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人工智能</span><span class="tree-count">33</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI行业基础知识相关概念</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAI.html" title="什么是 AI">什么是 AI</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAIGC.html" title="什么是 AIGC">什么是 AIGC</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAgent.html" title="什么是 Agent">什么是 Agent</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG">什么是 RAG</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE.html" title="什么是向量数据">什么是向量数据</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是大模型">什么是大模型</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是语言大模型">什么是语言大模型</a></div></details><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93.html" title="AI 学习笔记总结">AI 学习笔记总结</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E5%BA%94%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="AI 应用工程师从入门到实战的最佳学习路线">AI 应用工程师从入门到实战的最佳学习路线</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Chroma%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Chroma 入门手册：从零上手最轻量的向量数据库">Chroma 入门手册：从零上手最轻量的向量数据库</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/LangChain%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="LangChain 入门手册：用搭积木的方式编排大模型应用">LangChain 入门手册：用搭积木的方式编排大模型应用</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Transformer%20%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.html" title="Transformer 注意力机制详解">Transformer 注意力机制详解</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BB%8B%E7%BB%8D.html" title="人工智能介绍">人工智能介绍</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%A6%E7%90%86%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="人工智能伦理与安全">人工智能伦理与安全</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG：检索增强生成从原理到实战">什么是 RAG：检索增强生成从原理到实战</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%8D%E5%90%91%E9%87%8F.html" title="什么是词向量">什么是词向量</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BANLP%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html" title="从零搭建NLP模型完全指南">从零搭建NLP模型完全指南</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%85%B3%E4%BA%8EAI%E7%9A%84%E7%95%85%E6%83%B3%E5%92%8C%E6%80%9D%E8%80%83.html" title="关于AI的畅想和思考">关于AI的畅想和思考</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%80%85AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师">后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93.html" title="向量数据库：语义搜索的存储与检索引擎">向量数据库：语义搜索的存储与检索引擎</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BA%B2.html" title="大模型应用实战知识总纲">大模型应用实战知识总纲</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAAgent.html" title="如何搭建一个 Agent">如何搭建一个 Agent</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="学习笔记">学习笔记</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html" title="强化学习">强化学习</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%96%87%E6%9C%AC%E6%98%AF%E5%A6%82%E4%BD%95%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E7%9A%84.html" title="文本是如何变成向量的：Embedding 推理管线全解析">文本是如何变成向量的：Embedding 推理管线全解析</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html" title="机器学习-线性回归">机器学习-线性回归</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="机器学习基础">机器学习基础</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="深度学习基础">深度学习基础</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html" title="神经网络">神经网络</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Agent%20%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="网页版知识库 Agent 搭建实战">网页版知识库 Agent 搭建实战</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86.html" title="自然语言处理">自然语言处理</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89.html" title="计算机视觉">计算机视觉</a><a class="tree-link" href="../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E9%AB%98%E7%BB%B4%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%91%E9%87%8F%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%90%91%E9%87%8D%E5%BB%BA.html" title="高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容">高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础知识</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/DNS.html" title="DNS：从域名到 IP 地址的分布式解析系统">DNS：从域名到 IP 地址的分布式解析系统</a><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/HTTP.html" title="HTTP：从一次请求到现代 Web 传输体系">HTTP：从一次请求到现代 Web 传输体系</a><a class="tree-link" href="../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84.html" title="互联网是如何工作的">互联网是如何工作的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%9F%E7%90%86.html" title="操作系统的原理">操作系统的原理</a><a class="tree-link" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F.html" title="深入理解计算机系统">深入理解计算机系统</a><a class="tree-link" href="../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84.html" title="计算机是如何编码数据的">计算机是如何编码数据的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">8</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Elasticsearch</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/%E5%AE%89%E8%A3%85.html" title="创建网络">创建网络</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MongoDB</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念">基本概念</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%AE%89%E8%A3%85mongodb.html" title="安装mongodb">安装mongodb</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" title="数据库不存在会自动创建">数据库不存在会自动创建</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MySQL</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%9E%B6%E6%9E%84.html" title="MySQL 架构">MySQL 架构</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="MySQL数据库知识大纲">MySQL数据库知识大纲</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.html" title="存储引擎">存储引擎</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E7%B4%A2%E5%BC%95.html" title="索引">索引</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构与算法</span><span class="tree-count">10</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构</span><span class="tree-count">6</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数组和字符串</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C.html" title="数组的操作">数组的操作</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%A6%82%E8%BF%B0.html" title="概述">概述</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">树</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/%E6%A0%91.html" title="树">树</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性表</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8.html" title="线性表">线性表</a></div></details><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD.html" title="基本概念和术语">基本概念和术语</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E5%92%8C%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84.html" title="逻辑结构和物理结构">逻辑结构和物理结构</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">算法</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/K-Means.html" title="K-Means 聚类算法">K-Means 聚类算法</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97%E8%AF%A6%E8%A7%A3.html" title="位运算详解">位运算详解</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a><a class="tree-link" href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95.html" title="算法效率分析方法">算法效率分析方法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程笔记</span><span class="tree-count">54</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C 语言学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/C%20%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="此时会生成 a.out（windows 会生成 a.exe）">此时会生成 a.out（windows 会生成 a.exe）</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Docker</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Docker/docker%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Docker 入门手册：编写 Dockerfile、构建镜像与容器管理">Docker 入门手册：编写 Dockerfile、构建镜像与容器管理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言之旅</span><span class="tree-count">12</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架源码剖析</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Gin%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Gin%20%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Gin%E6%A1%86%E6%9E%B6%E5%BC%95%E6%93%8E%E5%AE%9E%E4%BE%8B.html" title="深入理解Gin框架引擎实例">深入理解Gin框架引擎实例</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言设计与实现</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%BA%90%E4%BB%A3%E7%A0%81.html" title="自己需要那个版本的 Go 标签，就用那个">自己需要那个版本的 Go 标签，就用那个</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言高级开发工程</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html" title="Go 单元测试">Go 单元测试</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E9%98%B6%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7.html" title="Go 语言高阶实战技巧">Go 语言高阶实战技巧</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Lua</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Lua/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BLua%E8%84%9A%E6%9C%AC.html" title="&quot;Hello, scripting!&quot;">&quot;Hello, scripting!&quot;</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">kubernetes</span><span class="tree-count">17</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">从入门到实战</span><span class="tree-count">16</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/K8s%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2.html" title="Kubernetes 从入门到实战：完整知识学习大纲">Kubernetes 从入门到实战：完整知识学习大纲</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC10%E7%AB%A0-Ingress%E4%B8%8E%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1.html" title="第10章：Ingress 与流量路由">第10章：Ingress 与流量路由</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC11%E7%AB%A0-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%9B%E9%98%B6.html" title="第11章 控制器进阶">第11章 控制器进阶</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC12%E7%AB%A0-RBAC%E6%9D%83%E9%99%90%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="第12章 RBAC 权限与安全">第12章 RBAC 权限与安全</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html" title="第13章 监控日志与可观测性">第13章 监控日志与可观测性</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC14%E7%AB%A0-Helm%E5%8C%85%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第14章 Helm 包管理与应用部署">第14章 Helm 包管理与应用部署</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC15%E7%AB%A0-%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98-%E5%AE%8C%E6%95%B4%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2.html" title="第15章 综合实战：完整微服务项目部署">第15章 综合实战：完整微服务项目部署</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC1%E7%AB%A0-K8s%E6%A6%82%E8%BF%B0%E4%B8%8E%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3.html" title="第1章 K8s 概述与架构理解">第1章 K8s 概述与架构理解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC2%E7%AB%A0-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="第2章 环境搭建实战">第2章 环境搭建实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC3%E7%AB%A0-Pod%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E6%88%98.html" title="第3章 Pod 核心概念与实战">第3章 Pod 核心概念与实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第4章 Deployment 与应用部署">第4章 Deployment 与应用部署</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC5%E7%AB%A0-Service%E4%B8%8E%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1.html" title="第5章：Service 与网络通信">第5章：Service 与网络通信</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC6%E7%AB%A0-ConfigMap%E4%B8%8ESecret%E7%AE%A1%E7%90%86.html" title="第6章：ConfigMap 与 Secret 管理">第6章：ConfigMap 与 Secret 管理</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC7%E7%AB%A0-Volume%E4%B8%8E%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8.html" title="第7章：Volume 与持久化存储">第7章：Volume 与持久化存储</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC8%E7%AB%A0-Namespace%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.html" title="第8章：Namespace 与资源管理">第8章：Namespace 与资源管理</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC9%E7%AB%A0-%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6%E4%B8%8E%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86.html" title="第9章：调度机制与节点管理">第9章：调度机制与节点管理</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/HPA%E5%92%8CVPA%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="HPA 和 VPA 的区别">HPA 和 VPA 的区别</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">其他</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%85%B6%E4%BB%96/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80UML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="统一建模语言UML学习笔记">统一建模语言UML学习笔记</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Linux</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Centos</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/yum.html" title="yum">yum</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/CentosStream8%20%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html" title="刷新配置">刷新配置</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/Centos7.9%20%E5%AE%89%E8%A3%85%20node20%20%E5%AE%9E%E6%88%98.html" title="安装 nvm">安装 nvm</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86.html" title="查看文件的大小">查看文件的大小</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">mysql</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%AE%89%E8%A3%85mysql.html" title="CentOS Linux release 8.5.2111">CentOS Linux release 8.5.2111</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E4%BB%80%E4%B9%88%E6%98%AFmysql.html" title="什么是mysql">什么是mysql</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.html" title="注意不同的密码验证策略要求密码复杂度不一样。">注意不同的密码验证策略要求密码复杂度不一样。</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">缓存</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98/redis%20%E7%BC%93%E5%AD%98%E5%AE%9E%E6%88%98.html" title="redis 缓存实战">redis 缓存实战</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">软件开发与设计规范</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/%E6%8C%87%E5%AF%BC%E6%80%9D%E6%83%B3.html" title="指导思想">指导思想</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">领域驱动设计</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E4%BB%80%E4%B9%88%E6%98%AFDDD.html" title="什么是DDD">什么是DDD</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E5%89%8D%E8%A8%80.html" title="前言">前言</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Cookie%20%E8%AF%A6%E8%A7%A3.html" title="Cookie 详解">Cookie 详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/JWT%E8%AF%A6%E8%A7%A3.html" title="JWT 详解">JWT 详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Raft%20%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3.html" title="Raft 协议详解">Raft 协议详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/WebRTC%20%E5%BA%95%E5%B1%82%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.html" title="WebRTC 底层工作原理详解">WebRTC 底层工作原理详解</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/curl%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="curl 使用手册">curl 使用手册</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Git%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" title="克隆指定分支">克隆指定分支</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95.html" title="分布式一致性算法">分布式一致性算法</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="学习路线">学习路线</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%90%AD%E5%BB%BA%20Conda%20%2B%20Jupyter%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" title="搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南">搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程语言</span><span class="tree-count">18</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/C%20%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="C 语言快速入门">C 语言快速入门</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20benchmark%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go Benchmark 最佳实战">Go Benchmark 最佳实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20pprof%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go pprof 最佳实战：从开发诊断到生产调优">Go pprof 最佳实战：从开发诊断到生产调优</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5.html" title="Go 底层原理与工程化实践">Go 底层原理与工程化实践</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码">Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E8%AF%AD%E8%A8%80%E9%AB%98%E6%95%88%E7%BC%96%E7%A8%8B%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8C%96.html" title="Go 语言高效编程：原理、可观测性与优化">Go 语言高效编程：原理、可观测性与优化</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A.html" title="Go开发工程师必知必会">Go开发工程师必知必会</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Python</span><span class="tree-count">8</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="NumPy 使用手册">NumPy 使用手册</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="NumPy 使用指南：从 ndarray 到数值计算实践">NumPy 使用指南：从 ndarray 到数值计算实践</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Pandas%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="Pandas 使用指南：从 Series/DataFrame 到数据分析实践">Pandas 使用指南：从 Series/DataFrame 到数据分析实践</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html" title="Python 异步编程：从原理到实战">Python 异步编程：从原理到实战</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="Python 快速入门">Python 快速入门</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Decorator%EF%BC%89%E6%80%BB%E7%BB%93.html" title="Python 装饰器（Decorator）总结">Python 装饰器（Decorator）总结</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E8%AE%A4%E8%AF%86Python.html" title="认识Python">认识Python</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%40staticmethod%20%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="静态方法是类的属性">静态方法是类的属性</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Rust</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Rust 入门手册：面向 Go 与 Python 开发者">Rust 入门手册：面向 Go 与 Python 开发者</a></div></details><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E7%A8%8B%E5%BA%8F%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86.html" title="程序底层执行原理：从一行源码到进程退出">程序底层执行原理：从一行源码到进程退出</a><a class="tree-link" href="../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88.html" title="计算机科学与编程十万个为什么">计算机科学与编程十万个为什么</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机组成原理</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%BC%96%E7%A0%81.html" title="《编码》：从手电筒到计算机">《编码》：从手电筒到计算机</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%98%BE%E7%A4%BA%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="显示器的工作原理">显示器的工作原理</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%99%B6%E4%BD%93%E7%AE%A1.html" title="晶体管：小学生也能看懂的计算机“小开关”">晶体管：小学生也能看懂的计算机“小开关”</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84.html" title="程序是如何执行的">程序是如何执行的</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.html" title="计算机底层原理：程序、数据与网络如何从 0 到 1 运转">计算机底层原理：程序、数据与网络如何从 0 到 1 运转</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html" title="计算机组成">计算机组成</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="计算机组成原理">计算机组成原理</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">计算机网络</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BATCP-IP%E5%8D%8F%E8%AE%AE.html" title="深入浅出TCP-IP协议">深入浅出TCP-IP协议</a><a class="tree-link" href="%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20OSI.html" title="计算机网络 - OSI">计算机网络 - OSI</a><a class="tree-link" href="%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html" title="计算机网络 - 概述">计算机网络 - 概述</a><a class="tree-link active" href="%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="计算机网络工作原理：从输入 URL 到数据跨越互联网">计算机网络工作原理：从输入 URL 到数据跨越互联网</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">高性能服务设计与实现</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1.html" title="什么是高性能服务">什么是高性能服务</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88.html" title="后端服务安全方案">后端服务安全方案</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%AF%B4%E6%98%8E.html" title="后端服务性能指标体系">后端服务性能指标体系</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E7%99%BE%E4%B8%87%E7%BA%A7QPS%20API%E7%BD%91%E5%85%B3%E8%AE%BE%E8%AE%A1.html" title="如何设计一个支持百万级 QPS 的 API 网关">如何设计一个支持百万级 QPS 的 API 网关</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%99%90%E6%B5%81%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1.html" title="限流方案设计">限流方案设计</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%20Agent%20%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="高性能 Agent 服务架构设计与实现">高性能 Agent 服务架构设计与实现</a><a class="tree-link" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8F%AF%E8%A1%8C%E6%80%A7%E6%96%B9%E6%A1%88.html" title="高性能服务架构可行性方案">高性能服务架构可行性方案</a></div></details><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E5%A4%A7%E7%BA%B2.html" title="计算机知识学习先后顺序大纲">计算机知识学习先后顺序大纲</a><a class="tree-link" href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="计算机科学知识大纲">计算机科学知识大纲</a></div></details><div class="tree-label">散篇</div><a class="tree-link" href="../../TODO.html" title="TODO">TODO</a><a class="tree-link" href="../../%E4%B8%AA%E4%BA%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E9%87%8D%E9%93%B8%E8%AE%A1%E5%88%92.html" title="个人基础知识重铸计划">个人基础知识重铸计划</a><a class="tree-link" href="../../%E5%8F%A5%E5%AD%90.html" title="句子">句子</a><a class="tree-link" href="../../%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E5%AD%A6%E4%B9%A0.html" title="如何高效的学习">如何高效的学习</a><a class="tree-link" href="../../%E6%97%B6%E9%97%B4%E8%83%B6%E5%9B%8A.html" title="时间胶囊">时间胶囊</a><a class="tree-link" href="../../%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA.html" title="网站导航">网站导航</a></nav>
+      </div>
+    </aside>
+  <main class="blog-main">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../../index.html">博客</a><span>/</span><span>计算机科学</span><span>/</span><a href="index.html">计算机网络</a><span>/</span><span>计算机网络工作原理：从输入 URL 到数据跨越互联网</span></nav>
+    <article class="post">
+      <header class="post-head">
+        <div class="post-kicker">计算机科学 / 计算机网络</div>
+        <h1>计算机网络工作原理：从输入 URL 到数据跨越互联网</h1>
+        <div class="post-meta"><span>计算机科学/计算机网络/计算机网络工作原理.md</span><span>约 7,279 字</span></div>
+      </header>
+      <div class="prose"><blockquote>
+<p>本文不把计算机网络理解为一组孤立协议，而是追踪一份数据如何从应用程序出发，经操作系统、网卡、交换机、路由器和服务器，再沿原路返回。读完后应能回答：每一层解决什么问题、数据经过设备时发生了什么、为什么需要这些协议，以及网络故障应该从哪里查起。</p>
+</blockquote>
+<h2 id="一-先建立全局视角">一、先建立全局视角</h2>
+<p>计算机网络解决的本质问题是：<strong>让不同主机中的进程，在不可靠且结构复杂的物理网络上完成可识别、可寻址、可转发、可校验的通信。</strong></p>
+<p>一次访问 <code>https://www.example.com/index.html</code>，至少涉及以下组件：</p>
+<ol>
+<li>浏览器解析 URL，确定协议、主机名、端口和资源路径。</li>
+<li>操作系统通过 DNS 把域名解析为 IP 地址。</li>
+<li>浏览器创建 Socket，操作系统选择源端口、源 IP 和路由。</li>
+<li>若目标不在本地网段，主机通过 ARP 或 NDP 找到默认网关的链路层地址。</li>
+<li>TCP 建立连接；若使用 HTTPS，TLS 再完成身份认证和密钥协商。</li>
+<li>HTTP 请求被逐层封装为 TLS 记录、TCP 段、IP 包、以太网帧和物理信号。</li>
+<li>交换机按 MAC 地址转发帧，路由器按 IP 路由表逐跳转发数据包。</li>
+<li>服务器逐层解封装，把请求交给监听目标端口的进程。</li>
+<li>响应经过相反过程返回，浏览器解析 HTML，并继续请求 CSS、JavaScript、字体和图片。</li>
+</ol>
+<p><img loading="lazy" decoding="async" alt="一次网页访问的端到端链路" src="images/network-end-to-end-overview.svg" /></p>
+<h3 id="1-1-网络中的四类关键标识">1.1 网络中的四类关键标识</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>标识</th>
+<th>解决的问题</th>
+<th>作用范围</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>域名</td>
+<td>人如何记住服务</td>
+<td>应用层、全球 DNS 命名空间</td>
+<td><code>www.example.com</code></td>
+</tr>
+<tr>
+<td>IP 地址</td>
+<td>数据包最终送到哪台网络接口</td>
+<td>跨网络、端到端寻址</td>
+<td><code>93.184.216.34</code></td>
+</tr>
+<tr>
+<td>MAC 地址</td>
+<td>当前链路上的帧交给谁</td>
+<td>单个二层广播域</td>
+<td><code>00:1A:2B:3C:4D:5E</code></td>
+</tr>
+<tr>
+<td>端口</td>
+<td>主机收到数据后交给哪个进程</td>
+<td>单台主机的传输层</td>
+<td>HTTPS 默认 <code>443</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>必须特别注意：</p>
+<ul>
+<li>域名不是数据包转发地址。DNS 完成后，网络主要使用 IP 地址。</li>
+<li>MAC 地址不是互联网范围的地址。它通常只在当前局域网或当前链路有效。</li>
+<li>IP 地址定位主机或网络接口，端口定位主机内的应用进程。</li>
+<li>一个 TCP 连接通常由五元组唯一标识：<code>源 IP、源端口、目的 IP、目的端口、传输层协议</code>。</li>
+</ul>
+<h3 id="1-2-分层不是概念游戏-而是工程解耦">1.2 分层不是概念游戏，而是工程解耦</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>TCP/IP 层</th>
+<th>典型协议</th>
+<th>数据单元</th>
+<th>核心职责</th>
+<th>常见设备或实现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用层</td>
+<td>HTTP、DNS、SSH、SMTP</td>
+<td>消息</td>
+<td>定义业务数据格式与交互语义</td>
+<td>浏览器、Web 服务、DNS 服务</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>TCP、UDP、QUIC</td>
+<td>段、数据报</td>
+<td>进程到进程通信、可靠性、拥塞控制</td>
+<td>操作系统协议栈、用户态 QUIC</td>
+</tr>
+<tr>
+<td>网际层</td>
+<td>IPv4、IPv6、ICMP</td>
+<td>IP 数据包</td>
+<td>跨网络寻址和逐跳路由</td>
+<td>主机、三层交换机、路由器</td>
+</tr>
+<tr>
+<td>链路层</td>
+<td>Ethernet、Wi-Fi、PPP</td>
+<td>帧</td>
+<td>在相邻节点间交付数据</td>
+<td>网卡、交换机、无线 AP</td>
+</tr>
+<tr>
+<td>物理层</td>
+<td>双绞线、光纤、无线电</td>
+<td>比特、符号</td>
+<td>把比特转换为可传播的信号</td>
+<td>PHY 芯片、光模块、天线</td>
+</tr>
+</tbody>
+</table></div>
+<p>分层的价值在于：浏览器不必知道光纤怎样发光，路由器不必理解 HTTP 内容，交换机不必理解浏览器正在访问哪个页面。每层只依赖下层提供的服务，并向上层提供稳定接口。</p>
+<h2 id="二-数据是如何逐层封装的">二、数据是如何逐层封装的</h2>
+<p>假设浏览器要发送一段 HTTP 请求：</p>
+<pre><code class="language-http">GET /index.html HTTP/1.1
+Host: www.example.com
+</code></pre>
+<p>发送端的处理过程如下：</p>
+<ol>
+<li>应用层生成 HTTP 消息。</li>
+<li>TLS 将明文加密并封装为 TLS Record。</li>
+<li>TCP 添加源端口、目的端口、序号、确认号和标志位。</li>
+<li>IP 添加源 IP、目的 IP、TTL 和上层协议号。</li>
+<li>以太网添加源 MAC、下一跳 MAC、EtherType，并在尾部添加 FCS。</li>
+<li>网卡将帧编码成电信号、光信号或无线电波。</li>
+</ol>
+<p>接收端按相反顺序检查并去掉首部，称为<strong>解封装</strong>。</p>
+<p><img loading="lazy" decoding="async" alt="数据的封装与解封装" src="images/network-encapsulation.svg" /></p>
+<h3 id="2-1-哪些字段端到端不变-哪些逐跳变化">2.1 哪些字段端到端不变，哪些逐跳变化</h3>
+<p>在没有 NAT、代理和隧道的理想路径中：</p>
+<ul>
+<li>HTTP 语义端到端保持不变。</li>
+<li>TCP 的源/目的端口端到端保持不变。</li>
+<li>IP 的源/目的地址端到端保持不变，但 TTL 每经过一台路由器减一，IPv4 首部校验和随之更新。</li>
+<li>以太网源/目的 MAC <strong>每经过一个三层路由节点都会重写</strong>。</li>
+<li>物理信号只存在于一段介质中，每一跳都会被接收并重新编码发送。</li>
+</ul>
+<p>因此，“把服务器 MAC 地址写进帧就能跨越互联网”是错误理解。客户端只需要知道当前下一跳的 MAC 地址；远端链路如何交付，由后续路由器分别处理。</p>
+<h3 id="2-2-mtu-mss-与分片">2.2 MTU、MSS 与分片</h3>
+<ul>
+<li><strong>MTU</strong>：链路层一次能承载的最大网络层数据包大小。以太网常见 MTU 为 <code>1500</code> 字节。</li>
+<li><strong>MSS</strong>：TCP 单个段可承载的最大应用数据量，通常为 <code>MTU - IP 首部 - TCP 首部</code>。IPv4 无选项时常见值为 <code>1460</code>。</li>
+<li>IPv4 允许路由器分片，但分片丢失会导致整个原始数据报无法重组。</li>
+<li>IPv6 路由器不进行分片，只允许源主机依据路径 MTU 选择大小。</li>
+<li>Path MTU Discovery 依赖 ICMP。错误屏蔽 ICMP 可能造成“小包正常、大包卡住”的黑洞问题。</li>
+</ul>
+<h2 id="三-接入网络-主机如何获得通信参数">三、接入网络：主机如何获得通信参数</h2>
+<p>设备连接家庭或企业网络后，通常需要获得：</p>
+<ul>
+<li>本机 IP 地址和子网前缀；</li>
+<li>默认网关；</li>
+<li>DNS 服务器；</li>
+<li>地址租期及其他网络参数。</li>
+</ul>
+<h3 id="3-1-dhcp-的-dora-流程">3.1 DHCP 的 DORA 流程</h3>
+<p>IPv4 主机常通过 DHCP 完成自动配置：</p>
+<ol>
+<li><strong>Discover</strong>：客户端还没有 IP，以广播方式寻找 DHCP 服务器。</li>
+<li><strong>Offer</strong>：服务器提供一个可用地址及网络配置。</li>
+<li><strong>Request</strong>：客户端广播声明选择了哪个地址和服务器。</li>
+<li><strong>ACK</strong>：服务器确认租约，客户端正式使用地址。</li>
+</ol>
+<p>客户端最初可使用源地址 <code>0.0.0.0</code>、目的地址 <code>255.255.255.255</code>，UDP 端口通常为客户端 <code>68</code>、服务器 <code>67</code>。跨网段部署时，路由器上的 DHCP Relay 可把广播请求转为发往集中 DHCP 服务器的单播请求。</p>
+<h3 id="3-2-ipv6-如何配置">3.2 IPv6 如何配置</h3>
+<p>IPv6 可使用：</p>
+<ul>
+<li><strong>SLAAC</strong>：主机依据路由器通告中的前缀自行生成地址；</li>
+<li><strong>DHCPv6</strong>：由服务器分配地址或补充 DNS 等配置；</li>
+<li><strong>NDP</strong>：承担邻居发现、路由器发现和重复地址检测等职责。</li>
+</ul>
+<h2 id="四-解析域名-dns-如何把名字变成地址">四、解析域名：DNS 如何把名字变成地址</h2>
+<p>浏览器不能直接把域名交给路由器，必须先得到 IP 地址。典型查询顺序是：</p>
+<ol>
+<li>浏览器缓存；</li>
+<li>操作系统 DNS 缓存和 <code>hosts</code> 文件；</li>
+<li>配置的递归解析器，通常来自路由器、运营商或公共 DNS；</li>
+<li>递归解析器缓存；</li>
+<li>根 DNS；</li>
+<li>顶级域 DNS，例如 <code>.com</code>；</li>
+<li>域名的权威 DNS。</li>
+</ol>
+<p>根服务器通常不直接给出网站 IP，而是告诉解析器“去哪里询问 <code>.com</code>”；顶级域服务器再告诉解析器权威服务器地址；权威服务器最终返回 <code>A</code>、<code>AAAA</code>、<code>CNAME</code> 等记录。</p>
+<p><img loading="lazy" decoding="async" alt="DNS 递归与迭代查询" src="images/network-dns-resolution.svg" /></p>
+<h3 id="4-1-常见-dns-记录">4.1 常见 DNS 记录</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>记录</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A</code></td>
+<td>域名映射到 IPv4 地址</td>
+</tr>
+<tr>
+<td><code>AAAA</code></td>
+<td>域名映射到 IPv6 地址</td>
+</tr>
+<tr>
+<td><code>CNAME</code></td>
+<td>一个名称指向另一个规范名称</td>
+</tr>
+<tr>
+<td><code>NS</code></td>
+<td>声明区域的权威 DNS 服务器</td>
+</tr>
+<tr>
+<td><code>MX</code></td>
+<td>声明邮件服务器</td>
+</tr>
+<tr>
+<td><code>TXT</code></td>
+<td>承载验证、SPF、DKIM 等文本信息</td>
+</tr>
+<tr>
+<td><code>PTR</code></td>
+<td>IP 地址反向解析为域名</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="4-2-dns-为什么需要缓存">4.2 DNS 为什么需要缓存</h3>
+<p>记录的 TTL 表示缓存可保留的时间。缓存降低查询延迟和权威服务器压力，但也意味着修改记录后不会立刻在全球生效。实际更新速度还受递归解析器缓存、负缓存和本地缓存影响。</p>
+<p>传统 DNS 多使用 UDP <code>53</code> 端口，响应过大、需要可靠传输或区域传送时可使用 TCP。DoT 在 TLS 中传输 DNS，常用端口 <code>853</code>；DoH 则通过 HTTPS 传输，提升链路保密性，但不等于域名本身可信，域名真实性仍依赖 DNSSEC 或上层 TLS 认证。</p>
+<h2 id="五-判断目标在本地还是远端">五、判断目标在本地还是远端</h2>
+<p>主机取得目标 IP 后，会用本机地址和子网掩码进行按位与：</p>
+<pre><code class="language-text">本机网络号 = 本机 IP AND 子网掩码
+目标网络号 = 目标 IP AND 子网掩码
+</code></pre>
+<ul>
+<li>两者相同：目标在同一子网，下一跳就是目标主机。</li>
+<li>两者不同：目标在远端网络，下一跳通常是默认网关。</li>
+</ul>
+<p>例如主机为 <code>192.168.1.10/24</code>：</p>
+<ul>
+<li>访问 <code>192.168.1.80</code>：直接寻找 <code>192.168.1.80</code> 的 MAC。</li>
+<li>访问 <code>8.8.8.8</code>：寻找默认网关（例如 <code>192.168.1.1</code>）的 MAC。</li>
+</ul>
+<p>路由表遵循<strong>最长前缀匹配</strong>。<code>0.0.0.0/0</code> 是默认路由，只有没有更具体的路由时才使用。路由选择通常还会比较管理距离和度量值，但具体规则取决于操作系统与路由协议。</p>
+<h2 id="六-局域网交付-arp-以太网与交换机">六、局域网交付：ARP、以太网与交换机</h2>
+<h3 id="6-1-arp-从-ipv4-地址得到-mac-地址">6.1 ARP：从 IPv4 地址得到 MAC 地址</h3>
+<p>主机检查 ARP 缓存；若没有下一跳的条目，则发送广播：</p>
+<pre><code class="language-text">谁拥有 192.168.1.1？请告诉 192.168.1.10。
+</code></pre>
+<p>网关以单播响应自己的 MAC 地址，主机缓存映射关系。ARP 只解决本广播域内的 IPv4 到 MAC 映射，不会被普通路由器转发。IPv6 使用基于 ICMPv6 的 NDP，不使用 ARP。</p>
+<h3 id="6-2-交换机如何转发帧">6.2 交换机如何转发帧</h3>
+<p>交换机维护 MAC 地址表，即 <code>MAC -&gt; 端口</code> 的映射：</p>
+<ol>
+<li>收到帧时，根据<strong>源 MAC</strong> 学习该地址位于哪个端口。</li>
+<li>查找<strong>目的 MAC</strong>。</li>
+<li>已知目的 MAC：只从对应端口转发。</li>
+<li>未知单播：除入端口外向同 VLAN 的其他端口泛洪。</li>
+<li>广播：在同一 VLAN 内泛洪。</li>
+<li>若目的地址就在入端口，说明无需转发，帧会被过滤。</li>
+</ol>
+<p><img loading="lazy" decoding="async" alt="ARP 与交换机转发过程" src="images/network-lan-forwarding.svg" /></p>
+<p>交换机的 MAC 表会老化。VLAN 将一台物理交换机划分成多个逻辑二层广播域；不同 VLAN 之间通信必须经过三层路由。环形二层拓扑可能导致广播风暴和 MAC 表震荡，因此传统网络使用 STP/RSTP 阻断冗余链路，现代数据中心也常采用三层 Clos 架构或 EVPN/VXLAN。</p>
+<h3 id="6-3-wi-fi-为什么与有线以太网不同">6.3 Wi-Fi 为什么与有线以太网不同</h3>
+<p>无线介质无法可靠地边发送边检测碰撞，因此 Wi-Fi 使用 CSMA/CA：</p>
+<ol>
+<li>发送前监听信道；</li>
+<li>信道忙则随机退避；</li>
+<li>信道空闲一段时间后发送；</li>
+<li>接收方返回链路层 ACK；</li>
+<li>未收到 ACK 则退避并重传。</li>
+</ol>
+<p>同一信道内的设备共享无线空口时间。信号强度、干扰、信道宽度、调制编码方式和终端数量都会影响实际吞吐量，因此“连接速率”不等于应用可用吞吐量。</p>
+<h2 id="七-跨网络转发-路由器到底做了什么">七、跨网络转发：路由器到底做了什么</h2>
+<p>路由器收到一个发给自己的二层帧后：</p>
+<ol>
+<li>校验 FCS，去掉入站链路层首尾部。</li>
+<li>检查 IP 首部和目的 IP。</li>
+<li>TTL 减一；若降为零，丢弃并通常返回 ICMP Time Exceeded。</li>
+<li>对路由表执行最长前缀匹配，得到出接口和下一跳。</li>
+<li>必要时通过 ARP/NDP 获取下一跳链路地址。</li>
+<li>用出接口对应的链路协议重新封装。</li>
+<li>将新帧发送到下一跳。</li>
+</ol>
+<p><img loading="lazy" decoding="async" alt="路由器逐跳转发与链路层重封装" src="images/network-routing-hop-by-hop.svg" /></p>
+<h3 id="7-1-路由表从哪里来">7.1 路由表从哪里来</h3>
+<ul>
+<li><strong>直连路由</strong>：接口配置地址并启用后自动产生。</li>
+<li><strong>静态路由</strong>：管理员手工配置，路径明确但不自动适应拓扑变化。</li>
+<li><strong>动态路由</strong>：路由器通过协议交换可达性信息。</li>
+</ul>
+<p>常见动态路由协议：</p>
+<ul>
+<li>OSPF、IS-IS：自治系统内部使用，依据链路状态计算最短路径。</li>
+<li>BGP：自治系统之间使用，核心是策略和可达性，不单纯选择物理最短路径。</li>
+</ul>
+<p>互联网由许多自治系统（AS）组成。运营商、云厂商、学校和大型企业通过 BGP 宣告自己可以到达的 IP 前缀，并依据商业关系、策略和属性选择路径。</p>
+<h3 id="7-2-icmp-与-traceroute">7.2 ICMP 与 traceroute</h3>
+<p>ICMP 用于传递网络层控制和错误信息，例如：</p>
+<ul>
+<li>Echo Request/Reply：<code>ping</code> 常用；</li>
+<li>Destination Unreachable：目标、端口或网络不可达；</li>
+<li>Time Exceeded：TTL 到期；</li>
+<li>Packet Too Big：IPv6 路径 MTU 发现。</li>
+</ul>
+<p><code>traceroute</code>/<code>tracert</code> 依次发送 TTL 为 1、2、3……的数据包。每个使 TTL 归零的路由器返回 ICMP Time Exceeded，由此逐跳显示路径。中间节点不响应不一定表示业务不通，它可能只是不返回或限速 ICMP。</p>
+<h2 id="八-私网访问互联网-nat-的工作原理">八、私网访问互联网：NAT 的工作原理</h2>
+<p>IPv4 私有地址不能直接在公网路由。家庭路由器通常执行 NAPT/PAT：</p>
+<pre><code class="language-text">内网 192.168.1.10:53000 -&gt; 公网 203.0.113.8:40001
+</code></pre>
+<p>出站时，NAT 设备重写源 IP 和源端口并记录映射；响应到达公网地址和端口后，再查表恢复为内网地址。由于 IP 或端口变化，TCP/UDP 校验和也要更新。</p>
+<p>NAT 节约公网 IPv4 地址，也天然阻止没有映射的普通入站连接，但它不是完整防火墙：</p>
+<ul>
+<li>NAT 的主要目标是地址转换，不是安全策略；</li>
+<li>内网恶意连接、已建立连接中的攻击仍可能通过；</li>
+<li>端口转发、UPnP、NAT 穿透会改变入站可达性；</li>
+<li>安全控制应依赖有状态防火墙、最小权限和应用认证。</li>
+</ul>
+<h2 id="九-传输层-进程如何可靠通信">九、传输层：进程如何可靠通信</h2>
+<h3 id="9-1-socket-是应用与协议栈的边界">9.1 Socket 是应用与协议栈的边界</h3>
+<p>应用通常使用 Socket API：</p>
+<pre><code class="language-text">socket()  -&gt; 创建套接字
+connect() -&gt; 发起连接
+send()    -&gt; 写入发送缓冲区
+recv()    -&gt; 从接收缓冲区读取
+close()   -&gt; 关闭连接
+</code></pre>
+<p><code>send()</code> 成功通常只代表数据已进入本机内核缓冲区，不代表对端应用已经处理。TCP 的确认也主要表示数据到达对端协议栈，而不是业务事务成功。因此支付、订单等业务仍需应用层响应、幂等键和状态查询。</p>
+<h3 id="9-2-tcp-三次握手">9.2 TCP 三次握手</h3>
+<p>TCP 建立连接时：</p>
+<ol>
+<li>客户端发送 <code>SYN</code>，携带初始序号 <code>x</code>。</li>
+<li>服务端返回 <code>SYN + ACK</code>，序号为 <code>y</code>，确认号为 <code>x + 1</code>。</li>
+<li>客户端返回 <code>ACK</code>，确认号为 <code>y + 1</code>。</li>
+</ol>
+<p><img loading="lazy" decoding="async" alt="TCP 建连、传输与关闭" src="images/network-tcp-lifecycle.svg" /></p>
+<p>三次握手不仅是“打招呼”，还完成：</p>
+<ul>
+<li>双方发送和接收能力确认；</li>
+<li>初始序号同步；</li>
+<li>MSS、窗口扩大、SACK、时间戳等选项协商；</li>
+<li>服务端为连接建立状态。</li>
+</ul>
+<p>两次握手不足以让服务端确认客户端确实收到了服务端的初始序号，也更难处理网络中的延迟旧报文。</p>
+<h3 id="9-3-tcp-如何实现可靠传输">9.3 TCP 如何实现可靠传输</h3>
+<ul>
+<li><strong>序号</strong>：标识字节流位置，而不是简单的包编号。</li>
+<li><strong>确认号</strong>：累计确认下一个期望收到的字节。</li>
+<li><strong>校验和</strong>：检测首部和数据损坏。</li>
+<li><strong>重传</strong>：超时或多个重复 ACK 触发重传。</li>
+<li><strong>滑动窗口</strong>：允许多个段在未确认时同时在途，避免停等。</li>
+<li><strong>乱序重组</strong>：接收端按序号恢复字节流。</li>
+<li><strong>SACK</strong>：明确告知已收到的不连续区间，减少无谓重传。</li>
+</ul>
+<p>TCP 是<strong>字节流</strong>协议，不保留应用消息边界。应用必须通过固定长度、分隔符、长度字段或自描述格式解决“粘包/拆包”问题。</p>
+<h3 id="9-4-流量控制与拥塞控制不是一回事">9.4 流量控制与拥塞控制不是一回事</h3>
+<ul>
+<li><strong>流量控制</strong>保护接收方：接收窗口 <code>rwnd</code> 表示对端还能接收多少数据。</li>
+<li><strong>拥塞控制</strong>保护网络：拥塞窗口 <code>cwnd</code> 依据丢包、RTT 和显式拥塞信号调整。</li>
+<li>实际可用发送窗口约为 <code>min(rwnd, cwnd)</code>。</li>
+</ul>
+<p>典型拥塞控制经历慢启动、拥塞避免、快速重传与快速恢复。现代系统可能使用 CUBIC、BBR 等算法。丢包不一定来自拥塞，也可能来自无线干扰，但传统 TCP 常把丢包视为拥塞信号并降速。</p>
+<h3 id="9-5-tcp-为什么常见四次挥手和-time_wait">9.5 TCP 为什么常见四次挥手和 TIME_WAIT</h3>
+<p>TCP 是全双工连接，双方发送方向独立关闭。主动关闭方发送 FIN，对方先 ACK；待剩余数据发送完再发送自己的 FIN，主动关闭方最后 ACK。</p>
+<p>主动关闭方进入 <code>TIME_WAIT</code>，通常用于：</p>
+<ul>
+<li>确保最后一个 ACK 丢失时仍可重发；</li>
+<li>让网络中的旧报文在相同四元组被复用前消失。</li>
+</ul>
+<p>大量短连接会增加握手、慢启动和 TIME_WAIT 成本，因此 HTTP 使用持久连接、连接池和多路复用。</p>
+<h3 id="9-6-udp-与-quic">9.6 UDP 与 QUIC</h3>
+<p>UDP 提供无连接的数据报服务：</p>
+<ul>
+<li>保留消息边界；</li>
+<li>不保证到达、顺序或唯一性；</li>
+<li>首部小，无连接建立过程；</li>
+<li>可靠性、重传和拥塞控制需要应用自行实现。</li>
+</ul>
+<p>它适合 DNS、实时音视频和可容忍部分丢失的场景。QUIC 构建在 UDP 之上，在用户态实现可靠传输、TLS 1.3、拥塞控制和多路复用，是 HTTP/3 的基础。QUIC 的不同流之间可独立交付，避免 TCP 层面的队头阻塞，并支持连接迁移。</p>
+<h2 id="十-tls-在不可信网络上建立可信加密通道">十、TLS：在不可信网络上建立可信加密通道</h2>
+<p>仅有 TCP 时，中间节点理论上可以读取或篡改明文。TLS 主要提供：</p>
+<ul>
+<li><strong>身份认证</strong>：证书证明服务端公钥与域名的绑定关系；</li>
+<li><strong>机密性</strong>：对称加密防止内容被窃听；</li>
+<li><strong>完整性</strong>：认证加密检测篡改；</li>
+<li><strong>前向保密</strong>：长期私钥泄露后，过去会话仍不应被解密。</li>
+</ul>
+<p>TLS 1.3 的简化流程：</p>
+<ol>
+<li>客户端发送支持版本、密码套件、随机数、密钥份额和 SNI。</li>
+<li>服务端选择参数，发送密钥份额、证书和证书签名。</li>
+<li>客户端校验证书链、有效期、域名、用途和吊销状态。</li>
+<li>双方通过 (EC)DHE 计算共享秘密，再由密钥派生函数生成会话密钥。</li>
+<li>后续应用数据使用高效的对称认证加密算法传输。</li>
+</ol>
+<p><img loading="lazy" decoding="async" alt="TLS 1.3 握手与密钥建立" src="images/network-tls-handshake.svg" /></p>
+<p>证书链通常为“站点证书 -&gt; 中间 CA -&gt; 根 CA”。根 CA 预置于操作系统或浏览器信任库中。证书可信不代表网站业务绝对安全，它只证明当前连接对应某个经验证的域名身份，并保护传输过程。</p>
+<h2 id="十一-http-应用数据如何请求与响应">十一、HTTP：应用数据如何请求与响应</h2>
+<p>HTTP 请求包含方法、目标、首部和可选消息体：</p>
+<pre><code class="language-http">GET /index.html HTTP/1.1
+Host: www.example.com
+Accept: text/html
+Connection: keep-alive
+</code></pre>
+<p>响应包含状态行、首部和消息体：</p>
+<pre><code class="language-http">HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 1234
+Cache-Control: max-age=3600
+</code></pre>
+<h3 id="11-1-http-版本演进">11.1 HTTP 版本演进</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>版本</th>
+<th>主要传输方式</th>
+<th>关键特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP/1.0</td>
+<td>一个或多个 TCP 连接</td>
+<td>默认短连接，请求串行</td>
+</tr>
+<tr>
+<td>HTTP/1.1</td>
+<td>持久 TCP 连接</td>
+<td>连接复用，但常受应用层队头阻塞影响</td>
+</tr>
+<tr>
+<td>HTTP/2</td>
+<td>单 TCP 连接上的多路流</td>
+<td>二进制分帧、HPACK、流多路复用</td>
+</tr>
+<tr>
+<td>HTTP/3</td>
+<td>QUIC/UDP</td>
+<td>集成 TLS 1.3，减少握手，流之间减少队头阻塞</td>
+</tr>
+</tbody>
+</table></div>
+<p><img loading="lazy" decoding="async" alt="HTTP 各版本的并发模型" src="images/network-http-versions.svg" /></p>
+<p>HTTP/2 虽能并发传输多个流，但底层仍是一条有序 TCP 字节流；某个 TCP 包丢失时，后续字节即使到达也要等待重传。HTTP/3 的可靠性以 QUIC 流为单位，某个流丢包通常不会阻塞其他流交付。</p>
+<h3 id="11-2-代理-cdn-与负载均衡">11.2 代理、CDN 与负载均衡</h3>
+<p>真实请求经常不是直达源站：</p>
+<ul>
+<li><strong>正向代理</strong>代表客户端访问外部服务。</li>
+<li><strong>反向代理</strong>代表服务端接收请求，执行 TLS 卸载、路由、缓存或鉴权。</li>
+<li><strong>CDN</strong>把静态或可缓存内容放到靠近用户的边缘节点。</li>
+<li><strong>四层负载均衡</strong>按 IP、端口和连接转发。</li>
+<li><strong>七层负载均衡</strong>理解 HTTP，可按域名、路径、Header 等路由。</li>
+</ul>
+<p>一次请求可能形成多个独立连接：客户端到 CDN、CDN 到反向代理、反向代理到应用服务。此时“端到端 TCP”只存在于各连接段内，追踪真实客户端地址通常依赖受信代理添加的 <code>Forwarded</code> 或 <code>X-Forwarded-For</code>，不能无条件信任客户端自带的同名首部。</p>
+<h2 id="十二-物理层-0-和-1-如何真正移动">十二、物理层：0 和 1 如何真正移动</h2>
+<p>物理介质中并没有抽象的“0”和“1”，只有随时间变化的物理量：</p>
+<ul>
+<li>双绞线：差分电压；</li>
+<li>光纤：光的强弱、相位或波长；</li>
+<li>Wi-Fi：电磁波的幅度、频率和相位。</li>
+</ul>
+<p>发送端会执行线路编码、调制、加扰和纠错编码；接收端进行时钟恢复、均衡、解调和判决，最后还原比特。高速链路常让一个符号承载多个比特，例如 QAM 通过不同幅度和相位组合编码信息。</p>
+<p>带宽和传播速度不可混为一谈：</p>
+<ul>
+<li>带宽决定单位时间最多可发送多少比特，类似管道粗细；</li>
+<li>传播速度决定单个信号从一端到另一端需要多久；</li>
+<li>升级千兆带宽能降低大数据的发送时延，但不能消除跨洲光纤的传播时延。</li>
+</ul>
+<h2 id="十三-时延-吞吐量与网络为什么会-慢">十三、时延、吞吐量与网络为什么会“慢”</h2>
+<p>一个分组的单向时延大致为：</p>
+<pre><code class="language-text">总时延 = 处理时延 + 排队时延 + 发送时延 + 传播时延
+发送时延 = 数据长度 / 链路速率
+传播时延 = 链路距离 / 介质传播速度
+</code></pre>
+<p><img loading="lazy" decoding="async" alt="网络时延的组成" src="images/network-latency-components.svg" /></p>
+<h3 id="13-1-带宽时延积">13.1 带宽时延积</h3>
+<p>带宽时延积 <code>BDP = 带宽 × RTT</code>，表示链路中可以同时“在途”的数据量。若接收窗口或拥塞窗口小于 BDP，高带宽长距离链路也无法跑满。</p>
+<p>例如 <code>1 Gbit/s</code>、RTT <code>100 ms</code>：</p>
+<pre><code class="language-text">BDP = 1,000,000,000 bit/s × 0.1 s = 100,000,000 bit ≈ 12.5 MB
+</code></pre>
+<p>发送方至少需要约 <code>12.5 MB</code> 在途数据，才能持续填满链路。</p>
+<h3 id="13-2-常见慢速根因">13.2 常见慢速根因</h3>
+<ul>
+<li>DNS 查询慢或解析到远端节点；</li>
+<li>TCP/TLS 握手 RTT 多；</li>
+<li>丢包触发重传和拥塞窗口下降；</li>
+<li>Wi-Fi 干扰导致链路层重传；</li>
+<li>路由绕行或跨境传播距离长；</li>
+<li>服务端排队、数据库慢，不是网络本身慢；</li>
+<li>MTU 黑洞导致部分请求卡住；</li>
+<li>接收窗口、Socket 缓冲区或应用读取速度不足；</li>
+<li>代理、WAF、CDN 回源成为瓶颈；</li>
+<li>大量小资源缺少连接复用、压缩和缓存。</li>
+</ul>
+<h2 id="十四-一次完整网页访问的时间线">十四、一次完整网页访问的时间线</h2>
+<p>把前面的模块串起来：</p>
+<ol>
+<li>用户输入 URL，浏览器解析协议为 HTTPS、默认端口为 <code>443</code>。</li>
+<li>浏览器检查 HSTS、缓存、Service Worker 和连接复用状态。</li>
+<li>DNS 解析域名，可能同时获得 IPv6 和 IPv4 地址。</li>
+<li>操作系统查路由表，选出源地址、出接口和下一跳。</li>
+<li>ARP/NDP 解析下一跳链路地址。</li>
+<li>网卡发送帧，交换机将其送到默认网关。</li>
+<li>家庭网关可能执行 NAT，运营商路由器依据路由表逐跳转发。</li>
+<li>客户端与目标或边缘节点进行 TCP 三次握手；HTTP/3 则建立 QUIC 连接。</li>
+<li>TLS 校验证书并协商会话密钥。</li>
+<li>浏览器发送 HTTP 请求，服务端、反向代理或 CDN 处理并返回响应。</li>
+<li>TCP/QUIC 根据窗口、拥塞状态和丢包情况调度传输。</li>
+<li>浏览器收到 HTML 后解析 DOM，发现子资源并继续发起请求。</li>
+<li>CSSOM、DOM 和 JavaScript 共同影响布局、绘制与交互。</li>
+<li>连接被复用，空闲超时或显式关闭后释放。</li>
+</ol>
+<p>其中许多步骤会被缓存、预连接和会话恢复省略。性能优化的核心往往是：<strong>减少必须串行等待的 RTT、缩短物理距离、减少传输字节、复用已有连接，并让服务端更快产生首字节。</strong></p>
+<h2 id="十五-故障定位-按层排查而不是靠猜">十五、故障定位：按层排查而不是靠猜</h2>
+<h3 id="15-1-推荐排查顺序">15.1 推荐排查顺序</h3>
+<ol>
+<li><strong>物理与链路</strong>：网线、Wi-Fi 信号、接口是否启用，是否有丢包和错误计数。</li>
+<li><strong>本机配置</strong>：IP、掩码、默认网关、DNS 是否正确。</li>
+<li><strong>局域网</strong>：能否解析网关 ARP/NDP，VLAN 是否正确。</li>
+<li><strong>路由与 NAT</strong>：是否存在目标路由，ACL、防火墙、NAT 表是否允许。</li>
+<li><strong>DNS</strong>：域名是否解析、记录是否正确、不同解析器结果是否一致。</li>
+<li><strong>传输层</strong>：端口是否监听，SYN 是否有响应，是否发生重传或 RST。</li>
+<li><strong>TLS</strong>：证书链、域名、时间、协议和密码套件是否匹配。</li>
+<li><strong>HTTP/应用</strong>：状态码、代理、认证、服务日志、依赖服务和数据库。</li>
+</ol>
+<h3 id="15-2-常用命令">15.2 常用命令</h3>
+<p>Windows：</p>
+<pre><code class="language-powershell">ipconfig /all
+route print
+arp -a
+nslookup www.example.com
+Resolve-DnsName www.example.com
+ping 1.1.1.1
+tracert www.example.com
+Test-NetConnection www.example.com -Port 443
+Get-NetTCPConnection
+</code></pre>
+<p>Linux：</p>
+<pre><code class="language-bash">ip address
+ip route
+ip neigh
+dig www.example.com
+ping -c 4 1.1.1.1
+traceroute www.example.com
+ss -ntlp
+curl -v https://www.example.com/
+tcpdump -ni any host 93.184.216.34
+</code></pre>
+<p>抓包时可用显示过滤器逐层缩小范围：</p>
+<pre><code class="language-text">arp
+dns
+icmp
+tcp.flags.syn == 1
+tcp.analysis.retransmission
+tls
+http
+ip.addr == 93.184.216.34
+</code></pre>
+<h3 id="15-3-现象到层次的快速映射">15.3 现象到层次的快速映射</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>优先怀疑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>没有 IP 或出现 <code>169.254.x.x</code></td>
+<td>DHCP、链路、VLAN</td>
+</tr>
+<tr>
+<td>能访问 IP，不能访问域名</td>
+<td>DNS</td>
+</tr>
+<tr>
+<td>能 ping，端口不通</td>
+<td>服务监听、防火墙、ACL、NAT</td>
+</tr>
+<tr>
+<td>端口通，HTTPS 报错</td>
+<td>TLS 证书、系统时间、SNI、协议版本</td>
+</tr>
+<tr>
+<td>小请求正常，大请求卡住</td>
+<td>MTU/MSS、ICMP 被拦截</td>
+</tr>
+<tr>
+<td>时快时慢且有重传</td>
+<td>拥塞、无线干扰、链路质量</td>
+</tr>
+<tr>
+<td>首字节慢但下载很快</td>
+<td>服务端处理、跨区 RTT、连接建立</td>
+</tr>
+<tr>
+<td>下载开始快、随后降速</td>
+<td>拥塞控制、限速、接收端瓶颈</td>
+</tr>
+<tr>
+<td>traceroute 某跳不响应但业务正常</td>
+<td>节点屏蔽或限速 ICMP</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="十六-容易混淆的关键结论">十六、容易混淆的关键结论</h2>
+<ol>
+<li><strong>交换机看 MAC，路由器看 IP</strong>是有用的入门简化，但现代设备可能同时具备二层、三层和更高层能力。</li>
+<li><strong>TCP 可靠不等于业务成功</strong>。TCP 确认数据到达协议栈，业务是否提交必须由应用协议确认。</li>
+<li><strong>ping 不通不等于服务不通</strong>。ICMP 可能被屏蔽，而 TCP <code>443</code> 仍然可达。</li>
+<li><strong>有带宽不等于低延迟</strong>。跨洲访问即使带宽很高，也受光速和路由距离约束。</li>
+<li><strong>丢包不总是拥塞</strong>。无线干扰、硬件错误和策略丢弃都可能造成丢包。</li>
+<li><strong>HTTPS 不隐藏所有元数据</strong>。IP 地址通常可见；DNS、SNI 是否可见取决于 DoH/DoT、ECH 等机制。</li>
+<li><strong>NAT 不等于防火墙</strong>，证书可信也不等于网站业务可信。</li>
+<li><strong>一个“请求”可能跨越多个连接</strong>。CDN、代理、服务网格会终止并重新建立连接。</li>
+<li><strong>链路层可靠不能替代端到端可靠</strong>。每一跳成功仍不能保证整条路径和目标进程成功。</li>
+<li><strong>网络优化首先优化串行等待</strong>。减少 RTT 次数通常比只压缩少量字节更有效。</li>
+</ol>
+<h2 id="十七-生产环境检查清单">十七、生产环境检查清单</h2>
+<h3 id="地址与路由">地址与路由</h3>
+<ul>
+<li>☐ IP、前缀、网关和 DNS 配置正确。</li>
+<li>☐ 双栈环境同时验证 IPv4 与 IPv6。</li>
+<li>☐ 路由表存在正确的最长前缀匹配项。</li>
+<li>☐ 回程路由存在，避免只通单向。</li>
+<li>☐ NAT、ACL 和安全组规则与连接方向一致。</li>
+</ul>
+<h3 id="传输与安全">传输与安全</h3>
+<ul>
+<li>☐ 服务监听在预期地址和端口，而非仅监听回环地址。</li>
+<li>☐ TCP 重传、RTT、窗口和连接队列处于合理范围。</li>
+<li>☐ MTU/MSS 与隧道封装匹配。</li>
+<li>☐ 证书域名、有效期、完整链和自动续期正常。</li>
+<li>☐ TLS 禁用过时版本和弱密码套件。</li>
+</ul>
+<h3 id="应用与可观测性">应用与可观测性</h3>
+<ul>
+<li>☐ DNS TTL、健康检查和故障切换策略合理。</li>
+<li>☐ 设置连接、读取、写入和总请求超时。</li>
+<li>☐ 重试具有次数上限、指数退避、随机抖动与幂等保障。</li>
+<li>☐ 记录 DNS、建连、TLS、首字节和下载各阶段耗时。</li>
+<li>☐ 监控错误率、重传率、连接数、队列、吞吐量和尾延迟。</li>
+<li>☐ 跨代理传递并校验 Trace ID，限制可信代理来源。</li>
+</ul>
+<h2 id="十八-总结-用三个范围理解整张网络">十八、总结：用三个范围理解整张网络</h2>
+<p>可以把复杂网络压缩成三个通信范围：</p>
+<ol>
+<li><strong>进程到进程</strong>：应用协议、端口、TCP/UDP/QUIC 解决“数据属于哪个应用、是否可靠、如何控制速率”。</li>
+<li><strong>主机到主机</strong>：IP 与路由解决“目标位于哪个网络、下一跳应该是谁”。</li>
+<li><strong>节点到相邻节点</strong>：以太网、Wi-Fi、MAC 和物理信号解决“这一跳如何真正把比特交过去”。</li>
+</ol>
+<p>发送端逐层封装，交换机在广播域内搬运帧，路由器逐跳拆除并重建链路层封装，接收端逐层解封装，最终把字节交给目标进程。DNS、DHCP、ARP/NDP、ICMP、NAT、TLS 和 HTTP 并不是互不相关的名词，它们分别填补了命名、配置、邻居发现、差错反馈、地址转换、安全和业务语义这些不可缺少的环节。</p>
+<p>理解计算机网络的关键，不是死记每个首部字段，而是面对任意一个数据包时都能回答：</p>
+<ul>
+<li>它现在处于哪一层？</li>
+<li>当前设备依据哪个字段做决定？</li>
+<li>下一跳是谁，最终目的地又是谁？</li>
+<li>哪些字段会在这一跳改变？</li>
+<li>如果失败，错误会在哪里被发现并反馈？</li>
+</ul>
+<p>能稳定回答这五个问题，就建立了分析真实网络的完整骨架。</p></div>
+      <nav class="post-pager" aria-label="上下篇"><a class="pager-link" href="%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html"><em>上一篇</em><b>计算机网络 - 概述</b></a><a class="pager-link next" href="../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1.html"><em>下一篇</em><b>什么是高性能服务</b></a></nav>
+    </article>
+  </main>
+</div>
+<footer class="blog-foot">
+  <div class="wrap foot-inner">
+    <span>© 2026 逐梦笔记 · 由 <code>scripts/build_blog.py</code> 从 docs/ 自动生成</span>
+    <span>内容来源：<a href="https://github.com/ShiQianzhi/note" target="_blank" rel="noopener noreferrer">ShiQianzhi/note</a> · 同步于 2026-11-26</span>
+  </div>
+</footer>
+<script src="../../blog.js"></script>
+</body>
+</html>

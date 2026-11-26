@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第12章 RBAC 权限与安全 · 逐梦笔记</title>
+<meta name="description" content="学习目标">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../../../../blog.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="../../../../../index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../../../../../index.html">首页</a>
+      <div class="nav-drop">
+        <a href="../../../../../knowledge.html">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="../../../../../knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="../../../../../knowledge.html#domains">五大知识域</a>
+          <a href="../../../../../knowledge.html#cross">交叉与前沿</a>
+          <a href="../../../../../knowledge.html#axes">三条贯穿轴</a>
+          <a href="../../../../../knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="../../../../../career.html">世界职业体系</a>
+      <a href="../../../../index.html" class="active">博客</a>
+      <a class="nav-cta" href="../../../../../knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-wrap">
+  
+    <aside class="blog-side">
+      <div class="side-head">
+        <a class="blog-brand" href="../../../../index.html">逐梦笔记<span>NOTES</span></a>
+        <button class="side-toggle" id="sideToggle" aria-expanded="false" aria-controls="sideBody">目录</button>
+      </div>
+      <div class="side-body" id="sideBody">
+        <div class="tree-search">
+          <input id="treeQ" type="search" placeholder="筛选 197 篇笔记…" aria-label="筛选笔记">
+        </div>
+        <nav class="tree" aria-label="博客目录"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI创作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI短剧制作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI写周报，把我写成了公司CEO</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E5%86%99%E5%91%A8%E6%8A%A5%EF%BC%8C%E6%8A%8A%E6%88%91%E5%86%99%E6%88%90%E4%BA%86%E5%85%AC%E5%8F%B8CEO/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI的最后一活</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%B4%BB/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><a class="tree-link" href="../../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%9B%E4%BD%9C%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html" title="AI 短剧创作保姆级教程：从一个想法到成片发布">AI 短剧创作保姆级教程：从一个想法到成片发布</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人生感悟</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/%E5%9C%A8%E5%89%A7%E5%8F%98%E4%B8%AD%E5%AF%BB%E8%B7%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8AI%E6%B5%AA%E6%BD%AE%E4%B8%8B%E6%8A%93%E4%BD%8F%E6%9C%BA%E9%81%87.html" title="在剧变中寻路：如何在 AI 浪潮下抓住机遇">在剧变中寻路：如何在 AI 浪潮下抓住机遇</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础学科</span><span class="tree-count">22</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数学</span><span class="tree-count">13</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">初等代数</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5.html" title="数的概念">数的概念</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E7%B1%BB%E5%88%AB.html" title="数的类别">数的类别</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E9%87%8F.html" title="数量">数量</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性代数</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F.html" title="向量（Vector）：从几何箭头到 AI 数据表示">向量（Vector）：从几何箭头到 AI 数据表示</a></div></details><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%8C%87%E6%95%B0%E8%BF%90%E7%AE%97.html" title="什么是指数运算">什么是指数运算</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%85%B3%E7%B3%BB.html" title="什么是线性关系">什么是线性关系</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%87%A0%E4%BD%95%E5%85%A5%E9%97%A8.html" title="几何入门">几何入门</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97.html" title="四则运算">四则运算</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9F%BA%E6%9C%AC%E4%BB%A3%E6%95%B0.html" title="基本代数">基本代数</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E6%95%B0%E5%AD%A6.html" title="如何学习数学">如何学习数学</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%9A%E4%BB%8E0%E5%88%B0%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6.html" title="数学学习路线图：从0到高等数学">数学学习路线图：从0到高等数学</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E8%A1%A8%E7%A4%BA.html" title="数的分类与表示">数的分类与表示</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%AE%97%E6%9C%AF%E5%9F%BA%E7%A1%80.html" title="算术基础">算术基础</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">物理</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E4%BB%8E%E5%BE%AE%E8%A7%82%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E7%89%A9%E8%B4%A8%EF%BC%9A%E5%8E%9F%E5%AD%90%E3%80%81%E7%B2%92%E5%AD%90%E4%B8%8E%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8.html" title="从微观角度理解物质：原子、粒子与相互作用">从微观角度理解物质：原子、粒子与相互作用</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%89%A9%E8%B4%A8%E5%92%8C%E8%83%BD%E9%87%8F%E7%9A%84%E5%85%B3%E7%B3%BB.html" title="物质和能量的关系">物质和能量的关系</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%90%86%E8%A7%A3%E7%94%B5%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%89%A9%E7%90%86%E5%9F%BA%E7%A1%80.html" title="理解电必须掌握的物理基础">理解电必须掌握的物理基础</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E%E5%8E%86%E5%8F%B2%E5%88%B0%E6%9C%AC%E8%B4%A8.html" title="电是什么：从历史到本质">电是什么：从历史到本质</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.html" title="电的原理与应用场景">电的原理与应用场景</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%A3%81%EF%BC%9A%E4%BB%8E%E7%94%B5%E5%9C%BA%E7%A3%81%E5%9C%BA%E5%88%B0%E7%94%B5%E7%A3%81%E6%B3%A2.html" title="电磁：从电场磁场到电磁波">电磁：从电场磁场到电磁波</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">语言</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">英语</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="英语学习笔记">英语学习笔记</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95.html" title="英语语法">英语语法</a></div></details><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%AF%AD%E6%B3%95.html" title="语法">语法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">心情随笔</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/%E5%85%AD%E7%A7%8D%E5%80%BC%E5%BE%97%E7%BB%93%E4%BA%A4%E4%B8%80%E8%BE%88%E5%AD%90%E7%9A%84%E4%BA%BA.html" title="六种值得结交一辈子的人">六种值得结交一辈子的人</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">生活常识</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">买房攻略</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98.html" title="下面是我总结了买房相关常见问题：">下面是我总结了买房相关常见问题：</a><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5.html" title="买房攻略">买房攻略</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">考驾照</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E8%80%83%E9%A9%BE%E7%85%A7/%E7%A7%91%E7%9B%AE%E4%B8%80.html" title="科目一刷题笔记">科目一刷题笔记</a></div></details><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E5%90%84%E8%A1%8C%E4%B8%9A%E5%85%A8%E6%99%AF%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%AE%9A%E4%B9%89%E3%80%81%E7%8E%B0%E7%8A%B6%E4%B8%8EAI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%9C%AA%E6%9D%A5.html" title="各行业全景解析：定义、现状与 AI 时代的未来">各行业全景解析：定义、现状与 AI 时代的未来</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">计算机科学</span><span class="tree-count">160</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Agent 开发</span><span class="tree-count">11</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">docs</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">superpowers</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">specs</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/docs/superpowers/specs/2026-11-06-enterprise-agent-course-design.html" title="企业级 Agent 混合架构课程设计">企业级 Agent 混合架构课程设计</a></div></details></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">learning-records</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0001-python-worker-first.html" title="Learning Record 0001: Python Agent Worker First">Learning Record 0001: Python Agent Worker First</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0002-agent-state-checkpoint-recovery.html" title="Learning Record 0002: Agent State and Checkpoint Recovery">Learning Record 0002: Agent State and Checkpoint Recovery</a></div></details><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/Agent%20%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="Agent 开发学习路线">Agent 开发学习路线</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/Agent%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.html" title="Agent开发核心知识点">Agent开发核心知识点</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/Go-Python%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BD%ACAgent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B.html" title="Go/Python 后端工程师转 Agent 开发实战教程">Go/Python 后端工程师转 Agent 开发实战教程</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/MISSION.html" title="Mission: 从 Python Agent Worker 学会企业级 Agent 开发">Mission: 从 Python Agent Worker 学会企业级 Agent 开发</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/RAG.html" title="RAG">RAG</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/RAG%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%A6%E7%BB%86%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html" title="RAG系统的详细工作流程">RAG系统的详细工作流程</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E9%AB%98%E5%B9%B6%E5%8F%91%E4%BC%81%E4%B8%9A%E7%BA%A7Agent%E7%B3%BB%E7%BB%9F%E6%95%99%E7%A8%8B.html" title="从零搭建高并发企业级 Agent 系统教程">从零搭建高并发企业级 Agent 系统教程</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/RESOURCES.html" title="企业级 Agent 开发资源">企业级 Agent 开发资源</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人工智能</span><span class="tree-count">33</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI行业基础知识相关概念</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAI.html" title="什么是 AI">什么是 AI</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAIGC.html" title="什么是 AIGC">什么是 AIGC</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAgent.html" title="什么是 Agent">什么是 Agent</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG">什么是 RAG</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE.html" title="什么是向量数据">什么是向量数据</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是大模型">什么是大模型</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是语言大模型">什么是语言大模型</a></div></details><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93.html" title="AI 学习笔记总结">AI 学习笔记总结</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E5%BA%94%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="AI 应用工程师从入门到实战的最佳学习路线">AI 应用工程师从入门到实战的最佳学习路线</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Chroma%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Chroma 入门手册：从零上手最轻量的向量数据库">Chroma 入门手册：从零上手最轻量的向量数据库</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/LangChain%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="LangChain 入门手册：用搭积木的方式编排大模型应用">LangChain 入门手册：用搭积木的方式编排大模型应用</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Transformer%20%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.html" title="Transformer 注意力机制详解">Transformer 注意力机制详解</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BB%8B%E7%BB%8D.html" title="人工智能介绍">人工智能介绍</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%A6%E7%90%86%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="人工智能伦理与安全">人工智能伦理与安全</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG：检索增强生成从原理到实战">什么是 RAG：检索增强生成从原理到实战</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%8D%E5%90%91%E9%87%8F.html" title="什么是词向量">什么是词向量</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BANLP%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html" title="从零搭建NLP模型完全指南">从零搭建NLP模型完全指南</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%85%B3%E4%BA%8EAI%E7%9A%84%E7%95%85%E6%83%B3%E5%92%8C%E6%80%9D%E8%80%83.html" title="关于AI的畅想和思考">关于AI的畅想和思考</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%80%85AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师">后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93.html" title="向量数据库：语义搜索的存储与检索引擎">向量数据库：语义搜索的存储与检索引擎</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BA%B2.html" title="大模型应用实战知识总纲">大模型应用实战知识总纲</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAAgent.html" title="如何搭建一个 Agent">如何搭建一个 Agent</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="学习笔记">学习笔记</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html" title="强化学习">强化学习</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%96%87%E6%9C%AC%E6%98%AF%E5%A6%82%E4%BD%95%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E7%9A%84.html" title="文本是如何变成向量的：Embedding 推理管线全解析">文本是如何变成向量的：Embedding 推理管线全解析</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html" title="机器学习-线性回归">机器学习-线性回归</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="机器学习基础">机器学习基础</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="深度学习基础">深度学习基础</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html" title="神经网络">神经网络</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Agent%20%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="网页版知识库 Agent 搭建实战">网页版知识库 Agent 搭建实战</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86.html" title="自然语言处理">自然语言处理</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89.html" title="计算机视觉">计算机视觉</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E9%AB%98%E7%BB%B4%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%91%E9%87%8F%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%90%91%E9%87%8D%E5%BB%BA.html" title="高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容">高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础知识</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/DNS.html" title="DNS：从域名到 IP 地址的分布式解析系统">DNS：从域名到 IP 地址的分布式解析系统</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/HTTP.html" title="HTTP：从一次请求到现代 Web 传输体系">HTTP：从一次请求到现代 Web 传输体系</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84.html" title="互联网是如何工作的">互联网是如何工作的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%9F%E7%90%86.html" title="操作系统的原理">操作系统的原理</a><a class="tree-link" href="../../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F.html" title="深入理解计算机系统">深入理解计算机系统</a><a class="tree-link" href="../../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84.html" title="计算机是如何编码数据的">计算机是如何编码数据的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">8</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Elasticsearch</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/%E5%AE%89%E8%A3%85.html" title="创建网络">创建网络</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MongoDB</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念">基本概念</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%AE%89%E8%A3%85mongodb.html" title="安装mongodb">安装mongodb</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" title="数据库不存在会自动创建">数据库不存在会自动创建</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MySQL</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%9E%B6%E6%9E%84.html" title="MySQL 架构">MySQL 架构</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="MySQL数据库知识大纲">MySQL数据库知识大纲</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.html" title="存储引擎">存储引擎</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E7%B4%A2%E5%BC%95.html" title="索引">索引</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构与算法</span><span class="tree-count">10</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构</span><span class="tree-count">6</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数组和字符串</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C.html" title="数组的操作">数组的操作</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%A6%82%E8%BF%B0.html" title="概述">概述</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">树</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/%E6%A0%91.html" title="树">树</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性表</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8.html" title="线性表">线性表</a></div></details><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD.html" title="基本概念和术语">基本概念和术语</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E5%92%8C%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84.html" title="逻辑结构和物理结构">逻辑结构和物理结构</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">算法</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/K-Means.html" title="K-Means 聚类算法">K-Means 聚类算法</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97%E8%AF%A6%E8%A7%A3.html" title="位运算详解">位运算详解</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95.html" title="算法效率分析方法">算法效率分析方法</a></div></details></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">编程笔记</span><span class="tree-count">54</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C 语言学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../C%20%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="此时会生成 a.out（windows 会生成 a.exe）">此时会生成 a.out（windows 会生成 a.exe）</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Docker</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Docker/docker%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Docker 入门手册：编写 Dockerfile、构建镜像与容器管理">Docker 入门手册：编写 Dockerfile、构建镜像与容器管理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言之旅</span><span class="tree-count">12</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架源码剖析</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Gin%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Gin%20%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Gin%E6%A1%86%E6%9E%B6%E5%BC%95%E6%93%8E%E5%AE%9E%E4%BE%8B.html" title="深入理解Gin框架引擎实例">深入理解Gin框架引擎实例</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言设计与实现</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%BA%90%E4%BB%A3%E7%A0%81.html" title="自己需要那个版本的 Go 标签，就用那个">自己需要那个版本的 Go 标签，就用那个</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言高级开发工程</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html" title="Go 单元测试">Go 单元测试</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E9%98%B6%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7.html" title="Go 语言高阶实战技巧">Go 语言高阶实战技巧</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Lua</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Lua/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BLua%E8%84%9A%E6%9C%AC.html" title="&quot;Hello, scripting!&quot;">&quot;Hello, scripting!&quot;</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">kubernetes</span><span class="tree-count">17</span></summary><div class="tree-children"><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">从入门到实战</span><span class="tree-count">16</span></summary><div class="tree-children"><a class="tree-link" href="K8s%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2.html" title="Kubernetes 从入门到实战：完整知识学习大纲">Kubernetes 从入门到实战：完整知识学习大纲</a><a class="tree-link" href="%E7%AC%AC10%E7%AB%A0-Ingress%E4%B8%8E%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1.html" title="第10章：Ingress 与流量路由">第10章：Ingress 与流量路由</a><a class="tree-link" href="%E7%AC%AC11%E7%AB%A0-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%9B%E9%98%B6.html" title="第11章 控制器进阶">第11章 控制器进阶</a><a class="tree-link active" href="%E7%AC%AC12%E7%AB%A0-RBAC%E6%9D%83%E9%99%90%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="第12章 RBAC 权限与安全">第12章 RBAC 权限与安全</a><a class="tree-link" href="%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html" title="第13章 监控日志与可观测性">第13章 监控日志与可观测性</a><a class="tree-link" href="%E7%AC%AC14%E7%AB%A0-Helm%E5%8C%85%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第14章 Helm 包管理与应用部署">第14章 Helm 包管理与应用部署</a><a class="tree-link" href="%E7%AC%AC15%E7%AB%A0-%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98-%E5%AE%8C%E6%95%B4%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2.html" title="第15章 综合实战：完整微服务项目部署">第15章 综合实战：完整微服务项目部署</a><a class="tree-link" href="%E7%AC%AC1%E7%AB%A0-K8s%E6%A6%82%E8%BF%B0%E4%B8%8E%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3.html" title="第1章 K8s 概述与架构理解">第1章 K8s 概述与架构理解</a><a class="tree-link" href="%E7%AC%AC2%E7%AB%A0-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="第2章 环境搭建实战">第2章 环境搭建实战</a><a class="tree-link" href="%E7%AC%AC3%E7%AB%A0-Pod%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E6%88%98.html" title="第3章 Pod 核心概念与实战">第3章 Pod 核心概念与实战</a><a class="tree-link" href="%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第4章 Deployment 与应用部署">第4章 Deployment 与应用部署</a><a class="tree-link" href="%E7%AC%AC5%E7%AB%A0-Service%E4%B8%8E%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1.html" title="第5章：Service 与网络通信">第5章：Service 与网络通信</a><a class="tree-link" href="%E7%AC%AC6%E7%AB%A0-ConfigMap%E4%B8%8ESecret%E7%AE%A1%E7%90%86.html" title="第6章：ConfigMap 与 Secret 管理">第6章：ConfigMap 与 Secret 管理</a><a class="tree-link" href="%E7%AC%AC7%E7%AB%A0-Volume%E4%B8%8E%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8.html" title="第7章：Volume 与持久化存储">第7章：Volume 与持久化存储</a><a class="tree-link" href="%E7%AC%AC8%E7%AB%A0-Namespace%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.html" title="第8章：Namespace 与资源管理">第8章：Namespace 与资源管理</a><a class="tree-link" href="%E7%AC%AC9%E7%AB%A0-%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6%E4%B8%8E%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86.html" title="第9章：调度机制与节点管理">第9章：调度机制与节点管理</a></div></details><a class="tree-link" href="../HPA%E5%92%8CVPA%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="HPA 和 VPA 的区别">HPA 和 VPA 的区别</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">其他</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%85%B6%E4%BB%96/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80UML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="统一建模语言UML学习笔记">统一建模语言UML学习笔记</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Linux</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Centos</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/yum.html" title="yum">yum</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/CentosStream8%20%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html" title="刷新配置">刷新配置</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/Centos7.9%20%E5%AE%89%E8%A3%85%20node20%20%E5%AE%9E%E6%88%98.html" title="安装 nvm">安装 nvm</a></div></details><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86.html" title="查看文件的大小">查看文件的大小</a></div></details><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">mysql</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%AE%89%E8%A3%85mysql.html" title="CentOS Linux release 8.5.2111">CentOS Linux release 8.5.2111</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E4%BB%80%E4%B9%88%E6%98%AFmysql.html" title="什么是mysql">什么是mysql</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.html" title="注意不同的密码验证策略要求密码复杂度不一样。">注意不同的密码验证策略要求密码复杂度不一样。</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">缓存</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%93%E5%AD%98/redis%20%E7%BC%93%E5%AD%98%E5%AE%9E%E6%88%98.html" title="redis 缓存实战">redis 缓存实战</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">软件开发与设计规范</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/%E6%8C%87%E5%AF%BC%E6%80%9D%E6%83%B3.html" title="指导思想">指导思想</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">领域驱动设计</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E4%BB%80%E4%B9%88%E6%98%AFDDD.html" title="什么是DDD">什么是DDD</a><a class="tree-link" href="../../%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E5%89%8D%E8%A8%80.html" title="前言">前言</a></div></details><a class="tree-link" href="../../Cookie%20%E8%AF%A6%E8%A7%A3.html" title="Cookie 详解">Cookie 详解</a><a class="tree-link" href="../../JWT%E8%AF%A6%E8%A7%A3.html" title="JWT 详解">JWT 详解</a><a class="tree-link" href="../../Raft%20%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3.html" title="Raft 协议详解">Raft 协议详解</a><a class="tree-link" href="../../WebRTC%20%E5%BA%95%E5%B1%82%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.html" title="WebRTC 底层工作原理详解">WebRTC 底层工作原理详解</a><a class="tree-link" href="../../curl%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="curl 使用手册">curl 使用手册</a><a class="tree-link" href="../../Git%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" title="克隆指定分支">克隆指定分支</a><a class="tree-link" href="../../%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95.html" title="分布式一致性算法">分布式一致性算法</a><a class="tree-link" href="../../%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="学习路线">学习路线</a><a class="tree-link" href="../../%E6%90%AD%E5%BB%BA%20Conda%20%2B%20Jupyter%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" title="搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南">搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程语言</span><span class="tree-count">18</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/C%20%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="C 语言快速入门">C 语言快速入门</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20benchmark%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go Benchmark 最佳实战">Go Benchmark 最佳实战</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20pprof%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go pprof 最佳实战：从开发诊断到生产调优">Go pprof 最佳实战：从开发诊断到生产调优</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5.html" title="Go 底层原理与工程化实践">Go 底层原理与工程化实践</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码">Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E8%AF%AD%E8%A8%80%E9%AB%98%E6%95%88%E7%BC%96%E7%A8%8B%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8C%96.html" title="Go 语言高效编程：原理、可观测性与优化">Go 语言高效编程：原理、可观测性与优化</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A.html" title="Go开发工程师必知必会">Go开发工程师必知必会</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Python</span><span class="tree-count">8</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="NumPy 使用手册">NumPy 使用手册</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="NumPy 使用指南：从 ndarray 到数值计算实践">NumPy 使用指南：从 ndarray 到数值计算实践</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Pandas%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="Pandas 使用指南：从 Series/DataFrame 到数据分析实践">Pandas 使用指南：从 Series/DataFrame 到数据分析实践</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html" title="Python 异步编程：从原理到实战">Python 异步编程：从原理到实战</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="Python 快速入门">Python 快速入门</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Decorator%EF%BC%89%E6%80%BB%E7%BB%93.html" title="Python 装饰器（Decorator）总结">Python 装饰器（Decorator）总结</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E8%AE%A4%E8%AF%86Python.html" title="认识Python">认识Python</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%40staticmethod%20%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="静态方法是类的属性">静态方法是类的属性</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Rust</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Rust 入门手册：面向 Go 与 Python 开发者">Rust 入门手册：面向 Go 与 Python 开发者</a></div></details><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E7%A8%8B%E5%BA%8F%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86.html" title="程序底层执行原理：从一行源码到进程退出">程序底层执行原理：从一行源码到进程退出</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88.html" title="计算机科学与编程十万个为什么">计算机科学与编程十万个为什么</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机组成原理</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%BC%96%E7%A0%81.html" title="《编码》：从手电筒到计算机">《编码》：从手电筒到计算机</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%98%BE%E7%A4%BA%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="显示器的工作原理">显示器的工作原理</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%99%B6%E4%BD%93%E7%AE%A1.html" title="晶体管：小学生也能看懂的计算机“小开关”">晶体管：小学生也能看懂的计算机“小开关”</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84.html" title="程序是如何执行的">程序是如何执行的</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.html" title="计算机底层原理：程序、数据与网络如何从 0 到 1 运转">计算机底层原理：程序、数据与网络如何从 0 到 1 运转</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html" title="计算机组成">计算机组成</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="计算机组成原理">计算机组成原理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机网络</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BATCP-IP%E5%8D%8F%E8%AE%AE.html" title="深入浅出TCP-IP协议">深入浅出TCP-IP协议</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20OSI.html" title="计算机网络 - OSI">计算机网络 - OSI</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html" title="计算机网络 - 概述">计算机网络 - 概述</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="计算机网络工作原理：从输入 URL 到数据跨越互联网">计算机网络工作原理：从输入 URL 到数据跨越互联网</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">高性能服务设计与实现</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1.html" title="什么是高性能服务">什么是高性能服务</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88.html" title="后端服务安全方案">后端服务安全方案</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%AF%B4%E6%98%8E.html" title="后端服务性能指标体系">后端服务性能指标体系</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E7%99%BE%E4%B8%87%E7%BA%A7QPS%20API%E7%BD%91%E5%85%B3%E8%AE%BE%E8%AE%A1.html" title="如何设计一个支持百万级 QPS 的 API 网关">如何设计一个支持百万级 QPS 的 API 网关</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%99%90%E6%B5%81%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1.html" title="限流方案设计">限流方案设计</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%20Agent%20%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="高性能 Agent 服务架构设计与实现">高性能 Agent 服务架构设计与实现</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8F%AF%E8%A1%8C%E6%80%A7%E6%96%B9%E6%A1%88.html" title="高性能服务架构可行性方案">高性能服务架构可行性方案</a></div></details><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E5%A4%A7%E7%BA%B2.html" title="计算机知识学习先后顺序大纲">计算机知识学习先后顺序大纲</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="计算机科学知识大纲">计算机科学知识大纲</a></div></details><div class="tree-label">散篇</div><a class="tree-link" href="../../../../TODO.html" title="TODO">TODO</a><a class="tree-link" href="../../../../%E4%B8%AA%E4%BA%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E9%87%8D%E9%93%B8%E8%AE%A1%E5%88%92.html" title="个人基础知识重铸计划">个人基础知识重铸计划</a><a class="tree-link" href="../../../../%E5%8F%A5%E5%AD%90.html" title="句子">句子</a><a class="tree-link" href="../../../../%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E5%AD%A6%E4%B9%A0.html" title="如何高效的学习">如何高效的学习</a><a class="tree-link" href="../../../../%E6%97%B6%E9%97%B4%E8%83%B6%E5%9B%8A.html" title="时间胶囊">时间胶囊</a><a class="tree-link" href="../../../../%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA.html" title="网站导航">网站导航</a></nav>
+      </div>
+    </aside>
+  <main class="blog-main">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../../../../index.html">博客</a><span>/</span><span>计算机科学</span><span>/</span><span>编程笔记</span><span>/</span><span>kubernetes</span><span>/</span><span>从入门到实战</span><span>/</span><span>第12章 RBAC 权限与安全</span></nav>
+    <article class="post">
+      <header class="post-head">
+        <div class="post-kicker">计算机科学 / 编程笔记 / kubernetes / 从入门到实战</div>
+        <h1>第12章 RBAC 权限与安全</h1>
+        <div class="post-meta"><span>计算机科学/编程笔记/kubernetes/从入门到实战/第12章-RBAC权限与安全.md</span><span>约 1,815 字</span></div>
+      </header>
+      <div class="prose"><h2 id="学习目标">学习目标</h2>
+<ul>
+<li>理解 RBAC 的核心概念：Role、ClusterRole、RoleBinding、ClusterRoleBinding、ServiceAccount</li>
+<li>掌握 RBAC 的作用域划分：Namespace 级与 Cluster 级</li>
+<li>理解权限描述结构（apiGroups / resources / verbs）并能独立编写</li>
+<li>掌握常见权限场景：只读权限、命名空间管理员、集群管理员</li>
+<li>理解最小权限原则并能在实际中应用</li>
+<li>熟练使用 <code>kubectl auth can-i</code> 验证权限</li>
+<li>通过 5 个实战练习，掌握 RBAC 的创建、绑定和验证</li>
+</ul>
+<hr />
+<h2 id="12-1-rbac-核心概念">12.1 RBAC 核心概念</h2>
+<h3 id="12-1-1-什么是-rbac">12.1.1 什么是 RBAC</h3>
+<p>RBAC（Role-Based Access Control，基于角色的访问控制）是 Kubernetes 中管理集群访问权限的核心机制。它通过<strong>角色</strong>定义权限，通过<strong>绑定</strong>将角色赋予用户或 Pod。</p>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                    RBAC 权限模型                               │
+│                                                               │
+│  ┌─────────────────────────────────────────────────────────┐ │
+│  │                    主体（Subject）                        │ │
+│  │                                                         │ │
+│  │  ┌─────────┐  ┌─────────┐  ┌─────────────────────┐    │ │
+│  │  │  User   │  │  Group  │  │ ServiceAccount     │    │ │
+│  │  │  集群用户│  │  用户组 │  │ Pod 使用的身份       │    │ │
+│  │  └────┬────┘  └────┬────┘  └────────┬────────────┘    │ │
+│  │       │            │                │                    │ │
+│  └───────┼────────────┼────────────────┼────────────────────┘ │
+│          │            │                │                       │
+│          ▼            ▼                ▼                       │
+│  ┌─────────────────────────────────────────────────────────┐ │
+│  │                    绑定（Binding）                       │ │
+│  │                                                         │ │
+│  │  ┌─────────────────┐    ┌─────────────────────────┐   │ │
+│  │  │  RoleBinding    │    │  ClusterRoleBinding      │   │ │
+│  │  │  命名空间级绑定  │    │  集群级绑定              │   │ │
+│  │  └────────┬────────┘    └────────────┬─────────────┘   │ │
+│  └───────────┼──────────────────────────┼───────────────────┘ │
+│              │                          │                     │
+│              ▼                          ▼                     │
+│  ┌─────────────────────────────────────────────────────────┐ │
+│  │                    角色（Role）                          │ │
+│  │                                                         │ │
+│  │  ┌─────────────────┐    ┌─────────────────────────┐   │ │
+│  │  │  Role           │    │  ClusterRole             │   │ │
+│  │  │  命名空间级角色  │    │  集群级角色              │   │ │
+│  │  └────────┬────────┘    └────────────┬─────────────┘   │ │
+│  └───────────┼──────────────────────────┼───────────────────┘ │
+│              │                          │                     │
+│              ▼                          ▼                     │
+│  ┌─────────────────────────────────────────────────────────┐ │
+│  │                    权限（Rules）                         │ │
+│  │                                                         │ │
+│  │  apiGroups: [&quot;apps&quot;]                                    │ │
+│  │  resources: [&quot;deployments&quot;]                             │ │
+│  │  verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]                        │ │
+│  │                                                         │ │
+│  │  → 允许对 apps/deployments 执行 get/list/watch 操作     │ │
+│  └─────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="12-1-2-rbac-四大核心资源">12.1.2 RBAC 四大核心资源</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>资源</th>
+<th>作用</th>
+<th>作用域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Role</strong></td>
+<td>定义在某个命名空间内的权限规则</td>
+<td>Namespace</td>
+</tr>
+<tr>
+<td><strong>ClusterRole</strong></td>
+<td>定义集群范围内的权限规则</td>
+<td>Cluster</td>
+</tr>
+<tr>
+<td><strong>RoleBinding</strong></td>
+<td>将 Role 绑定到主体（用户/组/ServiceAccount）</td>
+<td>Namespace</td>
+</tr>
+<tr>
+<td><strong>ClusterRoleBinding</strong></td>
+<td>将 ClusterRole 绑定到主体</td>
+<td>Cluster</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="12-1-3-role-与-clusterrole">12.1.3 Role 与 ClusterRole</h3>
+<pre><code>Role（命名空间级）:
+┌─────────────────────────────────────┐
+│ Namespace: production                │
+│ ├── 允许读取 production 命名空间的    │
+│ │   deployments, pods, services      │
+│ └── 不影响其他命名空间                │
+└─────────────────────────────────────┘
+
+ClusterRole（集群级）:
+┌─────────────────────────────────────┐
+│ Cluster: all                        │
+│ ├── 允许读取所有命名空间的            │
+│ │   deployments, pods, services      │
+│ ├── 允许查看集群级资源（nodes, ns）    │
+│ └── 跨命名空间生效                    │
+└─────────────────────────────────────┘
+</code></pre>
+<h3 id="12-1-4-serviceaccount">12.1.4 ServiceAccount</h3>
+<p>ServiceAccount 是 Pod 在集群中的身份标识，Pod 通过 ServiceAccount 访问集群 API 时会根据绑定的 RBAC 规则进行权限校验。</p>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│              ServiceAccount 工作流程                      │
+│                                                           │
+│  Pod (ServiceAccount: app-sa)                             │
+│    │                                                      │
+│    │  1. Pod 自动挂载 ServiceAccount Token                 │
+│    │     /var/run/secrets/kubernetes.io/serviceaccount/   │
+│    │     ├── token                                        │
+│    │     ├── ca.crt                                       │
+│    │     └── namespace                                    │
+│    │                                                      │
+│    ▼                                                      │
+│  Kubernetes API Server                                    │
+│    │                                                      │
+│    │  2. 验证 Token，提取 ServiceAccount 身份              │
+│    │                                                      │
+│    ▼                                                      │
+│  RBAC 权限检查                                            │
+│    │                                                      │
+│    │  3. 检查 RoleBinding / ClusterRoleBinding             │
+│    │     → 确定该 SA 拥有哪些权限                         │
+│    │                                                      │
+│    ▼                                                      │
+│  允许 / 拒绝操作                                           │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<h2 id="12-2-rbac-作用域详解">12.2 RBAC 作用域详解</h2>
+<h3 id="12-2-1-两种作用域对比">12.2.1 两种作用域对比</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Namespace 级</th>
+<th>Cluster 级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>资源</strong></td>
+<td>Role + RoleBinding</td>
+<td>ClusterRole + ClusterRoleBinding</td>
+</tr>
+<tr>
+<td><strong>生效范围</strong></td>
+<td>单个命名空间</td>
+<td>所有命名空间</td>
+</tr>
+<tr>
+<td><strong>可管理资源</strong></td>
+<td>命名空间级资源</td>
+<td>集群级 + 所有命名空间级资源</td>
+</tr>
+<tr>
+<td><strong>复用性</strong></td>
+<td>每个命名空间需单独创建</td>
+<td>创建一次，全局生效</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>多租户隔离</td>
+<td>全局管理</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="12-2-2-命名空间级资源-vs-集群级资源">12.2.2 命名空间级资源 vs 集群级资源</h3>
+<h4 id="命名空间级资源-受-role-控制">命名空间级资源（受 Role 控制）</h4>
+<pre><code class="language-bash"># 以下资源在命名空间内生效
+kubectl api-resources --namespaced=true
+# NAME                  SHORTNAMES   APIVERSION
+# configmaps            cm           v1
+# pods                  po           v1
+# secrets               sec          v1
+# serviceaccounts       sa           v1
+# services              svc          v1
+# deployments           deploy       apps/v1
+# statefulsets          sts          apps/v1
+# daemonsets            ds           apps/v1
+# replicasets           rs           apps/v1
+# jobs                  job          batch/v1
+# cronjobs              cj           batch/v1
+# ingresses             ing          networking.k8s.io/v1
+# ...
+</code></pre>
+<h4 id="集群级资源-仅受-clusterrole-控制">集群级资源（仅受 ClusterRole 控制）</h4>
+<pre><code class="language-bash"># 以下资源是集群级的，不受 Role 控制
+kubectl api-resources --namespaced=false
+# NAME                  SHORTNAMES   APIVERSION
+# nodes                 no           v1
+# namespaces            ns           v1
+# persistentvolumes     pv           v1
+# clusterroles          rbac.authorization.k8s.io/v1
+# clusterrolebindings   rb           rbac.authorization.k8s.io/v1
+# roles                 r            rbac.authorization.k8s.io/v1
+# rolebindings          rb           rbac.authorization.k8s.io/v1
+# storageclasses        sc           storage.k8s.io/v1
+# customresourcedefinitions   crd    apiextensions.k8s.io/v1
+# ...
+</code></pre>
+<h3 id="12-2-3-clusterrole-的双重用途">12.2.3 ClusterRole 的双重用途</h3>
+<p>ClusterRole 既可以在集群范围内使用，也可以通过 RoleBinding 在特定命名空间内引用，实现权限复用。</p>
+<pre><code class="language-yaml"># 方式一：ClusterRoleBinding（集群级）
+# 适用于需要跨命名空间或访问集群级资源的场景
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-admin-binding
+subjects:
+  - kind: User
+    name: admin
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+
+# 方式二：RoleBinding 引用 ClusterRole（命名空间级）
+# 适用于多个命名空间需要相同权限配置的场景
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-binding
+  namespace: development      # 仅在 development 命名空间生效
+subjects:
+  - kind: User
+    name: developer
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: developer-permissions  # 引用已存在的 ClusterRole
+  apiGroup: rbac.authorization.k8s.io
+</code></pre>
+<hr />
+<h2 id="12-3-权限描述结构">12.3 权限描述结构</h2>
+<h3 id="12-3-1-rules-结构详解">12.3.1 Rules 结构详解</h3>
+<p>每条权限规则（Rule）由三个核心字段组成：</p>
+<pre><code class="language-yaml">rules:
+  - apiGroups: [&quot;apps&quot;]          # API 组
+    resources: [&quot;deployments&quot;]  # 资源类型
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]  # 操作动词
+
+  # 含义：允许对 apps/deployments 资源执行 get/list/watch 操作
+</code></pre>
+<h4 id="apigroups">apiGroups</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>值</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[""]</code></td>
+<td>核心 API 组（空字符串）</td>
+<td>pods, services, configmaps, secrets</td>
+</tr>
+<tr>
+<td><code>["apps"]</code></td>
+<td>apps API 组</td>
+<td>deployments, statefulsets, daemonsets</td>
+</tr>
+<tr>
+<td><code>["batch"]</code></td>
+<td>batch API 组</td>
+<td>jobs, cronjobs</td>
+</tr>
+<tr>
+<td><code>["networking.k8s.io"]</code></td>
+<td>网络 API 组</td>
+<td>ingresses, networkpolicies</td>
+</tr>
+<tr>
+<td><code>["rbac.authorization.k8s.io"]</code></td>
+<td>RBAC API 组</td>
+<td>roles, rolebindings, clusterroles</td>
+</tr>
+<tr>
+<td><code>["*"]</code></td>
+<td>所有 API 组</td>
+<td>全部</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="resources">resources</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>["pods"]</code></td>
+<td>Pod 资源</td>
+</tr>
+<tr>
+<td><code>["services"]</code></td>
+<td>Service 资源</td>
+</tr>
+<tr>
+<td><code>["deployments"]</code></td>
+<td>Deployment 资源</td>
+</tr>
+<tr>
+<td><code>["*"]</code></td>
+<td>所有资源</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="verbs">verbs</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>值</th>
+<th>说明</th>
+<th>HTTP 方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get</code></td>
+<td>获取单个资源</td>
+<td>GET</td>
+</tr>
+<tr>
+<td><code>list</code></td>
+<td>列出资源集合</td>
+<td>GET（集合）</td>
+</tr>
+<tr>
+<td><code>watch</code></td>
+<td>监听资源变更</td>
+<td>WSS</td>
+</tr>
+<tr>
+<td><code>create</code></td>
+<td>创建资源</td>
+<td>POST</td>
+</tr>
+<tr>
+<td><code>update</code></td>
+<td>更新资源（全量）</td>
+<td>PUT</td>
+</tr>
+<tr>
+<td><code>patch</code></td>
+<td>更新资源（部分）</td>
+<td>PATCH</td>
+</tr>
+<tr>
+<td><code>delete</code></td>
+<td>删除资源</td>
+<td>DELETE</td>
+</tr>
+<tr>
+<td><code>deletecollection</code></td>
+<td>删除资源集合</td>
+<td>DELETE（集合）</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>所有操作</td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="特殊资源与子资源">特殊资源与子资源</h4>
+<pre><code class="language-yaml"># 子资源（Subresource）权限
+rules:
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods&quot;, &quot;pods/log&quot;, &quot;pods/exec&quot;, &quot;pods/portforward&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;create&quot;]
+
+  # 注意：pods/log, pods/exec 是 Pod 的子资源
+  # 需要单独授权才能使用 kubectl logs, kubectl exec
+</code></pre>
+<h3 id="12-3-2-权限组合示例">12.3.2 权限组合示例</h3>
+<h4 id="示例-1-只读权限">示例 1：只读权限</h4>
+<pre><code class="language-yaml">rules:
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods&quot;, &quot;services&quot;, &quot;configmaps&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+  - apiGroups: [&quot;apps&quot;]
+    resources: [&quot;deployments&quot;, &quot;statefulsets&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+</code></pre>
+<h4 id="示例-2-完整管理权限-特定命名空间">示例 2：完整管理权限（特定命名空间）</h4>
+<pre><code class="language-yaml">rules:
+  - apiGroups: [&quot;*&quot;]
+    resources: [&quot;*&quot;]
+    verbs: [&quot;*&quot;]
+</code></pre>
+<h4 id="示例-3-限制删除权限">示例 3：限制删除权限</h4>
+<pre><code class="language-yaml">rules:
+  - apiGroups: [&quot;*&quot;]
+    resources: [&quot;*&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;]
+  # 不包含 delete 和 deletecollection
+</code></pre>
+<h4 id="示例-4-pod-日志访问权限">示例 4：Pod 日志访问权限</h4>
+<pre><code class="language-yaml">rules:
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;]
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods/log&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;]
+</code></pre>
+<hr />
+<h2 id="12-4-常见权限场景">12.4 常见权限场景</h2>
+<h3 id="12-4-1-只读权限-readonly">12.4.1 只读权限（ReadOnly）</h3>
+<p>适用于：监控系统、审计系统、只读运维</p>
+<pre><code class="language-yaml">apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: reader
+rules:
+  - apiGroups: [&quot;*&quot;]
+    resources: [&quot;*&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods/log&quot;, &quot;pods/status&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;]
+</code></pre>
+<h3 id="12-4-2-命名空间管理员权限-namespace-admin">12.4.2 命名空间管理员权限（Namespace Admin）</h3>
+<p>适用于：项目负责人、开发团队</p>
+<pre><code class="language-yaml">apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: namespace-admin
+  namespace: development
+rules:
+  # 管理应用资源
+  - apiGroups: [&quot;apps&quot;]
+    resources: [&quot;deployments&quot;, &quot;statefulsets&quot;, &quot;daemonsets&quot;, &quot;replicasets&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+
+  # 管理 Pod 和日志
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;delete&quot;]
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods/log&quot;, &quot;pods/exec&quot;]
+    verbs: [&quot;get&quot;, &quot;create&quot;]
+
+  # 管理服务和网络
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;services&quot;, &quot;endpoints&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+  - apiGroups: [&quot;networking.k8s.io&quot;]
+    resources: [&quot;ingresses&quot;, &quot;networkpolicies&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+
+  # 管理配置
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;configmaps&quot;, &quot;secrets&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+
+  # 管理存储
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;persistentvolumeclaims&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+
+  # 管理 CronJob 和 Job
+  - apiGroups: [&quot;batch&quot;]
+    resources: [&quot;jobs&quot;, &quot;cronjobs&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+
+  # 管理 HPA
+  - apiGroups: [&quot;autoscaling&quot;]
+    resources: [&quot;horizontalpodautoscalers&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+
+  # 管理资源配额和限制
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;resourcequotas&quot;, &quot;limitranges&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+</code></pre>
+<h3 id="12-4-3-集群管理员权限-cluster-admin">12.4.3 集群管理员权限（Cluster Admin）</h3>
+<p><strong>警告：</strong> 集群管理员拥有完全控制权，应谨慎使用</p>
+<pre><code class="language-yaml">apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cluster-admin
+rules:
+  - apiGroups: [&quot;*&quot;]
+    resources: [&quot;*&quot;]
+    verbs: [&quot;*&quot;]
+  - nonResourceURLs: [&quot;*&quot;]
+    verbs: [&quot;*&quot;]
+</code></pre>
+<h4 id="内置-clusterrole">内置 ClusterRole</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cluster-admin</code></td>
+<td>完全控制权</td>
+</tr>
+<tr>
+<td><code>admin</code></td>
+<td>命名空间级管理员（不含集群级操作）</td>
+</tr>
+<tr>
+<td><code>edit</code></td>
+<td>命名空间级编辑权限</td>
+</tr>
+<tr>
+<td><code>view</code></td>
+<td>命名空间级只读权限</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="12-4-4-权限场景汇总表">12.4.4 权限场景汇总表</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>角色</th>
+<th>作用域</th>
+<th>风险等级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>监控系统</td>
+<td>ClusterRole: reader</td>
+<td>全局</td>
+<td>低</td>
+</tr>
+<tr>
+<td>开发团队</td>
+<td>Role: namespace-admin</td>
+<td>命名空间</td>
+<td>中</td>
+</tr>
+<tr>
+<td>运维团队</td>
+<td>ClusterRole: admin</td>
+<td>全局</td>
+<td>高</td>
+</tr>
+<tr>
+<td>CI/CD 系统</td>
+<td>自定义 Role</td>
+<td>命名空间</td>
+<td>中</td>
+</tr>
+<tr>
+<td>审计系统</td>
+<td>ClusterRole: reader + logs</td>
+<td>全局</td>
+<td>低</td>
+</tr>
+<tr>
+<td>服务 Mesh</td>
+<td>ClusterRole</td>
+<td>全局</td>
+<td>高</td>
+</tr>
+<tr>
+<td>日志收集</td>
+<td>ClusterRole + 读 Pod 日志</td>
+<td>全局</td>
+<td>中</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="12-5-最小权限原则">12.5 最小权限原则</h2>
+<h3 id="12-5-1-什么是最小权限原则">12.5.1 什么是最小权限原则</h3>
+<p>最小权限原则（Principle of Least Privilege）是指授予主体完成其任务所需的<strong>最少权限</strong>，不多也不少。</p>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│              最小权限原则示意                              │
+│                                                           │
+│  需求：日志收集 Pod 需要读取 Pod 日志                     │
+│                                                           │
+│  ❌ 过度授权：                                            │
+│     verbs: [&quot;*&quot;]  resources: [&quot;*&quot;]                       │
+│     → 可以删除所有资源                                    │
+│                                                           │
+│  ✅ 最小权限：                                            │
+│     verbs: [&quot;get&quot;, &quot;list&quot;]                               │
+│     resources: [&quot;pods/log&quot;]                              │
+│     → 只能读取 Pod 日志                                   │
+│                                                           │
+│  关键问题：                                                │
+│  1. 任务需要哪些权限？                                    │
+│  2. 能否限制只在特定命名空间生效？                        │
+│  3. 能否限制只访问特定资源类型？                          │
+│  4. 能否限制只执行特定操作？                              │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="12-5-2-实施最小权限的步骤">12.5.2 实施最小权限的步骤</h3>
+<ol>
+<li><strong>明确需求</strong>：列出主体需要执行的所有操作</li>
+<li><strong>分析 API 调用</strong>：确定每个操作对应的 API 资源和动词</li>
+<li><strong>选择作用域</strong>：尽量使用 Role 而非 ClusterRole</li>
+<li><strong>绑定主体</strong>：使用 RoleBinding 将权限绑定到最小范围</li>
+<li><strong>验证权限</strong>：使用 <code>kubectl auth can-i</code> 验证</li>
+<li><strong>持续审计</strong>：定期审查权限配置</li>
+</ol>
+<h3 id="12-5-3-常见过度授权案例">12.5.3 常见过度授权案例</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>案例</th>
+<th>问题</th>
+<th>改进</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pod 读日志却给了 <code>*</code></td>
+<td>权限过大</td>
+<td>只授权 <code>pods/log</code> 的 <code>get,list</code></td>
+</tr>
+<tr>
+<td>监控 Pod 有写权限</td>
+<td>违反只读原则</td>
+<td>只授权 <code>get,list,watch</code></td>
+</tr>
+<tr>
+<td>单租户使用 ClusterRole</td>
+<td>影响范围过大</td>
+<td>改用 Role + RoleBinding</td>
+</tr>
+<tr>
+<td>CI/CD 有删除权限</td>
+<td>误删风险</td>
+<td>限制删除特定资源类型</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="12-5-4-权限风险评估">12.5.4 权限风险评估</h3>
+<pre><code>风险等级评估：
+
+低风险：只读权限，无修改操作
+  → view, reader 角色
+
+中风险：创建/修改权限，无删除操作
+  → edit, developer 角色
+
+高风险：删除权限，可能影响业务
+  → admin, namespace-admin 角色
+
+极高风险：集群级完全控制
+  → cluster-admin 角色
+  → 仅限极少数管理员使用
+</code></pre>
+<hr />
+<h2 id="12-6-kubectl-auth-can-i-验证权限">12.6 kubectl auth can-i 验证权限</h2>
+<h3 id="12-6-1-基本用法">12.6.1 基本用法</h3>
+<pre><code class="language-bash"># 检查当前用户是否有权执行操作
+kubectl auth can-i &lt;verb&gt; &lt;resource&gt;
+kubectl auth can-i list pods
+kubectl auth can-i get deployments
+kubectl auth can-i create pods
+kubectl auth can-i delete services
+
+# 检查指定命名空间
+kubectl auth can-i get pods --namespace=production
+kubectl auth can-i list deployments -n staging
+
+# 检查指定用户（使用 --as 参数模拟）
+kubectl auth can-i get pods --as=developer
+kubectl auth can-i create deployments --as=ci-user
+
+# 检查指定 ServiceAccount
+kubectl auth can-i list pods --as=system:serviceaccount:default:app-sa
+
+# 检查当前上下文的用户
+kubectl config view --minify | grep user
+</code></pre>
+<h3 id="12-6-2-检查-rbac-配置">12.6.2 检查 RBAC 配置</h3>
+<pre><code class="language-bash"># 查看当前用户拥有的所有权限
+kubectl auth can-i --list
+
+# 查看指定用户的权限
+kubectl auth can-i --list --as=developer
+
+# 查看指定 ServiceAccount 的权限
+kubectl auth can-i --list --as=system:serviceaccount:default:app-sa
+
+# 查看所有 ClusterRole
+kubectl get clusterrole
+
+# 查看 ClusterRole 详情
+kubectl describe clusterrole &lt;name&gt;
+
+# 查看所有 ClusterRoleBinding
+kubectl get clusterrolebinding
+
+# 查看 ClusterRoleBinding 详情
+kubectl describe clusterrolebinding &lt;name&gt;
+
+# 查看所有 Role（指定命名空间）
+kubectl get role -n &lt;namespace&gt;
+
+# 查看所有 RoleBinding（指定命名空间）
+kubectl get rolebinding -n &lt;namespace&gt;
+</code></pre>
+<h3 id="12-6-3-排查-rbac-问题">12.6.3 排查 RBAC 问题</h3>
+<pre><code class="language-bash"># 场景：Pod 中 ServiceAccount 无法访问 API
+
+# 步骤 1：检查 ServiceAccount 是否存在
+kubectl get serviceaccount &lt;sa-name&gt; -n &lt;namespace&gt;
+
+# 步骤 2：检查 RoleBinding
+kubectl get rolebinding -n &lt;namespace&gt;
+kubectl describe rolebinding &lt;binding-name&gt; -n &lt;namespace&gt;
+
+# 步骤 3：检查 Role
+kubectl get role -n &lt;namespace&gt;
+kubectl describe role &lt;role-name&gt; -n &lt;namespace&gt;
+
+# 步骤 4：模拟 SA 身份验证权限
+kubectl auth can-i get pods \
+  --as=system:serviceaccount:&lt;namespace&gt;:&lt;sa-name&gt;
+
+# 步骤 5：查看 SA 可以执行的所有操作
+kubectl auth can-i --list \
+  --as=system:serviceaccount:&lt;namespace&gt;:&lt;sa-name&gt;
+
+# 步骤 6：检查 Pod 中 SA Token
+kubectl exec -it &lt;pod-name&gt; -- cat /var/run/secrets/kubernetes.io/serviceaccount/token
+
+# 步骤 7：查看 RBAC 事件
+kubectl get events -n &lt;namespace&gt; | grep -i rbac
+</code></pre>
+<hr />
+<h2 id="12-7-实战练习">12.7 实战练习</h2>
+<h3 id="实战-1-创建只读-role-和-rolebinding">实战 1：创建只读 Role 和 RoleBinding</h3>
+<p><strong>目标：</strong> 创建一个只读 Role，允许用户查看指定命名空间的所有资源。</p>
+<pre><code class="language-bash"># 第 1 步：创建开发命名空间
+kubectl create namespace demo-rbac
+
+# 第 2 步：创建只读 Role
+cat &gt; /tmp/reader-role.yaml &lt;&lt; 'EOF'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: reader
+  namespace: demo-rbac
+rules:
+  - apiGroups: [&quot;*&quot;]
+    resources: [&quot;*&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods/log&quot;, &quot;pods/status&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;]
+EOF
+
+kubectl apply -f /tmp/reader-role.yaml
+
+# 第 3 步：创建 RoleBinding
+cat &gt; /tmp/reader-binding.yaml &lt;&lt; 'EOF'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: reader-binding
+  namespace: demo-rbac
+subjects:
+  - kind: User
+    name: readonly-user
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: readonly-group
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: reader
+  apiGroup: rbac.authorization.k8s.io
+EOF
+
+kubectl apply -f /tmp/reader-binding.yaml
+
+# 第 4 步：部署测试应用
+kubectl create deployment nginx -n demo-rbac --image=nginx:alpine
+kubectl expose deployment nginx -n demo-rbac --port=80
+
+# 第 5 步：验证只读权限
+# 可以读取
+kubectl auth can-i get pods -n demo-rbac --as=readonly-user
+kubectl auth can-i list pods -n demo-rbac --as=readonly-user
+kubectl auth can-i get deployments -n demo-rbac --as=readonly-user
+
+# 不能创建
+kubectl auth can-i create pods -n demo-rbac --as=readonly-user
+# no
+
+# 不能删除
+kubectl auth can-i delete pods -n demo-rbac --as=readonly-user
+# no
+
+# 不能修改
+kubectl auth can-i update deployments -n demo-rbac --as=readonly-user
+# no
+
+# 第 6 步：查看权限详情
+kubectl get role reader -n demo-rbac -o yaml
+kubectl get rolebinding reader-binding -n demo-rbac -o yaml
+
+# 第 7 步：查看 SA 拥有的所有权限
+kubectl auth can-i --list --as=readonly-user -n demo-rbac
+
+# 第 8 步：清理
+kubectl delete role reader -n demo-rbac
+kubectl delete rolebinding reader-binding -n demo-rbac
+kubectl delete namespace demo-rbac
+</code></pre>
+<h3 id="实战-2-创建命名空间管理员权限">实战 2：创建命名空间管理员权限</h3>
+<p><strong>目标：</strong> 为开发团队创建命名空间管理员权限，允许其管理开发命名空间的所有应用资源。</p>
+<pre><code class="language-bash"># 第 1 步：创建开发命名空间
+kubectl create namespace dev-team
+
+# 第 2 步：创建命名空间管理员 Role
+cat &gt; /tmp/namespace-admin-role.yaml &lt;&lt; 'EOF'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: namespace-admin
+  namespace: dev-team
+rules:
+  # 管理工作负载
+  - apiGroups: [&quot;apps&quot;]
+    resources: [&quot;deployments&quot;, &quot;statefulsets&quot;, &quot;daemonsets&quot;, &quot;replicasets&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+
+  # 管理 Pod 及相关操作
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;delete&quot;]
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods/log&quot;, &quot;pods/exec&quot;]
+    verbs: [&quot;get&quot;, &quot;create&quot;]
+
+  # 管理网络资源
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;services&quot;, &quot;endpoints&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+  - apiGroups: [&quot;networking.k8s.io&quot;]
+    resources: [&quot;ingresses&quot;, &quot;networkpolicies&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+
+  # 管理配置和密钥
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;configmaps&quot;, &quot;secrets&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+
+  # 管理存储
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;persistentvolumeclaims&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+
+  # 管理 ServiceAccount
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;serviceaccounts&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;]
+
+  # 管理批处理任务
+  - apiGroups: [&quot;batch&quot;]
+    resources: [&quot;jobs&quot;, &quot;cronjobs&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+
+  # 管理扩缩容
+  - apiGroups: [&quot;autoscaling&quot;]
+    resources: [&quot;horizontalpodautoscalers&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+EOF
+
+kubectl apply -f /tmp/namespace-admin-role.yaml
+
+# 第 3 步：创建 RoleBinding
+cat &gt; /tmp/namespace-admin-binding.yaml &lt;&lt; 'EOF'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: namespace-admin-binding
+  namespace: dev-team
+subjects:
+  - kind: Group
+    name: dev-team
+    apiGroup: rbac.authorization.k8s.io
+  - kind: User
+    name: lead-developer
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: namespace-admin
+  apiGroup: rbac.authorization.k8s.io
+EOF
+
+kubectl apply -f /tmp/namespace-admin-binding.yaml
+
+# 第 4 步：部署测试应用
+kubectl create deployment web-app -n dev-team --image=nginx:alpine
+kubectl expose deployment web-app -n dev-team --port=80
+
+# 第 5 步：验证管理员权限
+echo &quot;=== 验证开发团队权限 ===&quot;
+
+# 可以部署应用
+kubectl auth can-i create deployments -n dev-team --as=lead-developer
+# yes
+
+# 可以删除应用
+kubectl auth can-i delete deployments -n dev-team --as=lead-developer
+# yes
+
+# 可以查看日志
+kubectl auth can-i get pods/log -n dev-team --as=lead-developer
+# yes
+
+# 可以 exec 进入 Pod
+kubectl auth can-i create pods/exec -n dev-team --as=lead-developer
+# yes
+
+# 不能修改 RBAC
+kubectl auth can-i create roles -n dev-team --as=lead-developer
+# no
+
+# 不能访问其他命名空间
+kubectl auth can-i get pods -n default --as=lead-developer
+# no
+
+# 不能管理节点
+kubectl auth can-i get nodes --as=lead-developer
+# no
+
+# 第 6 步：查看完整权限列表
+kubectl auth can-i --list --as=lead-developer -n dev-team
+
+# 第 7 步：对比内置 admin 角色
+kubectl create rolebinding admin-binding -n dev-team \
+  --clusterrole=admin \
+  --user=admin-user
+
+kubectl auth can-i --list --as=admin-user -n dev-team
+
+# 第 8 步：清理
+kubectl delete role namespace-admin -n dev-team
+kubectl delete rolebinding namespace-admin-binding -n dev-team
+kubectl delete rolebinding admin-binding -n dev-team
+kubectl delete namespace dev-team
+</code></pre>
+<h3 id="实战-3-创建-serviceaccount-并绑定权限-在-pod-中使用">实战 3：创建 ServiceAccount 并绑定权限，在 Pod 中使用</h3>
+<p><strong>目标：</strong> 创建一个 ServiceAccount，绑定指定权限，并在 Pod 中使用它访问 Kubernetes API。</p>
+<pre><code class="language-bash"># 第 1 步：创建测试命名空间
+kubectl create namespace sa-demo
+
+# 第 2 步：创建 ServiceAccount
+cat &gt; /tmp/app-sa.yaml &lt;&lt; 'EOF'
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: app-sa
+  namespace: sa-demo
+  labels:
+    app: app-sa
+    component: api-accessor
+  annotations:
+    description: &quot;用于应用访问 K8s API 的 ServiceAccount&quot;
+EOF
+
+kubectl apply -f /tmp/app-sa.yaml
+
+# 第 3 步：创建 Role（只允许读取 Pod 信息）
+cat &gt; /tmp/app-role.yaml &lt;&lt; 'EOF'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: app-role
+  namespace: sa-demo
+rules:
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;]
+  - apiGroups: [&quot;apps&quot;]
+    resources: [&quot;deployments&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;]
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;services&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;]
+EOF
+
+kubectl apply -f /tmp/app-role.yaml
+
+# 第 4 步：创建 RoleBinding
+cat &gt; /tmp/app-binding.yaml &lt;&lt; 'EOF'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: app-binding
+  namespace: sa-demo
+subjects:
+  - kind: ServiceAccount
+    name: app-sa
+    namespace: sa-demo
+roleRef:
+  kind: Role
+  name: app-role
+  apiGroup: rbac.authorization.k8s.io
+EOF
+
+kubectl apply -f /tmp/app-binding.yaml
+
+# 第 5 步：创建使用该 SA 的 Pod
+cat &gt; /tmp/api-client-pod.yaml &lt;&lt; 'EOF'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: api-client
+  namespace: sa-demo
+  labels:
+    app: api-client
+spec:
+  serviceAccountName: app-sa
+  serviceAccount: app-sa
+  containers:
+    - name: client
+      image: bitnami/kubectl:latest
+      command:
+        - sh
+        - -c
+        - |
+          echo &quot;=== ServiceAccount 信息 ===&quot;
+          echo &quot;Namespace: $(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)&quot;
+          echo &quot;&quot;
+
+          echo &quot;=== 列出当前命名空间的 Pod ===&quot;
+          kubectl get pods -n $(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+          echo &quot;&quot;
+
+          echo &quot;=== 列出 Deployment ===&quot;
+          kubectl get deployments -n $(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+          echo &quot;&quot;
+
+          echo &quot;=== 列出 Services ===&quot;
+          kubectl get services -n $(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+          echo &quot;&quot;
+
+          echo &quot;=== 测试受限操作（应该被拒绝）===&quot;
+          kubectl delete pod --help | head -1
+          echo &quot;如果没有权限，删除操作会失败&quot;
+          echo &quot;&quot;
+
+          echo &quot;=== 持续运行以保留 Pod ===&quot;
+          while true; do
+            kubectl get pods -n $(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+            sleep 30
+          done
+      env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+      resources:
+        requests:
+          cpu: &quot;100m&quot;
+          memory: &quot;128Mi&quot;
+        limits:
+          cpu: &quot;200m&quot;
+          memory: &quot;256Mi&quot;
+      volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+  volumes:
+    - name: tmp
+      emptyDir: {}
+  restartPolicy: Never
+EOF
+
+kubectl apply -f /tmp/api-client-pod.yaml
+
+# 第 6 步：创建测试 Deployment（验证 SA 能读取）
+kubectl create deployment test-app -n sa-demo --image=nginx:alpine
+kubectl expose deployment test-app -n sa-demo --port=80
+
+# 第 7 步：查看 Pod 日志
+kubectl wait --for=condition=Ready pod/api-client -n sa-demo --timeout=60s
+kubectl logs -f api-client -n sa-demo
+
+# 第 8 步：验证 SA 权限
+echo &quot;=== SA 权限验证 ===&quot;
+
+# 从 Pod 内验证权限
+kubectl exec -it api-client -n sa-demo -- kubectl auth can-i list pods
+# yes
+
+kubectl exec -it api-client -n sa-demo -- kubectl auth can-i list deployments
+# yes
+
+kubectl exec -it api-client -n sa-demo -- kubectl auth can-i delete pods
+# no
+
+# 从外部模拟 SA 验证
+kubectl auth can-i list pods -n sa-demo \
+  --as=system:serviceaccount:sa-demo:app-sa
+# yes
+
+kubectl auth can-i delete pods -n sa-demo \
+  --as=system:serviceaccount:sa-demo:app-sa
+# no
+
+# 第 9 步：查看 SA 完整权限
+kubectl auth can-i --list --as=system:serviceaccount:sa-demo:app-sa -n sa-demo
+
+# 第 10 步：禁用 SA 的自动挂载 Token
+# 安全加固：如果 Pod 不需要访问 API，可以禁用
+cat &gt; /tmp/no-token-sa.yaml &lt;&lt; 'EOF'
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: no-api-sa
+  namespace: sa-demo
+automountServiceAccountToken: false
+EOF
+
+kubectl apply -f /tmp/no-token-sa.yaml
+
+# 第 11 步：清理
+kubectl delete pod api-client -n sa-demo
+kubectl delete deployment test-app -n sa-demo
+kubectl delete service test-app -n sa-demo
+kubectl delete role app-role -n sa-demo
+kubectl delete rolebinding app-binding -n sa-demo
+kubectl delete serviceaccount app-sa no-api-sa -n sa-demo
+kubectl delete namespace sa-demo
+</code></pre>
+<h3 id="实战-4-使用-kubectl-auth-can-i-验证权限">实战 4：使用 kubectl auth can-i 验证权限</h3>
+<p><strong>目标：</strong> 通过各种场景演示 <code>kubectl auth can-i</code> 的使用，排查权限问题。</p>
+<pre><code class="language-bash"># 第 1 步：创建测试命名空间和 RBAC 配置
+kubectl create namespace auth-test
+
+cat &gt; /tmp/auth-test-setup.yaml &lt;&lt; 'EOF'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: limited-role
+  namespace: auth-test
+rules:
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+  - apiGroups: [&quot;apps&quot;]
+    resources: [&quot;deployments&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;]
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;services&quot;]
+    verbs: [&quot;*&quot;]
+  - apiGroups: [&quot;batch&quot;]
+    resources: [&quot;cronjobs&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: limited-binding
+  namespace: auth-test
+subjects:
+  - kind: User
+    name: limited-user
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: limited-role
+  apiGroup: rbac.authorization.k8s.io
+EOF
+
+kubectl apply -f /tmp/auth-test-setup.yaml
+
+# 第 2 步：基本权限检查
+echo &quot;=== 基本权限检查 ===&quot;
+
+# 检查 get pods 权限
+kubectl auth can-i get pods --as=limited-user -n auth-test
+# yes
+
+# 检查 list pods 权限
+kubectl auth can-i list pods --as=limited-user -n auth-test
+# yes
+
+# 检查 create pods 权限（应该没有）
+kubectl auth can-i create pods --as=limited-user -n auth-test
+# no
+
+# 检查 delete pods 权限（应该没有）
+kubectl auth can-i delete pods --as=limited-user -n auth-test
+# no
+
+# 第 3 步：检查不同资源类型
+echo &quot;=== 资源类型检查 ===&quot;
+
+# Deployments（有 get/list/create）
+kubectl auth can-i get deployments --as=limited-user -n auth-test
+# yes
+kubectl auth can-i create deployments --as=limited-user -n auth-test
+# yes
+kubectl auth can-i delete deployments --as=limited-user -n auth-test
+# no
+
+# Services（有 * 权限）
+kubectl auth can-i get services --as=limited-user -n auth-test
+# yes
+kubectl auth can-i create services --as=limited-user -n auth-test
+# yes
+kubectl auth can-i delete services --as=limited-user -n auth-test
+# yes
+kubectl auth can-i update services --as=limited-user -n auth-test
+# yes
+
+# CronJobs（只有 get/list/watch）
+kubectl auth can-i get cronjobs --as=limited-user -n auth-test
+# yes
+kubectl auth can-i create cronjobs --as=limited-user -n auth-test
+# no
+
+# 其他资源（没有配置权限）
+kubectl auth can-i get secrets --as=limited-user -n auth-test
+# no
+kubectl auth can-i get configmaps --as=limited-user -n auth-test
+# no
+
+# 第 4 步：跨命名空间检查
+echo &quot;=== 跨命名空间检查 ===&quot;
+
+kubectl auth can-i get pods --as=limited-user -n default
+# no
+
+kubectl auth can-i get pods --as=limited-user -n kube-system
+# no
+
+# 第 5 步：查看完整权限列表
+echo &quot;=== 完整权限列表 ===&quot;
+kubectl auth can-i --list --as=limited-user -n auth-test
+
+# 第 6 步：非资源 URL 检查
+echo &quot;=== 非资源 URL 检查 ===&quot;
+
+# /healthz, /readyz, /livez 等端点
+kubectl auth can-i get /healthz
+kubectl auth can-i get /readyz
+kubectl auth can-i get /api/v1/namespaces
+
+# 第 7 步：模拟 Pod 中的 ServiceAccount
+echo &quot;=== ServiceAccount 权限检查 ===&quot;
+
+# 创建 ServiceAccount 和绑定
+kubectl create serviceaccount test-sa -n auth-test
+kubectl create rolebinding test-sa-binding -n auth-test \
+  --role=limited-role \
+  --serviceaccount=auth-test:test-sa
+
+# 验证 SA 权限
+kubectl auth can-i list pods -n auth-test \
+  --as=system:serviceaccount:auth-test:test-sa
+# yes
+
+kubectl auth can-i delete pods -n auth-test \
+  --as=system:serviceaccount:auth-test:test-sa
+# no
+
+# 查看 SA 权限列表
+kubectl auth can-i --list \
+  --as=system:serviceaccount:auth-test:test-sa \
+  -n auth-test
+
+# 第 8 步：排查常见 RBAC 错误
+echo &quot;=== 常见错误排查 ===&quot;
+
+# 错误 1：Pod 无法访问 API（403 Forbidden）
+# 检查 ServiceAccount 是否存在
+kubectl get serviceaccount -n auth-test
+# 检查 RoleBinding 是否创建
+kubectl get rolebinding -n auth-test
+# 检查 Role 是否有对应权限
+kubectl get role limited-role -n auth-test -o yaml
+
+# 错误 2：权限已配置但仍被拒绝
+# 检查是否拼写错误
+kubectl auth can-i get po --as=limited-user -n auth-test
+# 注意：资源名称必须用复数形式（pods，不是 po）
+
+# 错误 3：跨命名空间访问被拒绝
+# Role 只在当前命名空间生效
+# 需要在目标命名空间单独创建 RoleBinding
+kubectl create rolebinding test-sa-binding-2 -n default \
+  --clusterrole=view \
+  --serviceaccount=auth-test:test-sa
+
+# 第 9 步：使用 kubectl explain 查看 RBAC 资源
+kubectl explain role
+kubectl explain rolebindings
+kubectl explain clusterrole
+kubectl explain clusterrolebinding
+
+# 第 10 步：清理
+kubectl delete role limited-role -n auth-test
+kubectl delete rolebinding limited-binding test-sa-binding -n auth-test
+kubectl delete serviceaccount test-sa -n auth-test
+kubectl delete rolebinding test-sa-binding-2 -n default
+kubectl delete namespace auth-test
+</code></pre>
+<h3 id="实战-5-创建跨命名空间的-clusterrole">实战 5：创建跨命名空间的 ClusterRole</h3>
+<p><strong>目标：</strong> 创建一个 ClusterRole，允许运维团队跨命名空间查看日志和管理应用。</p>
+<pre><code class="language-bash"># 第 1 步：创建集群级 ClusterRole（日志查看）
+cat &gt; /tmp/cluster-log-reader.yaml &lt;&lt; 'EOF'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cluster-log-reader
+  labels:
+    app: ops-monitoring
+    environment: production
+rules:
+  # 读取所有命名空间的 Pod 信息
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+
+  # 读取 Pod 日志
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods/log&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;]
+
+  # 查看 Pod 状态
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods/status&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+
+  # 查看部署状态
+  - apiGroups: [&quot;apps&quot;]
+    resources: [&quot;deployments&quot;, &quot;statefulsets&quot;, &quot;daemonsets&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+
+  # 查看服务状态
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;services&quot;, &quot;endpoints&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+EOF
+
+kubectl apply -f /tmp/cluster-log-reader.yaml
+
+# 第 2 步：创建 ClusterRoleBinding
+cat &gt; /tmp/cluster-log-reader-binding.yaml &lt;&lt; 'EOF'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-log-reader-binding
+  labels:
+    app: ops-monitoring
+subjects:
+  - kind: Group
+    name: ops-team
+    apiGroup: rbac.authorization.k8s.io
+  - kind: User
+    name: senior-operator
+    apiGroup: rbac.authorization.k8s.io
+  - kind: ServiceAccount
+    name: monitoring-sa
+    namespace: monitoring
+roleRef:
+  kind: ClusterRole
+  name: cluster-log-reader
+  apiGroup: rbac.authorization.k8s.io
+EOF
+
+kubectl apply -f /tmp/cluster-log-reader-binding.yaml
+
+# 第 3 步：创建运维管理 ClusterRole（更多权限）
+cat &gt; /tmp/cluster-ops-admin.yaml &lt;&lt; 'EOF'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cluster-ops-admin
+  labels:
+    app: ops-management
+rules:
+  # 管理所有命名空间的应用
+  - apiGroups: [&quot;apps&quot;]
+    resources: [&quot;deployments&quot;, &quot;statefulsets&quot;, &quot;daemonsets&quot;, &quot;replicasets&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+
+  # 管理 Pod
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;delete&quot;]
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;pods/log&quot;, &quot;pods/exec&quot;, &quot;pods/portforward&quot;]
+    verbs: [&quot;get&quot;, &quot;create&quot;]
+
+  # 管理服务和网络
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;services&quot;, &quot;endpoints&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+  - apiGroups: [&quot;networking.k8s.io&quot;]
+    resources: [&quot;ingresses&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+
+  # 查看集群信息
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;nodes&quot;, &quot;namespaces&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+
+  # 查看存储信息
+  - apiGroups: [&quot;&quot;]
+    resources: [&quot;persistentvolumes&quot;, &quot;storageclasses&quot;]
+    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+EOF
+
+kubectl apply -f /tmp/cluster-ops-admin.yaml
+
+# 第 4 步：创建对应的 ClusterRoleBinding
+cat &gt; /tmp/cluster-ops-admin-binding.yaml &lt;&lt; 'EOF'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-ops-admin-binding
+subjects:
+  - kind: Group
+    name: ops-team
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-ops-admin
+  apiGroup: rbac.authorization.k8s.io
+EOF
+
+kubectl apply -f /tmp/cluster-ops-admin-binding.yaml
+
+# 第 5 步：验证跨命名空间权限
+echo &quot;=== 验证跨命名空间权限 ===&quot;
+
+# 创建测试资源
+kubectl create namespace ns-a
+kubectl create namespace ns-b
+kubectl create deployment app-a -n ns-a --image=nginx:alpine
+kubectl create deployment app-b -n ns-b --image=nginx:alpine
+
+# 检查跨命名空间日志查看
+kubectl auth can-i get pods/log -n ns-a --as=senior-operator
+# yes
+kubectl auth can-i get pods/log -n ns-b --as=senior-operator
+# yes
+
+# 检查跨命名空间部署查看
+kubectl auth can-i list deployments -n ns-a --as=senior-operator
+# yes
+kubectl auth can-i list deployments -n ns-b --as=senior-operator
+# yes
+
+# 检查集群级信息
+kubectl auth can-i list nodes --as=senior-operator
+# yes
+kubectl auth can-i list namespaces --as=senior-operator
+# yes
+
+# 检查删除权限（log-reader 没有删除权限）
+kubectl auth can-i delete pods -n ns-a --as=senior-operator
+# no
+
+# 使用 ops-admin 的用户验证
+kubectl auth can-i delete pods -n ns-a --as=ops-team 2&gt;/dev/null || echo &quot;需要用 --as= 模拟用户&quot;
+kubectl auth can-i delete deployments -n ns-a --as=ops-team 2&gt;/dev/null || true
+
+# 第 6 步：将 ClusterRole 绑定到多个命名空间（替代方案）
+# 如果不想用 ClusterRoleBinding，可以在每个命名空间用 RoleBinding 引用 ClusterRole
+
+# 在 ns-a 中绑定
+cat &gt; /tmp/ns-a-binding.yaml &lt;&lt; 'EOF'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cluster-log-reader-ns-a
+  namespace: ns-a
+subjects:
+  - kind: Group
+    name: ns-a-team
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-log-reader
+  apiGroup: rbac.authorization.k8s.io
+EOF
+
+kubectl apply -f /tmp/ns-a-binding.yaml
+
+# 在 ns-b 中绑定
+cat &gt; /tmp/ns-b-binding.yaml &lt;&lt; 'EOF'
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cluster-log-reader-ns-b
+  namespace: ns-b
+subjects:
+  - kind: Group
+    name: ns-b-team
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-log-reader
+  apiGroup: rbac.authorization.k8s.io
+EOF
+
+kubectl apply -f /tmp/ns-b-binding.yaml
+
+# 第 7 步：查看所有 RBAC 资源
+echo &quot;=== RBAC 资源总览 ===&quot;
+
+echo &quot;--- ClusterRole ---&quot;
+kubectl get clusterrole | grep -E &quot;(log|ops)&quot;
+
+echo &quot;--- ClusterRoleBinding ---&quot;
+kubectl get clusterrolebinding | grep -E &quot;(log|ops)&quot;
+
+echo &quot;--- RoleBinding ---&quot;
+kubectl get rolebinding -A | grep -E &quot;(log|ops)&quot;
+
+# 第 8 步：模拟 Group 权限验证
+echo &quot;=== Group 权限验证 ===&quot;
+
+# 创建测试用户的 kubeconfig（使用 --as= 模拟即可）
+kubectl auth can-i list pods -n ns-a --as=system:group:ops-team
+kubectl auth can-i list pods -n ns-a --as=system:group:ns-a-team
+kubectl auth can-i list pods -n ns-b --as=system:group:ns-a-team
+# 注意：ns-a-team 在 ns-b 没有权限
+
+# 第 9 步：验证 ServiceAccount 权限
+echo &quot;=== ServiceAccount 权限验证 ===&quot;
+
+kubectl auth can-i list pods -n default \
+  --as=system:serviceaccount:monitoring:monitoring-sa
+kubectl auth can-i list nodes \
+  --as=system:serviceaccount:monitoring:monitoring-sa
+
+# 第 10 步：清理
+kubectl delete clusterrole cluster-log-reader cluster-ops-admin
+kubectl delete clusterrolebinding cluster-log-reader-binding cluster-ops-admin-binding
+kubectl delete rolebinding -n ns-a cluster-log-reader-ns-a
+kubectl delete rolebinding -n ns-b cluster-log-reader-ns-b
+kubectl delete namespace ns-a ns-b
+</code></pre>
+<hr />
+<h2 id="12-8-常见问题排查">12.8 常见问题排查</h2>
+<h3 id="q1-pod-中-serviceaccount-无法访问-api-403-forbidden">Q1：Pod 中 ServiceAccount 无法访问 API（403 Forbidden）</h3>
+<pre><code class="language-bash"># 问题：Pod 内的应用调用 K8s API 返回 403
+
+# 排查步骤：
+
+# 1. 确认 Pod 使用的 ServiceAccount
+kubectl get pod &lt;pod-name&gt; -n &lt;namespace&gt; -o yaml | grep serviceAccount
+
+# 2. 确认 ServiceAccount 存在
+kubectl get serviceaccount &lt;sa-name&gt; -n &lt;namespace&gt;
+
+# 3. 确认 RoleBinding 存在
+kubectl get rolebinding -n &lt;namespace&gt; | grep &lt;sa-name&gt;
+kubectl describe rolebinding &lt;binding-name&gt; -n &lt;namespace&gt;
+
+# 4. 确认 Role 有对应权限
+kubectl get role &lt;role-name&gt; -n &lt;namespace&gt; -o yaml
+
+# 5. 模拟 SA 验证权限
+kubectl auth can-i &lt;verb&gt; &lt;resource&gt; -n &lt;namespace&gt; \
+  --as=system:serviceaccount:&lt;namespace&gt;:&lt;sa-name&gt;
+
+# 6. 查看 SA 完整权限
+kubectl auth can-i --list \
+  --as=system:serviceaccount:&lt;namespace&gt;:&lt;sa-name&gt;
+
+# 7. 检查是否是跨命名空间访问
+# Role 只在当前命名空间生效，跨命名空间需要 ClusterRole
+</code></pre>
+<h3 id="q2-rolebinding-创建后仍然无权限">Q2：RoleBinding 创建后仍然无权限</h3>
+<pre><code class="language-bash"># 问题：已经创建了 Role 和 RoleBinding，但用户仍然无法操作
+
+# 常见原因：
+
+# 1. RoleBinding 绑定的主体不匹配
+# 检查 subjects 中的 name 是否与实际身份一致
+kubectl get rolebinding &lt;name&gt; -o yaml
+
+# 2. RoleBinding 绑定的 Role 不存在或权限不足
+kubectl get role &lt;name&gt; -o yaml
+# 检查 roleRef.name 和 roleRef.apiGroup
+
+# 3. 使用了 ClusterRole 但只绑定了 RoleBinding
+# ClusterRole 需要 ClusterRoleBinding 才能跨命名空间
+# 如果只在特定命名空间使用，RoleBinding 引用 ClusterRole 也可以
+
+# 4. 资源名称错误
+# 使用复数形式：pods（不是 pod），deployments（不是 deployment）
+
+# 5. API 组错误
+# 核心资源用 &quot;&quot;，apps 组用 &quot;apps&quot;，batch 组用 &quot;batch&quot;
+
+# 快速验证方法：
+kubectl auth can-i &lt;verb&gt; &lt;resource&gt; \
+  --as=&lt;user-or-group&gt; -n &lt;namespace&gt; \
+  -v=6  # 显示更详细的调试信息
+</code></pre>
+<h3 id="q3-clusterrole-和-role-权限冲突">Q3：ClusterRole 和 Role 权限冲突</h3>
+<pre><code class="language-bash"># 问题：同一主体同时绑定了 ClusterRole 和 Role
+
+# 权限是累加的，主体的有效权限 = ClusterRole 权限 + Role 权限
+# ClusterRole 绑定全局生效，Role 仅在特定命名空间生效
+
+# 查看主体的完整权限
+kubectl auth can-i --list --as=&lt;user&gt;
+
+# 建议：
+# 1. 避免重复授权
+# 2. 优先使用 Role（命名空间级），减少 ClusterRole 使用
+# 3. 定期审查权限配置
+</code></pre>
+<h3 id="q4-如何查看当前用户的所有权限">Q4：如何查看当前用户的所有权限</h3>
+<pre><code class="language-bash"># 查看当前上下文用户的权限
+kubectl auth can-i --list
+
+# 查看指定用户的权限
+kubectl auth can-i --list --as=&lt;username&gt;
+
+# 查看指定 ServiceAccount 的权限
+kubectl auth can-i --list \
+  --as=system:serviceaccount:&lt;namespace&gt;:&lt;sa-name&gt;
+
+# 查看指定命名空间的权限
+kubectl auth can-i --list --as=&lt;user&gt; -n &lt;namespace&gt;
+
+# 注意：
+# --list 输出的是权限的简化形式
+# 实际权限可能更复杂（通配符等）
+# 使用 -v=6 查看详细的权限检查过程
+</code></pre>
+<h3 id="q5-如何临时禁用某个用户的权限">Q5：如何临时禁用某个用户的权限</h3>
+<pre><code class="language-bash"># 方法 1：删除 RoleBinding / ClusterRoleBinding
+kubectl delete rolebinding &lt;name&gt; -n &lt;namespace&gt;
+kubectl delete clusterrolebinding &lt;name&gt;
+
+# 方法 2：修改 Role 权限（移除关键 verbs）
+kubectl patch role &lt;name&gt; -p '{&quot;rules&quot;:null}'
+# 或直接编辑
+kubectl edit role &lt;name&gt;
+
+# 方法 3：创建拒绝规则（需要 admission webhook）
+# Kubernetes RBAC 本身不支持 Deny 规则
+# 可以使用 OPA/Gatekeeper 等策略引擎实现
+</code></pre>
+<h3 id="q6-serviceaccount-token-过期了怎么办">Q6：ServiceAccount Token 过期了怎么办</h3>
+<pre><code class="language-bash"># Kubernetes 1.21+ 默认使用 Bound Service Account Token
+# Token 有过期时间（默认 1 小时），会自动刷新
+
+# 检查 Token 过期时间
+kubectl exec -it &lt;pod&gt; -- cat /var/run/secrets/kubernetes.io/serviceaccount/token | \
+  cut -d. -f2 | base64 -d 2&gt;/dev/null | \
+  python3 -m json.tool 2&gt;/dev/null || \
+  echo &quot;Token payload&quot;
+
+# 注意：如果 Pod 中应用直接使用 Token 访问 API
+# 应该使用 client-go 等官方库，它会自动处理 Token 刷新
+# 避免将 Token 硬编码到应用配置中
+</code></pre>
+<h3 id="q7-如何查看-pod-中-serviceaccount-的-token">Q7：如何查看 Pod 中 ServiceAccount 的 Token</h3>
+<pre><code class="language-bash"># 查看 Pod 挂载的 Token
+kubectl exec -it &lt;pod-name&gt; -n &lt;namespace&gt; -- \
+  cat /var/run/secrets/kubernetes.io/serviceaccount/token
+
+# 解码 Token（获取 Payload 部分）
+TOKEN=$(kubectl exec -it &lt;pod&gt; -n &lt;namespace&gt; -- \
+  cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+echo $TOKEN | cut -d. -f2 | base64 -d 2&gt;/dev/null
+
+# 输出包含：
+# - sub: ServiceAccount 身份
+# - iss: 签发者
+# - exp: 过期时间
+# - namespace: 所在命名空间
+</code></pre>
+<hr />
+<h2 id="12-9-章节小结">12.9 章节小结</h2>
+<h3 id="核心概念总结">核心概念总结</h3>
+<ol>
+<li><strong>RBAC 四大资源</strong>：Role / ClusterRole（定义权限）+ RoleBinding / ClusterRoleBinding（绑定主体）</li>
+<li><strong>两种作用域</strong>：Namespace 级（Role + RoleBinding）和 Cluster 级（ClusterRole + ClusterRoleBinding）</li>
+<li><strong>权限三要素</strong>：apiGroups（API 组）、resources（资源）、verbs（操作动词）</li>
+<li><strong>ServiceAccount</strong>：Pod 在集群中的身份，通过 Token 访问 API</li>
+<li><strong>最小权限原则</strong>：授予完成任务所需的最少权限</li>
+</ol>
+<h3 id="rbac-决策流程图">RBAC 决策流程图</h3>
+<pre><code>需要控制权限？
+│
+├── 集群级资源（Node、Namespace、PV）？
+│   └── 是 → ClusterRole + ClusterRoleBinding
+│
+├── 需要跨命名空间？
+│   └── 是 → ClusterRole + ClusterRoleBinding
+│
+├── Pod 需要访问 API？
+│   └── 是 → ServiceAccount + RoleBinding
+│
+└── 单命名空间权限？
+    └── 是 → Role + RoleBinding
+</code></pre>
+<h3 id="实战命令速查">实战命令速查</h3>
+<pre><code class="language-bash"># 创建 RBAC
+kubectl create role &lt;name&gt; --verb=&lt;verb&gt; --resource=&lt;resource&gt; -n &lt;ns&gt;
+kubectl create clusterrole &lt;name&gt; --verb=&lt;verb&gt; --resource=&lt;resource&gt;
+kubectl create rolebinding &lt;name&gt; --role=&lt;role&gt; --user=&lt;user&gt; -n &lt;ns&gt;
+kubectl create clusterrolebinding &lt;name&gt; --clusterrole=&lt;role&gt; --user=&lt;user&gt;
+
+# 查看 RBAC
+kubectl get role -n &lt;ns&gt;
+kubectl get rolebinding -n &lt;ns&gt;
+kubectl get clusterrole
+kubectl get clusterrolebinding
+kubectl describe role &lt;name&gt; -n &lt;ns&gt;
+kubectl describe clusterrolebinding &lt;name&gt;
+
+# 验证权限
+kubectl auth can-i &lt;verb&gt; &lt;resource&gt; --as=&lt;user&gt; -n &lt;ns&gt;
+kubectl auth can-i --list --as=&lt;user&gt;
+kubectl auth can-i --list --as=system:serviceaccount:&lt;ns&gt;:&lt;sa&gt;
+
+# ServiceAccount
+kubectl get serviceaccount -n &lt;ns&gt;
+kubectl create serviceaccount &lt;name&gt; -n &lt;ns&gt;
+kubectl describe serviceaccount &lt;name&gt; -n &lt;ns&gt;
+
+# 删除 RBAC
+kubectl delete role &lt;name&gt; -n &lt;ns&gt;
+kubectl delete rolebinding &lt;name&gt; -n &lt;ns&gt;
+kubectl delete clusterrole &lt;name&gt;
+kubectl delete clusterrolebinding &lt;name&gt;
+</code></pre>
+<h3 id="最佳实践">最佳实践</h3>
+<ul>
+<li><strong>最小权限</strong>：遵循最小权限原则，只授予必要的权限</li>
+<li><strong>命名空间隔离</strong>：优先使用 Role + RoleBinding，减少 ClusterRole 使用</li>
+<li><strong>合理分组</strong>：使用 Group 而非单个 User 管理权限，便于维护</li>
+<li><strong>ServiceAccount 安全</strong>：为 Pod 使用专用 ServiceAccount，不使用 default</li>
+<li><strong>定期审计</strong>：定期审查 RBAC 配置，移除不必要的权限</li>
+<li><strong>避免通配符</strong>：生产环境避免使用 <code>verbs: ["*"]</code> 和 <code>resources: ["*"]</code></li>
+<li><strong>Token 安全</strong>：不要将 ServiceAccount Token 暴露到集群外部</li>
+<li><strong>变更记录</strong>：记录 RBAC 变更原因，便于追溯</li>
+<li><strong>使用 OPA</strong>：复杂权限场景可使用 OPA/Gatekeeper 等策略引擎</li>
+</ul></div>
+      <nav class="post-pager" aria-label="上下篇"><a class="pager-link" href="%E7%AC%AC11%E7%AB%A0-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%9B%E9%98%B6.html"><em>上一篇</em><b>第11章 控制器进阶</b></a><a class="pager-link next" href="%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html"><em>下一篇</em><b>第13章 监控日志与可观测性</b></a></nav>
+    </article>
+  </main>
+</div>
+<footer class="blog-foot">
+  <div class="wrap foot-inner">
+    <span>© 2026 逐梦笔记 · 由 <code>scripts/build_blog.py</code> 从 docs/ 自动生成</span>
+    <span>内容来源：<a href="https://github.com/ShiQianzhi/note" target="_blank" rel="noopener noreferrer">ShiQianzhi/note</a> · 同步于 2026-11-26</span>
+  </div>
+</footer>
+<script src="../../../../blog.js"></script>
+</body>
+</html>

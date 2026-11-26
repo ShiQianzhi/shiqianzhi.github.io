@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MySQL 架构 · 逐梦笔记</title>
+<meta name="description" content="一、为什么要学习 MySQL 架构">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../../../blog.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="../../../../index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../../../../index.html">首页</a>
+      <div class="nav-drop">
+        <a href="../../../../knowledge.html">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="../../../../knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="../../../../knowledge.html#domains">五大知识域</a>
+          <a href="../../../../knowledge.html#cross">交叉与前沿</a>
+          <a href="../../../../knowledge.html#axes">三条贯穿轴</a>
+          <a href="../../../../knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="../../../../career.html">世界职业体系</a>
+      <a href="../../../index.html" class="active">博客</a>
+      <a class="nav-cta" href="../../../../knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-wrap">
+  
+    <aside class="blog-side">
+      <div class="side-head">
+        <a class="blog-brand" href="../../../index.html">逐梦笔记<span>NOTES</span></a>
+        <button class="side-toggle" id="sideToggle" aria-expanded="false" aria-controls="sideBody">目录</button>
+      </div>
+      <div class="side-body" id="sideBody">
+        <div class="tree-search">
+          <input id="treeQ" type="search" placeholder="筛选 197 篇笔记…" aria-label="筛选笔记">
+        </div>
+        <nav class="tree" aria-label="博客目录"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI创作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI短剧制作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI写周报，把我写成了公司CEO</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E5%86%99%E5%91%A8%E6%8A%A5%EF%BC%8C%E6%8A%8A%E6%88%91%E5%86%99%E6%88%90%E4%BA%86%E5%85%AC%E5%8F%B8CEO/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI的最后一活</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%B4%BB/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><a class="tree-link" href="../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%9B%E4%BD%9C%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html" title="AI 短剧创作保姆级教程：从一个想法到成片发布">AI 短剧创作保姆级教程：从一个想法到成片发布</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人生感悟</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/%E5%9C%A8%E5%89%A7%E5%8F%98%E4%B8%AD%E5%AF%BB%E8%B7%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8AI%E6%B5%AA%E6%BD%AE%E4%B8%8B%E6%8A%93%E4%BD%8F%E6%9C%BA%E9%81%87.html" title="在剧变中寻路：如何在 AI 浪潮下抓住机遇">在剧变中寻路：如何在 AI 浪潮下抓住机遇</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础学科</span><span class="tree-count">22</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数学</span><span class="tree-count">13</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">初等代数</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5.html" title="数的概念">数的概念</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E7%B1%BB%E5%88%AB.html" title="数的类别">数的类别</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E9%87%8F.html" title="数量">数量</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性代数</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F.html" title="向量（Vector）：从几何箭头到 AI 数据表示">向量（Vector）：从几何箭头到 AI 数据表示</a></div></details><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%8C%87%E6%95%B0%E8%BF%90%E7%AE%97.html" title="什么是指数运算">什么是指数运算</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%85%B3%E7%B3%BB.html" title="什么是线性关系">什么是线性关系</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%87%A0%E4%BD%95%E5%85%A5%E9%97%A8.html" title="几何入门">几何入门</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97.html" title="四则运算">四则运算</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9F%BA%E6%9C%AC%E4%BB%A3%E6%95%B0.html" title="基本代数">基本代数</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E6%95%B0%E5%AD%A6.html" title="如何学习数学">如何学习数学</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%9A%E4%BB%8E0%E5%88%B0%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6.html" title="数学学习路线图：从0到高等数学">数学学习路线图：从0到高等数学</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E8%A1%A8%E7%A4%BA.html" title="数的分类与表示">数的分类与表示</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%AE%97%E6%9C%AF%E5%9F%BA%E7%A1%80.html" title="算术基础">算术基础</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">物理</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E4%BB%8E%E5%BE%AE%E8%A7%82%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E7%89%A9%E8%B4%A8%EF%BC%9A%E5%8E%9F%E5%AD%90%E3%80%81%E7%B2%92%E5%AD%90%E4%B8%8E%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8.html" title="从微观角度理解物质：原子、粒子与相互作用">从微观角度理解物质：原子、粒子与相互作用</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%89%A9%E8%B4%A8%E5%92%8C%E8%83%BD%E9%87%8F%E7%9A%84%E5%85%B3%E7%B3%BB.html" title="物质和能量的关系">物质和能量的关系</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%90%86%E8%A7%A3%E7%94%B5%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%89%A9%E7%90%86%E5%9F%BA%E7%A1%80.html" title="理解电必须掌握的物理基础">理解电必须掌握的物理基础</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E%E5%8E%86%E5%8F%B2%E5%88%B0%E6%9C%AC%E8%B4%A8.html" title="电是什么：从历史到本质">电是什么：从历史到本质</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.html" title="电的原理与应用场景">电的原理与应用场景</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%A3%81%EF%BC%9A%E4%BB%8E%E7%94%B5%E5%9C%BA%E7%A3%81%E5%9C%BA%E5%88%B0%E7%94%B5%E7%A3%81%E6%B3%A2.html" title="电磁：从电场磁场到电磁波">电磁：从电场磁场到电磁波</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">语言</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">英语</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="英语学习笔记">英语学习笔记</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95.html" title="英语语法">英语语法</a></div></details><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%AF%AD%E6%B3%95.html" title="语法">语法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">心情随笔</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/%E5%85%AD%E7%A7%8D%E5%80%BC%E5%BE%97%E7%BB%93%E4%BA%A4%E4%B8%80%E8%BE%88%E5%AD%90%E7%9A%84%E4%BA%BA.html" title="六种值得结交一辈子的人">六种值得结交一辈子的人</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">生活常识</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">买房攻略</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98.html" title="下面是我总结了买房相关常见问题：">下面是我总结了买房相关常见问题：</a><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5.html" title="买房攻略">买房攻略</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">考驾照</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E8%80%83%E9%A9%BE%E7%85%A7/%E7%A7%91%E7%9B%AE%E4%B8%80.html" title="科目一刷题笔记">科目一刷题笔记</a></div></details><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E5%90%84%E8%A1%8C%E4%B8%9A%E5%85%A8%E6%99%AF%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%AE%9A%E4%B9%89%E3%80%81%E7%8E%B0%E7%8A%B6%E4%B8%8EAI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%9C%AA%E6%9D%A5.html" title="各行业全景解析：定义、现状与 AI 时代的未来">各行业全景解析：定义、现状与 AI 时代的未来</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">计算机科学</span><span class="tree-count">160</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Agent 开发</span><span class="tree-count">11</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">docs</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">superpowers</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">specs</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/docs/superpowers/specs/2026-11-06-enterprise-agent-course-design.html" title="企业级 Agent 混合架构课程设计">企业级 Agent 混合架构课程设计</a></div></details></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">learning-records</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0001-python-worker-first.html" title="Learning Record 0001: Python Agent Worker First">Learning Record 0001: Python Agent Worker First</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0002-agent-state-checkpoint-recovery.html" title="Learning Record 0002: Agent State and Checkpoint Recovery">Learning Record 0002: Agent State and Checkpoint Recovery</a></div></details><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/Agent%20%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="Agent 开发学习路线">Agent 开发学习路线</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/Agent%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.html" title="Agent开发核心知识点">Agent开发核心知识点</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/Go-Python%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BD%ACAgent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B.html" title="Go/Python 后端工程师转 Agent 开发实战教程">Go/Python 后端工程师转 Agent 开发实战教程</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/MISSION.html" title="Mission: 从 Python Agent Worker 学会企业级 Agent 开发">Mission: 从 Python Agent Worker 学会企业级 Agent 开发</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/RAG.html" title="RAG">RAG</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/RAG%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%A6%E7%BB%86%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html" title="RAG系统的详细工作流程">RAG系统的详细工作流程</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E9%AB%98%E5%B9%B6%E5%8F%91%E4%BC%81%E4%B8%9A%E7%BA%A7Agent%E7%B3%BB%E7%BB%9F%E6%95%99%E7%A8%8B.html" title="从零搭建高并发企业级 Agent 系统教程">从零搭建高并发企业级 Agent 系统教程</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/RESOURCES.html" title="企业级 Agent 开发资源">企业级 Agent 开发资源</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人工智能</span><span class="tree-count">33</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI行业基础知识相关概念</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAI.html" title="什么是 AI">什么是 AI</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAIGC.html" title="什么是 AIGC">什么是 AIGC</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAgent.html" title="什么是 Agent">什么是 Agent</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG">什么是 RAG</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE.html" title="什么是向量数据">什么是向量数据</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是大模型">什么是大模型</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是语言大模型">什么是语言大模型</a></div></details><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93.html" title="AI 学习笔记总结">AI 学习笔记总结</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E5%BA%94%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="AI 应用工程师从入门到实战的最佳学习路线">AI 应用工程师从入门到实战的最佳学习路线</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Chroma%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Chroma 入门手册：从零上手最轻量的向量数据库">Chroma 入门手册：从零上手最轻量的向量数据库</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/LangChain%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="LangChain 入门手册：用搭积木的方式编排大模型应用">LangChain 入门手册：用搭积木的方式编排大模型应用</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Transformer%20%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.html" title="Transformer 注意力机制详解">Transformer 注意力机制详解</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BB%8B%E7%BB%8D.html" title="人工智能介绍">人工智能介绍</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%A6%E7%90%86%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="人工智能伦理与安全">人工智能伦理与安全</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG：检索增强生成从原理到实战">什么是 RAG：检索增强生成从原理到实战</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%8D%E5%90%91%E9%87%8F.html" title="什么是词向量">什么是词向量</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BANLP%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html" title="从零搭建NLP模型完全指南">从零搭建NLP模型完全指南</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%85%B3%E4%BA%8EAI%E7%9A%84%E7%95%85%E6%83%B3%E5%92%8C%E6%80%9D%E8%80%83.html" title="关于AI的畅想和思考">关于AI的畅想和思考</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%80%85AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师">后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93.html" title="向量数据库：语义搜索的存储与检索引擎">向量数据库：语义搜索的存储与检索引擎</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BA%B2.html" title="大模型应用实战知识总纲">大模型应用实战知识总纲</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAAgent.html" title="如何搭建一个 Agent">如何搭建一个 Agent</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="学习笔记">学习笔记</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html" title="强化学习">强化学习</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%96%87%E6%9C%AC%E6%98%AF%E5%A6%82%E4%BD%95%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E7%9A%84.html" title="文本是如何变成向量的：Embedding 推理管线全解析">文本是如何变成向量的：Embedding 推理管线全解析</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html" title="机器学习-线性回归">机器学习-线性回归</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="机器学习基础">机器学习基础</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="深度学习基础">深度学习基础</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html" title="神经网络">神经网络</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Agent%20%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="网页版知识库 Agent 搭建实战">网页版知识库 Agent 搭建实战</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86.html" title="自然语言处理">自然语言处理</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89.html" title="计算机视觉">计算机视觉</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E9%AB%98%E7%BB%B4%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%91%E9%87%8F%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%90%91%E9%87%8D%E5%BB%BA.html" title="高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容">高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础知识</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/DNS.html" title="DNS：从域名到 IP 地址的分布式解析系统">DNS：从域名到 IP 地址的分布式解析系统</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/HTTP.html" title="HTTP：从一次请求到现代 Web 传输体系">HTTP：从一次请求到现代 Web 传输体系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84.html" title="互联网是如何工作的">互联网是如何工作的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%9F%E7%90%86.html" title="操作系统的原理">操作系统的原理</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F.html" title="深入理解计算机系统">深入理解计算机系统</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84.html" title="计算机是如何编码数据的">计算机是如何编码数据的</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">8</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Elasticsearch</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../Elasticsearch/%E5%AE%89%E8%A3%85.html" title="创建网络">创建网络</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MongoDB</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../MongoDB/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念">基本概念</a><a class="tree-link" href="../MongoDB/%E5%AE%89%E8%A3%85mongodb.html" title="安装mongodb">安装mongodb</a><a class="tree-link" href="../MongoDB/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" title="数据库不存在会自动创建">数据库不存在会自动创建</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">MySQL</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link active" href="MySQL%E6%9E%B6%E6%9E%84.html" title="MySQL 架构">MySQL 架构</a><a class="tree-link" href="MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="MySQL数据库知识大纲">MySQL数据库知识大纲</a><a class="tree-link" href="%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.html" title="存储引擎">存储引擎</a><a class="tree-link" href="%E7%B4%A2%E5%BC%95.html" title="索引">索引</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构与算法</span><span class="tree-count">10</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构</span><span class="tree-count">6</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数组和字符串</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C.html" title="数组的操作">数组的操作</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%A6%82%E8%BF%B0.html" title="概述">概述</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">树</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/%E6%A0%91.html" title="树">树</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性表</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8.html" title="线性表">线性表</a></div></details><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD.html" title="基本概念和术语">基本概念和术语</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E5%92%8C%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84.html" title="逻辑结构和物理结构">逻辑结构和物理结构</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">算法</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/K-Means.html" title="K-Means 聚类算法">K-Means 聚类算法</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97%E8%AF%A6%E8%A7%A3.html" title="位运算详解">位运算详解</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95.html" title="算法效率分析方法">算法效率分析方法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程笔记</span><span class="tree-count">54</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C 语言学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/C%20%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="此时会生成 a.out（windows 会生成 a.exe）">此时会生成 a.out（windows 会生成 a.exe）</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Docker</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Docker/docker%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Docker 入门手册：编写 Dockerfile、构建镜像与容器管理">Docker 入门手册：编写 Dockerfile、构建镜像与容器管理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言之旅</span><span class="tree-count">12</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架源码剖析</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Gin%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Gin%20%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Gin%E6%A1%86%E6%9E%B6%E5%BC%95%E6%93%8E%E5%AE%9E%E4%BE%8B.html" title="深入理解Gin框架引擎实例">深入理解Gin框架引擎实例</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言设计与实现</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%BA%90%E4%BB%A3%E7%A0%81.html" title="自己需要那个版本的 Go 标签，就用那个">自己需要那个版本的 Go 标签，就用那个</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言高级开发工程</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html" title="Go 单元测试">Go 单元测试</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E9%98%B6%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7.html" title="Go 语言高阶实战技巧">Go 语言高阶实战技巧</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Lua</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Lua/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BLua%E8%84%9A%E6%9C%AC.html" title="&quot;Hello, scripting!&quot;">&quot;Hello, scripting!&quot;</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">kubernetes</span><span class="tree-count">17</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">从入门到实战</span><span class="tree-count">16</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/K8s%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2.html" title="Kubernetes 从入门到实战：完整知识学习大纲">Kubernetes 从入门到实战：完整知识学习大纲</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC10%E7%AB%A0-Ingress%E4%B8%8E%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1.html" title="第10章：Ingress 与流量路由">第10章：Ingress 与流量路由</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC11%E7%AB%A0-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%9B%E9%98%B6.html" title="第11章 控制器进阶">第11章 控制器进阶</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC12%E7%AB%A0-RBAC%E6%9D%83%E9%99%90%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="第12章 RBAC 权限与安全">第12章 RBAC 权限与安全</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html" title="第13章 监控日志与可观测性">第13章 监控日志与可观测性</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC14%E7%AB%A0-Helm%E5%8C%85%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第14章 Helm 包管理与应用部署">第14章 Helm 包管理与应用部署</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC15%E7%AB%A0-%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98-%E5%AE%8C%E6%95%B4%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2.html" title="第15章 综合实战：完整微服务项目部署">第15章 综合实战：完整微服务项目部署</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC1%E7%AB%A0-K8s%E6%A6%82%E8%BF%B0%E4%B8%8E%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3.html" title="第1章 K8s 概述与架构理解">第1章 K8s 概述与架构理解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC2%E7%AB%A0-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="第2章 环境搭建实战">第2章 环境搭建实战</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC3%E7%AB%A0-Pod%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E6%88%98.html" title="第3章 Pod 核心概念与实战">第3章 Pod 核心概念与实战</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第4章 Deployment 与应用部署">第4章 Deployment 与应用部署</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC5%E7%AB%A0-Service%E4%B8%8E%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1.html" title="第5章：Service 与网络通信">第5章：Service 与网络通信</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC6%E7%AB%A0-ConfigMap%E4%B8%8ESecret%E7%AE%A1%E7%90%86.html" title="第6章：ConfigMap 与 Secret 管理">第6章：ConfigMap 与 Secret 管理</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC7%E7%AB%A0-Volume%E4%B8%8E%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8.html" title="第7章：Volume 与持久化存储">第7章：Volume 与持久化存储</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC8%E7%AB%A0-Namespace%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.html" title="第8章：Namespace 与资源管理">第8章：Namespace 与资源管理</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC9%E7%AB%A0-%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6%E4%B8%8E%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86.html" title="第9章：调度机制与节点管理">第9章：调度机制与节点管理</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/HPA%E5%92%8CVPA%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="HPA 和 VPA 的区别">HPA 和 VPA 的区别</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">其他</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%85%B6%E4%BB%96/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80UML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="统一建模语言UML学习笔记">统一建模语言UML学习笔记</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Linux</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Centos</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/yum.html" title="yum">yum</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/CentosStream8%20%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html" title="刷新配置">刷新配置</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/Centos7.9%20%E5%AE%89%E8%A3%85%20node20%20%E5%AE%9E%E6%88%98.html" title="安装 nvm">安装 nvm</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86.html" title="查看文件的大小">查看文件的大小</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">mysql</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%AE%89%E8%A3%85mysql.html" title="CentOS Linux release 8.5.2111">CentOS Linux release 8.5.2111</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E4%BB%80%E4%B9%88%E6%98%AFmysql.html" title="什么是mysql">什么是mysql</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.html" title="注意不同的密码验证策略要求密码复杂度不一样。">注意不同的密码验证策略要求密码复杂度不一样。</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">缓存</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98/redis%20%E7%BC%93%E5%AD%98%E5%AE%9E%E6%88%98.html" title="redis 缓存实战">redis 缓存实战</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">软件开发与设计规范</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/%E6%8C%87%E5%AF%BC%E6%80%9D%E6%83%B3.html" title="指导思想">指导思想</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">领域驱动设计</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E4%BB%80%E4%B9%88%E6%98%AFDDD.html" title="什么是DDD">什么是DDD</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E5%89%8D%E8%A8%80.html" title="前言">前言</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Cookie%20%E8%AF%A6%E8%A7%A3.html" title="Cookie 详解">Cookie 详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/JWT%E8%AF%A6%E8%A7%A3.html" title="JWT 详解">JWT 详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Raft%20%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3.html" title="Raft 协议详解">Raft 协议详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/WebRTC%20%E5%BA%95%E5%B1%82%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.html" title="WebRTC 底层工作原理详解">WebRTC 底层工作原理详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/curl%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="curl 使用手册">curl 使用手册</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Git%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" title="克隆指定分支">克隆指定分支</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95.html" title="分布式一致性算法">分布式一致性算法</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="学习路线">学习路线</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%90%AD%E5%BB%BA%20Conda%20%2B%20Jupyter%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" title="搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南">搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程语言</span><span class="tree-count">18</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/C%20%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="C 语言快速入门">C 语言快速入门</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20benchmark%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go Benchmark 最佳实战">Go Benchmark 最佳实战</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20pprof%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go pprof 最佳实战：从开发诊断到生产调优">Go pprof 最佳实战：从开发诊断到生产调优</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5.html" title="Go 底层原理与工程化实践">Go 底层原理与工程化实践</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码">Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E8%AF%AD%E8%A8%80%E9%AB%98%E6%95%88%E7%BC%96%E7%A8%8B%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8C%96.html" title="Go 语言高效编程：原理、可观测性与优化">Go 语言高效编程：原理、可观测性与优化</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A.html" title="Go开发工程师必知必会">Go开发工程师必知必会</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Python</span><span class="tree-count">8</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="NumPy 使用手册">NumPy 使用手册</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="NumPy 使用指南：从 ndarray 到数值计算实践">NumPy 使用指南：从 ndarray 到数值计算实践</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Pandas%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="Pandas 使用指南：从 Series/DataFrame 到数据分析实践">Pandas 使用指南：从 Series/DataFrame 到数据分析实践</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html" title="Python 异步编程：从原理到实战">Python 异步编程：从原理到实战</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="Python 快速入门">Python 快速入门</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Decorator%EF%BC%89%E6%80%BB%E7%BB%93.html" title="Python 装饰器（Decorator）总结">Python 装饰器（Decorator）总结</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E8%AE%A4%E8%AF%86Python.html" title="认识Python">认识Python</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%40staticmethod%20%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="静态方法是类的属性">静态方法是类的属性</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Rust</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Rust 入门手册：面向 Go 与 Python 开发者">Rust 入门手册：面向 Go 与 Python 开发者</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E7%A8%8B%E5%BA%8F%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86.html" title="程序底层执行原理：从一行源码到进程退出">程序底层执行原理：从一行源码到进程退出</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88.html" title="计算机科学与编程十万个为什么">计算机科学与编程十万个为什么</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机组成原理</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%BC%96%E7%A0%81.html" title="《编码》：从手电筒到计算机">《编码》：从手电筒到计算机</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%98%BE%E7%A4%BA%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="显示器的工作原理">显示器的工作原理</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%99%B6%E4%BD%93%E7%AE%A1.html" title="晶体管：小学生也能看懂的计算机“小开关”">晶体管：小学生也能看懂的计算机“小开关”</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84.html" title="程序是如何执行的">程序是如何执行的</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.html" title="计算机底层原理：程序、数据与网络如何从 0 到 1 运转">计算机底层原理：程序、数据与网络如何从 0 到 1 运转</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html" title="计算机组成">计算机组成</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="计算机组成原理">计算机组成原理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机网络</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BATCP-IP%E5%8D%8F%E8%AE%AE.html" title="深入浅出TCP-IP协议">深入浅出TCP-IP协议</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20OSI.html" title="计算机网络 - OSI">计算机网络 - OSI</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html" title="计算机网络 - 概述">计算机网络 - 概述</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="计算机网络工作原理：从输入 URL 到数据跨越互联网">计算机网络工作原理：从输入 URL 到数据跨越互联网</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">高性能服务设计与实现</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1.html" title="什么是高性能服务">什么是高性能服务</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88.html" title="后端服务安全方案">后端服务安全方案</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%AF%B4%E6%98%8E.html" title="后端服务性能指标体系">后端服务性能指标体系</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E7%99%BE%E4%B8%87%E7%BA%A7QPS%20API%E7%BD%91%E5%85%B3%E8%AE%BE%E8%AE%A1.html" title="如何设计一个支持百万级 QPS 的 API 网关">如何设计一个支持百万级 QPS 的 API 网关</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%99%90%E6%B5%81%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1.html" title="限流方案设计">限流方案设计</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%20Agent%20%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="高性能 Agent 服务架构设计与实现">高性能 Agent 服务架构设计与实现</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8F%AF%E8%A1%8C%E6%80%A7%E6%96%B9%E6%A1%88.html" title="高性能服务架构可行性方案">高性能服务架构可行性方案</a></div></details><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E5%A4%A7%E7%BA%B2.html" title="计算机知识学习先后顺序大纲">计算机知识学习先后顺序大纲</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="计算机科学知识大纲">计算机科学知识大纲</a></div></details><div class="tree-label">散篇</div><a class="tree-link" href="../../../TODO.html" title="TODO">TODO</a><a class="tree-link" href="../../../%E4%B8%AA%E4%BA%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E9%87%8D%E9%93%B8%E8%AE%A1%E5%88%92.html" title="个人基础知识重铸计划">个人基础知识重铸计划</a><a class="tree-link" href="../../../%E5%8F%A5%E5%AD%90.html" title="句子">句子</a><a class="tree-link" href="../../../%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E5%AD%A6%E4%B9%A0.html" title="如何高效的学习">如何高效的学习</a><a class="tree-link" href="../../../%E6%97%B6%E9%97%B4%E8%83%B6%E5%9B%8A.html" title="时间胶囊">时间胶囊</a><a class="tree-link" href="../../../%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA.html" title="网站导航">网站导航</a></nav>
+      </div>
+    </aside>
+  <main class="blog-main">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../../../index.html">博客</a><span>/</span><span>计算机科学</span><span>/</span><span>数据库</span><span>/</span><span>MySQL</span><span>/</span><span>MySQL 架构</span></nav>
+    <article class="post">
+      <header class="post-head">
+        <div class="post-kicker">计算机科学 / 数据库 / MySQL</div>
+        <h1>MySQL 架构</h1>
+        <div class="post-meta"><span>计算机科学/数据库/MySQL/MySQL架构.md</span><span>约 7,879 字</span></div>
+      </header>
+      <div class="prose"><h2 id="一-为什么要学习-mysql-架构">一、为什么要学习 MySQL 架构</h2>
+<p>很多 MySQL 问题表面上是 SQL 慢、锁等待、主从延迟、连接打满、磁盘 IO 高，真正原因往往藏在架构链路里。</p>
+<p>例如：</p>
+<pre><code class="language-sql">SELECT * FROM orders WHERE order_no = 'A202607220001';
+</code></pre>
+<p>这条 SQL 看起来很简单，但它从客户端到 MySQL 服务端至少会经过：</p>
+<ol>
+<li>网络连接与认证；</li>
+<li>SQL 解析；</li>
+<li>权限检查；</li>
+<li>优化器生成执行计划；</li>
+<li>执行器调用存储引擎；</li>
+<li>InnoDB 通过索引定位记录；</li>
+<li>Buffer Pool 命中或磁盘读取；</li>
+<li>返回结果给客户端。</li>
+</ol>
+<p>从高性能 MySQL 的角度看，学习架构不是为了背模块名称，而是为了回答这些生产问题：</p>
+<ul>
+<li>为什么同一条 SQL 有时很快，有时很慢；</li>
+<li>为什么索引不合理会扩大锁范围；</li>
+<li>为什么长事务会拖垮 Undo Log 和 MVCC；</li>
+<li>为什么写入提交既涉及 redo log，又涉及 binlog；</li>
+<li>为什么连接数、线程数、临时表、排序、Buffer Pool 都会影响吞吐量；</li>
+<li>为什么读写分离会出现写后读不一致。</li>
+</ul>
+<p>可以先把 MySQL 理解成三层：</p>
+<pre><code class="language-text">客户端层
+  应用程序、连接池、MySQL 协议、驱动
+
+MySQL Server 层
+  连接管理、认证授权、SQL 解析、优化器、执行器、Binlog、复制、函数、视图、存储过程
+
+存储引擎层
+  InnoDB、MyISAM、MEMORY 等，负责数据页、索引、事务、锁、崩溃恢复
+</code></pre>
+<p>现在绝大多数生产系统使用 InnoDB，所以本文重点以 <strong>MySQL Server 层 + InnoDB</strong> 为主线。</p>
+<h2 id="二-mysql-整体架构图">二、MySQL 整体架构图</h2>
+<p><img loading="lazy" decoding="async" alt="MySQL 整体架构图" src="./images/MySQL整体架构图.svg" /></p>
+<p>需要注意：<strong>MySQL Server 层负责“怎么执行 SQL”，InnoDB 负责“怎么存取数据”。</strong></p>
+<p>优化 SQL 时，两层都要看：</p>
+<ul>
+<li>Server 层：SQL 写法、执行计划、排序、临时表、函数计算、连接数、线程调度；</li>
+<li>InnoDB 层：索引组织、Buffer Pool、锁、MVCC、redo log、undo log、刷盘策略。</li>
+</ul>
+<h2 id="三-客户端与连接管理模块">三、客户端与连接管理模块</h2>
+<h3 id="1-客户端与-mysql-协议">1. 客户端与 MySQL 协议</h3>
+<p>客户端可以是 Java、Go、Python、PHP 应用，也可以是命令行工具：</p>
+<pre><code class="language-bash">mysql -h 127.0.0.1 -P 3306 -u root -p
+</code></pre>
+<p>它们通过 MySQL 协议和服务端通信。一次查询不是简单地“发 SQL 字符串”，还包括连接建立、认证、命令包发送、结果集返回、错误码返回等过程。</p>
+<p>高性能影响：</p>
+<ul>
+<li>网络延迟会直接增加 SQL 响应时间；</li>
+<li>大结果集会消耗网络、内存和客户端解析成本；</li>
+<li>频繁创建连接会造成认证、线程创建、握手开销；</li>
+<li>应用连接池配置不当，会造成数据库连接打满或应用侧排队。</li>
+</ul>
+<p>实战建议：</p>
+<ul>
+<li>应用侧使用连接池，不要每次请求都新建数据库连接；</li>
+<li>控制连接池最大连接数，不要让多个应用实例把 MySQL 打满；</li>
+<li>查询只返回必要字段，避免 <code>SELECT *</code> 和大结果集；</li>
+<li>对后台导出、报表查询做限流和异步化。</li>
+</ul>
+<h3 id="2-连接管理器">2. 连接管理器</h3>
+<p>MySQL 服务端收到连接后，会为连接分配线程或从线程缓存中复用线程。每个连接都有自己的会话状态，例如：</p>
+<ul>
+<li>当前数据库；</li>
+<li>字符集；</li>
+<li>事务状态；</li>
+<li>隔离级别；</li>
+<li>用户变量；</li>
+<li>临时表；</li>
+<li>预处理语句。</li>
+</ul>
+<p>常见相关参数：</p>
+<pre><code class="language-sql">SHOW VARIABLES LIKE 'max_connections';
+SHOW VARIABLES LIKE 'thread_cache_size';
+SHOW STATUS LIKE 'Threads%';
+SHOW STATUS LIKE 'Connections';
+</code></pre>
+<p>高性能影响：</p>
+<ul>
+<li><code>max_connections</code> 太小会导致应用无法连接；</li>
+<li><code>max_connections</code> 太大也不是好事，过多并发线程会引发上下文切换、内存消耗和锁竞争；</li>
+<li>慢 SQL 堆积时，连接会长时间占用线程，进一步拖慢系统；</li>
+<li>应用连接池过大，可能把数据库变成排队场，而不是提升吞吐量。</li>
+</ul>
+<p>实战建议：</p>
+<ul>
+<li>优先优化慢 SQL 和事务时间，而不是盲目调大连接数；</li>
+<li>应用连接池总量要和 MySQL 实际承载能力匹配；</li>
+<li>监控 <code>Threads_running</code>，它比单纯的连接总数更能反映当前压力；</li>
+<li>连接数暴涨时，要排查慢 SQL、锁等待、应用重试风暴和连接泄漏。</li>
+</ul>
+<h3 id="3-认证与权限模块">3. 认证与权限模块</h3>
+<p>认证模块负责确认用户身份，权限模块负责判断用户是否能访问某个库、表、列或执行某类操作。</p>
+<p>例如：</p>
+<pre><code class="language-sql">SELECT * FROM orders;
+</code></pre>
+<p>MySQL 需要判断当前用户是否有 <code>orders</code> 表的 <code>SELECT</code> 权限。</p>
+<p>高性能影响：</p>
+<ul>
+<li>权限检查通常不是性能瓶颈，但权限模型复杂会增加运维成本；</li>
+<li>生产应用账号权限过大，会放大误操作和 SQL 注入风险；</li>
+<li>过多账号、主机匹配和授权混乱，会增加治理难度。</li>
+</ul>
+<p>实战建议：</p>
+<ul>
+<li>应用账号遵循最小权限原则；</li>
+<li>读写账号分离；</li>
+<li>禁止普通应用账号拥有 <code>DROP</code>、<code>TRUNCATE</code>、高危 DDL 权限；</li>
+<li>生产变更使用受控账号和审计流程。</li>
+</ul>
+<h2 id="四-sql-层核心模块">四、SQL 层核心模块</h2>
+<h3 id="1-解析器-parser">1. 解析器 Parser</h3>
+<p>解析器负责把 SQL 文本转换成 MySQL 能理解的语法树。</p>
+<p>例如：</p>
+<pre><code class="language-sql">SELECT id, amount
+FROM orders
+WHERE user_id = 1001
+ORDER BY created_at DESC
+LIMIT 20;
+</code></pre>
+<p>解析器会识别：</p>
+<ul>
+<li>这是 <code>SELECT</code> 语句；</li>
+<li>查询字段是 <code>id</code>、<code>amount</code>；</li>
+<li>目标表是 <code>orders</code>；</li>
+<li>过滤条件是 <code>user_id = 1001</code>；</li>
+<li>排序字段是 <code>created_at DESC</code>；</li>
+<li>限制返回 20 行。</li>
+</ul>
+<p>如果 SQL 语法错误，会在解析阶段直接失败。</p>
+<p>高性能影响：</p>
+<ul>
+<li>普通业务中解析开销通常不是主要瓶颈；</li>
+<li>高频短 SQL 场景下，预处理语句可以减少重复解析和网络传输成本；</li>
+<li>SQL 写得越复杂，后续优化器搜索空间可能越大。</li>
+</ul>
+<h3 id="2-预处理器-preprocessor">2. 预处理器 Preprocessor</h3>
+<p>预处理器负责语义检查，例如：</p>
+<ul>
+<li>表是否存在；</li>
+<li>字段是否存在；</li>
+<li>字段是否歧义；</li>
+<li>函数和表达式是否合法；</li>
+<li>视图是否可以展开。</li>
+</ul>
+<p>例如：</p>
+<pre><code class="language-sql">SELECT unknown_column FROM orders;
+</code></pre>
+<p>如果 <code>unknown_column</code> 不存在，会在这个阶段报错。</p>
+<h3 id="3-优化器-optimizer">3. 优化器 Optimizer</h3>
+<p>优化器是 MySQL 性能中最关键的 Server 层模块之一。它负责决定“怎么执行更划算”。</p>
+<p>同一条 SQL 可能有多种执行方式：</p>
+<pre><code class="language-sql">SELECT *
+FROM orders
+WHERE user_id = 1001
+  AND status = 'paid'
+ORDER BY created_at DESC
+LIMIT 20;
+</code></pre>
+<p>优化器需要决定：</p>
+<ul>
+<li>走哪个索引；</li>
+<li>是否全表扫描；</li>
+<li>是否使用索引排序；</li>
+<li>是否需要临时表；</li>
+<li>是否需要文件排序；</li>
+<li>多表 JOIN 时谁做驱动表；</li>
+<li>是否能做条件下推、索引下推、派生表合并等优化。</li>
+</ul>
+<p>优化器主要基于成本估算，而成本依赖统计信息、索引选择性、行数估计、数据分布等。</p>
+<p>高性能影响：</p>
+<ul>
+<li>统计信息不准可能导致选错索引；</li>
+<li>联合索引顺序会影响优化器可选择的路径；</li>
+<li><code>ORDER BY</code>、<code>GROUP BY</code>、<code>DISTINCT</code> 可能引入临时表和排序；</li>
+<li>多表 JOIN 顺序错误会造成扫描行数暴涨；</li>
+<li>隐式类型转换、函数包裹索引列会让优化器难以使用索引。</li>
+</ul>
+<p>常用观察工具：</p>
+<pre><code class="language-sql">EXPLAIN SELECT ...;
+EXPLAIN ANALYZE SELECT ...;
+SHOW WARNINGS;
+ANALYZE TABLE orders;
+</code></pre>
+<p>实战建议：</p>
+<ul>
+<li>所有核心 SQL 上线前都应看 <code>EXPLAIN</code>；</li>
+<li>关注 <code>type</code>、<code>key</code>、<code>rows</code>、<code>filtered</code>、<code>Extra</code>；</li>
+<li>大表出现 <code>ALL</code>、大量 <code>Using filesort</code>、大量 <code>Using temporary</code> 时要重点评估；</li>
+<li>不要迷信“有索引就一定快”，要看扫描行数和回表成本。</li>
+</ul>
+<h3 id="4-执行器-executor">4. 执行器 Executor</h3>
+<p>执行器负责按照优化器选出的执行计划真正执行 SQL。</p>
+<p>它会：</p>
+<ul>
+<li>调用存储引擎接口读取或修改数据；</li>
+<li>对返回记录做过滤；</li>
+<li>执行表达式计算；</li>
+<li>执行排序、分组、聚合；</li>
+<li>处理 LIMIT；</li>
+<li>把结果集返回客户端。</li>
+</ul>
+<p>高性能影响：</p>
+<ul>
+<li>执行器处理的行数越多，CPU、内存、网络消耗越大；</li>
+<li>存储引擎返回大量行后再过滤，会浪费 IO 和 CPU；</li>
+<li>排序和分组数据量过大，可能使用磁盘临时表；</li>
+<li>返回字段越多，回表、内存和网络成本越高。</li>
+</ul>
+<p>实战建议：</p>
+<ul>
+<li>让过滤尽量发生在索引和存储引擎层；</li>
+<li>避免 <code>SELECT *</code>；</li>
+<li>大分页用游标分页或延迟关联；</li>
+<li>大统计任务不要和在线交易混跑，必要时放到只读库或 OLAP 系统。</li>
+</ul>
+<h2 id="五-存储引擎接口层">五、存储引擎接口层</h2>
+<p>MySQL 使用插件式存储引擎。Server 层不直接操作数据文件，而是通过统一的 handler 接口调用存储引擎。</p>
+<p>例如执行器可能向引擎发出这些请求：</p>
+<ul>
+<li>打开表；</li>
+<li>通过主键读取一行；</li>
+<li>通过索引范围扫描；</li>
+<li>插入一行；</li>
+<li>更新一行；</li>
+<li>删除一行；</li>
+<li>提交事务；</li>
+<li>回滚事务。</li>
+</ul>
+<p>这样 MySQL 可以支持不同存储引擎：</p>
+<ul>
+<li>InnoDB：事务、行锁、MVCC、崩溃恢复，生产默认选择；</li>
+<li>MyISAM：表锁、不支持事务，核心业务不推荐；</li>
+<li>MEMORY：内存表，数据重启丢失；</li>
+<li>ARCHIVE：归档场景；</li>
+<li>CSV：文件交换或测试场景。</li>
+</ul>
+<p>从高性能 MySQL 的角度看，存储引擎接口带来的关键认知是：<strong>Server 层决定访问路径，存储引擎决定路径上的真实代价。</strong></p>
+<p>例如优化器决定使用 <code>idx_user_created</code>，但真正的索引页读取、Buffer Pool 命中、行锁、回表，都发生在 InnoDB。</p>
+<h2 id="六-innodb-核心模块">六、InnoDB 核心模块</h2>
+<h3 id="1-表空间与数据页">1. 表空间与数据页</h3>
+<p>InnoDB 以页为基本单位管理数据，默认页大小通常是 16KB。</p>
+<p>表和索引最终都会落在表空间中：</p>
+<ul>
+<li>系统表空间；</li>
+<li>独立表空间；</li>
+<li>undo 表空间；</li>
+<li>临时表空间；</li>
+<li>redo log 文件。</li>
+</ul>
+<p>高性能影响：</p>
+<ul>
+<li>MySQL 不是一行一行从磁盘读，而是一页一页读；</li>
+<li>一次查询命中的数据页越少，IO 成本越低；</li>
+<li>行越大，一个页能放的记录越少，缓存效率越差；</li>
+<li>大字段、宽表会降低 Buffer Pool 的有效利用率。</li>
+</ul>
+<p>实战建议：</p>
+<ul>
+<li>字段类型尽量精确，不要无脑使用大字段；</li>
+<li>热点字段和大字段可以考虑拆表；</li>
+<li>高频查询尽量只读取必要字段；</li>
+<li>表结构设计要考虑缓存命中率，而不只是字段能不能放下。</li>
+</ul>
+<h3 id="2-b-tree-索引模块">2. B+Tree 索引模块</h3>
+<p>InnoDB 使用 B+Tree 组织索引。</p>
+<p>主键索引是聚簇索引，叶子节点保存完整行数据。二级索引叶子节点保存索引列和主键值。</p>
+<p>例如：</p>
+<pre><code class="language-sql">CREATE TABLE orders (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  order_no VARCHAR(64) NOT NULL,
+  user_id BIGINT UNSIGNED NOT NULL,
+  status TINYINT NOT NULL,
+  amount DECIMAL(10, 2) NOT NULL,
+  created_at DATETIME NOT NULL,
+  UNIQUE KEY uk_order_no(order_no),
+  KEY idx_user_created(user_id, created_at)
+) ENGINE=InnoDB;
+</code></pre>
+<p>查询订单号：</p>
+<pre><code class="language-sql">SELECT * FROM orders WHERE order_no = 'A202607220001';
+</code></pre>
+<p>执行路径通常是：</p>
+<ol>
+<li>通过唯一索引 <code>uk_order_no</code> 找到主键 <code>id</code>；</li>
+<li>根据 <code>id</code> 回到聚簇索引读取完整行；</li>
+<li>返回数据。</li>
+</ol>
+<p>如果查询字段被二级索引覆盖：</p>
+<pre><code class="language-sql">SELECT id FROM orders WHERE order_no = 'A202607220001';
+</code></pre>
+<p>二级索引中已经有 <code>order_no</code> 和主键 <code>id</code>，通常不需要回表。</p>
+<p>高性能影响：</p>
+<ul>
+<li>主键越短，所有二级索引越小；</li>
+<li>主键越随机，页分裂和写放大越明显；</li>
+<li>回表次数越多，随机 IO 和 Buffer Pool 压力越大；</li>
+<li>联合索引可以同时优化过滤、排序和覆盖查询。</li>
+</ul>
+<h3 id="3-buffer-pool">3. Buffer Pool</h3>
+<p>Buffer Pool 是 InnoDB 最重要的内存模块，用于缓存数据页和索引页。</p>
+<p>查询时：</p>
+<ul>
+<li>如果目标页在 Buffer Pool 中，直接内存读取；</li>
+<li>如果不在 Buffer Pool 中，需要从磁盘读取页到内存。</li>
+</ul>
+<p>更新时：</p>
+<ul>
+<li>通常先修改 Buffer Pool 中的数据页；</li>
+<li>被修改但未刷盘的页叫脏页；</li>
+<li>后台线程会在合适时机把脏页刷回磁盘。</li>
+</ul>
+<p>高性能影响：</p>
+<ul>
+<li>Buffer Pool 命中率高，查询主要走内存；</li>
+<li>Buffer Pool 太小，会频繁淘汰页并触发磁盘 IO；</li>
+<li>大查询可能污染 Buffer Pool，把热点页挤出去；</li>
+<li>大量脏页刷盘可能造成 IO 抖动。</li>
+</ul>
+<p>常用观察：</p>
+<pre><code class="language-sql">SHOW VARIABLES LIKE 'innodb_buffer_pool_size';
+SHOW GLOBAL STATUS LIKE 'Innodb_buffer_pool%';
+SHOW ENGINE INNODB STATUS\G
+</code></pre>
+<p>实战建议：</p>
+<ul>
+<li>专用数据库服务器通常把 Buffer Pool 设置为物理内存的 60% 到 75%，具体要给系统、连接、日志、临时表留空间；</li>
+<li>避免在线库执行无节制全表扫描；</li>
+<li>大报表、大导出尽量走只读库或离线系统；</li>
+<li>表和索引设计要减少不必要的数据页访问。</li>
+</ul>
+<h3 id="4-mvcc-与-read-view">4. MVCC 与 Read View</h3>
+<p>MVCC 是多版本并发控制。它让普通快照读在很多情况下不阻塞写，写也不阻塞普通读。</p>
+<p>InnoDB 每行记录有隐藏字段，配合 Undo Log 保存历史版本。事务读取时，通过 Read View 判断哪个版本对当前事务可见。</p>
+<p>普通快照读：</p>
+<pre><code class="language-sql">SELECT * FROM orders WHERE id = 1;
+</code></pre>
+<p>当前读：</p>
+<pre><code class="language-sql">SELECT * FROM orders WHERE id = 1 FOR UPDATE;
+UPDATE orders SET status = 2 WHERE id = 1;
+DELETE FROM orders WHERE id = 1;
+</code></pre>
+<p>高性能影响：</p>
+<ul>
+<li>MVCC 提升读写并发能力；</li>
+<li>长事务会导致旧版本长期无法清理，Undo Log 膨胀；</li>
+<li>快照读不等于读最新数据；</li>
+<li>当前读会加锁，可能产生锁等待。</li>
+</ul>
+<p>实战建议：</p>
+<ul>
+<li>事务要短；</li>
+<li>不要在事务里做 HTTP、RPC、文件处理等慢操作；</li>
+<li>库存、余额、订单状态流转要用当前读或原子更新；</li>
+<li>对“写后马上读”的业务，要明确读主库还是从库，读快照还是读最新。</li>
+</ul>
+<h3 id="5-锁模块">5. 锁模块</h3>
+<p>InnoDB 常见锁包括：</p>
+<ul>
+<li>行锁；</li>
+<li>间隙锁；</li>
+<li>Next-Key Lock；</li>
+<li>表级意向锁；</li>
+<li>自增锁；</li>
+<li>元数据锁由 Server 层管理，但经常和 InnoDB 事务一起影响线上行为。</li>
+</ul>
+<p>高性能影响：</p>
+<ul>
+<li>行锁依赖索引，索引不合理会扩大锁范围；</li>
+<li>范围当前读可能引入间隙锁；</li>
+<li>长事务持锁时间长，会造成锁等待堆积；</li>
+<li>DDL 可能等待元数据锁，被长事务阻塞；</li>
+<li>死锁通常来自访问顺序不一致、索引缺失、事务范围过大。</li>
+</ul>
+<p>排查工具：</p>
+<pre><code class="language-sql">SHOW ENGINE INNODB STATUS\G
+
+SELECT *
+FROM information_schema.innodb_trx;
+</code></pre>
+<p>MySQL 8.0 也可以结合 <code>performance_schema.data_locks</code>、<code>data_lock_waits</code> 观察锁。</p>
+<p>实战建议：</p>
+<ul>
+<li>更新和删除必须命中合适索引；</li>
+<li>用唯一索引定位单行，锁范围最小；</li>
+<li>批量更新分批提交；</li>
+<li>多个业务流程更新多张表时，尽量统一加锁顺序；</li>
+<li>避免大事务和交互式事务。</li>
+</ul>
+<h3 id="6-undo-log">6. Undo Log</h3>
+<p>Undo Log 主要承担两个角色：</p>
+<ul>
+<li>事务回滚：记录修改前的值；</li>
+<li>MVCC：提供历史版本。</li>
+</ul>
+<p>例如：</p>
+<pre><code class="language-sql">UPDATE account SET balance = balance - 100 WHERE id = 1;
+</code></pre>
+<p>InnoDB 会在 Undo Log 中记录旧版本，用于回滚或快照读。</p>
+<p>高性能影响：</p>
+<ul>
+<li>大事务会产生大量 Undo Log；</li>
+<li>长事务会阻止 Undo Log 被 purge 清理；</li>
+<li>Undo 版本链过长会拖慢快照读；</li>
+<li>大量历史版本会增加存储和恢复压力。</li>
+</ul>
+<p>实战建议：</p>
+<ul>
+<li>避免一次更新海量数据；</li>
+<li>批处理任务按主键范围分批提交；</li>
+<li>监控长事务；</li>
+<li>业务事务边界只包住真正需要一致性的 SQL。</li>
+</ul>
+<h3 id="7-redo-log">7. Redo Log</h3>
+<p>Redo Log 是 InnoDB 的物理日志，用于崩溃恢复，也提升写入性能。</p>
+<p>如果每次提交都把随机数据页刷盘，性能会很差。InnoDB 使用 redo log 把随机写变成更高效的顺序写。</p>
+<p>简化流程：</p>
+<ol>
+<li>修改 Buffer Pool 中的数据页；</li>
+<li>写入 redo log buffer；</li>
+<li>提交时按策略刷 redo log；</li>
+<li>后台线程把脏页刷回磁盘；</li>
+<li>宕机后通过 redo log 恢复已提交修改。</li>
+</ol>
+<p>关键参数：</p>
+<pre><code class="language-sql">SHOW VARIABLES LIKE 'innodb_flush_log_at_trx_commit';
+</code></pre>
+<p>常见取值：</p>
+<ul>
+<li><code>1</code>：每次事务提交都刷盘，可靠性最高；</li>
+<li><code>2</code>：每次提交写入 OS Cache，每秒刷盘；</li>
+<li><code>0</code>：每秒写入并刷盘，性能更激进，可靠性更弱。</li>
+</ul>
+<p>高性能影响：</p>
+<ul>
+<li>redo log 写入能力影响事务提交吞吐；</li>
+<li>redo log 空间太小会导致频繁 checkpoint；</li>
+<li>刷盘策略影响性能和数据丢失风险；</li>
+<li>IO 抖动会拉高提交延迟。</li>
+</ul>
+<p>实战建议：</p>
+<ul>
+<li>订单、支付、账户等核心业务优先可靠性；</li>
+<li>可重放日志、埋点等场景可按业务容忍度权衡；</li>
+<li>监控磁盘延迟，而不是只看 SQL 层耗时；</li>
+<li>不要把 redo log、binlog、数据文件的 IO 压力完全忽视。</li>
+</ul>
+<h3 id="8-change-buffer">8. Change Buffer</h3>
+<p>Change Buffer 用于优化非唯一二级索引的写入。当要修改的二级索引页不在 Buffer Pool 中时，InnoDB 可以先把变更记录到 Change Buffer，后续读取或后台合并时再应用到真实索引页。</p>
+<p>高性能影响：</p>
+<ul>
+<li>对写多读少的非唯一二级索引有帮助；</li>
+<li>对唯一索引帮助有限，因为唯一性检查通常必须读取索引页；</li>
+<li>如果写入后很快读取同一索引范围，合并成本仍然会出现；</li>
+<li>索引过多时，写入维护成本仍然会上升。</li>
+</ul>
+<p>实战建议：</p>
+<ul>
+<li>不要为了“可能会查”给所有字段建索引；</li>
+<li>唯一索引表达真实业务约束，不要滥用；</li>
+<li>写密集表要控制二级索引数量。</li>
+</ul>
+<h3 id="9-doublewrite-buffer">9. Doublewrite Buffer</h3>
+<p>Doublewrite Buffer 用于降低数据页部分写失败带来的损坏风险。</p>
+<p>磁盘写入一个 16KB 页时，如果只写了一半就宕机，数据页可能损坏。InnoDB 会先把页写到 doublewrite 区域，再写到最终位置。恢复时如果发现页损坏，可以用 doublewrite 中的完整副本恢复。</p>
+<p>高性能影响：</p>
+<ul>
+<li>提升可靠性；</li>
+<li>带来额外写入成本；</li>
+<li>在高写入负载下会影响 IO；</li>
+<li>现代存储和 MySQL 版本对该机制有不同优化。</li>
+</ul>
+<p>核心业务通常不应为了追求极限写入而轻易牺牲可靠性。</p>
+<h2 id="七-日志与复制模块">七、日志与复制模块</h2>
+<h3 id="1-binlog">1. Binlog</h3>
+<p>Binlog 是 MySQL Server 层日志，记录逻辑变更，用于：</p>
+<ul>
+<li>主从复制；</li>
+<li>时间点恢复；</li>
+<li>数据审计；</li>
+<li>数据订阅。</li>
+</ul>
+<p>常见格式：</p>
+<ul>
+<li>Statement：记录 SQL；</li>
+<li>Row：记录行变更；</li>
+<li>Mixed：混合模式。</li>
+</ul>
+<p>生产中通常优先使用 Row 格式，因为复制更确定，虽然日志量可能更大。</p>
+<p>查看配置：</p>
+<pre><code class="language-sql">SHOW VARIABLES LIKE 'log_bin';
+SHOW VARIABLES LIKE 'binlog_format';
+SHOW VARIABLES LIKE 'sync_binlog';
+</code></pre>
+<p>高性能影响：</p>
+<ul>
+<li>binlog 刷盘策略影响提交性能和故障丢失风险；</li>
+<li>大事务会生成大 binlog，导致复制延迟；</li>
+<li>Row 格式更可靠，但日志量更大；</li>
+<li>binlog 保留过久会占用大量磁盘。</li>
+</ul>
+<h3 id="2-redo-log-与-binlog-两阶段提交">2. Redo Log 与 Binlog 两阶段提交</h3>
+<p>InnoDB 的 redo log 和 MySQL Server 的 binlog 分属两层。事务提交时，需要保证两者一致，否则可能出现：</p>
+<ul>
+<li>InnoDB 已提交，但 binlog 没记录，复制和恢复丢数据；</li>
+<li>binlog 已记录，但 InnoDB 没提交，恢复后数据不一致。</li>
+</ul>
+<p>因此 MySQL 使用两阶段提交协调 redo log 和 binlog：</p>
+<pre><code class="language-text">1. InnoDB 写 redo log prepare
+2. Server 写 binlog
+3. InnoDB 写 redo log commit
+</code></pre>
+<p>高性能影响：</p>
+<ul>
+<li>提交事务要同时考虑 redo 和 binlog；</li>
+<li><code>innodb_flush_log_at_trx_commit</code> 和 <code>sync_binlog</code> 共同影响可靠性与性能；</li>
+<li>开启 binlog 后写入成本会增加，但换来复制和恢复能力。</li>
+</ul>
+<h3 id="3-主从复制">3. 主从复制</h3>
+<p>复制的大致流程：</p>
+<ol>
+<li>主库提交事务，写入 binlog；</li>
+<li>从库 IO 线程拉取主库 binlog；</li>
+<li>从库写入 relay log；</li>
+<li>从库 SQL 线程或多线程复制回放 relay log；</li>
+<li>从库数据追上主库。</li>
+</ol>
+<p>高性能影响：</p>
+<ul>
+<li>主库大事务会导致从库回放慢；</li>
+<li>从库执行慢 SQL 会导致延迟；</li>
+<li>热点表、无主键表、DDL 都可能放大复制延迟；</li>
+<li>读写分离下，从库延迟会导致读到旧数据。</li>
+</ul>
+<p>实战建议：</p>
+<ul>
+<li>强一致读、写后读走主库或使用一致性路由；</li>
+<li>控制大事务和批量更新；</li>
+<li>从库也要有合理索引，因为复制回放也要执行更新；</li>
+<li>监控 <code>Seconds_Behind_Master</code> 或基于 GTID/心跳的延迟指标。</li>
+</ul>
+<h2 id="八-临时表-排序与聚合模块">八、临时表、排序与聚合模块</h2>
+<p>很多慢 SQL 不是因为没有连接或认证问题，而是因为执行阶段产生了大量临时数据。</p>
+<p>常见触发场景：</p>
+<pre><code class="language-sql">SELECT status, COUNT(*)
+FROM orders
+WHERE created_at &gt;= '2026-07-01'
+GROUP BY status;
+</code></pre>
+<pre><code class="language-sql">SELECT *
+FROM orders
+WHERE user_id = 1001
+ORDER BY amount DESC
+LIMIT 20;
+</code></pre>
+<p>如果索引不能同时满足过滤、分组、排序，MySQL 可能使用：</p>
+<ul>
+<li>内存临时表；</li>
+<li>磁盘临时表；</li>
+<li>filesort；</li>
+<li>聚合计算。</li>
+</ul>
+<p>高性能影响：</p>
+<ul>
+<li>数据量小时问题不明显；</li>
+<li>数据量大时会消耗 CPU、内存、磁盘临时空间；</li>
+<li>磁盘临时表会明显拉高延迟；</li>
+<li>报表 SQL 可能挤占在线交易资源。</li>
+</ul>
+<p>观察指标：</p>
+<pre><code class="language-sql">SHOW GLOBAL STATUS LIKE 'Created_tmp%';
+SHOW GLOBAL STATUS LIKE 'Sort%';
+</code></pre>
+<p>实战建议：</p>
+<ul>
+<li>高频列表页用联合索引同时服务 <code>WHERE</code> 和 <code>ORDER BY</code>；</li>
+<li>高频统计可以用汇总表、异步计算、缓存或 OLAP；</li>
+<li>后台导出分批分页，不要一次拉全量；</li>
+<li>对复杂报表隔离到只读库或分析系统。</li>
+</ul>
+<h2 id="九-不同查询的执行时序图">九、不同查询的执行时序图</h2>
+<p>下面用时序图描述不同 SQL 从客户端到 MySQL 服务端的典型链路。实际 MySQL 内部更复杂，但这些图能帮助建立性能分析的主线。</p>
+<h3 id="1-主键点查">1. 主键点查</h3>
+<p>SQL：</p>
+<pre><code class="language-sql">SELECT id, order_no, amount
+FROM orders
+WHERE id = 1001;
+</code></pre>
+<p>特点：</p>
+<ul>
+<li>主键等值查询；</li>
+<li>优化器通常选择 <code>const</code>；</li>
+<li>InnoDB 通过聚簇索引定位一行；</li>
+<li>性能通常最稳定。</li>
+</ul>
+<p><img loading="lazy" decoding="async" alt="主键点查执行时序图" src="./images/01-主键点查时序图.svg" /></p>
+<p>性能分析重点：</p>
+<ul>
+<li>是否使用主键或唯一索引；</li>
+<li>Buffer Pool 是否命中；</li>
+<li>返回字段是否过多；</li>
+<li>单次很快但并发很高时，关注连接池、CPU 和热点页竞争。</li>
+</ul>
+<h3 id="2-二级索引查询并回表">2. 二级索引查询并回表</h3>
+<p>SQL：</p>
+<pre><code class="language-sql">SELECT id, order_no, amount, status
+FROM orders
+WHERE order_no = 'A202607220001';
+</code></pre>
+<p>假设 <code>order_no</code> 是唯一二级索引。</p>
+<p><img loading="lazy" decoding="async" alt="二级索引查询并回表执行时序图" src="./images/02-二级索引回表时序图.svg" /></p>
+<p>性能分析重点：</p>
+<ul>
+<li>二级索引是否唯一，能否快速定位；</li>
+<li>是否发生回表；</li>
+<li>如果只查 <code>id</code>，是否可以覆盖索引；</li>
+<li>回表次数多时，延迟会明显上升。</li>
+</ul>
+<h3 id="3-范围查询-排序与分页">3. 范围查询、排序与分页</h3>
+<p>SQL：</p>
+<pre><code class="language-sql">SELECT id, order_no, amount, created_at
+FROM orders
+WHERE user_id = 1001
+ORDER BY created_at DESC
+LIMIT 20;
+</code></pre>
+<p>理想索引：</p>
+<pre><code class="language-sql">CREATE INDEX idx_user_created ON orders(user_id, created_at);
+</code></pre>
+<p><img loading="lazy" decoding="async" alt="范围查询、排序与分页执行时序图" src="./images/03-范围查询排序分页时序图.svg" /></p>
+<p>如果没有合适索引，可能变成：</p>
+<pre><code class="language-text">扫描大量订单 -&gt; Server 层排序 -&gt; 取前 20 行
+</code></pre>
+<p>性能分析重点：</p>
+<ul>
+<li>索引是否同时满足过滤和排序；</li>
+<li><code>LIMIT</code> 是否能提前停止扫描；</li>
+<li>是否出现 <code>Using filesort</code>；</li>
+<li>深分页 <code>LIMIT 20 OFFSET 100000</code> 是否导致扫描大量无用行；</li>
+<li>返回字段是否导致大量回表。</li>
+</ul>
+<h3 id="4-多表-join-查询">4. 多表 JOIN 查询</h3>
+<p>SQL：</p>
+<pre><code class="language-sql">SELECT o.id, o.order_no, u.name
+FROM orders o
+JOIN users u ON o.user_id = u.id
+WHERE o.status = 2
+  AND o.created_at &gt;= '2026-07-01'
+ORDER BY o.created_at DESC
+LIMIT 100;
+</code></pre>
+<p>可能索引：</p>
+<pre><code class="language-sql">CREATE INDEX idx_status_created_user ON orders(status, created_at, user_id);
+-- users.id 通常是主键
+</code></pre>
+<p><img loading="lazy" decoding="async" alt="多表 JOIN 查询执行时序图" src="./images/04-JOIN查询时序图.svg" /></p>
+<p>性能分析重点：</p>
+<ul>
+<li>驱动表是否足够小；</li>
+<li>被驱动表关联字段是否有索引；</li>
+<li>JOIN 字段类型是否一致；</li>
+<li>是否先过滤再 JOIN；</li>
+<li>是否产生大中间结果集；</li>
+<li><code>ORDER BY</code> 是否能利用驱动表索引。</li>
+</ul>
+<p>JOIN 优化的核心不是“少 JOIN”，而是让每一步访问的数据量可控。</p>
+<h3 id="5-insert-写入">5. INSERT 写入</h3>
+<p>SQL：</p>
+<pre><code class="language-sql">INSERT INTO orders(order_no, user_id, status, amount, created_at)
+VALUES('A202607220001', 1001, 1, 99.00, NOW());
+</code></pre>
+<p><img loading="lazy" decoding="async" alt="INSERT 写入执行时序图" src="./images/05-INSERT写入时序图.svg" /></p>
+<p>性能分析重点：</p>
+<ul>
+<li>二级索引越多，插入维护成本越高；</li>
+<li>唯一索引需要做唯一性检查；</li>
+<li>主键随机会导致页分裂；</li>
+<li>redo/binlog 刷盘策略影响提交延迟；</li>
+<li>批量插入要控制事务大小，避免大事务和复制延迟。</li>
+</ul>
+<h3 id="6-update-当前读与加锁">6. UPDATE 当前读与加锁</h3>
+<p>SQL：</p>
+<pre><code class="language-sql">UPDATE stock
+SET quantity = quantity - 1
+WHERE product_id = 1001
+  AND quantity &gt; 0;
+</code></pre>
+<p>理想索引：</p>
+<pre><code class="language-sql">CREATE UNIQUE INDEX uk_product_id ON stock(product_id);
+</code></pre>
+<p><img loading="lazy" decoding="async" alt="UPDATE 当前读与加锁执行时序图" src="./images/06-UPDATE当前读加锁时序图.svg" /></p>
+<p>性能分析重点：</p>
+<ul>
+<li><code>product_id</code> 是否唯一索引；</li>
+<li>是否通过一条原子 UPDATE 避免先查再改；</li>
+<li>热点商品会不会形成单行热点；</li>
+<li>事务是否足够短；</li>
+<li>锁等待是否来自索引缺失或业务并发冲突。</li>
+</ul>
+<h3 id="7-select-for-update-锁定读">7. SELECT ... FOR UPDATE 锁定读</h3>
+<p>SQL：</p>
+<pre><code class="language-sql">START TRANSACTION;
+
+SELECT *
+FROM orders
+WHERE order_no = 'A202607220001'
+FOR UPDATE;
+
+UPDATE orders
+SET status = 2
+WHERE order_no = 'A202607220001';
+
+COMMIT;
+</code></pre>
+<p><img loading="lazy" decoding="async" alt="SELECT FOR UPDATE 锁定读执行时序图" src="./images/07-SELECT_FOR_UPDATE锁定读时序图.svg" /></p>
+<p>性能分析重点：</p>
+<ul>
+<li><code>FOR UPDATE</code> 是当前读，会加锁；</li>
+<li>唯一索引定位单行时锁范围较小；</li>
+<li>范围条件下可能锁住更多记录和间隙；</li>
+<li>事务期间锁不会释放，直到提交或回滚；</li>
+<li>不要在事务中等待用户输入、调用外部接口或执行慢任务。</li>
+</ul>
+<h3 id="8-聚合查询与临时表">8. 聚合查询与临时表</h3>
+<p>SQL：</p>
+<pre><code class="language-sql">SELECT status, COUNT(*)
+FROM orders
+WHERE created_at &gt;= '2026-07-01'
+GROUP BY status;
+</code></pre>
+<p><img loading="lazy" decoding="async" alt="聚合查询与临时表执行时序图" src="./images/08-聚合查询临时表时序图.svg" /></p>
+<p>性能分析重点：</p>
+<ul>
+<li>时间范围是否过大；</li>
+<li>是否有合适索引；</li>
+<li>是否出现 <code>Using temporary</code>；</li>
+<li>是否出现 <code>Using filesort</code>；</li>
+<li>高频统计是否应该改为汇总表或异步任务。</li>
+</ul>
+<h2 id="十-典型-sql-的架构级优化思路">十、典型 SQL 的架构级优化思路</h2>
+<h3 id="1-主键点查慢">1. 主键点查慢</h3>
+<p>如果主键点查都慢，通常不要第一反应改索引，而要看：</p>
+<ul>
+<li>Buffer Pool 命中率是否低；</li>
+<li>磁盘 IO 是否高；</li>
+<li>连接数和运行线程是否过多；</li>
+<li>是否存在锁等待；</li>
+<li>单行是否过大；</li>
+<li>网络延迟是否异常；</li>
+<li>应用连接池是否排队。</li>
+</ul>
+<p>主键点查的访问路径很短，慢通常是系统性问题。</p>
+<h3 id="2-二级索引查询慢">2. 二级索引查询慢</h3>
+<p>重点看：</p>
+<ul>
+<li>是否命中正确二级索引；</li>
+<li>是否大量回表；</li>
+<li>是否可以覆盖索引；</li>
+<li>条件选择性是否足够高；</li>
+<li>查询字段是否过多；</li>
+<li>统计信息是否准确。</li>
+</ul>
+<p>优化方向：</p>
+<ul>
+<li>设计更贴合查询模式的联合索引；</li>
+<li>减少返回字段；</li>
+<li>用覆盖索引优化高频轻量查询；</li>
+<li>对低选择性条件，不要盲目单独建索引。</li>
+</ul>
+<h3 id="3-列表分页慢">3. 列表分页慢</h3>
+<p>常见原因：</p>
+<ul>
+<li>深分页；</li>
+<li>排序字段没有合适索引；</li>
+<li><code>WHERE</code> 和 <code>ORDER BY</code> 不能同时利用索引；</li>
+<li>返回字段太多导致大量回表；</li>
+<li>数据范围过大。</li>
+</ul>
+<p>优化方向：</p>
+<ul>
+<li>使用游标分页；</li>
+<li>建立 <code>(过滤字段, 排序字段)</code> 联合索引；</li>
+<li>延迟关联，先查主键再回表；</li>
+<li>限制最大翻页深度；</li>
+<li>后台导出走异步任务。</li>
+</ul>
+<h3 id="4-join-慢">4. JOIN 慢</h3>
+<p>重点看：</p>
+<ul>
+<li>驱动表是否过滤后足够小；</li>
+<li>被驱动表关联字段是否有索引；</li>
+<li>JOIN 字段类型和字符集是否一致；</li>
+<li>是否产生大中间结果；</li>
+<li>是否把过滤条件放到了合适的位置；</li>
+<li>是否需要先聚合、先筛选、再关联。</li>
+</ul>
+<p>优化方向：</p>
+<ul>
+<li>给关联字段建立索引；</li>
+<li>优化驱动表过滤条件；</li>
+<li>避免大表无条件 JOIN；</li>
+<li>必要时拆分查询或引入冗余字段；</li>
+<li>复杂分析型 JOIN 放到 OLAP 系统。</li>
+</ul>
+<h3 id="5-update-慢或锁等待">5. UPDATE 慢或锁等待</h3>
+<p>重点看：</p>
+<ul>
+<li>更新条件是否命中索引；</li>
+<li>是否唯一定位；</li>
+<li>事务是否太长；</li>
+<li>是否存在热点行；</li>
+<li>是否批量更新太大；</li>
+<li>是否多个事务访问顺序不一致。</li>
+</ul>
+<p>优化方向：</p>
+<ul>
+<li>用唯一索引收敛锁范围；</li>
+<li>分批更新；</li>
+<li>缩短事务；</li>
+<li>统一加锁顺序；</li>
+<li>热点库存可做库存分桶、排队削峰或异步化。</li>
+</ul>
+<h2 id="十一-生产环境观察入口">十一、生产环境观察入口</h2>
+<h3 id="1-连接与线程">1. 连接与线程</h3>
+<pre><code class="language-sql">SHOW GLOBAL STATUS LIKE 'Threads%';
+SHOW GLOBAL STATUS LIKE 'Connections';
+SHOW PROCESSLIST;
+</code></pre>
+<p>关注：</p>
+<ul>
+<li><code>Threads_connected</code>：当前连接数；</li>
+<li><code>Threads_running</code>：正在执行的线程数；</li>
+<li>大量 Sleep 连接：检查连接池；</li>
+<li>大量 Query 状态：检查慢 SQL；</li>
+<li>大量 Locked 或 waiting：检查锁等待。</li>
+</ul>
+<h3 id="2-慢查询与执行计划">2. 慢查询与执行计划</h3>
+<pre><code class="language-sql">SHOW VARIABLES LIKE 'slow_query_log';
+SHOW VARIABLES LIKE 'long_query_time';
+
+EXPLAIN SELECT ...;
+EXPLAIN ANALYZE SELECT ...;
+</code></pre>
+<p>关注：</p>
+<ul>
+<li>扫描行数；</li>
+<li>返回行数；</li>
+<li>是否命中索引；</li>
+<li>是否回表过多；</li>
+<li>是否使用临时表和文件排序。</li>
+</ul>
+<h3 id="3-innodb-状态">3. InnoDB 状态</h3>
+<pre><code class="language-sql">SHOW ENGINE INNODB STATUS\G
+</code></pre>
+<p>可以观察：</p>
+<ul>
+<li>事务；</li>
+<li>锁等待；</li>
+<li>死锁；</li>
+<li>Buffer Pool；</li>
+<li>IO；</li>
+<li>redo log；</li>
+<li>purge 状态。</li>
+</ul>
+<h3 id="4-buffer-pool-与-io">4. Buffer Pool 与 IO</h3>
+<pre><code class="language-sql">SHOW GLOBAL STATUS LIKE 'Innodb_buffer_pool%';
+SHOW GLOBAL STATUS LIKE 'Innodb_data%';
+SHOW GLOBAL STATUS LIKE 'Innodb_pages%';
+</code></pre>
+<p>关注：</p>
+<ul>
+<li>Buffer Pool 命中情况；</li>
+<li>脏页比例；</li>
+<li>读写请求；</li>
+<li>磁盘 IO 压力。</li>
+</ul>
+<h3 id="5-临时表与排序">5. 临时表与排序</h3>
+<pre><code class="language-sql">SHOW GLOBAL STATUS LIKE 'Created_tmp%';
+SHOW GLOBAL STATUS LIKE 'Sort%';
+</code></pre>
+<p>关注：</p>
+<ul>
+<li>磁盘临时表是否过多；</li>
+<li>排序扫描行数是否异常；</li>
+<li>是否有报表 SQL 影响在线业务。</li>
+</ul>
+<h3 id="6-复制延迟">6. 复制延迟</h3>
+<pre><code class="language-sql">SHOW REPLICA STATUS\G
+-- 旧版本使用 SHOW SLAVE STATUS\G
+</code></pre>
+<p>关注：</p>
+<ul>
+<li>复制线程是否正常；</li>
+<li>延迟是否持续增长；</li>
+<li>是否有大事务；</li>
+<li>从库是否缺索引；</li>
+<li>网络和磁盘是否异常。</li>
+</ul>
+<h2 id="十二-从高性能-mysql-角度理解模块分工">十二、从高性能 MySQL 角度理解模块分工</h2>
+<p>可以把 MySQL 的核心模块和性能影响总结成下表。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>模块</th>
+<th>主要职责</th>
+<th>性能影响</th>
+<th>优化重点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>客户端/连接池</td>
+<td>管理应用到 MySQL 的连接</td>
+<td>连接过多、频繁建连、网络延迟</td>
+<td>合理连接池、限制大结果集</td>
+</tr>
+<tr>
+<td>连接管理器</td>
+<td>分配线程、维护会话状态</td>
+<td>线程过多、上下文切换、连接打满</td>
+<td>关注 <code>Threads_running</code></td>
+</tr>
+<tr>
+<td>认证授权</td>
+<td>身份校验和权限控制</td>
+<td>通常不是瓶颈，但影响安全治理</td>
+<td>最小权限、账号隔离</td>
+</tr>
+<tr>
+<td>Parser</td>
+<td>SQL 语法解析</td>
+<td>高频短 SQL 有解析成本</td>
+<td>预处理语句、减少复杂 SQL</td>
+</tr>
+<tr>
+<td>Preprocessor</td>
+<td>表字段检查、语义校验</td>
+<td>通常不是瓶颈</td>
+<td>保持表结构清晰</td>
+</tr>
+<tr>
+<td>Optimizer</td>
+<td>选择执行计划</td>
+<td>选错索引、JOIN 顺序错误、临时表</td>
+<td><code>EXPLAIN</code>、统计信息、联合索引</td>
+</tr>
+<tr>
+<td>Executor</td>
+<td>执行计划、过滤、排序、聚合</td>
+<td>扫描行数、排序、临时表、网络返回</td>
+<td>减少处理行数和返回字段</td>
+</tr>
+<tr>
+<td>InnoDB B+Tree</td>
+<td>组织数据和索引</td>
+<td>回表、页分裂、索引体积</td>
+<td>主键设计、联合索引、覆盖索引</td>
+</tr>
+<tr>
+<td>Buffer Pool</td>
+<td>缓存数据页和索引页</td>
+<td>命中率、脏页刷盘、IO 抖动</td>
+<td>合理内存、减少全表扫描</td>
+</tr>
+<tr>
+<td>MVCC</td>
+<td>快照读和并发控制</td>
+<td>长事务、版本链、Undo 压力</td>
+<td>短事务、监控长事务</td>
+</tr>
+<tr>
+<td>Lock Manager</td>
+<td>行锁、间隙锁、并发写控制</td>
+<td>锁等待、死锁、热点行</td>
+<td>命中索引、缩短事务</td>
+</tr>
+<tr>
+<td>Undo Log</td>
+<td>回滚和历史版本</td>
+<td>大事务、长事务、purge 压力</td>
+<td>分批提交、避免长事务</td>
+</tr>
+<tr>
+<td>Redo Log</td>
+<td>崩溃恢复和顺序写</td>
+<td>提交延迟、checkpoint、IO</td>
+<td>合理刷盘策略和日志配置</td>
+</tr>
+<tr>
+<td>Binlog</td>
+<td>复制和恢复</td>
+<td>写入成本、复制延迟、磁盘占用</td>
+<td>Row 格式、控制大事务</td>
+</tr>
+<tr>
+<td>临时表/排序</td>
+<td>GROUP BY、ORDER BY、DISTINCT</td>
+<td>CPU、内存、磁盘临时表</td>
+<td>索引排序、汇总表、OLAP</td>
+</tr>
+<tr>
+<td>复制模块</td>
+<td>主从同步和读写分离</td>
+<td>主从延迟、写后读不一致</td>
+<td>一致性路由、控制大事务</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="十三-实战检查清单">十三、实战检查清单</h2>
+<h3 id="1-sql-进入-mysql-前">1. SQL 进入 MySQL 前</h3>
+<ul>
+<li>应用连接池最大连接数是否合理；</li>
+<li>是否存在连接泄漏；</li>
+<li>是否有请求重试风暴；</li>
+<li>是否返回了过大的结果集；</li>
+<li>是否有后台任务和在线请求共用同一连接池。</li>
+</ul>
+<h3 id="2-server-层">2. Server 层</h3>
+<ul>
+<li>SQL 是否语义清晰，避免隐式转换；</li>
+<li>是否使用 <code>EXPLAIN</code> 验证执行计划；</li>
+<li>是否出现 <code>Using temporary</code>、<code>Using filesort</code>；</li>
+<li>JOIN 驱动表和被驱动表是否合理；</li>
+<li>排序、分组、分页是否能利用索引；</li>
+<li>慢查询是否集中在少数 SQL。</li>
+</ul>
+<h3 id="3-innodb-层">3. InnoDB 层</h3>
+<ul>
+<li>表是否有短而稳定的主键；</li>
+<li>高频查询是否有合适联合索引；</li>
+<li>是否存在大量回表；</li>
+<li>更新、删除、锁定读是否命中索引；</li>
+<li>是否存在长事务；</li>
+<li>Buffer Pool 是否足够；</li>
+<li>redo、undo、脏页、IO 是否异常。</li>
+</ul>
+<h3 id="4-写入与事务">4. 写入与事务</h3>
+<ul>
+<li>事务是否足够短；</li>
+<li>是否在事务中调用外部服务；</li>
+<li>大批量写入是否分批；</li>
+<li>唯一约束是否表达真实业务规则；</li>
+<li>二级索引数量是否过多；</li>
+<li>binlog 和 redo 刷盘策略是否符合业务可靠性要求。</li>
+</ul>
+<h3 id="5-复制与高可用">5. 复制与高可用</h3>
+<ul>
+<li>是否存在主从延迟；</li>
+<li>写后读是否走了从库；</li>
+<li>大事务是否影响复制；</li>
+<li>从库是否具备同样必要的索引；</li>
+<li>binlog 保留策略是否满足恢复要求；</li>
+<li>是否定期演练基于备份和 binlog 的恢复。</li>
+</ul>
+<h2 id="十四-常见误区">十四、常见误区</h2>
+<h3 id="1-误区-mysql-慢就是索引问题">1. 误区：MySQL 慢就是索引问题</h3>
+<p>索引很重要，但不是全部。连接池、锁等待、Buffer Pool、磁盘 IO、临时表、复制延迟、应用重试都可能让 MySQL 变慢。</p>
+<p>正确做法是从执行链路定位瓶颈：客户端等待、Server 层执行、InnoDB 读取、锁等待、日志刷盘、网络返回分别看。</p>
+<h3 id="2-误区-连接数越大吞吐越高">2. 误区：连接数越大吞吐越高</h3>
+<p>连接数过大会增加线程调度、内存消耗和锁竞争。吞吐瓶颈在 CPU、IO、锁或慢 SQL 时，调大连接数只会让排队更严重。</p>
+<h3 id="3-误区-有索引就不会锁很多行">3. 误区：有索引就不会锁很多行</h3>
+<p>InnoDB 行锁依赖索引。索引不合适、范围过大、条件选择性差，都可能锁住大量记录或间隙。</p>
+<h3 id="4-误区-普通-select-一定读到最新数据">4. 误区：普通 SELECT 一定读到最新数据</h3>
+<p>在事务中，普通 SELECT 通常是快照读。不同隔离级别和事务边界下，看到的数据版本可能不同。要读最新并加锁，需要当前读，例如 <code>FOR UPDATE</code>。</p>
+<h3 id="5-误区-从库可以承接所有读请求">5. 误区：从库可以承接所有读请求</h3>
+<p>读写分离要处理主从延迟。订单提交后马上查询、支付结果查询、库存确认等强一致读，不应盲目走从库。</p>
+<h3 id="6-误区-大事务只是提交慢一点">6. 误区：大事务只是提交慢一点</h3>
+<p>大事务会影响 Undo Log、锁持有时间、redo/binlog 写入、复制延迟、崩溃恢复时间。生产中应尽量拆成小批次。</p>
+<h2 id="十五-总结">十五、总结</h2>
+<p>MySQL 架构可以用一条主线理解：</p>
+<pre><code class="language-text">客户端发送 SQL
+  -&gt; 连接管理与权限检查
+  -&gt; Parser 解析 SQL
+  -&gt; Optimizer 选择执行计划
+  -&gt; Executor 执行计划
+  -&gt; 通过存储引擎接口访问 InnoDB
+  -&gt; InnoDB 使用 B+Tree、Buffer Pool、MVCC、锁、日志完成读写
+  -&gt; 返回结果给客户端
+</code></pre>
+<p>从高性能 MySQL 的角度看，每个模块都承担不同角色：</p>
+<ul>
+<li>连接层决定请求能否稳定进入数据库；</li>
+<li>优化器决定访问路径是否合理；</li>
+<li>执行器决定实际处理多少行、是否排序和聚合；</li>
+<li>InnoDB 决定索引、缓存、锁、事务和崩溃恢复的真实成本；</li>
+<li>redo log、binlog 决定写入可靠性、恢复能力和复制行为；</li>
+<li>Buffer Pool、临时表、磁盘 IO 决定系统在高并发下是否稳定。</li>
+</ul>
+<p>实践中，不要孤立地优化某条 SQL。更好的方式是沿着完整链路排查：</p>
+<ol>
+<li>客户端是否连接和返回合理；</li>
+<li>Server 层执行计划是否正确；</li>
+<li>InnoDB 索引和锁范围是否可控；</li>
+<li>Buffer Pool 和磁盘 IO 是否健康；</li>
+<li>事务、日志和复制是否符合业务一致性要求。</li>
+</ol>
+<p>能把这些模块串起来，就能从“会写 SQL”进入“能治理 MySQL 性能和稳定性”的阶段。</p></div>
+      <nav class="post-pager" aria-label="上下篇"><a class="pager-link" href="../MongoDB/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html"><em>上一篇</em><b>数据库不存在会自动创建</b></a><a class="pager-link next" href="MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html"><em>下一篇</em><b>MySQL数据库知识大纲</b></a></nav>
+    </article>
+  </main>
+</div>
+<footer class="blog-foot">
+  <div class="wrap foot-inner">
+    <span>© 2026 逐梦笔记 · 由 <code>scripts/build_blog.py</code> 从 docs/ 自动生成</span>
+    <span>内容来源：<a href="https://github.com/ShiQianzhi/note" target="_blank" rel="noopener noreferrer">ShiQianzhi/note</a> · 同步于 2026-11-26</span>
+  </div>
+</footer>
+<script src="../../../blog.js"></script>
+</body>
+</html>

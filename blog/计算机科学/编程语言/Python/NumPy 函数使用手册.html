@@ -1,0 +1,2734 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NumPy 使用手册 · 逐梦笔记</title>
+<meta name="description" content="本手册系统整理 NumPy 常用函数与属性，先以速查表总览，再按分类详细讲解每个函数的用法、参数、返回值及注意事项。基于 NumPy 2.x 版本编写。">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../../../blog.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="../../../../index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../../../../index.html">首页</a>
+      <div class="nav-drop">
+        <a href="../../../../knowledge.html">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="../../../../knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="../../../../knowledge.html#domains">五大知识域</a>
+          <a href="../../../../knowledge.html#cross">交叉与前沿</a>
+          <a href="../../../../knowledge.html#axes">三条贯穿轴</a>
+          <a href="../../../../knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="../../../../career.html">世界职业体系</a>
+      <a href="../../../index.html" class="active">博客</a>
+      <a class="nav-cta" href="../../../../knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-wrap">
+  
+    <aside class="blog-side">
+      <div class="side-head">
+        <a class="blog-brand" href="../../../index.html">逐梦笔记<span>NOTES</span></a>
+        <button class="side-toggle" id="sideToggle" aria-expanded="false" aria-controls="sideBody">目录</button>
+      </div>
+      <div class="side-body" id="sideBody">
+        <div class="tree-search">
+          <input id="treeQ" type="search" placeholder="筛选 197 篇笔记…" aria-label="筛选笔记">
+        </div>
+        <nav class="tree" aria-label="博客目录"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI创作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI短剧制作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI写周报，把我写成了公司CEO</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E5%86%99%E5%91%A8%E6%8A%A5%EF%BC%8C%E6%8A%8A%E6%88%91%E5%86%99%E6%88%90%E4%BA%86%E5%85%AC%E5%8F%B8CEO/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI的最后一活</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%B4%BB/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><a class="tree-link" href="../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%9B%E4%BD%9C%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html" title="AI 短剧创作保姆级教程：从一个想法到成片发布">AI 短剧创作保姆级教程：从一个想法到成片发布</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人生感悟</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/%E5%9C%A8%E5%89%A7%E5%8F%98%E4%B8%AD%E5%AF%BB%E8%B7%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8AI%E6%B5%AA%E6%BD%AE%E4%B8%8B%E6%8A%93%E4%BD%8F%E6%9C%BA%E9%81%87.html" title="在剧变中寻路：如何在 AI 浪潮下抓住机遇">在剧变中寻路：如何在 AI 浪潮下抓住机遇</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础学科</span><span class="tree-count">22</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数学</span><span class="tree-count">13</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">初等代数</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5.html" title="数的概念">数的概念</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E7%B1%BB%E5%88%AB.html" title="数的类别">数的类别</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E9%87%8F.html" title="数量">数量</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性代数</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F.html" title="向量（Vector）：从几何箭头到 AI 数据表示">向量（Vector）：从几何箭头到 AI 数据表示</a></div></details><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%8C%87%E6%95%B0%E8%BF%90%E7%AE%97.html" title="什么是指数运算">什么是指数运算</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%85%B3%E7%B3%BB.html" title="什么是线性关系">什么是线性关系</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%87%A0%E4%BD%95%E5%85%A5%E9%97%A8.html" title="几何入门">几何入门</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97.html" title="四则运算">四则运算</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9F%BA%E6%9C%AC%E4%BB%A3%E6%95%B0.html" title="基本代数">基本代数</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E6%95%B0%E5%AD%A6.html" title="如何学习数学">如何学习数学</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%9A%E4%BB%8E0%E5%88%B0%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6.html" title="数学学习路线图：从0到高等数学">数学学习路线图：从0到高等数学</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E8%A1%A8%E7%A4%BA.html" title="数的分类与表示">数的分类与表示</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%AE%97%E6%9C%AF%E5%9F%BA%E7%A1%80.html" title="算术基础">算术基础</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">物理</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E4%BB%8E%E5%BE%AE%E8%A7%82%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E7%89%A9%E8%B4%A8%EF%BC%9A%E5%8E%9F%E5%AD%90%E3%80%81%E7%B2%92%E5%AD%90%E4%B8%8E%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8.html" title="从微观角度理解物质：原子、粒子与相互作用">从微观角度理解物质：原子、粒子与相互作用</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%89%A9%E8%B4%A8%E5%92%8C%E8%83%BD%E9%87%8F%E7%9A%84%E5%85%B3%E7%B3%BB.html" title="物质和能量的关系">物质和能量的关系</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%90%86%E8%A7%A3%E7%94%B5%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%89%A9%E7%90%86%E5%9F%BA%E7%A1%80.html" title="理解电必须掌握的物理基础">理解电必须掌握的物理基础</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E%E5%8E%86%E5%8F%B2%E5%88%B0%E6%9C%AC%E8%B4%A8.html" title="电是什么：从历史到本质">电是什么：从历史到本质</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.html" title="电的原理与应用场景">电的原理与应用场景</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%A3%81%EF%BC%9A%E4%BB%8E%E7%94%B5%E5%9C%BA%E7%A3%81%E5%9C%BA%E5%88%B0%E7%94%B5%E7%A3%81%E6%B3%A2.html" title="电磁：从电场磁场到电磁波">电磁：从电场磁场到电磁波</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">语言</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">英语</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="英语学习笔记">英语学习笔记</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95.html" title="英语语法">英语语法</a></div></details><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%AF%AD%E6%B3%95.html" title="语法">语法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">心情随笔</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/%E5%85%AD%E7%A7%8D%E5%80%BC%E5%BE%97%E7%BB%93%E4%BA%A4%E4%B8%80%E8%BE%88%E5%AD%90%E7%9A%84%E4%BA%BA.html" title="六种值得结交一辈子的人">六种值得结交一辈子的人</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">生活常识</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">买房攻略</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98.html" title="下面是我总结了买房相关常见问题：">下面是我总结了买房相关常见问题：</a><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5.html" title="买房攻略">买房攻略</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">考驾照</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E8%80%83%E9%A9%BE%E7%85%A7/%E7%A7%91%E7%9B%AE%E4%B8%80.html" title="科目一刷题笔记">科目一刷题笔记</a></div></details><a class="tree-link" href="../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E5%90%84%E8%A1%8C%E4%B8%9A%E5%85%A8%E6%99%AF%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%AE%9A%E4%B9%89%E3%80%81%E7%8E%B0%E7%8A%B6%E4%B8%8EAI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%9C%AA%E6%9D%A5.html" title="各行业全景解析：定义、现状与 AI 时代的未来">各行业全景解析：定义、现状与 AI 时代的未来</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">计算机科学</span><span class="tree-count">160</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Agent 开发</span><span class="tree-count">11</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">docs</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">superpowers</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">specs</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/docs/superpowers/specs/2026-11-06-enterprise-agent-course-design.html" title="企业级 Agent 混合架构课程设计">企业级 Agent 混合架构课程设计</a></div></details></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">learning-records</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0001-python-worker-first.html" title="Learning Record 0001: Python Agent Worker First">Learning Record 0001: Python Agent Worker First</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0002-agent-state-checkpoint-recovery.html" title="Learning Record 0002: Agent State and Checkpoint Recovery">Learning Record 0002: Agent State and Checkpoint Recovery</a></div></details><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/Agent%20%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="Agent 开发学习路线">Agent 开发学习路线</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/Agent%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.html" title="Agent开发核心知识点">Agent开发核心知识点</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/Go-Python%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BD%ACAgent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B.html" title="Go/Python 后端工程师转 Agent 开发实战教程">Go/Python 后端工程师转 Agent 开发实战教程</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/MISSION.html" title="Mission: 从 Python Agent Worker 学会企业级 Agent 开发">Mission: 从 Python Agent Worker 学会企业级 Agent 开发</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/RAG.html" title="RAG">RAG</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/RAG%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%A6%E7%BB%86%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html" title="RAG系统的详细工作流程">RAG系统的详细工作流程</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E9%AB%98%E5%B9%B6%E5%8F%91%E4%BC%81%E4%B8%9A%E7%BA%A7Agent%E7%B3%BB%E7%BB%9F%E6%95%99%E7%A8%8B.html" title="从零搭建高并发企业级 Agent 系统教程">从零搭建高并发企业级 Agent 系统教程</a><a class="tree-link" href="../../Agent%20%E5%BC%80%E5%8F%91/RESOURCES.html" title="企业级 Agent 开发资源">企业级 Agent 开发资源</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人工智能</span><span class="tree-count">33</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI行业基础知识相关概念</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAI.html" title="什么是 AI">什么是 AI</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAIGC.html" title="什么是 AIGC">什么是 AIGC</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAgent.html" title="什么是 Agent">什么是 Agent</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG">什么是 RAG</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE.html" title="什么是向量数据">什么是向量数据</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是大模型">什么是大模型</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是语言大模型">什么是语言大模型</a></div></details><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93.html" title="AI 学习笔记总结">AI 学习笔记总结</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E5%BA%94%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="AI 应用工程师从入门到实战的最佳学习路线">AI 应用工程师从入门到实战的最佳学习路线</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Chroma%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Chroma 入门手册：从零上手最轻量的向量数据库">Chroma 入门手册：从零上手最轻量的向量数据库</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/LangChain%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="LangChain 入门手册：用搭积木的方式编排大模型应用">LangChain 入门手册：用搭积木的方式编排大模型应用</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Transformer%20%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.html" title="Transformer 注意力机制详解">Transformer 注意力机制详解</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BB%8B%E7%BB%8D.html" title="人工智能介绍">人工智能介绍</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%A6%E7%90%86%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="人工智能伦理与安全">人工智能伦理与安全</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG：检索增强生成从原理到实战">什么是 RAG：检索增强生成从原理到实战</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%8D%E5%90%91%E9%87%8F.html" title="什么是词向量">什么是词向量</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BANLP%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html" title="从零搭建NLP模型完全指南">从零搭建NLP模型完全指南</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%85%B3%E4%BA%8EAI%E7%9A%84%E7%95%85%E6%83%B3%E5%92%8C%E6%80%9D%E8%80%83.html" title="关于AI的畅想和思考">关于AI的畅想和思考</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%80%85AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师">后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93.html" title="向量数据库：语义搜索的存储与检索引擎">向量数据库：语义搜索的存储与检索引擎</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BA%B2.html" title="大模型应用实战知识总纲">大模型应用实战知识总纲</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAAgent.html" title="如何搭建一个 Agent">如何搭建一个 Agent</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="学习笔记">学习笔记</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html" title="强化学习">强化学习</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%96%87%E6%9C%AC%E6%98%AF%E5%A6%82%E4%BD%95%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E7%9A%84.html" title="文本是如何变成向量的：Embedding 推理管线全解析">文本是如何变成向量的：Embedding 推理管线全解析</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html" title="机器学习-线性回归">机器学习-线性回归</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="机器学习基础">机器学习基础</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="深度学习基础">深度学习基础</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html" title="神经网络">神经网络</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Agent%20%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="网页版知识库 Agent 搭建实战">网页版知识库 Agent 搭建实战</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86.html" title="自然语言处理">自然语言处理</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89.html" title="计算机视觉">计算机视觉</a><a class="tree-link" href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E9%AB%98%E7%BB%B4%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%91%E9%87%8F%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%90%91%E9%87%8D%E5%BB%BA.html" title="高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容">高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础知识</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/DNS.html" title="DNS：从域名到 IP 地址的分布式解析系统">DNS：从域名到 IP 地址的分布式解析系统</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/HTTP.html" title="HTTP：从一次请求到现代 Web 传输体系">HTTP：从一次请求到现代 Web 传输体系</a><a class="tree-link" href="../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84.html" title="互联网是如何工作的">互联网是如何工作的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%9F%E7%90%86.html" title="操作系统的原理">操作系统的原理</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F.html" title="深入理解计算机系统">深入理解计算机系统</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84.html" title="计算机是如何编码数据的">计算机是如何编码数据的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">8</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Elasticsearch</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/%E5%AE%89%E8%A3%85.html" title="创建网络">创建网络</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MongoDB</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念">基本概念</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%AE%89%E8%A3%85mongodb.html" title="安装mongodb">安装mongodb</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" title="数据库不存在会自动创建">数据库不存在会自动创建</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MySQL</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%9E%B6%E6%9E%84.html" title="MySQL 架构">MySQL 架构</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="MySQL数据库知识大纲">MySQL数据库知识大纲</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.html" title="存储引擎">存储引擎</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E7%B4%A2%E5%BC%95.html" title="索引">索引</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构与算法</span><span class="tree-count">10</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构</span><span class="tree-count">6</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数组和字符串</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C.html" title="数组的操作">数组的操作</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%A6%82%E8%BF%B0.html" title="概述">概述</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">树</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/%E6%A0%91.html" title="树">树</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性表</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8.html" title="线性表">线性表</a></div></details><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD.html" title="基本概念和术语">基本概念和术语</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E5%92%8C%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84.html" title="逻辑结构和物理结构">逻辑结构和物理结构</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">算法</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/K-Means.html" title="K-Means 聚类算法">K-Means 聚类算法</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97%E8%AF%A6%E8%A7%A3.html" title="位运算详解">位运算详解</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95.html" title="算法效率分析方法">算法效率分析方法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程笔记</span><span class="tree-count">54</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C 语言学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/C%20%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="此时会生成 a.out（windows 会生成 a.exe）">此时会生成 a.out（windows 会生成 a.exe）</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Docker</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Docker/docker%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Docker 入门手册：编写 Dockerfile、构建镜像与容器管理">Docker 入门手册：编写 Dockerfile、构建镜像与容器管理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言之旅</span><span class="tree-count">12</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架源码剖析</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Gin%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Gin%20%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Gin%E6%A1%86%E6%9E%B6%E5%BC%95%E6%93%8E%E5%AE%9E%E4%BE%8B.html" title="深入理解Gin框架引擎实例">深入理解Gin框架引擎实例</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言设计与实现</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%BA%90%E4%BB%A3%E7%A0%81.html" title="自己需要那个版本的 Go 标签，就用那个">自己需要那个版本的 Go 标签，就用那个</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言高级开发工程</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html" title="Go 单元测试">Go 单元测试</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E9%98%B6%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7.html" title="Go 语言高阶实战技巧">Go 语言高阶实战技巧</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Lua</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Lua/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BLua%E8%84%9A%E6%9C%AC.html" title="&quot;Hello, scripting!&quot;">&quot;Hello, scripting!&quot;</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">kubernetes</span><span class="tree-count">17</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">从入门到实战</span><span class="tree-count">16</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/K8s%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2.html" title="Kubernetes 从入门到实战：完整知识学习大纲">Kubernetes 从入门到实战：完整知识学习大纲</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC10%E7%AB%A0-Ingress%E4%B8%8E%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1.html" title="第10章：Ingress 与流量路由">第10章：Ingress 与流量路由</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC11%E7%AB%A0-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%9B%E9%98%B6.html" title="第11章 控制器进阶">第11章 控制器进阶</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC12%E7%AB%A0-RBAC%E6%9D%83%E9%99%90%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="第12章 RBAC 权限与安全">第12章 RBAC 权限与安全</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html" title="第13章 监控日志与可观测性">第13章 监控日志与可观测性</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC14%E7%AB%A0-Helm%E5%8C%85%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第14章 Helm 包管理与应用部署">第14章 Helm 包管理与应用部署</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC15%E7%AB%A0-%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98-%E5%AE%8C%E6%95%B4%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2.html" title="第15章 综合实战：完整微服务项目部署">第15章 综合实战：完整微服务项目部署</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC1%E7%AB%A0-K8s%E6%A6%82%E8%BF%B0%E4%B8%8E%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3.html" title="第1章 K8s 概述与架构理解">第1章 K8s 概述与架构理解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC2%E7%AB%A0-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="第2章 环境搭建实战">第2章 环境搭建实战</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC3%E7%AB%A0-Pod%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E6%88%98.html" title="第3章 Pod 核心概念与实战">第3章 Pod 核心概念与实战</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第4章 Deployment 与应用部署">第4章 Deployment 与应用部署</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC5%E7%AB%A0-Service%E4%B8%8E%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1.html" title="第5章：Service 与网络通信">第5章：Service 与网络通信</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC6%E7%AB%A0-ConfigMap%E4%B8%8ESecret%E7%AE%A1%E7%90%86.html" title="第6章：ConfigMap 与 Secret 管理">第6章：ConfigMap 与 Secret 管理</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC7%E7%AB%A0-Volume%E4%B8%8E%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8.html" title="第7章：Volume 与持久化存储">第7章：Volume 与持久化存储</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC8%E7%AB%A0-Namespace%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.html" title="第8章：Namespace 与资源管理">第8章：Namespace 与资源管理</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98/%E7%AC%AC9%E7%AB%A0-%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6%E4%B8%8E%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86.html" title="第9章：调度机制与节点管理">第9章：调度机制与节点管理</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/kubernetes/HPA%E5%92%8CVPA%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="HPA 和 VPA 的区别">HPA 和 VPA 的区别</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">其他</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%85%B6%E4%BB%96/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80UML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="统一建模语言UML学习笔记">统一建模语言UML学习笔记</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Linux</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Centos</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/yum.html" title="yum">yum</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/CentosStream8%20%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html" title="刷新配置">刷新配置</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/Centos7.9%20%E5%AE%89%E8%A3%85%20node20%20%E5%AE%9E%E6%88%98.html" title="安装 nvm">安装 nvm</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86.html" title="查看文件的大小">查看文件的大小</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">mysql</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%AE%89%E8%A3%85mysql.html" title="CentOS Linux release 8.5.2111">CentOS Linux release 8.5.2111</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E4%BB%80%E4%B9%88%E6%98%AFmysql.html" title="什么是mysql">什么是mysql</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.html" title="注意不同的密码验证策略要求密码复杂度不一样。">注意不同的密码验证策略要求密码复杂度不一样。</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">缓存</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98/redis%20%E7%BC%93%E5%AD%98%E5%AE%9E%E6%88%98.html" title="redis 缓存实战">redis 缓存实战</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">软件开发与设计规范</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/%E6%8C%87%E5%AF%BC%E6%80%9D%E6%83%B3.html" title="指导思想">指导思想</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">领域驱动设计</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E4%BB%80%E4%B9%88%E6%98%AFDDD.html" title="什么是DDD">什么是DDD</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E5%89%8D%E8%A8%80.html" title="前言">前言</a></div></details><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Cookie%20%E8%AF%A6%E8%A7%A3.html" title="Cookie 详解">Cookie 详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/JWT%E8%AF%A6%E8%A7%A3.html" title="JWT 详解">JWT 详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Raft%20%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3.html" title="Raft 协议详解">Raft 协议详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/WebRTC%20%E5%BA%95%E5%B1%82%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.html" title="WebRTC 底层工作原理详解">WebRTC 底层工作原理详解</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/curl%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="curl 使用手册">curl 使用手册</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/Git%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" title="克隆指定分支">克隆指定分支</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95.html" title="分布式一致性算法">分布式一致性算法</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="学习路线">学习路线</a><a class="tree-link" href="../../%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%90%AD%E5%BB%BA%20Conda%20%2B%20Jupyter%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" title="搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南">搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">编程语言</span><span class="tree-count">18</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../C/C%20%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="C 语言快速入门">C 语言快速入门</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../Go/Go%20benchmark%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go Benchmark 最佳实战">Go Benchmark 最佳实战</a><a class="tree-link" href="../Go/Go%20pprof%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go pprof 最佳实战：从开发诊断到生产调优">Go pprof 最佳实战：从开发诊断到生产调优</a><a class="tree-link" href="../Go/Go%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5.html" title="Go 底层原理与工程化实践">Go 底层原理与工程化实践</a><a class="tree-link" href="../Go/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码">Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码</a><a class="tree-link" href="../Go/Go%E8%AF%AD%E8%A8%80%E9%AB%98%E6%95%88%E7%BC%96%E7%A8%8B%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8C%96.html" title="Go 语言高效编程：原理、可观测性与优化">Go 语言高效编程：原理、可观测性与优化</a><a class="tree-link" href="../Go/Go%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A.html" title="Go开发工程师必知必会">Go开发工程师必知必会</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">Python</span><span class="tree-count">8</span></summary><div class="tree-children"><a class="tree-link active" href="NumPy%20%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="NumPy 使用手册">NumPy 使用手册</a><a class="tree-link" href="NumPy%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="NumPy 使用指南：从 ndarray 到数值计算实践">NumPy 使用指南：从 ndarray 到数值计算实践</a><a class="tree-link" href="Pandas%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="Pandas 使用指南：从 Series/DataFrame 到数据分析实践">Pandas 使用指南：从 Series/DataFrame 到数据分析实践</a><a class="tree-link" href="%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html" title="Python 异步编程：从原理到实战">Python 异步编程：从原理到实战</a><a class="tree-link" href="Python%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="Python 快速入门">Python 快速入门</a><a class="tree-link" href="Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Decorator%EF%BC%89%E6%80%BB%E7%BB%93.html" title="Python 装饰器（Decorator）总结">Python 装饰器（Decorator）总结</a><a class="tree-link" href="%E8%AE%A4%E8%AF%86Python.html" title="认识Python">认识Python</a><a class="tree-link" href="Python%20%40staticmethod%20%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="静态方法是类的属性">静态方法是类的属性</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Rust</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../Rust/Rust%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Rust 入门手册：面向 Go 与 Python 开发者">Rust 入门手册：面向 Go 与 Python 开发者</a></div></details><a class="tree-link" href="../%E7%A8%8B%E5%BA%8F%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86.html" title="程序底层执行原理：从一行源码到进程退出">程序底层执行原理：从一行源码到进程退出</a><a class="tree-link" href="../%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88.html" title="计算机科学与编程十万个为什么">计算机科学与编程十万个为什么</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机组成原理</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%BC%96%E7%A0%81.html" title="《编码》：从手电筒到计算机">《编码》：从手电筒到计算机</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%98%BE%E7%A4%BA%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="显示器的工作原理">显示器的工作原理</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%99%B6%E4%BD%93%E7%AE%A1.html" title="晶体管：小学生也能看懂的计算机“小开关”">晶体管：小学生也能看懂的计算机“小开关”</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84.html" title="程序是如何执行的">程序是如何执行的</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.html" title="计算机底层原理：程序、数据与网络如何从 0 到 1 运转">计算机底层原理：程序、数据与网络如何从 0 到 1 运转</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html" title="计算机组成">计算机组成</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="计算机组成原理">计算机组成原理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机网络</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BATCP-IP%E5%8D%8F%E8%AE%AE.html" title="深入浅出TCP-IP协议">深入浅出TCP-IP协议</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20OSI.html" title="计算机网络 - OSI">计算机网络 - OSI</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html" title="计算机网络 - 概述">计算机网络 - 概述</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="计算机网络工作原理：从输入 URL 到数据跨越互联网">计算机网络工作原理：从输入 URL 到数据跨越互联网</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">高性能服务设计与实现</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1.html" title="什么是高性能服务">什么是高性能服务</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88.html" title="后端服务安全方案">后端服务安全方案</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%AF%B4%E6%98%8E.html" title="后端服务性能指标体系">后端服务性能指标体系</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E7%99%BE%E4%B8%87%E7%BA%A7QPS%20API%E7%BD%91%E5%85%B3%E8%AE%BE%E8%AE%A1.html" title="如何设计一个支持百万级 QPS 的 API 网关">如何设计一个支持百万级 QPS 的 API 网关</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%99%90%E6%B5%81%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1.html" title="限流方案设计">限流方案设计</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%20Agent%20%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="高性能 Agent 服务架构设计与实现">高性能 Agent 服务架构设计与实现</a><a class="tree-link" href="../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8F%AF%E8%A1%8C%E6%80%A7%E6%96%B9%E6%A1%88.html" title="高性能服务架构可行性方案">高性能服务架构可行性方案</a></div></details><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E5%A4%A7%E7%BA%B2.html" title="计算机知识学习先后顺序大纲">计算机知识学习先后顺序大纲</a><a class="tree-link" href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="计算机科学知识大纲">计算机科学知识大纲</a></div></details><div class="tree-label">散篇</div><a class="tree-link" href="../../../TODO.html" title="TODO">TODO</a><a class="tree-link" href="../../../%E4%B8%AA%E4%BA%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E9%87%8D%E9%93%B8%E8%AE%A1%E5%88%92.html" title="个人基础知识重铸计划">个人基础知识重铸计划</a><a class="tree-link" href="../../../%E5%8F%A5%E5%AD%90.html" title="句子">句子</a><a class="tree-link" href="../../../%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E5%AD%A6%E4%B9%A0.html" title="如何高效的学习">如何高效的学习</a><a class="tree-link" href="../../../%E6%97%B6%E9%97%B4%E8%83%B6%E5%9B%8A.html" title="时间胶囊">时间胶囊</a><a class="tree-link" href="../../../%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA.html" title="网站导航">网站导航</a></nav>
+      </div>
+    </aside>
+  <main class="blog-main">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../../../index.html">博客</a><span>/</span><span>计算机科学</span><span>/</span><span>编程语言</span><span>/</span><a href="index.html">Python</a><span>/</span><span>NumPy 使用手册</span></nav>
+    <article class="post">
+      <header class="post-head">
+        <div class="post-kicker">计算机科学 / 编程语言 / Python</div>
+        <h1>NumPy 使用手册</h1>
+        <div class="post-meta"><span>计算机科学/编程语言/Python/NumPy 函数使用手册.md</span><span>约 3,559 字</span></div>
+      </header>
+      <div class="prose"><blockquote>
+<p>本手册系统整理 NumPy 常用函数与属性，先以速查表总览，再按分类详细讲解每个函数的用法、参数、返回值及注意事项。基于 NumPy 2.x 版本编写。</p>
+</blockquote>
+<pre><code class="language-python">import numpy as np
+</code></pre>
+<hr />
+<h2 id="一-函数与属性速查表">一、函数与属性速查表</h2>
+<h3 id="1-1-数组创建">1.1 数组创建</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>函数/属性</th>
+<th>常用参数</th>
+<th>简要作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>np.array()</code></td>
+<td>object(输入), dtype(类型), copy(是否复制), ndmin(最小维度)</td>
+<td>从Python列表/元组创建数组</td>
+</tr>
+<tr>
+<td><code>np.zeros()</code></td>
+<td>shape(形状), dtype(类型), order('C'/'F')</td>
+<td>创建全0数组</td>
+</tr>
+<tr>
+<td><code>np.ones()</code></td>
+<td>shape(形状), dtype(类型), order('C'/'F')</td>
+<td>创建全1数组</td>
+</tr>
+<tr>
+<td><code>np.full()</code></td>
+<td>shape(形状), fill_value(填充值), dtype</td>
+<td>创建填充指定值的数组</td>
+</tr>
+<tr>
+<td><code>np.empty()</code></td>
+<td>shape(形状), dtype(类型), order('C'/'F')</td>
+<td>分配内存但不初始化（内容随机）</td>
+</tr>
+<tr>
+<td><code>np.eye()</code></td>
+<td>N(行), M(列,默认=N), k(对角线偏移), dtype</td>
+<td>创建单位矩阵</td>
+</tr>
+<tr>
+<td><code>np.identity()</code></td>
+<td>n(阶数), dtype</td>
+<td>创建单位矩阵（方阵）</td>
+</tr>
+<tr>
+<td><code>np.arange()</code></td>
+<td>start(起始), stop(结束,不含), step(步长), dtype</td>
+<td>创建等间隔序列（类似range）</td>
+</tr>
+<tr>
+<td><code>np.linspace()</code></td>
+<td>start, stop, num(点数,默认50), endpoint(含stop), retstep(返回步长)</td>
+<td>创建指定数量的均匀间隔样本</td>
+</tr>
+<tr>
+<td><code>np.logspace()</code></td>
+<td>start, stop(指数范围), num, base(底数,默认10), endpoint</td>
+<td>创建对数均匀间隔序列</td>
+</tr>
+<tr>
+<td><code>np.geomspace()</code></td>
+<td>start, stop, num, endpoint</td>
+<td>创建几何级数间隔序列</td>
+</tr>
+<tr>
+<td><code>np.zeros_like()</code></td>
+<td>a(参考数组), dtype, order</td>
+<td>创建与另一数组shape/dtype相同的全0数组</td>
+</tr>
+<tr>
+<td><code>np.ones_like()</code></td>
+<td>a(参考数组), dtype, order</td>
+<td>创建与另一数组shape/dtype相同的全1数组</td>
+</tr>
+<tr>
+<td><code>np.full_like()</code></td>
+<td>a(参考数组), fill_value, dtype, order</td>
+<td>创建与另一数组shape/dtype相同的填充数组</td>
+</tr>
+<tr>
+<td><code>np.empty_like()</code></td>
+<td>a(参考数组), dtype, order</td>
+<td>创建与另一数组shape/dtype相同的未初始化数组</td>
+</tr>
+<tr>
+<td><code>np.copy()</code> / <code>.copy()</code></td>
+<td>order('C'/'F')</td>
+<td>创建数组深拷贝</td>
+</tr>
+<tr>
+<td><code>np.fromfunction()</code></td>
+<td>function(坐标函数), shape, dtype</td>
+<td>通过函数生成数组</td>
+</tr>
+<tr>
+<td><code>np.fromiter()</code></td>
+<td>iter(迭代器), dtype, count(数量)</td>
+<td>从可迭代对象创建数组</td>
+</tr>
+<tr>
+<td><code>np.tile()</code></td>
+<td>A(数组), reps(重复次数)</td>
+<td>重复构造数组</td>
+</tr>
+<tr>
+<td><code>np.repeat()</code></td>
+<td>a, repeats(重复次数), axis(轴)</td>
+<td>重复元素</td>
+</tr>
+<tr>
+<td><code>np.diag()</code></td>
+<td>v(数组), k(偏移)</td>
+<td>提取对角线或构造对角矩阵</td>
+</tr>
+<tr>
+<td><code>np.tri()</code></td>
+<td>N(行), M(列), k, dtype</td>
+<td>构造下三角矩阵（含对角线为1）</td>
+</tr>
+<tr>
+<td><code>np.vander()</code></td>
+<td>x(1D数组), N(列数), increasing(递增)</td>
+<td>构造范德蒙德矩阵</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="1-2-数组属性">1.2 数组属性</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>常用参数</th>
+<th>简要作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.ndim</code></td>
+<td>只读</td>
+<td>数组维度（轴数）</td>
+</tr>
+<tr>
+<td><code>.shape</code></td>
+<td>可赋值改变形状</td>
+<td>数组各轴长度的元组</td>
+</tr>
+<tr>
+<td><code>.size</code></td>
+<td>只读</td>
+<td>数组元素总数</td>
+</tr>
+<tr>
+<td><code>.dtype</code></td>
+<td>dtype对象</td>
+<td>元素数据类型</td>
+</tr>
+<tr>
+<td><code>.itemsize</code></td>
+<td>只读</td>
+<td>单个元素占用字节数</td>
+</tr>
+<tr>
+<td><code>.nbytes</code></td>
+<td>只读</td>
+<td>数组数据区总字节数</td>
+</tr>
+<tr>
+<td><code>.T</code></td>
+<td>等价于transpose()</td>
+<td>转置视图</td>
+</tr>
+<tr>
+<td><code>.flat</code></td>
+<td>迭代器</td>
+<td>一维迭代器</td>
+</tr>
+<tr>
+<td><code>.flatten()</code></td>
+<td>order(可选)</td>
+<td>展平为一维（返回副本）</td>
+</tr>
+<tr>
+<td><code>.ravel()</code></td>
+<td>order</td>
+<td>展平为一维（尽可能返回视图）</td>
+</tr>
+<tr>
+<td><code>.imag</code></td>
+<td>只读</td>
+<td>复数的虚部</td>
+</tr>
+<tr>
+<td><code>.real</code></td>
+<td>只读</td>
+<td>复数的实部</td>
+</tr>
+<tr>
+<td><code>.strides</code></td>
+<td>只读</td>
+<td>各轴步进字节数</td>
+</tr>
+<tr>
+<td><code>.flags</code></td>
+<td>只读</td>
+<td>内存布局信息</td>
+</tr>
+<tr>
+<td><code>.base</code></td>
+<td>只读</td>
+<td>视图所指向的原数组（若为视图）</td>
+</tr>
+<tr>
+<td><code>.ctypes</code></td>
+<td>只读</td>
+<td>用于与C交互的接口对象</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="1-3-数据类型与类型转换">1.3 数据类型与类型转换</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>函数/属性</th>
+<th>常用参数</th>
+<th>简要作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.astype()</code></td>
+<td>dtype, copy, casting(安全级别)</td>
+<td>转换数组元素类型</td>
+</tr>
+<tr>
+<td><code>np.dtype()</code></td>
+<td>obj(类型描述)</td>
+<td>创建/查询数据类型对象</td>
+</tr>
+<tr>
+<td><code>np.iinfo()</code></td>
+<td>type(类型), 返回.min/.max/.eps</td>
+<td>查询整数类型的取值范围</td>
+</tr>
+<tr>
+<td><code>np.finfo()</code></td>
+<td>type(类型), 返回.min/.max/.eps</td>
+<td>查询浮点类型的精度与范围</td>
+</tr>
+<tr>
+<td><code>np.can_cast()</code></td>
+<td>from, to, casting</td>
+<td>判断类型转换是否安全</td>
+</tr>
+<tr>
+<td><code>np.result_type()</code></td>
+<td>*arrays_and_dtypes</td>
+<td>推断多个数组运算后的结果类型</td>
+</tr>
+<tr>
+<td><code>np.common_type()</code></td>
+<td>*arrays</td>
+<td>找多个数组的公共类型</td>
+</tr>
+<tr>
+<td><code>np.min_scalar_type()</code></td>
+<td>a(值)</td>
+<td>找能容纳指定值的最小类型</td>
+</tr>
+<tr>
+<td><code>.item()</code></td>
+<td>*args(索引)</td>
+<td>将单元素数组转为Python标量</td>
+</tr>
+<tr>
+<td><code>.tolist()</code></td>
+<td>无参数</td>
+<td>将数组转为Python嵌套列表</td>
+</tr>
+<tr>
+<td><code>np.bool_</code></td>
+<td>-</td>
+<td>布尔类型</td>
+</tr>
+<tr>
+<td><code>np.int8/16/32/64</code></td>
+<td>-</td>
+<td>有符号整数类型</td>
+</tr>
+<tr>
+<td><code>np.uint8/16/32/64</code></td>
+<td>-</td>
+<td>无符号整数类型</td>
+</tr>
+<tr>
+<td><code>np.float16/32/64</code></td>
+<td>-</td>
+<td>浮点类型</td>
+</tr>
+<tr>
+<td><code>np.complex64/128</code></td>
+<td>-</td>
+<td>复数类型</td>
+</tr>
+<tr>
+<td><code>np.str_</code> / <code>np.bytes_</code></td>
+<td>-</td>
+<td>字符串/字节类型</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="1-4-形状变换与轴操作">1.4 形状变换与轴操作</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>函数/方法</th>
+<th>常用参数</th>
+<th>简要作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.reshape()</code></td>
+<td>*shape(新形状,-1自动推导), order</td>
+<td>改变数组形状（不改变数据）</td>
+</tr>
+<tr>
+<td><code>.resize()</code></td>
+<td>new_shape, refcheck</td>
+<td>原地改变数组形状（可改变size）</td>
+</tr>
+<tr>
+<td><code>np.resize()</code></td>
+<td>a, new_shape</td>
+<td>返回改变形状的新数组（可填充重复）</td>
+</tr>
+<tr>
+<td><code>.transpose()</code></td>
+<td>*axes(轴顺序)</td>
+<td>转置（可指定轴顺序）</td>
+</tr>
+<tr>
+<td><code>.swapaxes()</code></td>
+<td>axis1, axis2</td>
+<td>交换两个轴</td>
+</tr>
+<tr>
+<td><code>.moveaxis()</code></td>
+<td>source, destination</td>
+<td>移动轴的位置</td>
+</tr>
+<tr>
+<td><code>np.expand_dims()</code></td>
+<td>a, axis(位置)</td>
+<td>扩展维度（增加长度为1的轴）</td>
+</tr>
+<tr>
+<td><code>np.squeeze()</code></td>
+<td>a, axis(要移除的轴)</td>
+<td>移除长度为1的轴</td>
+</tr>
+<tr>
+<td><code>np.newaxis</code> / <code>None</code></td>
+<td>索引时使用</td>
+<td>在指定位置增加一个维度</td>
+</tr>
+<tr>
+<td><code>np.concatenate()</code></td>
+<td>arrays, axis(默认0), dtype</td>
+<td>沿已有轴连接多个数组</td>
+</tr>
+<tr>
+<td><code>np.stack()</code></td>
+<td>arrays, axis(新轴位置,默认0)</td>
+<td>沿新轴堆叠数组</td>
+</tr>
+<tr>
+<td><code>np.vstack()</code></td>
+<td>arrays</td>
+<td>垂直堆叠（沿axis=0）</td>
+</tr>
+<tr>
+<td><code>np.hstack()</code></td>
+<td>arrays</td>
+<td>水平堆叠（沿axis=1）</td>
+</tr>
+<tr>
+<td><code>np.dstack()</code></td>
+<td>arrays</td>
+<td>按深度堆叠（沿axis=2）</td>
+</tr>
+<tr>
+<td><code>np.column_stack()</code></td>
+<td>tup</td>
+<td>将一维数组作为列堆叠成二维</td>
+</tr>
+<tr>
+<td><code>np.row_stack()</code></td>
+<td>tup</td>
+<td>将一维数组作为行堆叠成二维</td>
+</tr>
+<tr>
+<td><code>np.split()</code></td>
+<td>ary, indices_or_sections(N或列表), axis</td>
+<td>沿指定轴分割数组</td>
+</tr>
+<tr>
+<td><code>np.vsplit()</code></td>
+<td>ary, indices_or_sections</td>
+<td>垂直分割（按行）</td>
+</tr>
+<tr>
+<td><code>np.hsplit()</code></td>
+<td>ary, indices_or_sections</td>
+<td>水平分割（按列）</td>
+</tr>
+<tr>
+<td><code>np.dsplit()</code></td>
+<td>ary, indices_or_sections</td>
+<td>按深度分割（按axis=2）</td>
+</tr>
+<tr>
+<td><code>np.array_split()</code></td>
+<td>ary, indices_or_sections, axis(允许不等分)</td>
+<td>分割数组（允许不等分）</td>
+</tr>
+<tr>
+<td><code>np.tile()</code></td>
+<td>A, reps</td>
+<td>平铺重复数组</td>
+</tr>
+<tr>
+<td><code>np.repeat()</code></td>
+<td>a, repeats, axis</td>
+<td>重复元素</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="1-5-索引与切片">1.5 索引与切片</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方式/函数</th>
+<th>常用参数</th>
+<th>简要作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基础索引 <code>a[i]</code> / <code>a[i,j]</code></td>
+<td>-</td>
+<td>选取单个元素或子数组</td>
+</tr>
+<tr>
+<td>切片 <code>a[start:stop:step]</code></td>
+<td>-</td>
+<td>选取连续范围（返回视图）</td>
+</tr>
+<tr>
+<td>多维切片 <code>a[:, 1:3]</code></td>
+<td>-</td>
+<td>每个轴独立切片</td>
+</tr>
+<tr>
+<td>布尔索引 <code>a[mask]</code></td>
+<td>-</td>
+<td>用布尔数组筛选元素（返回副本）</td>
+</tr>
+<tr>
+<td>花式索引 <code>a[[0,2,4]]</code></td>
+<td>-</td>
+<td>用整数数组指定位置选取（返回副本）</td>
+</tr>
+<tr>
+<td><code>np.where()</code></td>
+<td>condition, x(True值), y(False值); 单参返回索引</td>
+<td>条件筛选，返回索引或选择值</td>
+</tr>
+<tr>
+<td><code>np.take()</code></td>
+<td>a, indices, axis, mode</td>
+<td>沿指定轴按索引取元素</td>
+</tr>
+<tr>
+<td><code>np.put()</code></td>
+<td>a, ind(索引), v(值), mode</td>
+<td>沿指定轴按索引赋值</td>
+</tr>
+<tr>
+<td><code>np.choose()</code></td>
+<td>a(索引数组), choices(候选), mode</td>
+<td>按索引数组从多个数组中选择值</td>
+</tr>
+<tr>
+<td><code>np.select()</code></td>
+<td>condlist(条件列表), choicelist(值列表), default</td>
+<td>多条件选择值</td>
+</tr>
+<tr>
+<td><code>np.piecewise()</code></td>
+<td>x, condlist, funclist</td>
+<td>分段定义函数</td>
+</tr>
+<tr>
+<td><code>np.clip()</code></td>
+<td>a, a_min(下界), a_max(上界), out</td>
+<td>将值裁剪到指定范围</td>
+</tr>
+<tr>
+<td><code>np.nonzero()</code></td>
+<td>a</td>
+<td>返回非零元素的索引</td>
+</tr>
+<tr>
+<td><code>np.argwhere()</code></td>
+<td>a</td>
+<td>返回非零元素的坐标</td>
+</tr>
+<tr>
+<td><code>np.extract()</code></td>
+<td>condition, arr</td>
+<td>按条件提取元素</td>
+</tr>
+<tr>
+<td><code>np.delete()</code></td>
+<td>arr, obj(索引), axis</td>
+<td>删除指定位置元素</td>
+</tr>
+<tr>
+<td><code>np.insert()</code></td>
+<td>arr, obj(位置), values, axis</td>
+<td>在指定位置插入元素</td>
+</tr>
+<tr>
+<td><code>np.append()</code></td>
+<td>arr, values, axis(⚠️性能差)</td>
+<td>在末尾追加元素（每次复制，性能差）</td>
+</tr>
+<tr>
+<td><code>np.trim_zeros()</code></td>
+<td>filt(1D数组), trim('f'/'b'/'fb')</td>
+<td>去除首尾的零</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="1-6-数学运算-逐元素-ufunc">1.6 数学运算（逐元素 ufunc）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>常用参数</th>
+<th>简要作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>np.add(a, b)</code> / <code>a + b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素加法</td>
+</tr>
+<tr>
+<td><code>np.subtract(a, b)</code> / <code>a - b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素减法</td>
+</tr>
+<tr>
+<td><code>np.multiply(a, b)</code> / <code>a * b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素乘法</td>
+</tr>
+<tr>
+<td><code>np.divide(a, b)</code> / <code>a / b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素真除法</td>
+</tr>
+<tr>
+<td><code>np.floor_divide(a, b)</code> / <code>a // b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>向下取整除法</td>
+</tr>
+<tr>
+<td><code>np.power(a, b)</code> / <code>a ** b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素幂运算</td>
+</tr>
+<tr>
+<td><code>np.mod(a, b)</code> / <code>a % b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>取模（余数）</td>
+</tr>
+<tr>
+<td><code>np.remainder(a, b)</code></td>
+<td>x1,x2,out=,where=</td>
+<td>同 <code>mod</code></td>
+</tr>
+<tr>
+<td><code>np.fmod(a, b)</code></td>
+<td>x1,x2,out=,where=</td>
+<td>C语言风格取模（商截断向零）</td>
+</tr>
+<tr>
+<td><code>np.abs(a)</code> / <code>np.absolute(a)</code></td>
+<td>x,out=,where=</td>
+<td>绝对值</td>
+</tr>
+<tr>
+<td><code>np.sqrt(a)</code></td>
+<td>x,out=,where=</td>
+<td>平方根</td>
+</tr>
+<tr>
+<td><code>np.cbrt(a)</code></td>
+<td>x,out=,where=</td>
+<td>立方根</td>
+</tr>
+<tr>
+<td><code>np.square(a)</code></td>
+<td>x,out=,where=</td>
+<td>平方</td>
+</tr>
+<tr>
+<td><code>np.exp(a)</code></td>
+<td>x,out=,where=</td>
+<td>自然指数 eˣ</td>
+</tr>
+<tr>
+<td><code>np.exp2(a)</code></td>
+<td>x,out=,where=</td>
+<td>2ˣ</td>
+</tr>
+<tr>
+<td><code>np.expm1(a)</code></td>
+<td>x,out=,where=</td>
+<td>eˣ - 1（x很小时更精确）</td>
+</tr>
+<tr>
+<td><code>np.log(a)</code></td>
+<td>x,out=,where=</td>
+<td>自然对数 ln(x)</td>
+</tr>
+<tr>
+<td><code>np.log2(a)</code></td>
+<td>x,out=,where=</td>
+<td>以2为底对数</td>
+</tr>
+<tr>
+<td><code>np.log10(a)</code></td>
+<td>x,out=,where=</td>
+<td>以10为底对数</td>
+</tr>
+<tr>
+<td><code>np.log1p(a)</code></td>
+<td>x,out=,where=</td>
+<td>ln(1+x)（x很小时更精确）</td>
+</tr>
+<tr>
+<td><code>np.sign(a)</code></td>
+<td>x,out=,where=</td>
+<td>符号函数（-1/0/1）</td>
+</tr>
+<tr>
+<td><code>np.ceil(a)</code></td>
+<td>x,out=,where=</td>
+<td>向上取整</td>
+</tr>
+<tr>
+<td><code>np.floor(a)</code></td>
+<td>x,out=,where=</td>
+<td>向下取整</td>
+</tr>
+<tr>
+<td><code>np.trunc(a)</code> / <code>np.fix(a)</code></td>
+<td>x,out=,where=</td>
+<td>截断取整（向零取整）</td>
+</tr>
+<tr>
+<td><code>np.rint(a)</code></td>
+<td>x,out=,where=</td>
+<td>四舍六入五取偶（银行家舍入）</td>
+</tr>
+<tr>
+<td><code>np.round(a, decimals=0)</code> / <code>.round()</code></td>
+<td>a, decimals(小数位), out=</td>
+<td>四舍五入到指定小数位</td>
+</tr>
+<tr>
+<td><code>np.around(a, decimals=0)</code></td>
+<td>a, decimals(小数位), out=</td>
+<td>同 <code>np.round</code></td>
+</tr>
+<tr>
+<td><code>np.sin(a)</code> / <code>np.cos(a)</code> / <code>np.tan(a)</code></td>
+<td>x,out=,where=</td>
+<td>三角函数（弧度制）</td>
+</tr>
+<tr>
+<td><code>np.arcsin(a)</code> / <code>np.arccos(a)</code> / <code>np.arctan(a)</code></td>
+<td>x,out=,where=</td>
+<td>反三角函数</td>
+</tr>
+<tr>
+<td><code>np.arctan2(y, x)</code></td>
+<td>x1(y坐标), x2(x坐标), out=</td>
+<td>考虑象限的反正切</td>
+</tr>
+<tr>
+<td><code>np.deg2rad(a)</code> / <code>np.radians(a)</code></td>
+<td>x, out=</td>
+<td>角度转弧度</td>
+</tr>
+<tr>
+<td><code>np.rad2deg(a)</code> / <code>np.degrees(a)</code></td>
+<td>x, out=</td>
+<td>弧度转角度</td>
+</tr>
+<tr>
+<td><code>np.sinh(a)</code> / <code>np.cosh(a)</code> / <code>np.tanh(a)</code></td>
+<td>x,out=,where=</td>
+<td>双曲函数</td>
+</tr>
+<tr>
+<td><code>np.arcsinh(a)</code> / <code>np.arccosh(a)</code> / <code>np.arctanh(a)</code></td>
+<td>x,out=,where=</td>
+<td>反双曲函数</td>
+</tr>
+<tr>
+<td><code>np.maximum(a, b)</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素取大值</td>
+</tr>
+<tr>
+<td><code>np.minimum(a, b)</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素取小值</td>
+</tr>
+<tr>
+<td><code>np.fmax(a, b)</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素取大值（忽略NaN）</td>
+</tr>
+<tr>
+<td><code>np.fmin(a, b)</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素取小值（忽略NaN）</td>
+</tr>
+<tr>
+<td><code>np.logical_and(a, b)</code> / <code>a &amp; b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素逻辑与</td>
+</tr>
+<tr>
+<td><code>np.logical_or(a, b)</code> / <code>a \| b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素逻辑或</td>
+</tr>
+<tr>
+<td><code>np.logical_not(a)</code> / <code>~a</code></td>
+<td>x,out=</td>
+<td>逐元素逻辑非</td>
+</tr>
+<tr>
+<td><code>np.logical_xor(a, b)</code> / <code>a ^ b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素逻辑异或</td>
+</tr>
+<tr>
+<td><code>np.bitwise_and(a, b)</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素按位与</td>
+</tr>
+<tr>
+<td><code>np.bitwise_or(a, b)</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素按位或</td>
+</tr>
+<tr>
+<td><code>np.bitwise_xor(a, b)</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素按位异或</td>
+</tr>
+<tr>
+<td><code>np.invert(a)</code> / <code>~a</code></td>
+<td>x,out=</td>
+<td>逐元素按位取反</td>
+</tr>
+<tr>
+<td><code>np.left_shift(a, b)</code> / <code>a &lt;&lt; b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>左移</td>
+</tr>
+<tr>
+<td><code>np.right_shift(a, b)</code> / <code>a &gt;&gt; b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>右移</td>
+</tr>
+<tr>
+<td><code>np.isnan(a)</code></td>
+<td>x,out=</td>
+<td>判断是否为NaN</td>
+</tr>
+<tr>
+<td><code>np.isinf(a)</code></td>
+<td>x,out=</td>
+<td>判断是否为无穷大</td>
+</tr>
+<tr>
+<td><code>np.isfinite(a)</code></td>
+<td>x,out=</td>
+<td>判断是否有限（非NaN非Inf）</td>
+</tr>
+<tr>
+<td><code>np.isneginf(a)</code></td>
+<td>x,out=</td>
+<td>判断是否为负无穷</td>
+</tr>
+<tr>
+<td><code>np.isposinf(a)</code></td>
+<td>x,out=</td>
+<td>判断是否为正无穷</td>
+</tr>
+<tr>
+<td><code>np.allclose(a, b)</code></td>
+<td>a,b,rtol(1e-5),atol(1e-8),equal_nan</td>
+<td>所有元素在容限内近似相等</td>
+</tr>
+<tr>
+<td><code>np.isclose(a, b)</code></td>
+<td>a,b,rtol,atol,equal_nan</td>
+<td>逐元素判断是否近似相等</td>
+</tr>
+<tr>
+<td><code>np.greater(a, b)</code> / <code>a &gt; b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素大于</td>
+</tr>
+<tr>
+<td><code>np.greater_equal(a, b)</code> / <code>a &gt;= b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素大于等于</td>
+</tr>
+<tr>
+<td><code>np.less(a, b)</code> / <code>a &lt; b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素小于</td>
+</tr>
+<tr>
+<td><code>np.less_equal(a, b)</code> / <code>a &lt;= b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素小于等于</td>
+</tr>
+<tr>
+<td><code>np.equal(a, b)</code> / <code>a == b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素等于</td>
+</tr>
+<tr>
+<td><code>np.not_equal(a, b)</code> / <code>a != b</code></td>
+<td>x1,x2,out=,where=</td>
+<td>逐元素不等于</td>
+</tr>
+<tr>
+<td><code>np.negative(a)</code> / <code>-a</code></td>
+<td>x,out=,where=</td>
+<td>逐元素取负</td>
+</tr>
+<tr>
+<td><code>np.positive(a)</code> / <code>+a</code></td>
+<td>x,out=,where=</td>
+<td>逐元素正号（无变化）</td>
+</tr>
+<tr>
+<td><code>np.absolute(a)</code> / <code>np.abs(a)</code></td>
+<td>x,out=,where=</td>
+<td>绝对值（复数为模长）</td>
+</tr>
+<tr>
+<td><code>np.conj(a)</code> / <code>np.conjugate(a)</code></td>
+<td>x,out=,where=</td>
+<td>共轭复数</td>
+</tr>
+<tr>
+<td><code>np.real(a)</code></td>
+<td>x,out=</td>
+<td>复数实部</td>
+</tr>
+<tr>
+<td><code>np.imag(a)</code></td>
+<td>x,out=</td>
+<td>复数虚部</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="1-7-聚合统计">1.7 聚合统计</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>函数/方法</th>
+<th>常用参数</th>
+<th>简要作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.sum()</code> / <code>np.sum()</code></td>
+<td>a,axis,dtype,keepdims,initial/where</td>
+<td>求和</td>
+</tr>
+<tr>
+<td><code>.prod()</code> / <code>np.prod()</code></td>
+<td>a,axis,dtype,keepdims,initial/where</td>
+<td>求积</td>
+</tr>
+<tr>
+<td><code>.mean()</code> / <code>np.mean()</code></td>
+<td>a,axis,dtype,keepdims,where</td>
+<td>算术平均值</td>
+</tr>
+<tr>
+<td><code>.std()</code> / <code>np.std()</code></td>
+<td>a,axis,dtype,keepdims,ddof,where</td>
+<td>标准差</td>
+</tr>
+<tr>
+<td><code>.var()</code> / <code>np.var()</code></td>
+<td>a,axis,dtype,keepdims,ddof,where</td>
+<td>方差</td>
+</tr>
+<tr>
+<td><code>.min()</code> / <code>np.min()</code></td>
+<td>a,axis,keepdims,initial/where</td>
+<td>最小值</td>
+</tr>
+<tr>
+<td><code>.max()</code> / <code>np.max()</code></td>
+<td>a,axis,keepdims,initial/where</td>
+<td>最大值</td>
+</tr>
+<tr>
+<td><code>.argmin()</code> / <code>np.argmin()</code></td>
+<td>a,axis,keepdims</td>
+<td>最小值索引</td>
+</tr>
+<tr>
+<td><code>.argmax()</code> / <code>np.argmax()</code></td>
+<td>a,axis,keepdims</td>
+<td>最大值索引</td>
+</tr>
+<tr>
+<td><code>.ptp()</code> / <code>np.ptp()</code></td>
+<td>a,axis,keepdims</td>
+<td>峰峰值（max-min）</td>
+</tr>
+<tr>
+<td><code>.median()</code> / <code>np.median()</code></td>
+<td>a,axis,keepdims,overwrite_input</td>
+<td>中位数</td>
+</tr>
+<tr>
+<td><code>np.average()</code></td>
+<td>a,axis,weights,returned</td>
+<td>加权平均</td>
+</tr>
+<tr>
+<td><code>np.quantile()</code></td>
+<td>a,q(分位点0~1),axis,method</td>
+<td>分位数</td>
+</tr>
+<tr>
+<td><code>np.percentile()</code></td>
+<td>a,q(百分位0~100),axis,method</td>
+<td>百分位数</td>
+</tr>
+<tr>
+<td><code>np.nanmean()</code> / <code>np.nanstd()</code> / <code>np.nansum()</code> 等</td>
+<td>同普通版本</td>
+<td>忽略NaN的聚合统计</td>
+</tr>
+<tr>
+<td><code>np.cumsum()</code> / <code>.cumsum()</code></td>
+<td>a,axis,dtype,out</td>
+<td>累积和</td>
+</tr>
+<tr>
+<td><code>np.cumprod()</code> / <code>.cumprod()</code></td>
+<td>a,axis,dtype,out</td>
+<td>累积积</td>
+</tr>
+<tr>
+<td><code>np.cummin()</code> / <code>.cummin()</code></td>
+<td>a,axis,dtype,out</td>
+<td>累积最小值</td>
+</tr>
+<tr>
+<td><code>np.cummax()</code> / <code>.cummax()</code></td>
+<td>a,axis,dtype,out</td>
+<td>累积最大值</td>
+</tr>
+<tr>
+<td><code>np.diff()</code></td>
+<td>a,n(阶数,默认1),axis,prepend/append</td>
+<td>相邻元素差</td>
+</tr>
+<tr>
+<td><code>np.ediff1d()</code></td>
+<td>ary, to_begin/to_end</td>
+<td>展平后相邻元素差</td>
+</tr>
+<tr>
+<td><code>np.gradient()</code></td>
+<td>f,*varargs(间距),axis,edge_order</td>
+<td>数值梯度</td>
+</tr>
+<tr>
+<td><code>np.trapz()</code> / <code>np.trapezoid()</code></td>
+<td>y,x(采样点),dx(间距),axis</td>
+<td>梯形积分</td>
+</tr>
+<tr>
+<td><code>np.bincount()</code></td>
+<td>x(非负整数),weights,minlength</td>
+<td>统计非负整数出现次数</td>
+</tr>
+<tr>
+<td><code>np.histogram()</code></td>
+<td>a,bins(箱数/边界),range,density</td>
+<td>直方图统计</td>
+</tr>
+<tr>
+<td><code>np.histogram2d()</code></td>
+<td>x,y,bins,range,density</td>
+<td>二维直方图</td>
+</tr>
+<tr>
+<td><code>np.cov()</code></td>
+<td>m,y,rowvar,ddof,fweights/aweights</td>
+<td>协方差矩阵</td>
+</tr>
+<tr>
+<td><code>np.corrcoef()</code></td>
+<td>x,y,rowvar,ddof</td>
+<td>相关系数矩阵</td>
+</tr>
+<tr>
+<td><code>np.count_nonzero()</code></td>
+<td>a,axis,keepdims</td>
+<td>统计非零元素个数</td>
+</tr>
+<tr>
+<td><code>np.all()</code> / <code>.all()</code></td>
+<td>a,axis,keepdims,where</td>
+<td>是否所有元素为真</td>
+</tr>
+<tr>
+<td><code>np.any()</code> / <code>.any()</code></td>
+<td>a,axis,keepdims,where</td>
+<td>是否有任意元素为真</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="1-8-排序与集合操作">1.8 排序与集合操作</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>函数/方法</th>
+<th>常用参数</th>
+<th>简要作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.sort()</code></td>
+<td>axis,kind('quicksort'等),order</td>
+<td>原地排序</td>
+</tr>
+<tr>
+<td><code>np.sort()</code></td>
+<td>a,axis,kind,order</td>
+<td>返回排序后的副本</td>
+</tr>
+<tr>
+<td><code>.argsort()</code> / <code>np.argsort()</code></td>
+<td>a,axis,kind,order</td>
+<td>返回排序后的索引</td>
+</tr>
+<tr>
+<td><code>np.lexsort()</code></td>
+<td>keys,axis,kind,order</td>
+<td>多关键字排序（返回索引）</td>
+</tr>
+<tr>
+<td><code>np.msort()</code></td>
+<td>a</td>
+<td>沿第0轴排序</td>
+</tr>
+<tr>
+<td><code>np.sort_complex()</code></td>
+<td>a</td>
+<td>按先实部后虚部排序</td>
+</tr>
+<tr>
+<td><code>np.partition()</code></td>
+<td>a,kth,axis,kind</td>
+<td>部分排序（第k小位置正确）</td>
+</tr>
+<tr>
+<td><code>np.argpartition()</code></td>
+<td>a,kth,axis,kind</td>
+<td>部分排序索引</td>
+</tr>
+<tr>
+<td><code>np.searchsorted()</code></td>
+<td>a(有序),v(待插),side('left'/'right'),sorter</td>
+<td>在有序数组中查找插入位置</td>
+</tr>
+<tr>
+<td><code>np.unique()</code></td>
+<td>ar,return_index,return_counts,return_inverse,axis</td>
+<td>去重并返回唯一值</td>
+</tr>
+<tr>
+<td><code>np.in1d()</code> / <code>np.isin()</code></td>
+<td>element,test_elements,assume_unique,invert</td>
+<td>检查元素是否在另一数组中</td>
+</tr>
+<tr>
+<td><code>np.intersect1d()</code></td>
+<td>ar1,ar2,assume_unique</td>
+<td>两个数组的交集</td>
+</tr>
+<tr>
+<td><code>np.union1d()</code></td>
+<td>ar1,ar2</td>
+<td>两个数组的并集</td>
+</tr>
+<tr>
+<td><code>np.setdiff1d()</code></td>
+<td>ar1,ar2,assume_unique</td>
+<td>差集（在A不在B）</td>
+</tr>
+<tr>
+<td><code>np.setxor1d()</code></td>
+<td>ar1,ar2,assume_unique</td>
+<td>对称差（在A或B但不同时在）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="1-9-线性代数-np-linalg">1.9 线性代数 (<code>np.linalg</code>)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>常用参数</th>
+<th>简要作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>np.dot(a, b)</code> / <code>a.dot(b)</code></td>
+<td>a,b,out=</td>
+<td>点积/矩阵乘法</td>
+</tr>
+<tr>
+<td><code>np.matmul(a, b)</code> / <code>a @ b</code></td>
+<td>a,b,out=</td>
+<td>矩阵乘法（推荐方式）</td>
+</tr>
+<tr>
+<td><code>np.vdot(a, b)</code></td>
+<td>a,b</td>
+<td>向量点积（共轭）</td>
+</tr>
+<tr>
+<td><code>np.inner(a, b)</code></td>
+<td>a,b</td>
+<td>内积</td>
+</tr>
+<tr>
+<td><code>np.outer(a, b)</code></td>
+<td>a,b,out=</td>
+<td>外积</td>
+</tr>
+<tr>
+<td><code>np.tensordot()</code></td>
+<td>a,b,axes(缩并轴)</td>
+<td>张量缩并</td>
+</tr>
+<tr>
+<td><code>np.kron(a, b)</code></td>
+<td>a,b</td>
+<td>克罗内克积</td>
+</tr>
+<tr>
+<td><code>np.einsum()</code></td>
+<td>subscripts(下标串),*operands,optimize</td>
+<td>爱因斯坦求和（灵活的多维运算）</td>
+</tr>
+<tr>
+<td><code>np.linalg.matrix_power()</code></td>
+<td>a,n(幂次)</td>
+<td>矩阵幂</td>
+</tr>
+<tr>
+<td><code>np.linalg.inv()</code></td>
+<td>a</td>
+<td>矩阵求逆</td>
+</tr>
+<tr>
+<td><code>np.linalg.pinv()</code></td>
+<td>a,rcond</td>
+<td>摩尔-彭若斯伪逆</td>
+</tr>
+<tr>
+<td><code>np.linalg.det()</code></td>
+<td>a</td>
+<td>行列式</td>
+</tr>
+<tr>
+<td><code>np.linalg.matrix_rank()</code></td>
+<td>M,tol,hermitian</td>
+<td>矩阵秩</td>
+</tr>
+<tr>
+<td><code>np.linalg.slogdet()</code></td>
+<td>a</td>
+<td>行列式的符号和对数绝对值</td>
+</tr>
+<tr>
+<td><code>np.linalg.solve()</code></td>
+<td>a(方阵),b(常数项)</td>
+<td>求解线性方程组 Ax=b</td>
+</tr>
+<tr>
+<td><code>np.linalg.lstsq()</code></td>
+<td>a,b,rcond(推荐None)</td>
+<td>最小二乘解</td>
+</tr>
+<tr>
+<td><code>np.linalg.norm()</code></td>
+<td>x,ord(范数阶),axis,keepdims</td>
+<td>向量/矩阵范数</td>
+</tr>
+<tr>
+<td><code>np.linalg.cond()</code></td>
+<td>x,p(范数阶)</td>
+<td>条件数</td>
+</tr>
+<tr>
+<td><code>np.linalg.eig()</code></td>
+<td>a(方阵)</td>
+<td>特征值和特征向量</td>
+</tr>
+<tr>
+<td><code>np.linalg.eigh()</code></td>
+<td>a(对称阵),UPLO</td>
+<td>对称/厄米矩阵特征分解</td>
+</tr>
+<tr>
+<td><code>np.linalg.eigvals()</code></td>
+<td>a(方阵)</td>
+<td>特征值</td>
+</tr>
+<tr>
+<td><code>np.linalg.eigvalsh()</code></td>
+<td>a(对称阵),UPLO</td>
+<td>对称矩阵特征值</td>
+</tr>
+<tr>
+<td><code>np.linalg.svd()</code></td>
+<td>a,full_matrices,compute_uv</td>
+<td>奇异值分解(SVD)</td>
+</tr>
+<tr>
+<td><code>np.linalg.cholesky()</code></td>
+<td>a(对称正定)</td>
+<td>Cholesky分解</td>
+</tr>
+<tr>
+<td><code>np.linalg.qr()</code></td>
+<td>a,mode</td>
+<td>QR分解</td>
+</tr>
+<tr>
+<td><code>np.trace()</code> / <code>.trace()</code></td>
+<td>a,offset,axis1,axis2</td>
+<td>矩阵的迹（对角线之和）</td>
+</tr>
+<tr>
+<td><code>np.diag()</code></td>
+<td>v,k</td>
+<td>提取对角线/构造对角矩阵</td>
+</tr>
+<tr>
+<td><code>np.diagflat()</code></td>
+<td>v,k</td>
+<td>用展平的输入构造对角矩阵</td>
+</tr>
+<tr>
+<td><code>np.tril()</code></td>
+<td>m,k</td>
+<td>下三角矩阵</td>
+</tr>
+<tr>
+<td><code>np.triu()</code></td>
+<td>m,k</td>
+<td>上三角矩阵</td>
+</tr>
+<tr>
+<td><code>np.cross(a, b)</code></td>
+<td>a,b,axisa/axisb/axisc,axis</td>
+<td>叉积（三维向量）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="1-10-随机数-np-random-generator">1.10 随机数 (<code>np.random.Generator</code>)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方法/函数</th>
+<th>常用参数</th>
+<th>简要作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>np.random.default_rng(seed)</code></td>
+<td>seed(种子)</td>
+<td>创建推荐的新随机数生成器</td>
+</tr>
+<tr>
+<td><code>rng.random(size)</code></td>
+<td>size,dtype,out</td>
+<td>[0,1)均匀分布采样</td>
+</tr>
+<tr>
+<td><code>rng.integers(low, high, size)</code></td>
+<td>low,high,size,dtype,endpoint</td>
+<td>整数均匀采样</td>
+</tr>
+<tr>
+<td><code>rng.choice(a, size, replace, p)</code></td>
+<td>a,size,replace(有放回),p(概率),axis,shuffle</td>
+<td>从数组中随机抽样</td>
+</tr>
+<tr>
+<td><code>rng.normal(loc, scale, size)</code></td>
+<td>loc/mean,scale/sigma,size</td>
+<td>正态分布采样</td>
+</tr>
+<tr>
+<td><code>rng.uniform(low, high, size)</code></td>
+<td>low,high,size</td>
+<td>均匀分布采样</td>
+</tr>
+<tr>
+<td><code>rng.binomial(n, p, size)</code></td>
+<td>n,p,size</td>
+<td>二项分布采样</td>
+</tr>
+<tr>
+<td><code>rng.poisson(lam, size)</code></td>
+<td>lam,size</td>
+<td>泊松分布采样</td>
+</tr>
+<tr>
+<td><code>rng.exponential(scale, size)</code></td>
+<td>scale,size</td>
+<td>指数分布采样</td>
+</tr>
+<tr>
+<td><code>rng.beta(a, b, size)</code></td>
+<td>a,b,size</td>
+<td>Beta分布采样</td>
+</tr>
+<tr>
+<td><code>rng.gamma(shape, scale, size)</code></td>
+<td>shape,scale,size</td>
+<td>Gamma分布采样</td>
+</tr>
+<tr>
+<td><code>rng.chisquare(df, size)</code></td>
+<td>df,size</td>
+<td>卡方分布采样</td>
+</tr>
+<tr>
+<td><code>rng.standard_normal(size)</code></td>
+<td>size,dtype,out</td>
+<td>标准正态分布(0,1)</td>
+</tr>
+<tr>
+<td><code>rng.lognormal(mean, sigma, size)</code></td>
+<td>mean,sigma,size</td>
+<td>对数正态分布</td>
+</tr>
+<tr>
+<td><code>rng.multinomial(n, pvals, size)</code></td>
+<td>n,pvals,size</td>
+<td>多项分布</td>
+</tr>
+<tr>
+<td><code>rng.multivariate_normal(mean, cov, size)</code></td>
+<td>mean,cov,size,tol</td>
+<td>多元正态分布</td>
+</tr>
+<tr>
+<td><code>rng.dirichlet(alpha, size)</code></td>
+<td>alpha,size</td>
+<td>Dirichlet分布</td>
+</tr>
+<tr>
+<td><code>rng.permutation(x)</code></td>
+<td>x</td>
+<td>返回随机排列副本</td>
+</tr>
+<tr>
+<td><code>rng.shuffle(x)</code></td>
+<td>x,axis</td>
+<td>原地打乱</td>
+</tr>
+<tr>
+<td><code>rng.permuted(x, axis)</code></td>
+<td>x,axis,out</td>
+<td>沿指定轴随机排列</td>
+</tr>
+<tr>
+<td><code>rng.standard_exponential(size)</code></td>
+<td>size,dtype,out</td>
+<td>标准指数分布</td>
+</tr>
+<tr>
+<td><code>rng.standard_gamma(shape, size)</code></td>
+<td>shape,size,dtype,out</td>
+<td>标准Gamma分布</td>
+</tr>
+<tr>
+<td><code>rng.bytes(length)</code></td>
+<td>length</td>
+<td>生成随机字节</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="1-11-文件读写">1.11 文件读写</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>常用参数</th>
+<th>简要作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>np.save(file, arr)</code></td>
+<td>file,arr,allow_pickle</td>
+<td>保存单个数组到 <code>.npy</code> 二进制格式</td>
+</tr>
+<tr>
+<td><code>np.savez(file, **kwds)</code></td>
+<td>file,*args/**kwds</td>
+<td>保存多个数组到未压缩 <code>.npz</code></td>
+</tr>
+<tr>
+<td><code>np.savez_compressed(file, **kwds)</code></td>
+<td>file,*args/**kwds</td>
+<td>保存多个数组到压缩 <code>.npz</code></td>
+</tr>
+<tr>
+<td><code>np.load(file)</code></td>
+<td>file,mmap_mode,allow_pickle</td>
+<td>加载 <code>.npy</code> / <code>.npz</code> 文件</td>
+</tr>
+<tr>
+<td><code>np.savetxt(fname, X)</code></td>
+<td>fname,X,fmt,delimiter,header,footer,comments</td>
+<td>保存数组到文本文件(CSV等)</td>
+</tr>
+<tr>
+<td><code>np.loadtxt(fname)</code></td>
+<td>fname,dtype,comments,delimiter,skiprows,usecols,unpack,encoding</td>
+<td>从文本文件加载数组</td>
+</tr>
+<tr>
+<td><code>np.genfromtxt(fname)</code></td>
+<td>fname,dtype,comments,delimiter,skip_header/skip_footer,missing_values,filling_values,names</td>
+<td>从文本加载（可处理缺失值）</td>
+</tr>
+<tr>
+<td><code>np.fromfile(file, dtype)</code></td>
+<td>file,dtype,count,sep,offset</td>
+<td>从二进制文件读取</td>
+</tr>
+<tr>
+<td><code>ndarray.tofile(fid)</code></td>
+<td>fid,sep,format</td>
+<td>写入到二进制文件</td>
+</tr>
+<tr>
+<td><code>np.frombuffer(buffer)</code></td>
+<td>buffer,dtype,count,offset</td>
+<td>从缓冲区解析数组</td>
+</tr>
+<tr>
+<td><code>np.memmap()</code></td>
+<td>filename,dtype,mode('r'/'r+'/'w+'),offset,shape,order</td>
+<td>内存映射文件（处理超大数据）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="1-12-视图与内存相关">1.12 视图与内存相关</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>函数/属性</th>
+<th>常用参数</th>
+<th>简要作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.copy()</code> / <code>np.copy()</code></td>
+<td>order('C'/'F')</td>
+<td>创建深拷贝</td>
+</tr>
+<tr>
+<td><code>.view()</code></td>
+<td>dtype/type</td>
+<td>创建视图（同一数据不同解释）</td>
+</tr>
+<tr>
+<td><code>np.shares_memory(a, b)</code></td>
+<td>a,b,max_work</td>
+<td>两数组是否共享内存</td>
+</tr>
+<tr>
+<td><code>np.may_share_memory(a, b)</code></td>
+<td>a,b,max_work</td>
+<td>快速判断是否可能共享内存</td>
+</tr>
+<tr>
+<td><code>np.ascontiguousarray()</code></td>
+<td>a,dtype</td>
+<td>转为C顺序连续数组</td>
+</tr>
+<tr>
+<td><code>np.asfortranarray()</code></td>
+<td>a,dtype</td>
+<td>转为Fortran顺序连续数组</td>
+</tr>
+<tr>
+<td><code>np.require(a, requirements)</code></td>
+<td>a,dtype,requirements</td>
+<td>满足指定内存要求的数组</td>
+</tr>
+<tr>
+<td><code>np.isfortran(a)</code></td>
+<td>a</td>
+<td>是否Fortran顺序</td>
+</tr>
+<tr>
+<td><code>np.iscomplexobj(a)</code></td>
+<td>a</td>
+<td>是否复数类型</td>
+</tr>
+<tr>
+<td><code>np.isrealobj(a)</code></td>
+<td>a</td>
+<td>是否实数类型</td>
+</tr>
+<tr>
+<td><code>.flags</code></td>
+<td>只读</td>
+<td>内存布局标志（C_CONTIGUOUS等）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="1-13-其他实用函数">1.13 其他实用函数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>常用参数</th>
+<th>简要作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>np.array_equal()</code></td>
+<td>a1,a2,equal_nan</td>
+<td>严格判断数组是否完全相等</td>
+</tr>
+<tr>
+<td><code>np.array_equiv()</code></td>
+<td>a1,a2</td>
+<td>判断是否广播后相等</td>
+</tr>
+<tr>
+<td><code>np.isscalar()</code></td>
+<td>num</td>
+<td>判断是否标量</td>
+</tr>
+<tr>
+<td><code>np.shape()</code></td>
+<td>a</td>
+<td>以函数形式获取shape</td>
+</tr>
+<tr>
+<td><code>np.atleast_1d()</code> / <code>np.atleast_2d()</code> / <code>np.atleast_3d()</code></td>
+<td>*arys</td>
+<td>确保至少N维</td>
+</tr>
+<tr>
+<td><code>np.broadcast_to()</code></td>
+<td>array,shape,subok</td>
+<td>广播到指定形状</td>
+</tr>
+<tr>
+<td><code>np.broadcast_arrays()</code></td>
+<td>*args,subok</td>
+<td>广播多个数组互相兼容</td>
+</tr>
+<tr>
+<td><code>np.ix_()</code></td>
+<td>*args(1D索引)</td>
+<td>构造开放网格（用于花式索引笛卡尔组合）</td>
+</tr>
+<tr>
+<td><code>np.ogrid</code></td>
+<td>切片索引对象</td>
+<td>开放网格：返回可广播的稀疏向量</td>
+</tr>
+<tr>
+<td><code>np.mgrid</code></td>
+<td>切片索引对象</td>
+<td>稠密网格：返回完整坐标数组</td>
+</tr>
+<tr>
+<td><code>np.meshgrid()</code></td>
+<td>*xi,indexing('xy'/'ij'),sparse,copy</td>
+<td>生成坐标网格矩阵</td>
+</tr>
+<tr>
+<td><code>np.indices()</code></td>
+<td>dimensions,dtype,sparse</td>
+<td>生成网格索引</td>
+</tr>
+<tr>
+<td><code>np.ndenumerate()</code></td>
+<td>arr</td>
+<td>多维数组枚举</td>
+</tr>
+<tr>
+<td><code>np.ndindex()</code></td>
+<td>*shape</td>
+<td>多维索引迭代器</td>
+</tr>
+<tr>
+<td><code>np.apply_along_axis()</code></td>
+<td>func1d,axis,arr,*args,**kwargs</td>
+<td>沿指定轴应用函数</td>
+</tr>
+<tr>
+<td><code>np.apply_over_axes()</code></td>
+<td>func,a,axes</td>
+<td>在多个轴上重复应用函数</td>
+</tr>
+<tr>
+<td><code>np.vectorize()</code></td>
+<td>pyfunc,otypes,signature,cache</td>
+<td>将Python函数转为ufunc（便利但不快）</td>
+</tr>
+<tr>
+<td><code>np.frompyfunc()</code></td>
+<td>func,nin,nout</td>
+<td>从Python函数创建通用ufunc</td>
+</tr>
+<tr>
+<td><code>np.piecewise()</code></td>
+<td>x,condlist,funclist</td>
+<td>分段函数求值</td>
+</tr>
+<tr>
+<td><code>np.asarray()</code></td>
+<td>a,dtype,order</td>
+<td>转为数组（已是ndarray时不复制）</td>
+</tr>
+<tr>
+<td><code>np.asanyarray()</code></td>
+<td>a,dtype,order</td>
+<td>转为数组（允许子类通过）</td>
+</tr>
+<tr>
+<td><code>np.asfarray()</code></td>
+<td>a,dtype</td>
+<td>转为浮点数组</td>
+</tr>
+<tr>
+<td><code>np.asarray_chkfinite()</code></td>
+<td>a,dtype,order</td>
+<td>转为数组并检查非NaN/Inf</td>
+</tr>
+<tr>
+<td><code>np.nan_to_num()</code></td>
+<td>x,copy,nan(0),posinf,neginf</td>
+<td>将NaN替换为0，Inf替换为大数</td>
+</tr>
+<tr>
+<td><code>np.errstate()</code></td>
+<td>kwargs(divide/invalid/over/under)</td>
+<td>上下文管理器，控制浮点错误处理</td>
+</tr>
+<tr>
+<td><code>np.set_printoptions()</code></td>
+<td>precision,threshold,edgeitems,linewidth,suppress,formatter</td>
+<td>设置打印格式选项</td>
+</tr>
+<tr>
+<td><code>np.get_printoptions()</code></td>
+<td>无参</td>
+<td>获取当前打印格式选项</td>
+</tr>
+<tr>
+<td><code>np.who()</code></td>
+<td>vardict</td>
+<td>打印当前NumPy数组信息（调试用）</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="二-函数详细用法">二、函数详细用法</h2>
+<h3 id="2-1-数组创建函数详解">2.1 数组创建函数详解</h3>
+<h4 id="np-array-object-dtype-none-copy-true-order-k-subok-false-ndmin-0"><code>np.array(object, dtype=None, copy=True, order='K', subok=False, ndmin=0)</code></h4>
+<p><strong>作用</strong>：将Python序列转换为ndarray，最基础的构造函数。</p>
+<p><strong>参数</strong>：
+- <code>object</code>：类数组对象（list、tuple等）
+- <code>dtype</code>：数据类型，省略则自动推断
+- <code>copy</code>：True（默认）总是复制；False则尽量不复制
+- <code>order</code>：内存布局，<code>'C'</code>行优先，<code>'F'</code>列优先，<code>'K'</code>保留输入顺序
+- <code>subok</code>：True则返回子类（如matrix），False强制返回ndarray
+- <code>ndmin</code>：最少维度数</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">np.array([1, 2, 3])                          # array([1, 2, 3])
+np.array([1, 2, 3], dtype=np.float32)       # 指定类型
+np.array([[1, 2], [3, 4]])                  # 二维
+np.array([1, 2, 3], ndmin=2)                # shape (1, 3)
+</code></pre>
+<p><strong>注意</strong>：传入不等长嵌套列表可能产生 <code>dtype=object</code> 数组，失去数值计算优势。</p>
+<hr />
+<h4 id="np-zeros-shape-dtype-float-order-c"><code>np.zeros(shape, dtype=float, order='C')</code></h4>
+<p><strong>作用</strong>：创建全0数组。</p>
+<p><strong>参数</strong>：
+- <code>shape</code>：整数或整数元组
+- <code>dtype</code>：默认 <code>float64</code></p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">np.zeros(5)                  # [0. 0. 0. 0. 0.]
+np.zeros((2, 3), int)        # [[0 0 0] [0 0 0]]
+</code></pre>
+<hr />
+<h4 id="np-ones-shape-dtype-float-order-c"><code>np.ones(shape, dtype=float, order='C')</code></h4>
+<p><strong>作用</strong>：创建全1数组，参数同 <code>zeros</code>。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">np.ones((3, 3))              # 3×3 全1（float64）
+</code></pre>
+<hr />
+<h4 id="np-full-shape-fill_value-dtype-none-order-c"><code>np.full(shape, fill_value, dtype=None, order='C')</code></h4>
+<p><strong>作用</strong>：创建所有元素为 <code>fill_value</code> 的数组。</p>
+<p><strong>参数</strong>：
+- <code>fill_value</code>：填充值，可以是任意类型</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">np.full((2, 3), 7)          # [[7 7 7] [7 7 7]]
+np.full(3, np.nan)          # [nan nan nan]
+np.full((2,2), np.inf)      # 全inf
+</code></pre>
+<hr />
+<h4 id="np-empty-shape-dtype-float-order-c"><code>np.empty(shape, dtype=float, order='C')</code></h4>
+<p><strong>作用</strong>：分配内存但<strong>不初始化</strong>，元素值是内存中的旧数据。只在后续会完全覆盖所有元素时使用，速度比 <code>zeros</code> 快。</p>
+<p><strong>⚠️ 警告</strong>：读取未赋值位置结果不可预测。使用前必须填充。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">buf = np.empty(1000, dtype=np.float64)
+buf[:] = compute_values()  # 先填满再读取
+</code></pre>
+<hr />
+<h4 id="np-eye-n-m-none-k-0-dtype-float"><code>np.eye(N, M=None, k=0, dtype=float)</code></h4>
+<p><strong>作用</strong>：创建二维数组，对角线位置为1，其余为0。</p>
+<p><strong>参数</strong>：
+- <code>N</code>：行数
+- <code>M</code>：列数，默认等于N
+- <code>k</code>：对角线偏移，0为主对角线，1上偏，-1下偏</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">np.eye(3)        # 3×3单位矩阵
+np.eye(3, k=1)   # 主对角线上方一条线为1
+np.eye(3, 4)     # 3×4，主对角线为1
+</code></pre>
+<hr />
+<h4 id="np-identity-n-dtype-float"><code>np.identity(n, dtype=float)</code></h4>
+<p><strong>作用</strong>：创建 n×n 方阵单位矩阵，等价于 <code>np.eye(n)</code>。</p>
+<hr />
+<h4 id="np-arange-start-stop-step-dtype-none"><code>np.arange([start,] stop, [step,] dtype=None)</code></h4>
+<p><strong>作用</strong>：创建等间隔数值的一维数组，类似Python <code>range</code>。</p>
+<p><strong>参数</strong>：
+- <code>start</code>：起始值（包含），默认0
+- <code>stop</code>：结束值（<strong>不包含</strong>）
+- <code>step</code>：步长，默认1</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">np.arange(10)            # [0 1 2 3 4 5 6 7 8 9]
+np.arange(2, 10, 2)      # [2 4 6 8]
+np.arange(10, 0, -1)     # [10  9  8  7  6  5  4  3  2  1]
+np.arange(0, 1, 0.1)     # ⚠️ 浮点步长可能精度不准
+</code></pre>
+<p><strong>⚠️ 注意</strong>：浮点步长会因累积误差导致终点不确定。浮点等间隔采样优先用 <code>np.linspace</code>。</p>
+<hr />
+<h4 id="np-linspace-start-stop-num-50-endpoint-true-retstep-false-dtype-none"><code>np.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None)</code></h4>
+<p><strong>作用</strong>：在闭区间内生成指定数量均匀分布的点。</p>
+<p><strong>参数</strong>：
+- <code>start</code>：起点
+- <code>stop</code>：终点（<code>endpoint=True</code>时包含）
+- <code>num</code>：样本点数，默认50
+- <code>endpoint</code>：True（默认）包含stop，False不包含
+- <code>retstep</code>：True时同时返回步长</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">np.linspace(0, 1, 5)              # [0.   0.25 0.5  0.75 1.  ]
+np.linspace(0, 1, 5, endpoint=False)  # [0.  0.2 0.4 0.6 0.8]
+x, dx = np.linspace(0, 2*np.pi, 100, retstep=True)  # 同时返回步长
+</code></pre>
+<hr />
+<h4 id="np-logspace-start-stop-num-50-endpoint-true-base-10-0-dtype-none"><code>np.logspace(start, stop, num=50, endpoint=True, base=10.0, dtype=None)</code></h4>
+<p><strong>作用</strong>：在对数尺度上生成均匀分布的点，等价于 <code>base ** linspace(start, stop, num)</code>。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">np.logspace(0, 3, 4)    # [1. 10. 100. 1000.]，即10^0到10^3
+np.logspace(1, 5, 3, base=2)  # [2. 8. 32.]，即2^1到2^5
+</code></pre>
+<hr />
+<h4 id="np-zeros_like-a-dtype-none-order-k-np-ones_like-a-np-empty_like-a-np-full_like-a-fill_value"><code>np.zeros_like(a, dtype=None, order='K')</code> / <code>np.ones_like(a, ...)</code> / <code>np.empty_like(a, ...)</code> / <code>np.full_like(a, fill_value, ...)</code></h4>
+<p><strong>作用</strong>：创建与参考数组a形状和类型相同的新数组。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">a = np.array([[1,2],[3,4]], dtype=np.float32)
+np.zeros_like(a)   # shape(2,2) float32 全0
+np.ones_like(a)    # 全1
+np.empty_like(a)   # 未初始化
+np.full_like(a, -1) # 全-1
+</code></pre>
+<hr />
+<h4 id="np-fromfunction-function-shape-dtype-float"><code>np.fromfunction(function, shape, dtype=float)</code></h4>
+<p><strong>作用</strong>：通过坐标函数生成数组，每个位置的值为 <code>function(i,j,...)</code>。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">np.fromfunction(lambda i, j: i + j, (3, 3))
+# [[0. 1. 2.]
+#  [1. 2. 3.]
+#  [2. 3. 4.]]
+</code></pre>
+<hr />
+<h4 id="np-tile-a-reps"><code>np.tile(A, reps)</code></h4>
+<p><strong>作用</strong>：将数组A沿各轴重复reps次构造新数组。</p>
+<p><strong>参数</strong>：<code>reps</code>为各轴重复次数元组。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">np.tile([1,2], 3)           # [1 2 1 2 1 2]
+np.tile([[1],[2]], (1,3))   # [[1 1 1] [2 2 2]]
+np.tile([[1,2]], (3,1))     # [[1 2] [1 2] [1 2]]
+</code></pre>
+<hr />
+<h4 id="np-repeat-a-repeats-axis-none"><code>np.repeat(a, repeats, axis=None)</code></h4>
+<p><strong>作用</strong>：重复数组元素。与tile不同，repeat逐个元素重复。</p>
+<p><strong>参数</strong>：
+- <code>repeats</code>：每个元素重复次数（标量或数组）
+- <code>axis</code>：沿哪个轴重复，None则展平</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">np.repeat([1,2,3], 2)            # [1 1 2 2 3 3]
+np.repeat([[1,2],[3,4]], 2, axis=0)
+# [[1 2] [1 2] [3 4] [3 4]]
+np.repeat([1,2,3], [1,2,3])      # [1 2 2 3 3 3]
+</code></pre>
+<hr />
+<h4 id="np-diag-v-k-0"><code>np.diag(v, k=0)</code></h4>
+<p><strong>作用</strong>：
+- v是一维数组：以v为对角线构造对角矩阵
+- v是二维数组：提取其第k条对角线</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">np.diag([1,2,3])        # [[1 0 0] [0 2 0] [0 0 3]]
+np.diag([1,2], k=1)     # [[0 1 0] [0 0 2] [0 0 0]]
+np.diag(np.array([[1,2],[3,4]]))  # [1 4]，主对角线
+</code></pre>
+<hr />
+<h3 id="2-2-数组属性详解">2.2 数组属性详解</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>a.ndim</code></td>
+<td>int</td>
+<td>维度数，如矩阵为2</td>
+</tr>
+<tr>
+<td><code>a.shape</code></td>
+<td>tuple</td>
+<td>各轴长度，如 <code>(2,3)</code></td>
+</tr>
+<tr>
+<td><code>a.size</code></td>
+<td>int</td>
+<td>元素总数，即shape各维度乘积</td>
+</tr>
+<tr>
+<td><code>a.dtype</code></td>
+<td>dtype</td>
+<td>元素类型对象</td>
+</tr>
+<tr>
+<td><code>a.itemsize</code></td>
+<td>int</td>
+<td>单个元素字节数（float64为8）</td>
+</tr>
+<tr>
+<td><code>a.nbytes</code></td>
+<td>int</td>
+<td>数据区总字节数 = size × itemsize</td>
+</tr>
+<tr>
+<td><code>a.T</code></td>
+<td>ndarray</td>
+<td>转置视图，等价于 <code>a.transpose()</code></td>
+</tr>
+<tr>
+<td><code>a.flat</code></td>
+<td>iterator</td>
+<td>一维迭代器，可 <code>for x in a.flat</code></td>
+</tr>
+<tr>
+<td><code>a.imag</code></td>
+<td>ndarray</td>
+<td>复数虚部（实数数组返回全0视图）</td>
+</tr>
+<tr>
+<td><code>a.real</code></td>
+<td>ndarray</td>
+<td>复数实部</td>
+</tr>
+<tr>
+<td><code>a.strides</code></td>
+<td>tuple</td>
+<td>每个轴步进的字节数，如连续float64矩阵为<code>(24,8)</code></td>
+</tr>
+<tr>
+<td><code>a.flags</code></td>
+<td>obj</td>
+<td>内存标志：<code>C_CONTIGUOUS</code>、<code>F_CONTIGUOUS</code>、<code>OWNDATA</code>、<code>WRITEABLE</code>、<code>ALIGNED</code></td>
+</tr>
+<tr>
+<td><code>a.base</code></td>
+<td>ndarray/None</td>
+<td>视图所基于的原数组，自己拥有数据则为None</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3 id="2-3-类型转换详解">2.3 类型转换详解</h3>
+<h4 id="astype-dtype-copy-true-casting-unsafe"><code>.astype(dtype, copy=True, casting='unsafe')</code></h4>
+<p><strong>作用</strong>：转换数组类型，返回新数组。</p>
+<p><strong>参数</strong>：
+- <code>casting</code>：<code>'no'</code>（不允许）、<code>'equiv'</code>（字节序变化）、<code>'safe'</code>（安全转换，如int→float）、<code>'same_kind'</code>（如int32→int64）、<code>'unsafe'</code>（任意，默认）</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">a = np.array([1, 2, 3])
+a.astype(np.float32)        # [1. 2. 3.] float32
+a.astype(np.complex128)     # 复数
+</code></pre>
+<p><strong>⚠️ 注意</strong>：
+- float→int会截断小数部分，不是四舍五入
+- 大范围类型转小范围可能溢出：<code>np.array([300], dtype=int16)</code> → <code>[44]</code></p>
+<hr />
+<h4 id="np-iinfo-type-np-finfo-type"><code>np.iinfo(type)</code> / <code>np.finfo(type)</code></h4>
+<p><strong>作用</strong>：查询类型的取值限制。</p>
+<p><strong>返回字段</strong>：
+- 整数：<code>.min</code>, <code>.max</code>, <code>.bits</code>
+- 浮点：<code>.min</code>（最小正正规数）, <code>.max</code>（最大有限值）, <code>.eps</code>（机器精度）, <code>.tiny</code>（最小正非零）, <code>.precision</code>（有效十进位数）</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">np.iinfo(np.int32).max     # 2147483647
+np.iinfo(np.uint8).max     # 255
+np.finfo(np.float64).eps   # 2.22e-16
+np.finfo(np.float32).eps   # 1.19e-7
+</code></pre>
+<hr />
+<h4 id="item-args"><code>.item(*args)</code></h4>
+<p><strong>作用</strong>：将单元素数组转为Python标量。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">a = np.array([42])
+a.item()       # 42 (Python int)
+a[()]          # 也可以，等价
+int(a)         # 也可以
+</code></pre>
+<p><strong>注意</strong>：对多元素数组调用 <code>.item()</code> 会报错。</p>
+<hr />
+<h4 id="tolist"><code>.tolist()</code></h4>
+<p><strong>作用</strong>：将数组转为嵌套Python列表，元素转为Python原生类型。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">np.array([1,2,3]).tolist()        # [1, 2, 3]
+np.array([[1,2],[3,4]]).tolist()  # [[1,2],[3,4]]
+</code></pre>
+<hr />
+<h3 id="2-4-形状变换详解">2.4 形状变换详解</h3>
+<h4 id="reshape-shape-order-c"><code>.reshape(*shape, order='C')</code></h4>
+<p><strong>作用</strong>：在不改变数据的前提下重新解释形状。某个维度写<code>-1</code>时自动推导。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">a = np.arange(12)
+a.reshape(3, 4)         # (3,4)
+a.reshape(3, -1)        # -1自动推导为4
+a.reshape(-1, 6)        # (2,6)
+a.reshape(2, 3, -1)     # (2,3,2)
+</code></pre>
+<p><strong>⚠️ 注意</strong>：总元素数必须不变。内存连续时返回视图，否则返回副本。</p>
+<hr />
+<h4 id="transpose-axes-t"><code>.transpose(*axes)</code> / <code>.T</code></h4>
+<p><strong>作用</strong>：调换轴顺序。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">a = np.arange(24).reshape(2,3,4)
+a.T                     # 等价于 a.transpose(2,1,0)
+a.transpose(1,0,2)      # 交换前两轴
+a.swapaxes(0, 2)        # 交换第0轴和第2轴
+</code></pre>
+<hr />
+<h4 id="np-expand_dims-a-axis"><code>np.expand_dims(a, axis)</code></h4>
+<p><strong>作用</strong>：在指定位置插入长度为1的新轴。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">a = np.array([1,2,3])          # shape (3,)
+np.expand_dims(a, axis=0)      # shape (1, 3)
+np.expand_dims(a, axis=1)      # shape (3, 1)
+a[np.newaxis, :]               # 等价于 axis=0
+a[:, np.newaxis]               # 等价于 axis=1
+</code></pre>
+<hr />
+<h4 id="np-squeeze-a-axis-none"><code>np.squeeze(a, axis=None)</code></h4>
+<p><strong>作用</strong>：移除长度为1的轴。指定axis则只移除该位置。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">a = np.zeros((1,3,1,4))
+np.squeeze(a).shape          # (3,4)，移除所有长度1轴
+np.squeeze(a, axis=0).shape  # (3,1,4)
+</code></pre>
+<hr />
+<h4 id="np-concatenate-arrays-axis-0-dtype-none"><code>np.concatenate(arrays, axis=0, dtype=None)</code></h4>
+<p><strong>作用</strong>：沿已存在的轴连接多个数组。其他轴shape必须一致。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">a = np.array([[1,2],[3,4]])
+b = np.array([[5,6]])
+np.concatenate([a, b], axis=0)  # [[1 2] [3 4] [5 6]]
+np.concatenate([a, b.T], axis=1) # 沿axis=1
+</code></pre>
+<hr />
+<h4 id="np-stack-arrays-axis-0"><code>np.stack(arrays, axis=0)</code></h4>
+<p><strong>作用</strong>：沿<strong>新</strong>轴堆叠多个数组（输入数组shape必须完全相同）。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">a = np.array([1,2,3])
+b = np.array([4,5,6])
+np.stack([a, b])         # [[1 2 3] [4 5 6]] shape(2,3)
+np.stack([a, b], axis=1) # [[1 4] [2 5] [3 6]] shape(3,2)
+</code></pre>
+<p><strong>区别</strong>：<code>concatenate</code> 在已有轴上连接；<code>stack</code> 创建新轴堆叠。<code>vstack</code>/<code>hstack</code>/<code>dstack</code>是便捷写法。</p>
+<hr />
+<h4 id="np-split-ary-indices_or_sections-axis-0"><code>np.split(ary, indices_or_sections, axis=0)</code></h4>
+<p><strong>作用</strong>：沿指定轴分割数组。</p>
+<p><strong>参数</strong>：
+- <code>indices_or_sections</code>：整数表示等分成N份；列表表示分割位置</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">a = np.arange(9)
+np.split(a, 3)                # [array([0,1,2]), array([3,4,5]), array([6,7,8])]
+np.split(a, [2,5])            # [array([0,1]), array([2,3,4]), array([5,6,7,8])]
+</code></pre>
+<hr />
+<h3 id="2-5-索引与切片详解">2.5 索引与切片详解</h3>
+<h4 id="基础索引与切片">基础索引与切片</h4>
+<pre><code class="language-python">a = np.arange(12).reshape(3, 4)
+a[1]          # 第1行，shape(4,)
+a[1, 2]       # 第1行第2列的元素（标量）
+a[-1]         # 最后一行
+a[:, 1]       # 第1列
+a[0:2, 1:3]   # 前2行、第1-2列
+a[::-1]       # 行倒序
+a[:, ::-1]    # 列倒序
+</code></pre>
+<p><strong>视图语义</strong>：基础切片<strong>返回视图</strong>，修改切片会影响原数组。</p>
+<hr />
+<h4 id="布尔索引">布尔索引</h4>
+<pre><code class="language-python">a = np.array([18, 25, 30, 15, 22])
+mask = a &gt;= 20
+print(mask)              # [False  True  True False  True]
+print(a[mask])           # [25 30 22]
+
+# 常用组合：条件赋值
+a[a &lt; 20] = 20           # 原地修改，小于20的设为20
+
+# 多条件（必须用括号和位运算符）
+a[(a &gt; 18) &amp; (a &lt; 30)]   # 且
+a[(a &lt; 18) | (a &gt; 30)]   # 或
+</code></pre>
+<p><strong>⚠️ 注意</strong>：布尔索引<strong>返回副本</strong>。必须用 <code>&amp;</code>、<code>|</code>、<code>~</code>（不是 <code>and</code>、<code>or</code>、<code>not</code>）。</p>
+<hr />
+<h4 id="花式索引-整数数组索引">花式索引（整数数组索引）</h4>
+<pre><code class="language-python">a = np.array([10,20,30,40,50])
+a[[0,2,4]]      # [10 30 50]
+a[[3,0,0]]      # [40 10 10]，可重复选
+a[np.array([0,-1])]  # 支持负数索引
+</code></pre>
+<p>多维花式索引：</p>
+<pre><code class="language-python">a = np.arange(12).reshape(3,4)
+a[[0,2], [1,3]]  # [a[0,1], a[2,3]] = [1, 11]，坐标对
+</code></pre>
+<p><strong>注意</strong>：花式索引<strong>返回副本</strong>。</p>
+<hr />
+<h4 id="np-where-condition-x-y"><code>np.where(condition, [x, y])</code></h4>
+<p><strong>作用</strong>：三参数时条件选择值；单参数时返回满足条件的索引。</p>
+<p><strong>三参数形式</strong>：</p>
+<pre><code class="language-python">a = np.array([1,2,3,4,5])
+np.where(a &gt; 3, a, 0)         # [0 0 0 4 5]
+np.where(a &gt; 3, '大', '小')   # ['小' '小' '小' '大' '大']
+</code></pre>
+<p><strong>单参数形式</strong>：</p>
+<pre><code class="language-python">np.where(a &gt; 3)     # (array([3, 4]),)，行索引（一维时）
+</code></pre>
+<hr />
+<h4 id="np-clip-a-a_min-a_max-out-none"><code>np.clip(a, a_min, a_max, out=None)</code></h4>
+<p><strong>作用</strong>：将值裁剪到 <code>[a_min, a_max]</code> 范围。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-python">np.clip([80, 200, -5, 150, 0], 0, 100)  # [ 80 100   0 100   0]
+np.clip([80, 200, -5], a_min=50, a_max=None)  # [ 80 200  50]
+</code></pre>
+<hr />
+<h4 id="np-nonzero-a-np-argwhere-a"><code>np.nonzero(a)</code> / <code>np.argwhere(a)</code></h4>
+<p><strong>作用</strong>：返回非零/满足条件元素的索引。
+- <code>nonzero</code> 返回元组，每个轴一个索引数组
+- <code>argwhere</code> 返回形状 <code>(N, ndim)</code> 的坐标数组</p>
+<pre><code class="language-python">a = np.array([[0,1,0],[2,0,3]])
+np.nonzero(a)              # (array([0,1,1]), array([1,0,2]))
+np.argwhere(a)             # [[0 1] [1 0] [1 2]]
+</code></pre>
+<hr />
+<h3 id="2-6-数学运算详解">2.6 数学运算详解</h3>
+<h4 id="逐元素运算与广播">逐元素运算与广播</h4>
+<p>所有ufunc都支持广播机制：从尾部维度开始比较，维度相等或其中之一为1即可广播。</p>
+<pre><code class="language-python"># 标量广播
+a = np.array([1,2,3])
+a + 10         # [11 12 13]
+
+# 二维与一维广播
+m = np.array([[1,2,3],[4,5,6]])
+v = np.array([10,20,30])
+m + v          # 每行加v：[[11 22 33] [14 25 36]]
+
+# 列向量与行向量广播
+col = np.array([[1],[2],[3]])     # (3,1)
+row = np.array([[10,20,30,40]])   # (1,4)
+col + row                        # (3,4)
+</code></pre>
+<h4 id="常用ufunc注意事项">常用ufunc注意事项</h4>
+<pre><code class="language-python"># 除法：用where避免除零
+num = np.array([1.0, 2.0, 3.0])
+den = np.array([2.0, 0.0, 5.0])
+result = np.zeros_like(num)
+np.divide(num, den, out=result, where=den!=0)
+# [5. 0. 6.]
+
+# log/exp注意数值范围
+np.exp(1000)   # inf，超出float64范围
+np.log(0)      # -inf
+
+# out参数避免临时分配
+result = np.empty_like(a)
+np.sqrt(a, out=result)
+</code></pre>
+<hr />
+<h3 id="2-7-聚合统计详解">2.7 聚合统计详解</h3>
+<h4 id="通用参数">通用参数</h4>
+<p>所有聚合函数都支持以下参数：
+- <code>axis</code>：指定聚合轴，None聚合所有元素
+- <code>keepdims</code>：True时保留聚合轴（长度为1），便于广播
+- <code>dtype</code>：指定累加类型（避免溢出）</p>
+<pre><code class="language-python">a = np.array([[1,2],[3,4]])
+a.sum()                  # 10
+a.sum(axis=0)            # [4 6]
+a.sum(axis=1)            # [3 7]
+a.sum(axis=0, keepdims=True)  # [[4 6]] shape(1,2)
+</code></pre>
+<h4 id="常用聚合函数">常用聚合函数</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sum</code>/<code>prod</code></td>
+<td>和/积</td>
+<td>大整数求和注意dtype溢出</td>
+</tr>
+<tr>
+<td><code>mean</code>/<code>median</code></td>
+<td>均值/中位数</td>
+<td>median会复制排序</td>
+</tr>
+<tr>
+<td><code>std</code>/<code>var</code></td>
+<td>标准差/方差</td>
+<td><code>ddof=1</code>为样本标准差</td>
+</tr>
+<tr>
+<td><code>min</code>/<code>max</code>/<code>ptp</code></td>
+<td>最小/最大/极差</td>
+<td></td>
+</tr>
+<tr>
+<td><code>argmin</code>/<code>argmax</code></td>
+<td>最值索引</td>
+<td>多维时返回展平索引</td>
+</tr>
+<tr>
+<td><code>percentile</code>/<code>quantile</code></td>
+<td>百分位数/分位数</td>
+<td><code>q</code>为0~100(percentile)或0~1(quantile)</td>
+</tr>
+<tr>
+<td><code>cumsum</code>/<code>cumprod</code></td>
+<td>累积和/积</td>
+<td>返回相同shape</td>
+</tr>
+<tr>
+<td><code>bincount</code></td>
+<td>非负整数计数</td>
+<td>输入必须非负整数</td>
+</tr>
+<tr>
+<td><code>all</code>/<code>any</code></td>
+<td>全为真/存在真</td>
+<td>常用于条件判断</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="nan安全聚合">NaN安全聚合</h4>
+<p>以 <code>nan</code> 开头的版本会忽略NaN值：</p>
+<pre><code class="language-python">a = np.array([1.0, np.nan, 3.0])
+np.mean(a)        # nan
+np.nanmean(a)     # 2.0
+# 还有 nanstd, nansum, nanmax, nanmin, nanmedian 等
+</code></pre>
+<h4 id="其他统计">其他统计</h4>
+<pre><code class="language-python">np.cov(X)               # 协方差矩阵
+np.corrcoef(X)          # 相关系数矩阵
+np.histogram(a, bins=10) # 直方图，返回(频数,边界)
+</code></pre>
+<hr />
+<h3 id="2-8-排序与集合详解">2.8 排序与集合详解</h3>
+<h4 id="排序">排序</h4>
+<pre><code class="language-python">a = np.array([3,1,4,1,5,9])
+np.sort(a)              # 返回排序副本：[1 1 3 4 5 9]
+np.argsort(a)           # 排序后原索引：[1 3 0 2 4 5]
+a[np.argsort(a)]        # 用argsort结果排序
+
+# 原地排序
+a.sort()
+
+# 按行/列排序
+m = np.array([[3,1],[2,4]])
+np.sort(m, axis=0)      # 按列排序
+np.sort(m, axis=1)      # 按行排序
+
+# 部分排序（找Top-K最快）
+np.partition(a, 3)      # 第3小位置正确，左边都更小，右边都更大（但内部无序）
+np.argpartition(a, 3)
+</code></pre>
+<h4 id="搜索">搜索</h4>
+<pre><code class="language-python">a = np.array([1,3,5,7,9])
+np.searchsorted(a, 4)   # 2，查找插入位置（数组须有序）
+np.searchsorted(a, [2,6]) # [1 3]
+</code></pre>
+<h4 id="集合操作">集合操作</h4>
+<pre><code class="language-python">a = np.array([1,2,3,3])
+b = np.array([3,4,5])
+
+np.unique(a)                    # [1 2 3] 去重
+vals, counts = np.unique(a, return_counts=True)  # [1 2 3], [2 1 1]
+np.intersect1d(a, b)            # [3] 交集
+np.union1d(a, b)                # [1 2 3 4 5] 并集
+np.setdiff1d(a, b)              # [1 2] 差集
+np.setxor1d(a, b)               # [1 2 4 5] 对称差
+np.isin([1,3,5], a)             # [ True True False] 是否在a中
+</code></pre>
+<hr />
+<h3 id="2-9-线性代数详解">2.9 线性代数详解</h3>
+<h4 id="矩阵乘法">矩阵乘法</h4>
+<pre><code class="language-python">A = np.array([[1,2],[3,4]])
+B = np.array([[5,6],[7,8]])
+
+A * B          # 逐元素乘法（Hadamard积）
+A @ B          # 矩阵乘法（推荐），等价于 np.matmul(A,B)
+np.dot(A, B)   # 二维等价于matmul；一维为点积
+</code></pre>
+<p><strong>注意</strong>：<code>*</code> 是逐元素，<code>@</code>/<code>matmul</code>/<code>dot</code> 才是矩阵乘法。</p>
+<h4 id="核心线性代数函数">核心线性代数函数</h4>
+<pre><code class="language-python"># 解线性方程组 Ax = b
+A = np.array([[2.0, 1.0], [1.0, 3.0]])
+b = np.array([8.0, 13.0])
+x = np.linalg.solve(A, b)      # 优先使用，数值稳定
+# 不要用 inv(A) @ b！
+
+# 行列式与逆
+np.linalg.det(A)               # 5.0
+inv_A = np.linalg.inv(A)
+A @ inv_A                      # 近似单位矩阵
+
+# 范数
+v = np.array([3.0, 4.0])
+np.linalg.norm(v)              # 5.0，L2范数（默认）
+np.linalg.norm(v, ord=1)       # 7.0，L1范数
+np.linalg.norm(v, ord=np.inf)  # 4.0，无穷范数（max绝对值）
+
+# 特征分解
+eigenvalues, eigenvectors = np.linalg.eig(A)
+# 对称矩阵用eigh更快更稳定
+eigvals, eigvecs = np.linalg.eigh(A)
+
+# SVD奇异值分解
+U, S, VT = np.linalg.svd(A, full_matrices=False)
+
+# 最小二乘
+x, residuals, rank, s = np.linalg.lstsq(X, y, rcond=None)
+
+# QR分解
+Q, R = np.linalg.qr(A)
+
+# Cholesky分解（A必须对称正定）
+L = np.linalg.cholesky(A)
+</code></pre>
+<h4 id="常用矩阵构造">常用矩阵构造</h4>
+<pre><code class="language-python">np.trace(A)                    # 迹（对角线之和）
+np.diag(A)                     # 提取对角线
+np.diag([1,2,3])               # 构造对角矩阵
+np.tril(A)                     # 下三角
+np.triu(A)                     # 上三角
+np.outer([1,2,3], [4,5,6])     # 外积
+np.cross([1,0,0], [0,1,0])     # 叉积：[0,0,1]
+</code></pre>
+<hr />
+<h3 id="2-10-随机数详解">2.10 随机数详解</h3>
+<blockquote>
+<p>推荐使用 <code>np.random.default_rng()</code> 创建独立生成器，避免全局状态。</p>
+</blockquote>
+<pre><code class="language-python">rng = np.random.default_rng(seed=42)  # 固定种子可复现
+
+# 基本分布
+rng.random((2,3))                    # [0,1)均匀分布
+rng.uniform(-1, 1, size=10)          # 指定范围均匀分布
+rng.integers(0, 10, size=5)          # [low, high)整数
+rng.normal(0, 1, size=1000)          # 正态分布(均值, 标准差)
+rng.standard_normal(1000)            # 标准正态(0,1)
+rng.poisson(lam=5, size=100)         # 泊松分布
+rng.exponential(scale=2, size=100)   # 指数分布
+rng.binomial(n=10, p=0.5, size=10)   # 二项分布
+rng.multivariate_normal(mean, cov, size=100)  # 多元正态
+
+# 抽样
+rng.choice([1,2,3,4], size=2, replace=False)  # 无放回
+rng.choice(['A','B'], size=100, p=[0.7,0.3])  # 加权抽样
+rng.permutation(10)                 # 0-9的排列
+rng.permutation(arr)                # 副本排列
+rng.shuffle(arr)                    # 原地打乱
+rng.permuted(arr, axis=0)           # 沿轴随机排列（副本）
+
+# 随机字节
+rng.bytes(16)                       # 16字节随机数据
+</code></pre>
+<p><strong>⚠️ 最佳实践</strong>：
+- 在程序入口创建一个 <code>rng</code>，将其作为参数传入需要随机性的函数
+- 不要在每个函数内部固定seed
+- 避免使用旧API：<code>np.random.seed()</code>、<code>np.random.rand()</code>、<code>np.random.randn()</code></p>
+<hr />
+<h3 id="2-11-文件读写详解">2.11 文件读写详解</h3>
+<pre><code class="language-python"># NumPy原生二进制（.npy/.npz）
+arr = np.arange(12).reshape(3,4)
+np.save(&quot;data.npy&quot;, arr)            # 保存单个数组
+loaded = np.load(&quot;data.npy&quot;)        # 加载
+
+np.savez(&quot;data.npz&quot;, X=arr, y=np.array([0,1,1]))  # 多数组，未压缩
+np.savez_compressed(&quot;data.npz&quot;, X=arr, y=np.array([0,1,1]))  # 压缩
+with np.load(&quot;data.npz&quot;) as data:
+    X = data[&quot;X&quot;]
+    y = data[&quot;y&quot;]
+
+# 文本（CSV/TSV等）
+np.savetxt(&quot;data.csv&quot;, arr, delimiter=&quot;,&quot;, fmt=&quot;%.3f&quot;, header=&quot;a,b,c,d&quot;)
+arr = np.loadtxt(&quot;data.csv&quot;, delimiter=&quot;,&quot;, skiprows=1)
+arr = np.genfromtxt(&quot;data.csv&quot;, delimiter=&quot;,&quot;, filling_values=0)  # 处理缺失值
+
+# 原始二进制
+arr.tofile(&quot;data.bin&quot;)
+arr = np.fromfile(&quot;data.bin&quot;, dtype=np.float64).reshape(3,4)
+
+# 内存映射（处理大于内存的数据）
+mm = np.memmap(&quot;huge.dat&quot;, dtype=np.float32, mode=&quot;w+&quot;, shape=(1_000_000, 512))
+mm[0] = 1.0           # 写入
+chunk = mm[100:200]   # 读取，按需加载
+mm.flush()            # 写回磁盘
+</code></pre>
+<p><strong>⚠️ 安全提示</strong>：加载不可信来源的 <code>.npy/.npz</code> 时，保持 <code>allow_pickle=False</code>（默认），禁用pickle。</p>
+<hr />
+<h3 id="2-12-高级实用函数详解">2.12 高级实用函数详解</h3>
+<h4 id="np-einsum-subscripts-operands-爱因斯坦求和"><code>np.einsum(subscripts, *operands)</code> — 爱因斯坦求和</h4>
+<p><strong>作用</strong>：用统一符号表达任意多维线性代数运算，极度灵活。</p>
+<pre><code class="language-python">a = np.array([1,2,3])
+b = np.array([4,5,6])
+A = np.array([[1,2],[3,4]])
+B = np.array([[5,6],[7,8]])
+
+np.einsum('i-&gt;', a)           # 求和: 6
+np.einsum('i,i-&gt;', a, b)      # 点积: 32
+np.einsum('i,j-&gt;ij', a, b)    # 外积 (3,3)
+np.einsum('ij,jk-&gt;ik', A, B)  # 矩阵乘法
+np.einsum('ii-&gt;', A)          # 迹: 5
+np.einsum('ij-&gt;ji', A)        # 转置
+</code></pre>
+<p>规则：重复索引表示相乘并求和；输出索引保留。</p>
+<hr />
+<h4 id="np-meshgrid-xi-indexing-xy"><code>np.meshgrid(*xi, indexing='xy')</code></h4>
+<p><strong>作用</strong>：生成坐标网格，用于3D绘图或函数求值。</p>
+<pre><code class="language-python">x = np.array([1,2,3])
+y = np.array([4,5])
+xx, yy = np.meshgrid(x, y)
+# xx = [[1 2 3]
+#       [1 2 3]]
+# yy = [[4 4 4]
+#       [5 5 5]]
+</code></pre>
+<hr />
+<h4 id="np-nan_to_num-x-copy-true-nan-0-0-posinf-none-neginf-none"><code>np.nan_to_num(x, copy=True, nan=0.0, posinf=None, neginf=None)</code></h4>
+<p><strong>作用</strong>：将NaN替换为0，Inf替换为大的有限值。</p>
+<pre><code class="language-python">a = np.array([1.0, np.nan, np.inf, -np.inf])
+np.nan_to_num(a)              # [ 1.00e+00  0.00e+00  1.80e+308 -1.80e+308]
+</code></pre>
+<hr />
+<h4 id="np-apply_along_axis-func1d-axis-arr-args"><code>np.apply_along_axis(func1d, axis, arr, *args)</code></h4>
+<p><strong>作用</strong>：沿指定轴对每个一维切片应用函数。</p>
+<pre><code class="language-python">a = np.array([[1,2,3],[4,5,6]])
+np.apply_along_axis(lambda x: x.max() - x.min(), axis=1, arr=a)
+# [2 2]，每行的极差
+</code></pre>
+<p><strong>注意</strong>：这不是向量化运算，本质是循环，仅为便利。</p>
+<hr />
+<h4 id="np-vectorize-pyfunc"><code>np.vectorize(pyfunc)</code></h4>
+<p><strong>作用</strong>：将Python标量函数包装为可作用于数组的ufunc。</p>
+<pre><code class="language-python">def my_func(x):
+    return x*2 if x &gt; 0 else x*3
+
+vfunc = np.vectorize(my_func)
+vfunc(np.array([-1, 0, 1, 2]))  # [-3  0  2  4]
+</code></pre>
+<p><strong>⚠️ 注意</strong>：<code>vectorize</code> 是语法糖，<strong>不提供性能提升</strong>，内部仍为Python循环。性能敏感时改写为真正的向量化表达式。</p>
+<hr />
+<h4 id="np-broadcast_to-array-shape-subok-false"><code>np.broadcast_to(array, shape, subok=False)</code></h4>
+<p><strong>作用</strong>：将数组广播到指定形状，返回只读视图。</p>
+<pre><code class="language-python">a = np.array([1,2,3])
+np.broadcast_to(a, (2,3))  # [[1 2 3] [1 2 3]]
+</code></pre>
+<hr />
+<h4 id="np-allclose-a-b-rtol-1e-05-atol-1e-08-np-isclose-a-b"><code>np.allclose(a, b, rtol=1e-05, atol=1e-08)</code> / <code>np.isclose(a, b, ...)</code></h4>
+<p><strong>作用</strong>：浮点近似相等比较。</p>
+<ul>
+<li><code>|a - b| ≤ atol + rtol * |b|</code></li>
+<li><code>isclose</code> 返回布尔数组，<code>allclose</code> 返回单个布尔</li>
+</ul>
+<pre><code class="language-python">0.1 + 0.2 == 0.3                  # False
+np.allclose(0.1+0.2, 0.3)         # True
+</code></pre>
+<p><strong>⚠️ 永远不要用 <code>==</code> 比较浮点数。</strong></p>
+<hr />
+<h4 id="打印控制">打印控制</h4>
+<pre><code class="language-python">np.set_printoptions(
+    precision=3,           # 小数位数
+    suppress=True,         # 禁用科学计数法
+    linewidth=120,         # 每行字符数
+    threshold=1000,        # 超过多少元素省略显示
+    edgeitems=3,           # 省略时两端显示几个
+)
+</code></pre>
+<hr />
+<h2 id="三-常用数据类型速查">三、常用数据类型速查</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>字节</th>
+<th>范围/精度</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bool_</code></td>
+<td>1</td>
+<td>True/False</td>
+<td>掩码、条件</td>
+</tr>
+<tr>
+<td><code>int8</code></td>
+<td>1</td>
+<td>-128 ~ 127</td>
+<td>图像像素、小整数</td>
+</tr>
+<tr>
+<td><code>int16</code></td>
+<td>2</td>
+<td>-32768 ~ 32767</td>
+<td>音频采样</td>
+</tr>
+<tr>
+<td><code>int32</code></td>
+<td>4</td>
+<td>-2³¹ ~ 2³¹-1</td>
+<td>索引、一般整数</td>
+</tr>
+<tr>
+<td><code>int64</code></td>
+<td>8</td>
+<td>-2⁶³ ~ 2⁶³-1</td>
+<td>大整数计数、ID</td>
+</tr>
+<tr>
+<td><code>uint8/16/32/64</code></td>
+<td>1/2/4/8</td>
+<td>0 ~ 2^n-1</td>
+<td>非负数据、位运算</td>
+</tr>
+<tr>
+<td><code>float16</code></td>
+<td>2</td>
+<td>~3位十进制精度</td>
+<td>深度学习混合精度</td>
+</tr>
+<tr>
+<td><code>float32</code></td>
+<td>4</td>
+<td>~7位十进制精度</td>
+<td>深度学习、图像、GPU计算</td>
+</tr>
+<tr>
+<td><code>float64</code></td>
+<td>8</td>
+<td>~16位十进制精度</td>
+<td>科学计算默认</td>
+</tr>
+<tr>
+<td><code>complex64</code></td>
+<td>8</td>
+<td>两个float32</td>
+<td>频域信号处理</td>
+</tr>
+<tr>
+<td><code>complex128</code></td>
+<td>16</td>
+<td>两个float64</td>
+<td>科学计算复数</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>类型选择建议</strong>：
+- 索引和计数：<code>int64</code>（或平台相关的 <code>intp</code>）
+- 通用科学计算：<code>float64</code>（默认）
+- 深度学习/大量数据：<code>float32</code>（节省内存，GPU更快）
+- 图像/音频：<code>uint8</code>/<code>int16</code></p>
+<hr />
+<h2 id="四-广播规则速记">四、广播规则速记</h2>
+<p>广播三规则（从后往前比较维度）：
+1. 维度数不同时，短的shape在左侧补1
+2. 任一维度为1时，沿该维度复制以匹配
+3. 维度既不相等也不为1时报错</p>
+<pre><code class="language-text">(3,)      → 可广播到 (2,3)、(1,3)、(3,)
+(3,1)     → 可广播到 (3,4)、(2,3,4)
+(2,3)     → 可广播到 (1,2,3)、(5,2,3)
+(3,4)+(4,)→ ✓ (4)视为(1,4)→广播到(3,4)
+(2,3)+(3,2)→ ✗ 尾部维度既不等也不为1
+</code></pre>
+<hr />
+<h2 id="五-常见错误与陷阱">五、常见错误与陷阱</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>错误现象</th>
+<th>原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>a * b</code> 结果不对</td>
+<td><code>*</code> 是逐元素乘</td>
+<td>矩阵乘用 <code>@</code></td>
+</tr>
+<tr>
+<td>修改切片原数组变了</td>
+<td>切片是视图共享内存</td>
+<td>需要隔离用 <code>.copy()</code></td>
+</tr>
+<tr>
+<td>浮点相等判断为False</td>
+<td>二进制浮点精度有限</td>
+<td>用 <code>np.allclose</code>/<code>np.isclose</code></td>
+</tr>
+<tr>
+<td>整数溢出无声出错</td>
+<td>dtype范围不够</td>
+<td>用更宽的类型（如int32→int64）</td>
+</tr>
+<tr>
+<td>广播报错</td>
+<td>shape不兼容</td>
+<td>检查shape，用 <code>newaxis</code>/<code>keepdims</code> 调整</td>
+</tr>
+<tr>
+<td><code>np.append</code> 很慢</td>
+<td>每次都复制整个数组</td>
+<td>预分配或先存list最后转array</td>
+</tr>
+<tr>
+<td><code>arange(0,1,0.1)</code> 长度不对</td>
+<td>浮点步长累积误差</td>
+<td>用 <code>linspace</code></td>
+</tr>
+<tr>
+<td>布尔索引用<code>and/or/not</code>报错</td>
+<td>Python关键字无法重载</td>
+<td>用 <code>&amp;</code>/<code>|</code>/<code>~</code> 并加括号</td>
+</tr>
+<tr>
+<td>修改切片副本Warning</td>
+<td>链式索引如 <code>a[a&gt;0][0]=1</code></td>
+<td>一次性索引 <code>a[a&gt;0] = 1</code></td>
+</tr>
+<tr>
+<td><code>np.nan == np.nan</code> 为False</td>
+<td>NaN不等于任何值包括自己</td>
+<td>用 <code>np.isnan()</code> 判断</td>
+</tr>
+<tr>
+<td>视图修改导致数据错乱</td>
+<td><code>ravel()</code>/<code>reshape</code>可能返回视图</td>
+<td>不确定时用 <code>.copy()</code> 保证独立</td>
+</tr>
+<tr>
+<td><code>load</code>时pickle错误</td>
+<td>默认禁用pickle防安全风险</td>
+<td>受信任来源才设 <code>allow_pickle=True</code></td>
+</tr>
+</tbody>
+</table></div></div>
+      <nav class="post-pager" aria-label="上下篇"><a class="pager-link" href="index.html"><em>上一篇</em><b>Python</b></a><a class="pager-link next" href="NumPy%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html"><em>下一篇</em><b>NumPy 使用指南：从 ndarray 到数值计算实践</b></a></nav>
+    </article>
+  </main>
+</div>
+<footer class="blog-foot">
+  <div class="wrap foot-inner">
+    <span>© 2026 逐梦笔记 · 由 <code>scripts/build_blog.py</code> 从 docs/ 自动生成</span>
+    <span>内容来源：<a href="https://github.com/ShiQianzhi/note" target="_blank" rel="noopener noreferrer">ShiQianzhi/note</a> · 同步于 2026-11-26</span>
+  </div>
+</footer>
+<script src="../../../blog.js"></script>
+</body>
+</html>

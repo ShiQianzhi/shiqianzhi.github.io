@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第5章：Service 与网络通信 · 逐梦笔记</title>
+<meta name="description" content="学习目标">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../../../../blog.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="../../../../../index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../../../../../index.html">首页</a>
+      <div class="nav-drop">
+        <a href="../../../../../knowledge.html">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="../../../../../knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="../../../../../knowledge.html#domains">五大知识域</a>
+          <a href="../../../../../knowledge.html#cross">交叉与前沿</a>
+          <a href="../../../../../knowledge.html#axes">三条贯穿轴</a>
+          <a href="../../../../../knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="../../../../../career.html">世界职业体系</a>
+      <a href="../../../../index.html" class="active">博客</a>
+      <a class="nav-cta" href="../../../../../knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-wrap">
+  
+    <aside class="blog-side">
+      <div class="side-head">
+        <a class="blog-brand" href="../../../../index.html">逐梦笔记<span>NOTES</span></a>
+        <button class="side-toggle" id="sideToggle" aria-expanded="false" aria-controls="sideBody">目录</button>
+      </div>
+      <div class="side-body" id="sideBody">
+        <div class="tree-search">
+          <input id="treeQ" type="search" placeholder="筛选 197 篇笔记…" aria-label="筛选笔记">
+        </div>
+        <nav class="tree" aria-label="博客目录"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI创作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI短剧制作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI写周报，把我写成了公司CEO</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E5%86%99%E5%91%A8%E6%8A%A5%EF%BC%8C%E6%8A%8A%E6%88%91%E5%86%99%E6%88%90%E4%BA%86%E5%85%AC%E5%8F%B8CEO/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI的最后一活</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%B4%BB/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><a class="tree-link" href="../../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%9B%E4%BD%9C%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html" title="AI 短剧创作保姆级教程：从一个想法到成片发布">AI 短剧创作保姆级教程：从一个想法到成片发布</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人生感悟</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/%E5%9C%A8%E5%89%A7%E5%8F%98%E4%B8%AD%E5%AF%BB%E8%B7%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8AI%E6%B5%AA%E6%BD%AE%E4%B8%8B%E6%8A%93%E4%BD%8F%E6%9C%BA%E9%81%87.html" title="在剧变中寻路：如何在 AI 浪潮下抓住机遇">在剧变中寻路：如何在 AI 浪潮下抓住机遇</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础学科</span><span class="tree-count">22</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数学</span><span class="tree-count">13</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">初等代数</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5.html" title="数的概念">数的概念</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E7%B1%BB%E5%88%AB.html" title="数的类别">数的类别</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E9%87%8F.html" title="数量">数量</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性代数</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F.html" title="向量（Vector）：从几何箭头到 AI 数据表示">向量（Vector）：从几何箭头到 AI 数据表示</a></div></details><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%8C%87%E6%95%B0%E8%BF%90%E7%AE%97.html" title="什么是指数运算">什么是指数运算</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%85%B3%E7%B3%BB.html" title="什么是线性关系">什么是线性关系</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%87%A0%E4%BD%95%E5%85%A5%E9%97%A8.html" title="几何入门">几何入门</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97.html" title="四则运算">四则运算</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9F%BA%E6%9C%AC%E4%BB%A3%E6%95%B0.html" title="基本代数">基本代数</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E6%95%B0%E5%AD%A6.html" title="如何学习数学">如何学习数学</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%9A%E4%BB%8E0%E5%88%B0%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6.html" title="数学学习路线图：从0到高等数学">数学学习路线图：从0到高等数学</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E8%A1%A8%E7%A4%BA.html" title="数的分类与表示">数的分类与表示</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%AE%97%E6%9C%AF%E5%9F%BA%E7%A1%80.html" title="算术基础">算术基础</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">物理</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E4%BB%8E%E5%BE%AE%E8%A7%82%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E7%89%A9%E8%B4%A8%EF%BC%9A%E5%8E%9F%E5%AD%90%E3%80%81%E7%B2%92%E5%AD%90%E4%B8%8E%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8.html" title="从微观角度理解物质：原子、粒子与相互作用">从微观角度理解物质：原子、粒子与相互作用</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%89%A9%E8%B4%A8%E5%92%8C%E8%83%BD%E9%87%8F%E7%9A%84%E5%85%B3%E7%B3%BB.html" title="物质和能量的关系">物质和能量的关系</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%90%86%E8%A7%A3%E7%94%B5%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%89%A9%E7%90%86%E5%9F%BA%E7%A1%80.html" title="理解电必须掌握的物理基础">理解电必须掌握的物理基础</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E%E5%8E%86%E5%8F%B2%E5%88%B0%E6%9C%AC%E8%B4%A8.html" title="电是什么：从历史到本质">电是什么：从历史到本质</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.html" title="电的原理与应用场景">电的原理与应用场景</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%A3%81%EF%BC%9A%E4%BB%8E%E7%94%B5%E5%9C%BA%E7%A3%81%E5%9C%BA%E5%88%B0%E7%94%B5%E7%A3%81%E6%B3%A2.html" title="电磁：从电场磁场到电磁波">电磁：从电场磁场到电磁波</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">语言</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">英语</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="英语学习笔记">英语学习笔记</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95.html" title="英语语法">英语语法</a></div></details><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%AF%AD%E6%B3%95.html" title="语法">语法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">心情随笔</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/%E5%85%AD%E7%A7%8D%E5%80%BC%E5%BE%97%E7%BB%93%E4%BA%A4%E4%B8%80%E8%BE%88%E5%AD%90%E7%9A%84%E4%BA%BA.html" title="六种值得结交一辈子的人">六种值得结交一辈子的人</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">生活常识</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">买房攻略</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98.html" title="下面是我总结了买房相关常见问题：">下面是我总结了买房相关常见问题：</a><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5.html" title="买房攻略">买房攻略</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">考驾照</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E8%80%83%E9%A9%BE%E7%85%A7/%E7%A7%91%E7%9B%AE%E4%B8%80.html" title="科目一刷题笔记">科目一刷题笔记</a></div></details><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E5%90%84%E8%A1%8C%E4%B8%9A%E5%85%A8%E6%99%AF%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%AE%9A%E4%B9%89%E3%80%81%E7%8E%B0%E7%8A%B6%E4%B8%8EAI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%9C%AA%E6%9D%A5.html" title="各行业全景解析：定义、现状与 AI 时代的未来">各行业全景解析：定义、现状与 AI 时代的未来</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">计算机科学</span><span class="tree-count">160</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Agent 开发</span><span class="tree-count">11</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">docs</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">superpowers</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">specs</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/docs/superpowers/specs/2026-11-06-enterprise-agent-course-design.html" title="企业级 Agent 混合架构课程设计">企业级 Agent 混合架构课程设计</a></div></details></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">learning-records</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0001-python-worker-first.html" title="Learning Record 0001: Python Agent Worker First">Learning Record 0001: Python Agent Worker First</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0002-agent-state-checkpoint-recovery.html" title="Learning Record 0002: Agent State and Checkpoint Recovery">Learning Record 0002: Agent State and Checkpoint Recovery</a></div></details><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/Agent%20%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="Agent 开发学习路线">Agent 开发学习路线</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/Agent%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.html" title="Agent开发核心知识点">Agent开发核心知识点</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/Go-Python%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BD%ACAgent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B.html" title="Go/Python 后端工程师转 Agent 开发实战教程">Go/Python 后端工程师转 Agent 开发实战教程</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/MISSION.html" title="Mission: 从 Python Agent Worker 学会企业级 Agent 开发">Mission: 从 Python Agent Worker 学会企业级 Agent 开发</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/RAG.html" title="RAG">RAG</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/RAG%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%A6%E7%BB%86%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html" title="RAG系统的详细工作流程">RAG系统的详细工作流程</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E9%AB%98%E5%B9%B6%E5%8F%91%E4%BC%81%E4%B8%9A%E7%BA%A7Agent%E7%B3%BB%E7%BB%9F%E6%95%99%E7%A8%8B.html" title="从零搭建高并发企业级 Agent 系统教程">从零搭建高并发企业级 Agent 系统教程</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/RESOURCES.html" title="企业级 Agent 开发资源">企业级 Agent 开发资源</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人工智能</span><span class="tree-count">33</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI行业基础知识相关概念</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAI.html" title="什么是 AI">什么是 AI</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAIGC.html" title="什么是 AIGC">什么是 AIGC</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAgent.html" title="什么是 Agent">什么是 Agent</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG">什么是 RAG</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE.html" title="什么是向量数据">什么是向量数据</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是大模型">什么是大模型</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是语言大模型">什么是语言大模型</a></div></details><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93.html" title="AI 学习笔记总结">AI 学习笔记总结</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E5%BA%94%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="AI 应用工程师从入门到实战的最佳学习路线">AI 应用工程师从入门到实战的最佳学习路线</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Chroma%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Chroma 入门手册：从零上手最轻量的向量数据库">Chroma 入门手册：从零上手最轻量的向量数据库</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/LangChain%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="LangChain 入门手册：用搭积木的方式编排大模型应用">LangChain 入门手册：用搭积木的方式编排大模型应用</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Transformer%20%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.html" title="Transformer 注意力机制详解">Transformer 注意力机制详解</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BB%8B%E7%BB%8D.html" title="人工智能介绍">人工智能介绍</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%A6%E7%90%86%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="人工智能伦理与安全">人工智能伦理与安全</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG：检索增强生成从原理到实战">什么是 RAG：检索增强生成从原理到实战</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%8D%E5%90%91%E9%87%8F.html" title="什么是词向量">什么是词向量</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BANLP%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html" title="从零搭建NLP模型完全指南">从零搭建NLP模型完全指南</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%85%B3%E4%BA%8EAI%E7%9A%84%E7%95%85%E6%83%B3%E5%92%8C%E6%80%9D%E8%80%83.html" title="关于AI的畅想和思考">关于AI的畅想和思考</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%80%85AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师">后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93.html" title="向量数据库：语义搜索的存储与检索引擎">向量数据库：语义搜索的存储与检索引擎</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BA%B2.html" title="大模型应用实战知识总纲">大模型应用实战知识总纲</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAAgent.html" title="如何搭建一个 Agent">如何搭建一个 Agent</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="学习笔记">学习笔记</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html" title="强化学习">强化学习</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%96%87%E6%9C%AC%E6%98%AF%E5%A6%82%E4%BD%95%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E7%9A%84.html" title="文本是如何变成向量的：Embedding 推理管线全解析">文本是如何变成向量的：Embedding 推理管线全解析</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html" title="机器学习-线性回归">机器学习-线性回归</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="机器学习基础">机器学习基础</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="深度学习基础">深度学习基础</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html" title="神经网络">神经网络</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Agent%20%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="网页版知识库 Agent 搭建实战">网页版知识库 Agent 搭建实战</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86.html" title="自然语言处理">自然语言处理</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89.html" title="计算机视觉">计算机视觉</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E9%AB%98%E7%BB%B4%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%91%E9%87%8F%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%90%91%E9%87%8D%E5%BB%BA.html" title="高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容">高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础知识</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/DNS.html" title="DNS：从域名到 IP 地址的分布式解析系统">DNS：从域名到 IP 地址的分布式解析系统</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/HTTP.html" title="HTTP：从一次请求到现代 Web 传输体系">HTTP：从一次请求到现代 Web 传输体系</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84.html" title="互联网是如何工作的">互联网是如何工作的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%9F%E7%90%86.html" title="操作系统的原理">操作系统的原理</a><a class="tree-link" href="../../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F.html" title="深入理解计算机系统">深入理解计算机系统</a><a class="tree-link" href="../../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84.html" title="计算机是如何编码数据的">计算机是如何编码数据的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">8</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Elasticsearch</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/%E5%AE%89%E8%A3%85.html" title="创建网络">创建网络</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MongoDB</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念">基本概念</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%AE%89%E8%A3%85mongodb.html" title="安装mongodb">安装mongodb</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" title="数据库不存在会自动创建">数据库不存在会自动创建</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MySQL</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%9E%B6%E6%9E%84.html" title="MySQL 架构">MySQL 架构</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="MySQL数据库知识大纲">MySQL数据库知识大纲</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.html" title="存储引擎">存储引擎</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E7%B4%A2%E5%BC%95.html" title="索引">索引</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构与算法</span><span class="tree-count">10</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构</span><span class="tree-count">6</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数组和字符串</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C.html" title="数组的操作">数组的操作</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%A6%82%E8%BF%B0.html" title="概述">概述</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">树</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/%E6%A0%91.html" title="树">树</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性表</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8.html" title="线性表">线性表</a></div></details><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD.html" title="基本概念和术语">基本概念和术语</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E5%92%8C%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84.html" title="逻辑结构和物理结构">逻辑结构和物理结构</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">算法</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/K-Means.html" title="K-Means 聚类算法">K-Means 聚类算法</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97%E8%AF%A6%E8%A7%A3.html" title="位运算详解">位运算详解</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95.html" title="算法效率分析方法">算法效率分析方法</a></div></details></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">编程笔记</span><span class="tree-count">54</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C 语言学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../C%20%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="此时会生成 a.out（windows 会生成 a.exe）">此时会生成 a.out（windows 会生成 a.exe）</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Docker</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Docker/docker%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Docker 入门手册：编写 Dockerfile、构建镜像与容器管理">Docker 入门手册：编写 Dockerfile、构建镜像与容器管理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言之旅</span><span class="tree-count">12</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架源码剖析</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Gin%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Gin%20%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Gin%E6%A1%86%E6%9E%B6%E5%BC%95%E6%93%8E%E5%AE%9E%E4%BE%8B.html" title="深入理解Gin框架引擎实例">深入理解Gin框架引擎实例</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言设计与实现</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%BA%90%E4%BB%A3%E7%A0%81.html" title="自己需要那个版本的 Go 标签，就用那个">自己需要那个版本的 Go 标签，就用那个</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言高级开发工程</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html" title="Go 单元测试">Go 单元测试</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E9%98%B6%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7.html" title="Go 语言高阶实战技巧">Go 语言高阶实战技巧</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Lua</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Lua/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BLua%E8%84%9A%E6%9C%AC.html" title="&quot;Hello, scripting!&quot;">&quot;Hello, scripting!&quot;</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">kubernetes</span><span class="tree-count">17</span></summary><div class="tree-children"><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">从入门到实战</span><span class="tree-count">16</span></summary><div class="tree-children"><a class="tree-link" href="K8s%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2.html" title="Kubernetes 从入门到实战：完整知识学习大纲">Kubernetes 从入门到实战：完整知识学习大纲</a><a class="tree-link" href="%E7%AC%AC10%E7%AB%A0-Ingress%E4%B8%8E%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1.html" title="第10章：Ingress 与流量路由">第10章：Ingress 与流量路由</a><a class="tree-link" href="%E7%AC%AC11%E7%AB%A0-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%9B%E9%98%B6.html" title="第11章 控制器进阶">第11章 控制器进阶</a><a class="tree-link" href="%E7%AC%AC12%E7%AB%A0-RBAC%E6%9D%83%E9%99%90%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="第12章 RBAC 权限与安全">第12章 RBAC 权限与安全</a><a class="tree-link" href="%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html" title="第13章 监控日志与可观测性">第13章 监控日志与可观测性</a><a class="tree-link" href="%E7%AC%AC14%E7%AB%A0-Helm%E5%8C%85%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第14章 Helm 包管理与应用部署">第14章 Helm 包管理与应用部署</a><a class="tree-link" href="%E7%AC%AC15%E7%AB%A0-%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98-%E5%AE%8C%E6%95%B4%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2.html" title="第15章 综合实战：完整微服务项目部署">第15章 综合实战：完整微服务项目部署</a><a class="tree-link" href="%E7%AC%AC1%E7%AB%A0-K8s%E6%A6%82%E8%BF%B0%E4%B8%8E%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3.html" title="第1章 K8s 概述与架构理解">第1章 K8s 概述与架构理解</a><a class="tree-link" href="%E7%AC%AC2%E7%AB%A0-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="第2章 环境搭建实战">第2章 环境搭建实战</a><a class="tree-link" href="%E7%AC%AC3%E7%AB%A0-Pod%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E6%88%98.html" title="第3章 Pod 核心概念与实战">第3章 Pod 核心概念与实战</a><a class="tree-link" href="%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第4章 Deployment 与应用部署">第4章 Deployment 与应用部署</a><a class="tree-link active" href="%E7%AC%AC5%E7%AB%A0-Service%E4%B8%8E%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1.html" title="第5章：Service 与网络通信">第5章：Service 与网络通信</a><a class="tree-link" href="%E7%AC%AC6%E7%AB%A0-ConfigMap%E4%B8%8ESecret%E7%AE%A1%E7%90%86.html" title="第6章：ConfigMap 与 Secret 管理">第6章：ConfigMap 与 Secret 管理</a><a class="tree-link" href="%E7%AC%AC7%E7%AB%A0-Volume%E4%B8%8E%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8.html" title="第7章：Volume 与持久化存储">第7章：Volume 与持久化存储</a><a class="tree-link" href="%E7%AC%AC8%E7%AB%A0-Namespace%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.html" title="第8章：Namespace 与资源管理">第8章：Namespace 与资源管理</a><a class="tree-link" href="%E7%AC%AC9%E7%AB%A0-%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6%E4%B8%8E%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86.html" title="第9章：调度机制与节点管理">第9章：调度机制与节点管理</a></div></details><a class="tree-link" href="../HPA%E5%92%8CVPA%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="HPA 和 VPA 的区别">HPA 和 VPA 的区别</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">其他</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%85%B6%E4%BB%96/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80UML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="统一建模语言UML学习笔记">统一建模语言UML学习笔记</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Linux</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Centos</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/yum.html" title="yum">yum</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/CentosStream8%20%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html" title="刷新配置">刷新配置</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/Centos7.9%20%E5%AE%89%E8%A3%85%20node20%20%E5%AE%9E%E6%88%98.html" title="安装 nvm">安装 nvm</a></div></details><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86.html" title="查看文件的大小">查看文件的大小</a></div></details><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">mysql</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%AE%89%E8%A3%85mysql.html" title="CentOS Linux release 8.5.2111">CentOS Linux release 8.5.2111</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E4%BB%80%E4%B9%88%E6%98%AFmysql.html" title="什么是mysql">什么是mysql</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.html" title="注意不同的密码验证策略要求密码复杂度不一样。">注意不同的密码验证策略要求密码复杂度不一样。</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">缓存</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%93%E5%AD%98/redis%20%E7%BC%93%E5%AD%98%E5%AE%9E%E6%88%98.html" title="redis 缓存实战">redis 缓存实战</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">软件开发与设计规范</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/%E6%8C%87%E5%AF%BC%E6%80%9D%E6%83%B3.html" title="指导思想">指导思想</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">领域驱动设计</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E4%BB%80%E4%B9%88%E6%98%AFDDD.html" title="什么是DDD">什么是DDD</a><a class="tree-link" href="../../%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E5%89%8D%E8%A8%80.html" title="前言">前言</a></div></details><a class="tree-link" href="../../Cookie%20%E8%AF%A6%E8%A7%A3.html" title="Cookie 详解">Cookie 详解</a><a class="tree-link" href="../../JWT%E8%AF%A6%E8%A7%A3.html" title="JWT 详解">JWT 详解</a><a class="tree-link" href="../../Raft%20%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3.html" title="Raft 协议详解">Raft 协议详解</a><a class="tree-link" href="../../WebRTC%20%E5%BA%95%E5%B1%82%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.html" title="WebRTC 底层工作原理详解">WebRTC 底层工作原理详解</a><a class="tree-link" href="../../curl%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="curl 使用手册">curl 使用手册</a><a class="tree-link" href="../../Git%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" title="克隆指定分支">克隆指定分支</a><a class="tree-link" href="../../%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95.html" title="分布式一致性算法">分布式一致性算法</a><a class="tree-link" href="../../%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="学习路线">学习路线</a><a class="tree-link" href="../../%E6%90%AD%E5%BB%BA%20Conda%20%2B%20Jupyter%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" title="搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南">搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程语言</span><span class="tree-count">18</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/C%20%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="C 语言快速入门">C 语言快速入门</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20benchmark%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go Benchmark 最佳实战">Go Benchmark 最佳实战</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20pprof%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go pprof 最佳实战：从开发诊断到生产调优">Go pprof 最佳实战：从开发诊断到生产调优</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5.html" title="Go 底层原理与工程化实践">Go 底层原理与工程化实践</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码">Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E8%AF%AD%E8%A8%80%E9%AB%98%E6%95%88%E7%BC%96%E7%A8%8B%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8C%96.html" title="Go 语言高效编程：原理、可观测性与优化">Go 语言高效编程：原理、可观测性与优化</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A.html" title="Go开发工程师必知必会">Go开发工程师必知必会</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Python</span><span class="tree-count">8</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="NumPy 使用手册">NumPy 使用手册</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="NumPy 使用指南：从 ndarray 到数值计算实践">NumPy 使用指南：从 ndarray 到数值计算实践</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Pandas%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="Pandas 使用指南：从 Series/DataFrame 到数据分析实践">Pandas 使用指南：从 Series/DataFrame 到数据分析实践</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html" title="Python 异步编程：从原理到实战">Python 异步编程：从原理到实战</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="Python 快速入门">Python 快速入门</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Decorator%EF%BC%89%E6%80%BB%E7%BB%93.html" title="Python 装饰器（Decorator）总结">Python 装饰器（Decorator）总结</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E8%AE%A4%E8%AF%86Python.html" title="认识Python">认识Python</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%40staticmethod%20%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="静态方法是类的属性">静态方法是类的属性</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Rust</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Rust 入门手册：面向 Go 与 Python 开发者">Rust 入门手册：面向 Go 与 Python 开发者</a></div></details><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E7%A8%8B%E5%BA%8F%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86.html" title="程序底层执行原理：从一行源码到进程退出">程序底层执行原理：从一行源码到进程退出</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88.html" title="计算机科学与编程十万个为什么">计算机科学与编程十万个为什么</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机组成原理</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%BC%96%E7%A0%81.html" title="《编码》：从手电筒到计算机">《编码》：从手电筒到计算机</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%98%BE%E7%A4%BA%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="显示器的工作原理">显示器的工作原理</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%99%B6%E4%BD%93%E7%AE%A1.html" title="晶体管：小学生也能看懂的计算机“小开关”">晶体管：小学生也能看懂的计算机“小开关”</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84.html" title="程序是如何执行的">程序是如何执行的</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.html" title="计算机底层原理：程序、数据与网络如何从 0 到 1 运转">计算机底层原理：程序、数据与网络如何从 0 到 1 运转</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html" title="计算机组成">计算机组成</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="计算机组成原理">计算机组成原理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机网络</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BATCP-IP%E5%8D%8F%E8%AE%AE.html" title="深入浅出TCP-IP协议">深入浅出TCP-IP协议</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20OSI.html" title="计算机网络 - OSI">计算机网络 - OSI</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html" title="计算机网络 - 概述">计算机网络 - 概述</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="计算机网络工作原理：从输入 URL 到数据跨越互联网">计算机网络工作原理：从输入 URL 到数据跨越互联网</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">高性能服务设计与实现</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1.html" title="什么是高性能服务">什么是高性能服务</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88.html" title="后端服务安全方案">后端服务安全方案</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%AF%B4%E6%98%8E.html" title="后端服务性能指标体系">后端服务性能指标体系</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E7%99%BE%E4%B8%87%E7%BA%A7QPS%20API%E7%BD%91%E5%85%B3%E8%AE%BE%E8%AE%A1.html" title="如何设计一个支持百万级 QPS 的 API 网关">如何设计一个支持百万级 QPS 的 API 网关</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%99%90%E6%B5%81%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1.html" title="限流方案设计">限流方案设计</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%20Agent%20%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="高性能 Agent 服务架构设计与实现">高性能 Agent 服务架构设计与实现</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8F%AF%E8%A1%8C%E6%80%A7%E6%96%B9%E6%A1%88.html" title="高性能服务架构可行性方案">高性能服务架构可行性方案</a></div></details><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E5%A4%A7%E7%BA%B2.html" title="计算机知识学习先后顺序大纲">计算机知识学习先后顺序大纲</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="计算机科学知识大纲">计算机科学知识大纲</a></div></details><div class="tree-label">散篇</div><a class="tree-link" href="../../../../TODO.html" title="TODO">TODO</a><a class="tree-link" href="../../../../%E4%B8%AA%E4%BA%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E9%87%8D%E9%93%B8%E8%AE%A1%E5%88%92.html" title="个人基础知识重铸计划">个人基础知识重铸计划</a><a class="tree-link" href="../../../../%E5%8F%A5%E5%AD%90.html" title="句子">句子</a><a class="tree-link" href="../../../../%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E5%AD%A6%E4%B9%A0.html" title="如何高效的学习">如何高效的学习</a><a class="tree-link" href="../../../../%E6%97%B6%E9%97%B4%E8%83%B6%E5%9B%8A.html" title="时间胶囊">时间胶囊</a><a class="tree-link" href="../../../../%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA.html" title="网站导航">网站导航</a></nav>
+      </div>
+    </aside>
+  <main class="blog-main">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../../../../index.html">博客</a><span>/</span><span>计算机科学</span><span>/</span><span>编程笔记</span><span>/</span><span>kubernetes</span><span>/</span><span>从入门到实战</span><span>/</span><span>第5章：Service 与网络通信</span></nav>
+    <article class="post">
+      <header class="post-head">
+        <div class="post-kicker">计算机科学 / 编程笔记 / kubernetes / 从入门到实战</div>
+        <h1>第5章：Service 与网络通信</h1>
+        <div class="post-meta"><span>计算机科学/编程笔记/kubernetes/从入门到实战/第5章-Service与网络通信.md</span><span>约 2,492 字</span></div>
+      </header>
+      <div class="prose"><h2 id="学习目标">学习目标</h2>
+<p>完成本章学习后，你将能够：</p>
+<ol>
+<li>理解 Service 的核心作用：为什么 Pod 之上还需要 Service</li>
+<li>掌握 Service 的四种类型及其适用场景</li>
+<li>编写完整的 Service YAML 配置文件</li>
+<li>理解 Service 与 Pod 的连接机制（Label Selector + Endpoints）</li>
+<li>配置 Service 的会话亲和性</li>
+<li>创建无头服务（Headless Service）并理解其在 StatefulSet 中的应用</li>
+<li>了解 K8s 网络模型和 kube-proxy 工作模式</li>
+<li>通过实战掌握 Service 的创建、调试和使用</li>
+</ol>
+<hr />
+<h2 id="5-1-service-核心概念">5.1 Service 核心概念</h2>
+<h3 id="5-1-1-为什么需要-service">5.1.1 为什么需要 Service</h3>
+<p>在 K8s 中，Pod 是临时的、会变化的：</p>
+<ul>
+<li><strong>Pod IP 会变</strong>：Pod 随时可能被销毁和重建，每次重建都会获得新的 IP 地址</li>
+<li><strong>Pod 数量会变</strong>：Deployment 可以动态扩缩容，Pod 副本数量不固定</li>
+<li><strong>Pod 本身不稳定</strong>：Pod 是易失性资源，不适合直接作为访问入口</li>
+</ul>
+<pre><code>传统方式的问题：
+客户端 → Pod IP (10.244.1.5)  ← Pod 挂了就访问不到了！
+
+Service 提供的解决方案：
+客户端 → Service IP (10.96.0.100) → 后端 Pods  ← 稳定可靠
+</code></pre>
+<p><strong>Service 的核心作用</strong>：为一组 Pod 提供统一的、稳定的访问入口。Service IP 不会改变，后端的 Pod 可以任意变化。</p>
+<h3 id="5-1-2-service-的工作原理">5.1.2 Service 的工作原理</h3>
+<pre><code>                    ┌─────────────────────┐
+                    │    Service (VIP)    │
+                    │   10.96.100.100:80  │
+                    └──────────┬──────────┘
+                               │ 负载均衡
+              ┌────────────────┼────────────────┐
+              ▼                ▼                ▼
+        ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+        │   Pod-1     │ │   Pod-2     │ │   Pod-3     │
+        │ 10.244.1.5  │ │ 10.244.2.7  │ │ 10.244.3.9  │
+        └─────────────┘ └─────────────┘ └─────────────┘
+            (Running)      (Running)      (Running)
+</code></pre>
+<ul>
+<li>客户端请求到达 Service 的虚拟 IP（VIP）</li>
+<li>kube-proxy 将流量转发到后端健康的 Pod</li>
+<li>当 Pod 变化时，Service 自动更新后端列表</li>
+</ul>
+<hr />
+<h2 id="5-2-service-的四种类型">5.2 Service 的四种类型</h2>
+<h3 id="5-2-1-clusterip-默认类型">5.2.1 ClusterIP（默认类型）</h3>
+<p><strong>特点</strong>：只能在集群内部访问，K8s 会分配一个集群内部的虚拟 IP。</p>
+<p><strong>适用场景</strong>：
+- 微服务之间的互相调用
+- 数据库、缓存等内部服务
+- 不需要外部直接访问的服务</p>
+<p><strong>YAML 示例</strong>：</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-clusterip
+  namespace: default
+  labels:
+    app: my-app
+spec:
+  type: ClusterIP                    # 可以省略，默认就是 ClusterIP
+  selector:
+    app: my-app                      # 选择带有 app=my-app 标签的 Pod
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80                       # Service 暴露的端口
+      targetPort: 8080               # 后端 Pod 的端口
+</code></pre>
+<h3 id="5-2-2-nodeport">5.2.2 NodePort</h3>
+<p><strong>特点</strong>：在 ClusterIP 的基础上，在每个节点上开放一个端口（默认 30000-32767），外部可通过 <code>NodeIP:NodePort</code> 访问。</p>
+<p><strong>适用场景</strong>：
+- 开发测试环境快速暴露服务
+- 单节点临时访问
+- 配合外部负载均衡器使用</p>
+<p><strong>YAML 示例</strong>：</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-nodeport
+  labels:
+    app: my-app
+spec:
+  type: NodePort
+  selector:
+    app: my-app
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+      nodePort: 30080                # 可选，不指定则自动分配 30000-32767
+</code></pre>
+<p><strong>访问方式</strong>：<code>http://&lt;NodeIP&gt;:30080</code></p>
+<h3 id="5-2-3-loadbalancer">5.2.3 LoadBalancer</h3>
+<p><strong>特点</strong>：在 NodePort 的基础上，向云服务商申请一个外部负载均衡器，将流量转发到集群节点。</p>
+<p><strong>适用场景</strong>：
+- 生产环境对外暴露服务
+- 云平台（AWS、GCP、Azure）环境
+- 需要固定的外部访问 IP</p>
+<p><strong>YAML 示例</strong>：</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-loadbalancer
+  labels:
+    app: my-app
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: &quot;nlb&quot;    # AWS NLB
+    service.beta.kubernetes.io/aws-load-balancer-internal: &quot;false&quot;
+    service.beta.kubernetes.io/aws-load-balancer-scheme: &quot;internet-facing&quot;
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-app
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 8443
+</code></pre>
+<p><strong>注意</strong>：LoadBalancer 依赖云服务商的支持，裸金属环境需要额外配置（如 MetalLB）。</p>
+<h3 id="5-2-4-externalname">5.2.4 ExternalName</h3>
+<p><strong>特点</strong>：将 Service 映射到一个外部域名，不分配集群 IP。</p>
+<p><strong>适用场景</strong>：
+- 引用外部数据库
+- 跨命名空间引用服务
+- 渐进式迁移</p>
+<p><strong>YAML 示例</strong>：</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: external-db
+  labels:
+    app: my-app
+spec:
+  type: ExternalName
+  externalName: database.external-service.com    # 外部服务的 DNS 名称
+</code></pre>
+<p>四种类型对比：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>访问范围</th>
+<th>IP 分配</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ClusterIP</td>
+<td>集群内部</td>
+<td>集群虚拟 IP</td>
+<td>内部服务间通信</td>
+</tr>
+<tr>
+<td>NodePort</td>
+<td>外部（节点IP）</td>
+<td>节点端口</td>
+<td>开发测试</td>
+</tr>
+<tr>
+<td>LoadBalancer</td>
+<td>外部（LB IP）</td>
+<td>云 LB 地址</td>
+<td>生产环境</td>
+</tr>
+<tr>
+<td>ExternalName</td>
+<td>DNS 映射</td>
+<td>无 IP</td>
+<td>引用外部服务</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="5-3-service-yaml-结构详解">5.3 Service YAML 结构详解</h2>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+  namespace: default
+  labels:
+    app: web
+    tier: frontend
+  annotations:
+    description: &quot;Web frontend service&quot;
+spec:
+  # Service 类型
+  type: ClusterIP    # ClusterIP | NodePort | LoadBalancer | ExternalName
+
+  # 标签选择器：决定哪些 Pod 作为后端
+  selector:
+    app: web
+    tier: frontend
+
+  # 端口配置
+  ports:
+    - name: http              # 端口名称，便于识别
+      protocol: TCP           # 协议：TCP / UDP / SCTP
+      port: 80                # Service 对外暴露的端口
+      targetPort: 8080        # 后端 Pod 的端口
+      nodePort: 30080         # 仅 NodePort / LoadBalancer 类型使用
+
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 8443
+
+  # 会话亲和性
+  sessionAffinity: None       # None | ClientIP
+  sessionAffinityConfig:      # 可选配置
+    clientIP:
+      timeoutSeconds: 10800   # 会话保持超时时间（秒）
+
+  # 不指定 selector 时使用
+  # endpoints:
+  #   - addresses:
+  #       - ip: 10.0.0.1
+  #     ports:
+  #       - port: 8080
+
+  # 发布配置（仅 LoadBalancer）
+  # externalTrafficPolicy: Cluster   # Cluster | Local
+  # healthCheckNodePort: 30000
+</code></pre>
+<hr />
+<h2 id="5-4-service-与-pod-的连接机制">5.4 Service 与 Pod 的连接机制</h2>
+<h3 id="5-4-1-label-selector-选择后端-pod">5.4.1 Label Selector 选择后端 Pod</h3>
+<p>Service 通过 <strong>Label Selector</strong> 来匹配后端 Pod：</p>
+<pre><code class="language-yaml"># Service 定义
+spec:
+  selector:
+    app: web          # 选择 app=web 的 Pod
+    tier: frontend    # 且 tier=frontend 的 Pod
+</code></pre>
+<p><strong>匹配规则</strong>：Pod 必须同时满足所有 selector 条件才会被选中。</p>
+<pre><code>Service Selector: {app: web, tier: frontend}
+
+Pod-A: labels: {app: web, tier: frontend}    ✅ 匹配
+Pod-B: labels: {app: web, tier: backend}     ❌ 不匹配（tier 不同）
+Pod-C: labels: {app: web, tier: frontend}    ✅ 匹配
+Pod-D: labels: {app: api, tier: frontend}    ❌ 不匹配（app 不同）
+</code></pre>
+<h3 id="5-4-2-endpoints-对象">5.4.2 Endpoints 对象</h3>
+<p>Endpoints 是 K8s 自动维护的对象，记录了 Service 后端的 Pod IP 和端口列表。</p>
+<pre><code class="language-bash"># 查看 Service 的 Endpoints
+kubectl get endpoints web-service
+
+# 查看详情
+kubectl describe endpoints web-service
+</code></pre>
+<p><strong>示例输出</strong>：</p>
+<pre><code>NAME            ENDPOINTS                          AGE
+web-service     10.244.1.5:8080,10.244.2.7:8080    5m
+</code></pre>
+<p><strong>工作流程</strong>：</p>
+<pre><code>1. Service Controller 监控 Service 和 Pod 的变化
+2. 当 Pod 标签匹配 Service Selector 时，将 Pod IP 加入 Endpoints
+3. 当 Pod 不健康或标签不匹配时，从 Endpoints 中移除
+4. kube-proxy 根据 Endpoints 更新 iptables/ipvs 规则
+</code></pre>
+<p><strong>无 Selector 的 Service</strong>：如果 Service 不指定 selector，需要手动维护 Endpoints。</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: manual-service
+spec:
+  type: ClusterIP
+  # 没有 selector
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: manual-service
+subsets:
+  - addresses:
+      - ip: 10.0.0.1
+      - ip: 10.0.0.2
+    ports:
+      - port: 8080
+        protocol: TCP
+</code></pre>
+<h3 id="5-4-3-endpointslice">5.4.3 EndpointSlice</h3>
+<p>EndpointSlice 是 Endpoints 的下一代替代品，具有更好的扩展性：</p>
+<pre><code class="language-bash"># 查看 EndpointSlice
+kubectl get endpointslices
+kubectl get endpointslices -l kubernetes.io/service-name=web-service
+</code></pre>
+<p><strong>优势</strong>：
+- 分片存储，解决大规模 Endpoints 性能问题
+- 支持更丰富的信息（拓扑、条件等）
+- 增量更新，减少网络传输</p>
+<hr />
+<h2 id="5-5-service-的会话亲和性">5.5 Service 的会话亲和性</h2>
+<h3 id="5-5-1-session-affinity-概述">5.5.1 Session Affinity 概述</h3>
+<p>默认情况下，Service 的负载均衡是随机的或轮询的。会话亲和性可以让来自同一客户端的请求始终路由到同一个 Pod。</p>
+<h3 id="5-5-2-none-默认">5.5.2 None（默认）</h3>
+<pre><code class="language-yaml">spec:
+  sessionAffinity: None
+</code></pre>
+<ul>
+<li>无会话保持</li>
+<li>每次请求可能路由到不同 Pod</li>
+<li>适用于无状态服务</li>
+</ul>
+<h3 id="5-5-3-clientip">5.5.3 ClientIP</h3>
+<pre><code class="language-yaml">spec:
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800    # 3小时会话保持
+</code></pre>
+<ul>
+<li>同一客户端 IP 的请求始终路由到同一 Pod</li>
+<li>适用于需要会话保持的服务（如购物车、登录状态）</li>
+<li>缺点：IP 哈希可能导致负载不均衡</li>
+</ul>
+<h3 id="5-5-4-对比">5.5.4 对比</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>None</th>
+<th>ClientIP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>负载均衡</td>
+<td>随机/轮询</td>
+<td>基于客户端 IP</td>
+</tr>
+<tr>
+<td>会话保持</td>
+<td>无</td>
+<td>同 IP 同后端</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>无状态服务</td>
+<td>有状态服务</td>
+</tr>
+<tr>
+<td>扩展性</td>
+<td>好</td>
+<td>一般</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="5-6-无头服务-headless-service">5.6 无头服务（Headless Service）</h2>
+<h3 id="5-6-1-什么是无头服务">5.6.1 什么是无头服务</h3>
+<p>无头服务是一种特殊的 Service，<code>clusterIP: None</code>，不分配虚拟 IP，直接返回后端 Pod 的 IP 列表。</p>
+<h3 id="5-6-2-核心作用">5.6.2 核心作用</h3>
+<ul>
+<li><strong>稳定的 Pod 标识</strong>：每个 Pod 都有稳定的 DNS 名称</li>
+<li><strong>独立访问每个 Pod</strong>：客户端可以直接访问特定 Pod</li>
+<li><strong>服务发现</strong>：用于 StatefulSet 等需要稳定网络标识的场景</li>
+</ul>
+<h3 id="5-6-3-dns-解析规则">5.6.3 DNS 解析规则</h3>
+<p>无头服务为每个 Pod 提供 DNS 记录：</p>
+<pre><code># 普通 Service
+web-service.default.svc.cluster.local → 10.96.100.100（ClusterIP）
+
+# 无头 Service
+web-service.default.svc.cluster.local → 10.244.1.5, 10.244.2.7, 10.244.3.9（所有 Pod IP）
+
+# 每个 Pod 的稳定 DNS
+web-0.web-service.default.svc.cluster.local → 10.244.1.5
+web-1.web-service.default.svc.cluster.local → 10.244.2.7
+web-2.web-service.default.svc.cluster.local → 10.244.3.9
+</code></pre>
+<h3 id="5-6-4-yaml-示例">5.6.4 YAML 示例</h3>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: redis-cluster
+  labels:
+    app: redis
+spec:
+  clusterIP: None              # 关键：设置为 None
+  publishNotReadyAddresses: true    # 发布未就绪的 Pod（集群初始化时需要）
+  selector:
+    app: redis
+  ports:
+    - port: 6379
+      targetPort: 6379
+      name: client
+    - port: 16379
+      targetPort: 16379
+      name: gossip
+</code></pre>
+<h3 id="5-6-5-statefulset-中的使用">5.6.5 StatefulSet 中的使用</h3>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+spec:
+  serviceName: web-service    # 关联的无头服务名称
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.25
+          ports:
+            - containerPort: 80
+</code></pre>
+<p><strong>StatefulSet 提供的稳定标识</strong>：</p>
+<pre><code>Pod 名称：web-0, web-1, web-2（有序、稳定）
+DNS 名称：web-0.web-service, web-1.web-service, web-2.web-service
+网络标识：每个 Pod 有固定的 DNS 记录
+存储标识：每个 Pod 绑定独立的 PVC
+</code></pre>
+<hr />
+<h2 id="5-7-k8s-网络模型">5.7 K8s 网络模型</h2>
+<h3 id="5-7-1-cni-插件">5.7.1 CNI 插件</h3>
+<p>CNI（Container Network Interface）是 K8s 的网络插件标准，用于配置 Pod 网络。</p>
+<p><strong>常见 CNI 插件</strong>：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>插件</th>
+<th>类型</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flannel</td>
+<td>Overlay</td>
+<td>简单、稳定，适合入门</td>
+</tr>
+<tr>
+<td>Calico</td>
+<td>Overlay/Underlay</td>
+<td>支持网络策略，生产首选</td>
+</tr>
+<tr>
+<td>Cilium</td>
+<td>eBPF</td>
+<td>高性能，可观测性好</td>
+</tr>
+<tr>
+<td>Weave</td>
+<td>Overlay</td>
+<td>简单易用</td>
+</tr>
+<tr>
+<td>Kube-OVN</td>
+<td>Underlay</td>
+<td>企业级网络方案</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="5-7-2-overlay-vs-underlay-网络">5.7.2 Overlay vs Underlay 网络</h3>
+<p><strong>Overlay 网络</strong>：</p>
+<pre><code>┌─────────────────────────────────────────┐
+│              Node A                      │
+│  ┌───────────┐  ┌───────────┐            │
+│  │  Pod-1    │  │  Pod-2    │            │
+│  │ 10.244.1.1│  │ 10.244.1.2│            │
+│  └─────┬─────┘  └─────┬─────┘            │
+│        │              │                  │
+│  ┌─────┴──────────────┴─────┐            │
+│  │    vxlan / flannel 网络   │            │
+│  │    10.244.0.0/16         │            │
+│  └──────────┬───────────────┘            │
+│             │                            │
+│        ┌─────┴─────┐                      │
+│        │ eth0      │ 192.168.1.10        │
+│        └─────┬─────┘                      │
+└──────────────┼────────────────────────────┘
+               │ 物理网络
+┌──────────────┼────────────────────────────┐
+│              │     Node B                 │
+│        ┌─────┴─────┐                      │
+│        │ eth0      │ 192.168.1.11        │
+│        └─────┬─────┘                      │
+│  ┌──────────┬───────────────┐            │
+│  │    flannel 网络           │            │
+│  └─────┬─────┴─────┬────────┘            │
+│        │           │                     │
+│  ┌─────┴─────┐ ┌───┴───────┐             │
+│  │  Pod-3    │ │  Pod-4    │             │
+│  │ 10.244.2.1│ │ 10.244.2.2│             │
+│  └───────────┘ └───────────┘             │
+└─────────────────────────────────────────┘
+</code></pre>
+<ul>
+<li>Pod 流量封装在额外的包头中（VXLAN、UDP 等）</li>
+<li>跨节点通信需要解封装</li>
+<li>优点：简单，不需要修改物理网络</li>
+<li>缺点：性能开销</li>
+</ul>
+<p><strong>Underlay 网络</strong>：</p>
+<ul>
+<li>Pod IP 直接在物理网络中路由</li>
+<li>无需封装，性能好</li>
+<li>优点：高性能、低延迟</li>
+<li>缺点：需要物理网络支持，路由配置复杂</li>
+</ul>
+<h3 id="5-7-3-k8s-网络通信流程">5.7.3 K8s 网络通信流程</h3>
+<pre><code>Pod A (10.244.1.5)                    Pod B (10.244.2.7)
+     │                                    │
+     │ 1. 应用发起请求                     │
+     ▼                                    │
+┌───────────┐                             │
+│ kube-proxy │                             │
+│ (iptables) │                             │
+└─────┬─────┘                             │
+      │ 2. DNAT: ServiceIP → PodB_IP      │
+      ▼                                    │
+┌───────────┐    3. CNI 转发              │
+│  CNI 插件  │ ──────────────────────────► │
+└───────────┘                             │
+      │                                    │
+      │                                    ▼
+      │                              ┌───────────┐
+      │                              │  Pod B    │
+      │                              └───────────┘
+</code></pre>
+<hr />
+<h2 id="5-8-kube-proxy-工作模式">5.8 kube-proxy 工作模式</h2>
+<p>kube-proxy 是运行在每个节点上的代理组件，负责将 Service 请求转发到后端 Pod。</p>
+<h3 id="5-8-1-iptables-模式-默认">5.8.1 iptables 模式（默认）</h3>
+<p><strong>工作原理</strong>：</p>
+<pre><code>Service VIP:Port → iptables NAT 规则 → Pod IP:Port
+</code></pre>
+<ul>
+<li>使用 iptables DNAT 规则实现端口转发</li>
+<li>每个 Service 创建多条 iptables 规则</li>
+<li>当 Service/Pod 变化时，增量更新 iptables 规则</li>
+</ul>
+<p><strong>优缺点</strong>：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无需额外内核模块</td>
+<td>大量 Service 时 iptables 规则多</td>
+</tr>
+<tr>
+<td>稳定可靠</td>
+<td>更新规则较慢</td>
+</tr>
+<tr>
+<td>调试简单</td>
+<td>性能随规模下降</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>查看规则</strong>：</p>
+<pre><code class="language-bash"># 查看某个 Service 的 iptables 规则
+iptables-save | grep web-service
+
+# 查看所有 K8s 相关规则
+iptables-save | grep KUBE-SERVICES
+</code></pre>
+<h3 id="5-8-2-ipvs-模式-高性能">5.8.2 ipvs 模式（高性能）</h3>
+<p><strong>工作原理</strong>：</p>
+<pre><code>Service VIP:Port → IPVS 负载均衡 → Pod IP:Port
+</code></pre>
+<ul>
+<li>使用内核级 IPVS（IP Virtual Server）实现负载均衡</li>
+<li>支持多种调度算法：rr、wrr、lc、wlc、ip_hash</li>
+<li>适用于大规模集群</li>
+</ul>
+<p><strong>优缺点</strong>：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>高性能（内核态）</td>
+<td>需要内核模块支持</td>
+</tr>
+<tr>
+<td>支持复杂调度算法</td>
+<td>调试相对复杂</td>
+</tr>
+<tr>
+<td>适合大规模集群</td>
+<td>配置稍复杂</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>调度算法</strong>：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rr（Round Robin）</td>
+<td>轮询调度，默认</td>
+</tr>
+<tr>
+<td>wrr（Weighted Round Robin）</td>
+<td>加权轮询</td>
+</tr>
+<tr>
+<td>lc（Least Connection）</td>
+<td>最少连接数</td>
+</tr>
+<tr>
+<td>wlc（Weighted Least Connection）</td>
+<td>加权最少连接</td>
+</tr>
+<tr>
+<td>ip_hash</td>
+<td>基于源 IP 哈希</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="5-8-3-userspace-模式">5.8.3 userspace 模式</h3>
+<p><strong>工作原理</strong>：</p>
+<pre><code>Service VIP:Port → userspace proxy → Pod IP:Port
+</code></pre>
+<ul>
+<li>在用户空间实现代理</li>
+<li>性能最差，已基本淘汰</li>
+<li>仅用于特殊场景或调试</li>
+</ul>
+<h3 id="5-8-4-切换-kube-proxy-模式">5.8.4 切换 kube-proxy 模式</h3>
+<pre><code class="language-bash"># 查看当前模式
+kubectl get configmap kube-proxy -n kube-system -o yaml | grep mode
+
+# 切换为 ipvs 模式（修改 configmap）
+kubectl patch configmap kube-proxy -n kube-system --patch '{&quot;data&quot;:{&quot;config.conf&quot;:&quot;mode: ipvs&quot;}}'
+
+# 重启 kube-proxy
+kubectl rollout restart daemonset kube-proxy -n kube-system
+
+# 验证模式
+kubectl logs -n kube-system -l k8s-app=kube-proxy | grep &quot;Using ipvs&quot;
+</code></pre>
+<h3 id="5-8-5-三种模式对比">5.8.5 三种模式对比</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>iptables</th>
+<th>ipvs</th>
+<th>userspace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>性能</td>
+<td>中</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>内核支持</td>
+<td>iptables</td>
+<td>IPVS</td>
+<td>无</td>
+</tr>
+<tr>
+<td>规模扩展性</td>
+<td>一般</td>
+<td>好</td>
+<td>差</td>
+</tr>
+<tr>
+<td>调度算法</td>
+<td>随机/轮询</td>
+<td>多种</td>
+<td>轮询</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>中小规模</td>
+<td>大规模</td>
+<td>调试/特殊</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="5-9-实战演练">5.9 实战演练</h2>
+<h3 id="实战1-创建-clusterip-service-暴露-nginx-pod">实战1：创建 ClusterIP Service 暴露 Nginx Pod</h3>
+<p><strong>步骤 1</strong>：创建 Deployment</p>
+<pre><code class="language-yaml"># nginx-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.25
+          ports:
+            - containerPort: 80
+</code></pre>
+<pre><code class="language-bash">kubectl apply -f nginx-deployment.yaml
+kubectl get pods -l app=nginx
+</code></pre>
+<p><strong>步骤 2</strong>：创建 ClusterIP Service</p>
+<pre><code class="language-yaml"># nginx-service-clusterip.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-clusterip
+  labels:
+    app: nginx
+spec:
+  type: ClusterIP
+  selector:
+    app: nginx
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+</code></pre>
+<pre><code class="language-bash">kubectl apply -f nginx-service-clusterip.yaml
+kubectl get svc nginx-clusterip
+</code></pre>
+<p><strong>步骤 3</strong>：在集群内部访问</p>
+<pre><code class="language-bash"># 启动一个临时 Pod 用于测试
+kubectl run curl-test --image=curlimages/curl --rm -it --restart=Never -- sh
+
+# 在 Pod 内部执行
+curl http://nginx-clusterip
+curl http://nginx-clusterip.default.svc.cluster.local
+
+# 查看 DNS 解析
+nslookup nginx-clusterip
+</code></pre>
+<h3 id="实战2-创建-nodeport-service-实现外部访问">实战2：创建 NodePort Service 实现外部访问</h3>
+<p><strong>步骤 1</strong>：创建 NodePort Service</p>
+<pre><code class="language-yaml"># nginx-service-nodeport.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-nodeport
+  labels:
+    app: nginx
+spec:
+  type: NodePort
+  selector:
+    app: nginx
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30080
+</code></pre>
+<pre><code class="language-bash">kubectl apply -f nginx-service-nodeport.yaml
+kubectl get svc nginx-nodeport
+</code></pre>
+<p><strong>步骤 2</strong>：获取节点 IP 并访问</p>
+<pre><code class="language-bash"># 获取节点 IP
+kubectl get nodes -o wide
+
+# 外部访问（假设节点 IP 为 192.168.1.100）
+curl http://192.168.1.100:30080
+</code></pre>
+<p><strong>步骤 3</strong>：使用 Minikube 快速访问</p>
+<pre><code class="language-bash"># Minikube 环境
+minikube service nginx-nodeport
+</code></pre>
+<h3 id="实战3-观察-service-的-endpoints-随-pod-变化">实战3：观察 Service 的 Endpoints 随 Pod 变化</h3>
+<p><strong>步骤 1</strong>：查看初始 Endpoints</p>
+<pre><code class="language-bash">kubectl get endpoints nginx-clusterip -o wide
+kubectl describe endpoints nginx-clusterip
+</code></pre>
+<p><strong>步骤 2</strong>：扩展 Deployment 副本数</p>
+<pre><code class="language-bash"># 扩展到 5 个副本
+kubectl scale deployment nginx-deployment --replicas=5
+
+# 等待新 Pod 启动
+kubectl get pods -l app=nginx -w
+
+# 再次查看 Endpoints（应该增加了 2 个）
+kubectl get endpoints nginx-clusterip
+</code></pre>
+<p><strong>步骤 3</strong>：减少副本数</p>
+<pre><code class="language-bash"># 减少到 1 个副本
+kubectl scale deployment nginx-deployment --replicas=1
+
+# 查看 Endpoints（应该只剩 1 个）
+kubectl get endpoints nginx-clusterip
+</code></pre>
+<p><strong>步骤 4</strong>：查看 EndpointSlice</p>
+<pre><code class="language-bash">kubectl get endpointslices -l kubernetes.io/service-name=nginx-clusterip
+</code></pre>
+<h3 id="实战4-实现-service-之间的互相访问">实战4：实现 Service 之间的互相访问</h3>
+<p><strong>步骤 1</strong>：创建后端服务</p>
+<pre><code class="language-yaml"># backend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: nginx:1.25
+          ports:
+            - containerPort: 80
+          env:
+            - name: SERVER_NAME
+              value: &quot;Backend Service&quot;
+          volumeMounts:
+            - name: html
+              mountPath: /usr/share/nginx/html
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - /bin/sh
+                  - -c
+                  - 'echo &quot;&lt;h1&gt;Backend Service Response&lt;/h1&gt;&quot; &gt; /usr/share/nginx/html/index.html'
+      volumes:
+        - name: html
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  labels:
+    app: backend
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+  ports:
+    - port: 80
+      targetPort: 80
+</code></pre>
+<pre><code class="language-bash">kubectl apply -f backend-deployment.yaml
+</code></pre>
+<p><strong>步骤 2</strong>：在前端 Pod 中访问后端 Service</p>
+<pre><code class="language-bash"># 进入 nginx Pod
+kubectl exec -it deploy/nginx-deployment -- sh
+
+# 在 Pod 内部 curl 后端服务
+curl http://backend-service
+curl http://backend-service.default.svc.cluster.local
+
+# 使用环境变量
+env | grep BACKEND
+</code></pre>
+<p><strong>步骤 3</strong>：使用 Service 环境变量</p>
+<pre><code class="language-bash"># 新创建的 Pod 会自动注入 Service 环境变量
+kubectl exec -it deploy/backend-deployment -- env | grep BACKEND_SERVICE
+</code></pre>
+<p><strong>注意</strong>：环境变量方式需要 Service 在 Pod 创建之前存在。推荐使用 DNS 解析方式。</p>
+<h3 id="实战5-创建-headless-service">实战5：创建 Headless Service</h3>
+<p><strong>步骤 1</strong>：创建无头服务</p>
+<pre><code class="language-yaml"># headless-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: headless-nginx
+  labels:
+    app: headless-nginx
+spec:
+  clusterIP: None
+  selector:
+    app: headless-nginx
+  ports:
+    - port: 80
+      targetPort: 80
+</code></pre>
+<p><strong>步骤 2</strong>：创建 StatefulSet 使用无头服务</p>
+<pre><code class="language-yaml"># statefulset-nginx.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+spec:
+  serviceName: headless-nginx
+  replicas: 3
+  selector:
+    matchLabels:
+      app: headless-nginx
+  template:
+    metadata:
+      labels:
+        app: headless-nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.25
+          ports:
+            - containerPort: 80
+</code></pre>
+<pre><code class="language-bash">kubectl apply -f headless-service.yaml
+kubectl apply -f statefulset-nginx.yaml
+
+# 查看 Pod（注意有序编号 web-0, web-1, web-2）
+kubectl get pods -l app=headless-nginx
+</code></pre>
+<p><strong>步骤 3</strong>：验证 DNS 解析</p>
+<pre><code class="language-bash"># 启动测试 Pod
+kubectl run dns-test --image=curlimages/curl --rm -it --restart=Never -- sh
+
+# 解析无头服务（应返回所有 Pod IP）
+nslookup headless-nginx
+
+# 解析单个 Pod
+nslookup web-0.headless-nginx
+nslookup web-1.headless-nginx
+
+# 直接访问特定 Pod
+curl http://web-0.headless-nginx
+curl http://web-1.headless-nginx
+</code></pre>
+<hr />
+<h2 id="5-10-常见问题排查">5.10 常见问题排查</h2>
+<h3 id="5-10-1-service-无法访问-pod">5.10.1 Service 无法访问 Pod</h3>
+<p><strong>问题</strong>：创建了 Service 但访问不到后端 Pod。</p>
+<p><strong>排查步骤</strong>：</p>
+<pre><code class="language-bash"># 1. 检查 Service 的 selector 是否正确
+kubectl get svc &lt;service-name&gt; -o yaml | grep -A 5 selector
+
+# 2. 检查 Pod 标签是否匹配
+kubectl get pods -l &lt;selector-label&gt; --show-labels
+
+# 3. 检查 Endpoints 是否为空
+kubectl get endpoints &lt;service-name&gt;
+# 如果 ENDPOINTS 为空，说明 selector 没有匹配到任何 Pod
+
+# 4. 检查 Pod 是否健康
+kubectl get pods -l &lt;selector-label&gt;
+# STATUS 应为 Running，READY 应为 1/1
+
+# 5. 检查端口是否正确
+kubectl get svc &lt;service-name&gt; -o yaml | grep -A 5 ports
+# targetPort 应与 Pod 的 containerPort 一致
+
+# 6. 手动验证 Pod 服务是否正常
+kubectl port-forward &lt;pod-name&gt; 8080:80
+curl http://localhost:8080
+</code></pre>
+<h3 id="5-10-2-nodeport-无法外部访问">5.10.2 NodePort 无法外部访问</h3>
+<p><strong>问题</strong>：NodePort Service 创建后外部无法访问。</p>
+<p><strong>排查步骤</strong>：</p>
+<pre><code class="language-bash"># 1. 检查 NodePort 是否正确分配
+kubectl get svc &lt;service-name&gt;
+# 查看 PORT(S) 列，确认 NodePort 值
+
+# 2. 检查节点防火墙
+# 在节点上开放对应端口
+sudo iptables -A INPUT -p tcp --dport 30080 -j ACCEPT
+
+# 3. 检查节点 IP 是否可达
+ping &lt;node-ip&gt;
+
+# 4. 使用 kubectl 端口转发测试
+kubectl port-forward svc/&lt;service-name&gt; 8080:80
+curl http://localhost:8080
+</code></pre>
+<h3 id="5-10-3-dns-解析失败">5.10.3 DNS 解析失败</h3>
+<p><strong>问题</strong>：在 Pod 内无法解析 Service 名称。</p>
+<p><strong>排查步骤</strong>：</p>
+<pre><code class="language-bash"># 1. 检查 CoreDNS 是否正常
+kubectl get pods -n kube-system -l k8s-app=kube-dns
+
+# 2. 检查 Service 是否存在
+kubectl get svc &lt;service-name&gt;
+
+# 3. 在 Pod 内检查 DNS 配置
+kubectl exec -it &lt;pod-name&gt; -- cat /etc/resolv.conf
+
+# 4. 测试 DNS 解析
+kubectl run dns-test --image=curlimages/curl --rm -it --restart=Never -- nslookup &lt;service-name&gt;
+
+# 5. 检查 CoreDNS 日志
+kubectl logs -n kube-system -l k8s-app=kube-dns
+</code></pre>
+<h3 id="5-10-4-service-负载不均衡">5.10.4 Service 负载不均衡</h3>
+<p><strong>问题</strong>：流量集中到少数 Pod。</p>
+<p><strong>排查步骤</strong>：</p>
+<pre><code class="language-bash"># 1. 检查会话亲和性设置
+kubectl get svc &lt;service-name&gt; -o yaml | grep sessionAffinity
+
+# 2. 如果使用 ClientIP，考虑切换为 None
+kubectl patch svc &lt;service-name&gt; -p '{&quot;spec&quot;:{&quot;sessionAffinity&quot;:&quot;None&quot;}}'
+
+# 3. 检查 Pod 健康状态
+kubectl get pods -l &lt;label&gt; -o wide
+
+# 4. 使用 ipvs 模式获得更好的负载均衡
+</code></pre>
+<h3 id="5-10-5-headless-service-不返回-pod-ip">5.10.5 Headless Service 不返回 Pod IP</h3>
+<p><strong>问题</strong>：无头服务 DNS 解析不返回 Pod IP 列表。</p>
+<p><strong>排查步骤</strong>：</p>
+<pre><code class="language-bash"># 1. 确认 clusterIP 设置为 None
+kubectl get svc &lt;service-name&gt; -o yaml | grep clusterIP
+
+# 2. 检查 Pod 是否就绪
+kubectl get pods -l &lt;label&gt;
+
+# 3. 如果使用 StatefulSet，检查 serviceName 配置
+kubectl get statefulset &lt;name&gt; -o yaml | grep serviceName
+
+# 4. 检查 publishNotReadyAddresses 设置
+# 集群初始化时可能需要设置为 true
+</code></pre>
+<hr />
+<h2 id="5-11-章节小结">5.11 章节小结</h2>
+<h3 id="核心知识点回顾">核心知识点回顾</h3>
+<ol>
+<li><strong>Service 的本质</strong>：为 Pod 提供稳定的访问入口，解决 Pod IP 易变的问题</li>
+<li><strong>四种类型</strong>：
+   - ClusterIP：默认类型，集群内部访问
+   - NodePort：在节点上开放端口，外部可访问
+   - LoadBalancer：云服务商提供外部负载均衡
+   - ExternalName：映射到外部 DNS</li>
+<li><strong>连接机制</strong>：Label Selector 匹配 Pod → Endpoints 维护后端列表 → kube-proxy 实现转发</li>
+<li><strong>会话亲和性</strong>：None（无状态）vs ClientIP（有状态服务）</li>
+<li><strong>无头服务</strong>：<code>clusterIP: None</code>，用于 StatefulSet 等需要稳定网络标识的场景</li>
+<li><strong>kube-proxy 模式</strong>：iptables（默认）→ ipvs（高性能）→ userspace（已淘汰）</li>
+</ol>
+<h3 id="常用命令速查">常用命令速查</h3>
+<pre><code class="language-bash"># 创建 Service
+kubectl expose deployment &lt;name&gt; --type=ClusterIP --port=80 --target-port=8080
+
+# 查看 Service
+kubectl get svc
+kubectl get svc &lt;name&gt; -o yaml
+
+# 查看 Endpoints
+kubectl get endpoints &lt;service-name&gt;
+kubectl describe endpoints &lt;service-name&gt;
+
+# 查看 EndpointSlice
+kubectl get endpointslices -l kubernetes.io/service-name=&lt;service-name&gt;
+
+# 删除 Service
+kubectl delete svc &lt;name&gt;
+
+# 端口转发调试
+kubectl port-forward svc/&lt;service-name&gt; 8080:80
+
+# Minikube 快速访问
+minikube service &lt;service-name&gt;
+
+# 修改 Service 类型
+kubectl patch svc &lt;name&gt; -p '{&quot;spec&quot;:{&quot;type&quot;:&quot;NodePort&quot;}}'
+
+# 设置会话亲和性
+kubectl patch svc &lt;name&gt; -p '{&quot;spec&quot;:{&quot;sessionAffinity&quot;:&quot;ClientIP&quot;}}'
+</code></pre>
+<h3 id="最佳实践">最佳实践</h3>
+<ol>
+<li><strong>优先使用 DNS</strong>：使用 Service DNS 名称而非环境变量</li>
+<li><strong>合理选择类型</strong>：内部服务用 ClusterIP，对外暴露用 LoadBalancer</li>
+<li><strong>使用标签管理</strong>：通过 label selector 灵活控制后端</li>
+<li><strong>监控 Endpoints</strong>：定期检查 Endpoints 确保后端 Pod 正常</li>
+<li><strong>大规模场景使用 ipvs</strong>：当 Service 数量超过 1000 时考虑切换 ipvs 模式</li>
+<li><strong>StatefulSet 配合无头服务</strong>：有状态应用必须使用 Headless Service</li>
+</ol></div>
+      <nav class="post-pager" aria-label="上下篇"><a class="pager-link" href="%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html"><em>上一篇</em><b>第4章 Deployment 与应用部署</b></a><a class="pager-link next" href="%E7%AC%AC6%E7%AB%A0-ConfigMap%E4%B8%8ESecret%E7%AE%A1%E7%90%86.html"><em>下一篇</em><b>第6章：ConfigMap 与 Secret 管理</b></a></nav>
+    </article>
+  </main>
+</div>
+<footer class="blog-foot">
+  <div class="wrap foot-inner">
+    <span>© 2026 逐梦笔记 · 由 <code>scripts/build_blog.py</code> 从 docs/ 自动生成</span>
+    <span>内容来源：<a href="https://github.com/ShiQianzhi/note" target="_blank" rel="noopener noreferrer">ShiQianzhi/note</a> · 同步于 2026-11-26</span>
+  </div>
+</footer>
+<script src="../../../../blog.js"></script>
+</body>
+</html>

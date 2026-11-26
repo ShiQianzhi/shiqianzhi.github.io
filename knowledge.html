@@ -1,0 +1,729 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>世界知识体系结构 · 知识地图</title>
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --bg:#0a0e16;
+  --panel:rgba(255,255,255,.045);
+  --panel-2:rgba(255,255,255,.075);
+  --line:rgba(255,255,255,.11);
+  --line-soft:rgba(255,255,255,.06);
+  --text:#e8ecf4;
+  --dim:#9aa4b8;
+  --dim-2:#6d778c;
+  --gold:#d9b25a;
+  --serif:"Noto Serif SC",Songti SC,SimSun,serif;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  padding-top:62px;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(900px 600px at 12% -8%, rgba(124,156,255,.18), transparent 62%),
+    radial-gradient(800px 520px at 92% 4%, rgba(79,209,197,.12), transparent 60%),
+    radial-gradient(900px 700px at 50% 108%, rgba(217,178,90,.13), transparent 62%);
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:76px 76px;
+  mask-image:radial-gradient(circle at 50% 30%,#000 30%,transparent 82%);
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px}
+
+/* ================= 站点导航 ================= */
+.site-nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(8,11,18,.74);
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.nav-inner{max-width:1180px;margin:0 auto;padding:0 26px;height:62px;display:flex;align-items:center;gap:22px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#eef2f9;font-family:var(--serif);font-size:15px;letter-spacing:.16em;white-space:nowrap}
+.brand .mark{width:18px;height:18px;position:relative;flex:none}
+.brand .mark::before{content:"";position:absolute;inset:0;border:1px solid rgba(217,178,90,.7);border-radius:2px;transform:rotate(45deg)}
+.brand .mark::after{content:"";position:absolute;inset:6px;background:var(--gold);border-radius:1px}
+.brand em{font-style:normal;font-family:var(--sans);font-size:11px;letter-spacing:.24em;color:var(--dim-2);border-left:1px solid rgba(255,255,255,.14);margin-left:4px;padding-left:12px}
+.nav-links{display:flex;align-items:center;gap:4px;margin-left:auto}
+.nav-links > a,.nav-drop > a{position:relative;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:100px;font-size:13.5px;color:#aab4c6;text-decoration:none;transition:.18s}
+.nav-links > a:hover,.nav-drop > a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav-links > a.active,.nav-drop > a.active{color:#f2dda9;background:rgba(217,178,90,.12)}
+.caret{width:6px;height:6px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg) translateY(-2px);opacity:.65;transition:.2s}
+.nav-drop{position:relative}
+.nav-drop:hover .caret{transform:rotate(225deg) translateY(-2px)}
+.drop-panel{
+  position:absolute;top:calc(100% + 12px);left:0;width:240px;padding:8px;border-radius:14px;
+  background:rgba(14,19,29,.97);border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 24px 60px -20px #000;opacity:0;visibility:hidden;transform:translateY(-6px);transition:.2s;
+}
+.drop-panel::before{content:"";position:absolute;left:0;right:0;top:-12px;height:12px}
+.nav-drop:hover .drop-panel,.nav-drop:focus-within .drop-panel{opacity:1;visibility:visible;transform:none}
+.drop-panel a{display:block;padding:9px 12px;border-radius:8px;font-size:13px;color:#b9c3d5;text-decoration:none;transition:.15s}
+.drop-panel a:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav-cta{margin-left:8px;border:1px solid rgba(217,178,90,.42);color:#f0d9a4 !important;background:rgba(217,178,90,.08)}
+.nav-cta:hover{background:rgba(217,178,90,.18) !important;border-color:rgba(217,178,90,.7)}
+.menu-btn{display:none;flex-direction:column;justify-content:center;gap:5px;width:38px;height:34px;margin-left:auto;padding:0 6px;background:none;border:0;cursor:pointer}
+.menu-btn span{display:block;height:1.5px;background:#cbd4e4;border-radius:2px;transition:.22s}
+.menu-btn.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.menu-btn.open span:nth-child(2){opacity:0}
+.menu-btn.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ================= 顶部 ================= */
+.hero{padding:82px 0 40px;position:relative}
+section[id]{scroll-margin-top:138px}
+.kicker{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:12px;letter-spacing:.28em;color:var(--gold);
+  text-transform:uppercase;padding:7px 15px;border:1px solid rgba(217,178,90,.34);
+  border-radius:100px;background:rgba(217,178,90,.07);
+}
+.kicker i{width:5px;height:5px;border-radius:50%;background:var(--gold);display:block}
+h1{
+  font-family:var(--serif);font-weight:900;font-size:clamp(38px,6vw,76px);
+  line-height:1.12;margin:26px 0 0;letter-spacing:.02em;
+}
+h1 .thin{
+  display:block;font-weight:400;font-size:clamp(15px,1.7vw,19px);
+  letter-spacing:.34em;color:var(--dim);margin-top:18px;font-family:var(--sans);
+}
+.lede{
+  max-width:760px;margin-top:26px;font-size:16.5px;color:#b9c2d3;
+}
+.lede em{color:var(--gold);font-style:normal}
+.stats{display:flex;flex-wrap:wrap;gap:46px;margin-top:42px;padding-top:28px;border-top:1px solid var(--line-soft)}
+.stat b{display:block;font-family:var(--serif);font-size:34px;color:#fff;line-height:1.2}
+.stat span{font-size:12.5px;letter-spacing:.16em;color:var(--dim-2)}
+
+/* ================= 工具条 ================= */
+.toolbar{position:sticky;top:62px;z-index:50;padding:12px 0 12px;background:rgba(10,14,22,.82);backdrop-filter:blur(16px);border-bottom:1px solid var(--line-soft)}
+.tb-inner{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.search{
+  flex:1 1 260px;min-width:220px;position:relative;
+}
+.search input{
+  width:100%;background:rgba(255,255,255,.06);border:1px solid var(--line);
+  border-radius:100px;padding:11px 18px 11px 42px;color:var(--text);
+  font-family:var(--sans);font-size:14px;outline:none;transition:.2s;
+}
+.search input:focus{border-color:rgba(217,178,90,.6);background:rgba(255,255,255,.09)}
+.search input::placeholder{color:var(--dim-2)}
+.search svg{position:absolute;left:15px;top:13px;width:16px;height:16px;stroke:var(--dim-2);fill:none;stroke-width:1.8}
+.btn{
+  border:1px solid var(--line);background:rgba(255,255,255,.05);color:#cbd3e2;
+  padding:9px 16px;border-radius:100px;font-size:13px;cursor:pointer;
+  font-family:var(--sans);transition:.18s;white-space:nowrap;
+}
+.btn:hover{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.2)}
+.btn.on{background:rgba(217,178,90,.16);border-color:rgba(217,178,90,.55);color:#f0d9a4}
+.hit{font-size:12.5px;color:var(--dim-2);white-space:nowrap}
+
+/* ================= 层 ================= */
+.layer{padding:52px 0 8px}
+.layer-head{display:flex;align-items:baseline;gap:16px;margin-bottom:24px}
+.lv{
+  font-family:var(--serif);font-size:12px;letter-spacing:.2em;color:var(--gold);
+  border:1px solid rgba(217,178,90,.3);padding:4px 10px;border-radius:6px;white-space:nowrap;
+}
+.layer-head h2{font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);font-weight:700;letter-spacing:.04em}
+.layer-head p{font-size:13.5px;color:var(--dim);max-width:520px;line-height:1.7}
+
+/* 元认知层 */
+.meta-band{
+  border:1px solid rgba(217,178,90,.24);border-radius:18px;padding:22px 24px;
+  background:linear-gradient(160deg,rgba(217,178,90,.1),rgba(255,255,255,.02) 70%);
+}
+.meta-band .caption{font-size:13px;color:#cbb989;margin-bottom:14px;letter-spacing:.06em}
+.meta-chips{display:flex;flex-wrap:wrap;gap:9px}
+.meta-chips span{
+  font-size:13px;padding:7px 14px;border-radius:100px;color:#e3e9f5;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);
+}
+
+/* 五域 */
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.domain{
+  position:relative;border-radius:20px;padding:26px 26px 22px;
+  background:var(--panel);border:1px solid var(--line);
+  transition:transform .25s,border-color .25s,box-shadow .25s,opacity .25s;
+  overflow:hidden;
+}
+.domain::before{
+  content:"";position:absolute;left:0;top:0;width:100%;height:3px;
+  background:var(--c);opacity:.85;
+}
+.domain::after{
+  content:"";position:absolute;right:-90px;top:-90px;width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle,var(--c),transparent 70%);opacity:.12;
+}
+.domain.fifth{grid-column:span 2}
+.domain.fifth .fields{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
+.domain:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.22);box-shadow:0 20px 50px -24px rgba(0,0,0,.8)}
+.domain.dim{opacity:.28;filter:saturate(.4)}
+.domain.lit{box-shadow:0 0 0 1.5px var(--c),0 24px 60px -28px rgba(0,0,0,.9);border-color:transparent}
+.d-head{display:flex;gap:16px;align-items:flex-start;cursor:pointer;user-select:none}
+.d-num{
+  font-family:var(--serif);font-size:13px;letter-spacing:.18em;color:var(--c);
+  padding-top:6px;min-width:34px;
+}
+.d-title{flex:1}
+.d-title h3{font-family:var(--serif);font-size:clamp(21px,2.2vw,26px);font-weight:700;letter-spacing:.05em;line-height:1.3}
+.d-en{font-size:11px;letter-spacing:.22em;color:var(--dim-2);text-transform:uppercase;margin-top:6px}
+.d-tag{font-size:13.5px;color:#a9b3c6;margin-top:12px;line-height:1.7}
+.d-count{font-size:11.5px;color:var(--dim-2);padding-top:8px;white-space:nowrap}
+.chev{width:9px;height:9px;border-right:1px solid var(--dim);border-bottom:1px solid var(--dim);transform:rotate(45deg);margin-top:9px;transition:.25s}
+.domain.closed .chev{transform:rotate(-135deg)}
+
+.fields{margin-top:22px;padding-top:20px;border-top:1px solid var(--line-soft);display:grid;gap:15px}
+.domain.closed .fields{display:none}
+.field{padding-left:14px;border-left:2px solid rgba(255,255,255,.08)}
+.field .fname{
+  font-size:14px;font-weight:700;color:#dfe6f3;letter-spacing:.03em;
+  display:flex;align-items:center;gap:8px;
+}
+.field .fname i{font-style:normal;font-size:10px;font-weight:400;color:var(--c);opacity:.75;letter-spacing:.06em;margin-left:6px}
+.items{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.items span{
+  font-size:12px;padding:3px 10px;border-radius:6px;color:#aeb8ca;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  transition:.18s;
+}
+.items span.hit2{color:#fff;background:rgba(217,178,90,.18);border-color:rgba(217,178,90,.5)}
+.items span:hover{color:#fff;border-color:rgba(255,255,255,.24)}
+.field.dim{opacity:.3}
+
+/* 交叉层 */
+.cross{
+  border-radius:18px;border:1px dashed rgba(79,209,197,.34);
+  background:linear-gradient(150deg,rgba(79,209,197,.08),rgba(124,156,255,.05) 60%,transparent);
+  padding:24px;
+}
+.cross .caption{font-size:12.5px;color:#8fd8d0;letter-spacing:.1em;margin-bottom:16px}
+.cross-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:14px}
+.cf{border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;background:rgba(255,255,255,.035);transition:.22s}
+.cf:hover{background:rgba(255,255,255,.075)}
+.cf b{display:block;font-size:13.5px;color:#e6ecf7;letter-spacing:.03em;margin-bottom:9px}
+.cf .items{margin-top:0}
+.cf .items span{font-size:11.5px;padding:3px 9px}
+.cf.dim{opacity:.3}
+.cross-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.cross-item{
+  border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:13px 15px;
+  background:rgba(255,255,255,.035);transition:.22s;
+}
+.cross-item:hover{background:rgba(255,255,255,.08);border-color:rgba(79,209,197,.4)}
+.cross-item b{display:block;font-size:13.5px;color:#e6ecf7;letter-spacing:.02em}
+.cross-item em{font-style:normal;font-size:11.5px;color:var(--dim-2);margin-top:4px;display:block;line-height:1.6}
+.cross-item.hitbox{border-color:rgba(217,178,90,.5);background:rgba(217,178,90,.12)}
+
+/* 三轴 */
+.axes{display:grid;gap:16px}
+.axis{
+  display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;
+  padding:18px 22px;border-radius:14px;background:var(--panel);border:1px solid var(--line-soft);
+}
+.axis .an{font-family:var(--serif);font-size:14px;color:var(--gold);letter-spacing:.08em;line-height:1.5}
+.axis .an small{display:block;font-size:11px;color:var(--dim-2);letter-spacing:.14em;margin-top:3px;font-family:var(--sans)}
+.axis .steps{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#c3ccdb}
+.axis .steps span{padding:5px 11px;border-radius:7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.axis .steps u{text-decoration:none;color:var(--dim-2)}
+
+/* 问题定位器 */
+.finder{margin-top:8px}
+.finder-q{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.fq{
+  text-align:left;padding:14px 18px;border-radius:14px;border:1px solid var(--line);
+  background:rgba(255,255,255,.04);color:#d5dceb;cursor:pointer;font-family:var(--sans);
+  transition:.2s;flex:1 1 210px;
+}
+.fq:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.2)}
+.fq b{font-family:var(--serif);font-size:15px;display:block;margin-bottom:4px;letter-spacing:.05em}
+.fq em{font-style:normal;font-size:12px;color:var(--dim)}
+.fq.on{background:rgba(217,178,90,.14);border-color:rgba(217,178,90,.55);color:#fff}
+.finder-out{
+  margin-top:18px;padding:16px 20px;border-radius:12px;border:1px solid var(--line-soft);
+  background:rgba(255,255,255,.03);font-size:13.5px;color:#b9c4d6;min-height:52px;
+  transition:.2s;
+}
+.finder-out strong{color:var(--gold);font-weight:700}
+
+/* 脚注 */
+.foot{margin-top:64px;padding:34px 0 70px;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--dim-2);letter-spacing:.1em}
+.foot span{max-width:640px;line-height:1.8;letter-spacing:.03em}
+
+@media (max-width:860px){
+  body{padding-top:58px}
+  .nav-inner{padding:0 20px;height:58px}
+  .brand em{display:none}
+  .menu-btn{display:flex}
+  .nav-links{
+    display:none;position:absolute;left:0;right:0;top:58px;flex-direction:column;align-items:stretch;gap:2px;
+    padding:10px 16px 18px;background:rgba(10,14,22,.98);border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .nav-links.open{display:flex}
+  .nav-links > a,.nav-drop > a{padding:11px 12px;font-size:14px;border-radius:10px}
+  .drop-panel{position:static;width:auto;opacity:1;visibility:visible;transform:none;background:transparent;border:0;box-shadow:none;padding:0 0 4px 10px}
+  .drop-panel a{padding:8px 12px;font-size:13px}
+  .nav-cta{margin:8px 0 0;justify-content:center}
+  .toolbar{top:58px}
+  section[id]{scroll-margin-top:130px}
+  .grid{grid-template-columns:1fr}
+  .domain.fifth{grid-column:span 1}
+  .axis{grid-template-columns:1fr;gap:10px}
+  .stats{gap:28px}
+  .hero{padding:56px 0 30px}
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">首页</a>
+      <div class="nav-drop">
+        <a href="knowledge.html" class="active">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="knowledge.html#domains">五大知识域</a>
+          <a href="knowledge.html#cross">交叉与前沿</a>
+          <a href="knowledge.html#axes">三条贯穿轴</a>
+          <a href="knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="career.html">世界职业体系</a>
+      <a href="blog/index.html">博客</a>
+      <a class="nav-cta" href="#finder">从问题出发</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== 顶部 ===== -->
+<header class="wrap hero">
+  <div class="kicker"><i></i>World Knowledge Atlas · 总图谱</div>
+  <h1>世界知识体系
+    <span class="thin">一张从「怎么认识」到「认识什么」的结构地图</span>
+  </h1>
+  <p class="lede">
+    人类的知识不是一堆平铺的科目，而是<em>分层</em>的：底层是「你凭什么说这是真的」，中层是按对象划分的五大知识域，外层是域与域撞在一起才长出来的新学科。看懂这张图，你就知道一个问题该去哪儿找答案、自己正缺哪一层。
+  </p>
+  <div class="stats">
+    <div class="stat"><b id="s1">—</b><span>顶层知识域</span></div>
+    <div class="stat"><b id="s2">—</b><span>一级学科</span></div>
+    <div class="stat"><b id="s3">—</b><span>细分分支</span></div>
+    <div class="stat"><b id="s4">—</b><span>交叉集群与接口</span></div>
+  </div>
+</header>
+
+<!-- ===== 工具条 ===== -->
+<div class="toolbar">
+  <div class="wrap tb-inner">
+    <div class="search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg>
+      <input id="q" type="text" placeholder="搜一个概念：熵、博弈论、因果推断、拓扑…">
+    </div>
+    <button class="btn" id="toggleAll">全部收起</button>
+    <span class="hit" id="hit"></span>
+  </div>
+</div>
+
+<!-- ===== 第 0 层：元认知 ===== -->
+<section class="wrap layer" id="meta">
+  <div class="layer-head">
+    <span class="lv">第 0 层</span>
+    <div>
+      <h2>元认知层 · 我们如何知道</h2>
+      <p>不研究「世界是什么」，而研究「凭什么认为我们知道」。这一层错了，上面所有结论都不可靠。</p>
+    </div>
+  </div>
+  <div class="meta-band">
+    <div class="caption">知识的生产与校验工具</div>
+    <div class="meta-chips" id="metaChips"></div>
+  </div>
+</section>
+
+<!-- ===== 第 1 层：五大域 ===== -->
+<section class="wrap layer" id="domains">
+  <div class="layer-head">
+    <span class="lv">第 1 层</span>
+    <div>
+      <h2>五大知识域 · 按「研究对象」分工</h2>
+      <p>形式科学给工具，自然科学给世界图景，工程技术给可用的东西，社会科学给人间秩序，人文给意义。点击卡片可折叠。</p>
+    </div>
+  </div>
+  <div class="grid" id="domains"></div>
+</section>
+
+<!-- ===== 第 2 层：交叉 ===== -->
+<section class="wrap layer" id="cross">
+  <div class="layer-head">
+    <span class="lv">第 2 层</span>
+    <div>
+      <h2>交叉与前沿 · 真正的活水</h2>
+      <p>绝大多数新知识不诞生在学科内部，而诞生在两门学科的交界处。这里列的是当下最活跃的接口。</p>
+    </div>
+  </div>
+  <div class="cross">
+    <div class="caption">交叉集群 · 由第 1 层两门以上学科共同供养</div>
+    <div class="cross-fields" id="crossFields"></div>
+    <div class="caption" style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08)">典型接口 · 一个交叉点通常是「一门给机制 + 一门给约束」</div>
+    <div class="cross-grid" id="crossGrid"></div>
+  </div>
+</section>
+
+<!-- ===== 三条贯穿轴 ===== -->
+<section class="wrap layer" id="axes">
+  <div class="layer-head">
+    <span class="lv">贯穿轴</span>
+    <div>
+      <h2>三条纵向坐标 · 给任何知识定位</h2>
+      <p>横向分域只解决「属于谁」，这三条轴解决「在哪一层、问到哪一步」。</p>
+    </div>
+  </div>
+  <div class="axes">
+    <div class="axis">
+      <div class="an">尺度轴<small>SCALE</small></div>
+      <div class="steps">
+        <span>量子 / 基本粒子</span><u>→</u><span>原子分子</span><u>→</u><span>细胞</span><u>→</u><span>个体</span><u>→</u><span>群体与社会</span><u>→</u><span>行星系统</span><u>→</u><span>星系与宇宙</span>
+      </div>
+    </div>
+    <div class="axis">
+      <div class="an">问题轴<small>QUESTION</small></div>
+      <div class="steps">
+        <span>是什么（描述）</span><u>→</u><span>为什么（解释）</span><u>→</u><span>会怎样（预测）</span><u>→</u><span>怎么做（设计）</span><u>→</u><span>该不该（规范）</span><u>→</u><span>如何共处（治理）</span>
+      </div>
+    </div>
+    <div class="axis">
+      <div class="an">能力轴<small>MASTERY</small></div>
+      <div class="steps">
+        <span>知道（事实）</span><u>→</u><span>理解（机制）</span><u>→</u><span>运用（解题）</span><u>→</u><span>迁移（跨域）</span><u>→</u><span>创造（新知识）</span><u>→</u><span>判断（取舍）</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 问题定位器 ===== -->
+<section class="wrap layer" id="finder">
+  <div class="layer-head">
+    <span class="lv">用法</span>
+    <div>
+      <h2>给我一个问题，它该进哪个域</h2>
+      <p>选一个问题类型，图上对应的知识域会亮起来——这是把这张图当索引用的最快方式。</p>
+    </div>
+  </div>
+  <div class="finder">
+    <div class="finder-q">
+      <button class="fq" data-k="A,B"><b>求真 · 它到底怎么运作？</b><em>数学、逻辑、物理、化学、生命、地球、宇宙</em></button>
+      <button class="fq" data-k="C"><b>求用 · 怎么把它做出来？</b><em>材料、能源、信息、机械、医学、农业、软件</em></button>
+      <button class="fq" data-k="D"><b>求共处 · 人和制度怎么运转？</b><em>经济、政治、法律、社会、心理、管理、传播</em></button>
+      <button class="fq" data-k="E"><b>求义 · 意义、价值与美</b><em>哲学、历史、语言文学、艺术、宗教、伦理</em></button>
+      <button class="fq" data-k="F"><b>求变 · 没人单独能解的新问题</b><em>认知科学、AI 治理、气候、全球健康、复杂系统</em></button>
+      <button class="fq" data-k="M"><b>求知 · 我凭什么相信？</b><em>实验设计、因果推断、证据评估、知识论</em></button>
+    </div>
+    <div class="finder-out" id="finderOut">尚未选择。试着点一个类型，看它会指向哪几层。</div>
+  </div>
+</section>
+
+<footer class="wrap foot">
+  <span>一张地图不能代替走路。它的用处是：让你在迷路时知道自己在哪一层、漏了哪一块，以及该向谁借工具。</span>
+  <span>World Knowledge Atlas · 2026</span>
+</footer>
+
+<script>
+/* ================= 移动端导航 ================= */
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+menuBtn.addEventListener("click", () => {
+  const open = navLinks.classList.toggle("open");
+  menuBtn.classList.toggle("open", open);
+  menuBtn.setAttribute("aria-expanded", String(open));
+});
+navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+  navLinks.classList.remove("open");
+  menuBtn.classList.remove("open");
+  menuBtn.setAttribute("aria-expanded", "false");
+}));
+
+/* ================= 数据 ================= */
+const META = ["逻辑与演绎","归纳与概率","观察与实验设计","建模与仿真","因果识别","解释与论证","证据评估与批判性思维","科学哲学与知识论","文献检索与知识管理","跨域迁移学习","伦理与价值判断"];
+
+const DOMAINS = [
+{
+  id:"A", num:"Ⅰ", c:"#7c9cff",
+  name:"形式科学", en:"Formal Sciences",
+  tag:"不靠实验、靠定义与推演为真的知识地基。它不告诉你世界长什么样，但给了你描述世界的语法。",
+  fields:[
+    {n:"数学", i:["数论","代数与群论","几何与拓扑","微积分与分析","概率论","组合数学与图论","计算数学与优化","数学基础（集合论/模型论）"]},
+    {n:"逻辑学", i:["命题逻辑","谓词逻辑","模态与时空逻辑","非经典逻辑（直觉主义/模糊）","可计算性与悖论","证明论"]},
+    {n:"计算与信息科学", i:["算法与复杂性","数据结构","计算理论","编程语言","操作系统与网络","数据库与信息检索","密码学与信息安全","人工智能与机器学习"]},
+    {n:"统计与数据科学", i:["概率建模","推断统计","贝叶斯方法","实验设计","因果推断","高维数据与机器学习统计","数据可视化"]},
+    {n:"系统与控制科学", i:["一般系统论","控制论与反馈","复杂性与混沌","网络科学","博弈论","运筹学"]}
+  ]
+},
+{
+  id:"B", num:"Ⅱ", c:"#4fd1c5",
+  name:"自然科学", en:"Natural Sciences",
+  tag:"研究「世界本来是怎样」的学科群。共同方法是可重复的观测与可被推翻的假设。",
+  fields:[
+    {n:"物理学", i:["经典力学","电磁学","热力学与统计物理","量子力学","相对论与引力","粒子物理","凝聚态物理","原子分子与光学","等离子体物理"]},
+    {n:"化学", i:["无机化学","有机化学","分析化学","物理化学","高分子化学","催化与材料化学","化学生物学"]},
+    {n:"生命科学", i:["分子生物学","细胞生物学","遗传与基因组","进化生物学","生理学","神经科学","免疫学","微生物学","植物学","动物学","生态学"]},
+    {n:"地球系统科学", i:["地质学","地球物理","大气科学","海洋学","水文与冰川","地理学","土壤学"]},
+    {n:"天文与宇宙学", i:["天体测量与天体力学","恒星与星系","行星科学","宇宙学","天体物理","空间科学"]},
+    {n:"环境与气候", i:["气候变化科学","环境化学","生态修复","资源与可持续","灾害科学"]}
+  ]
+},
+{
+  id:"C", num:"Ⅲ", c:"#f0a35e",
+  name:"工程·技术·医学", en:"Engineering, Technology & Medicine",
+  tag:"把「知道为什么」变成「能稳定做出来」。这一域的判据不是真假，而是能不能用、良率、成本与风险。",
+  fields:[
+    {n:"材料与制造", i:["金属材料","无机非金属","高分子材料","复合材料","纳米材料","增材制造","机械制造工艺"]},
+    {n:"能源与动力", i:["化石能源","核能","风/光/水/地热","储能与电网","动力工程","氢能"]},
+    {n:"信息与电子工程", i:["微电子与芯片","通信与信号处理","控制与自动化","光电子","计算机工程","网络工程","嵌入式系统"]},
+    {n:"机械·土木·建筑", i:["机械设计","流体与热工","结构与桥梁","岩土工程","建筑学与城市规划","交通运输工程"]},
+    {n:"化学与生物工程", i:["化工过程","制药工程","食品工程","生物工程","环境工程"]},
+    {n:"航空航天与海洋", i:["飞行器设计","推进技术","航天器与深空","船舶与海洋结构"]},
+    {n:"医学与健康", i:["基础医学（解剖/病理/药理）","临床医学","公共卫生与预防","药学","护理与康复","口腔与眼科等专科","传统医学"]},
+    {n:"农业与食品", i:["农学","园艺","畜牧兽医","林业","水产","食品科学"]},
+    {n:"计算机与软件", i:["软件工程","系统架构","人机交互","网络安全","云计算与分布式","数据库系统"]}
+  ]
+},
+{
+  id:"D", num:"Ⅳ", c:"#d9b25a",
+  name:"社会科学", en:"Social Sciences",
+  tag:"研究对象是人、以及人组成的系统。难点在于：研究对象会因为你研究它而改变行为，且几乎不能做受控实验。",
+  fields:[
+    {n:"经济学", i:["微观经济学","宏观经济学","金融学","国际贸易","产业与劳动经济","发展经济学","行为经济学","制度经济学"]},
+    {n:"政治学", i:["政治理论","比较政治","公共行政与政策","国际关系","选举与治理"]},
+    {n:"法学", i:["法理学","宪法与行政法","民法与商法","刑法","诉讼法","国际法与涉外法治"]},
+    {n:"社会学", i:["社会理论","社会分层与不平等","城市与乡村","家庭与性别","组织社会学","社会调查方法"]},
+    {n:"人类学与民族学", i:["文化人类学","体质人类学","语言人类学","考古人类学","民族志方法"]},
+    {n:"心理学", i:["认知心理","发展心理","社会心理","人格心理","临床与咨询","神经心理","工业与组织心理"]},
+    {n:"教育学", i:["教育理论","课程与教学","教育心理","教育技术","比较教育","教育政策"]},
+    {n:"管理学", i:["战略管理","组织行为","运营与供应链","市场营销","人力资源","财务与会计","创新创业","项目管理"]},
+    {n:"传播与信息", i:["新闻学","传播理论","媒介研究","公共关系","出版与档案"]},
+    {n:"人口与公共政策", i:["人口学","社会保障","城市治理","应急管理"]}
+  ]
+},
+{
+  id:"E", num:"Ⅴ", c:"#c58ce0", fifth:true,
+  name:"人文学科", en:"Humanities",
+  tag:"处理无法量化却必须回答的问题：意义、价值、美、以及「我们从哪来」。它的判据是解释力与文本的内在一致，而非预测精度。",
+  fields:[
+    {n:"哲学", i:["形而上学","认识论","伦理学","美学","心灵哲学","科学哲学","政治哲学","哲学史"]},
+    {n:"历史学", i:["史学理论","中国古代史","中国近现代史","世界史","专门史（经济/科技/思想/环境）","考古学","口述史与档案"]},
+    {n:"语言与文学", i:["语言学（音系/句法/语义）","社会语言学","文学理论","比较文学","中国文学","外国文学","文献学"]},
+    {n:"艺术", i:["美术（绘画/雕塑/版画）","音乐","戏剧与表演","电影与影像","设计学","舞蹈","建筑艺术","艺术史与策展"]},
+    {n:"宗教与文化", i:["宗教学","宗教史","神话学","文化研究","民俗学","区域与国别研究"]},
+    {n:"伦理与价值", i:["生命伦理","科技伦理","环境伦理","商业伦理","公共伦理","法哲学"]}
+  ]
+},
+{
+  id:"F", num:"Ⅵ", c:"#8fd8d0", fifth:true,
+  name:"交叉与前沿", en:"Cross-Disciplinary Frontiers",
+  tag:"第 2 层：由两门以上学科共同供养的新生长点。这里的问题往往是「真问题」，因为现实从不按学科分科。",
+  fields:[
+    {n:"认知与智能", i:["认知科学","神经科学与类脑计算","心智与意识研究","人机交互","具身智能"]},
+    {n:"计算与社会", i:["计算社会科学","数据科学与统计学习","数字人文","算法治理与AI伦理","平台经济"]},
+    {n:"生命与健康交叉", i:["生物信息与系统生物学","合成生物学","精准医学","全球健康","脑机接口"]},
+    {n:"地球与可持续", i:["气候治理与碳中和","能源转型","循环经济","城市科学","水—粮—能耦合"]},
+    {n:"复杂与安全", i:["复杂系统","网络与韧性","量子信息","材料基因组","生物安全与应急"]}
+  ]
+}
+];
+
+const CROSS = [
+  {n:"认知科学", d:"心理 + 神经 + 语言 + AI + 哲学"},
+  {n:"计算社会科学", d:"大数据方法进入社会学与政治学"},
+  {n:"生物信息学", d:"统计、算法与分子生物的交界"},
+  {n:"合成生物学", d:"工程思维改造生命"},
+  {n:"环境与气候治理", d:"自然科学结论 → 政策与经济学"},
+  {n:"能源转型", d:"材料、电网、市场与地缘政治"},
+  {n:"全球健康", d:"流行病学 + 卫生经济 + 国际治理"},
+  {n:"复杂系统与城市科学", d:"网络、标度律、规划与治理"},
+  {n:"AI 治理与算法伦理", d:"机器学习 + 法学 + 哲学"},
+  {n:"行为科学", d:"心理学、经济学与公共政策的接口"},
+  {n:"数字人文", d:"文本计算、档案与历史学"},
+  {n:"量子信息", d:"量子物理 + 信息论 + 工程"}
+];
+
+/* ================= 渲染 ================= */
+const domainsEl = document.getElementById("domains");
+let totalFields = 0, totalItems = 0, crossItems = 0;
+
+DOMAINS.forEach(d=>{
+  if(d.id === "F") return;   /* 第 2 层单独渲染 */
+  totalFields += d.fields.length;
+  let fieldHTML = "";
+  d.fields.forEach(f=>{
+    totalItems += f.i.length;
+    const items = f.i.map(x=>`<span data-t="${x}">${x}</span>`).join("");
+    fieldHTML += `<div class="field" data-f="${f.n}">
+      <div class="fname">${f.n}<i>${f.i.length} 项</i></div>
+      <div class="items">${items}</div>
+    </div>`;
+  });
+  const el = document.createElement("div");
+  el.className = "domain" + (d.fifth ? " fifth" : "");
+  el.style.setProperty("--c", d.c);
+  el.dataset.id = d.id;
+  el.innerHTML = `
+    <div class="d-head">
+      <div class="d-num">${d.num}</div>
+      <div class="d-title">
+        <h3>${d.name}</h3>
+        <div class="d-en">${d.en}</div>
+        <div class="d-tag">${d.tag}</div>
+      </div>
+      <div class="d-count">${d.fields.length} 学科</div>
+      <div class="chev"></div>
+    </div>
+    <div class="fields">${fieldHTML}</div>`;
+  el.querySelector(".d-head").addEventListener("click",()=>el.classList.toggle("closed"));
+  domainsEl.appendChild(el);
+});
+
+/* 第 2 层：交叉集群 */
+const cfEl = document.getElementById("crossFields");
+const F = DOMAINS.find(d=>d.id==="F");
+F.fields.forEach(f=>{
+  crossItems += f.i.length;
+  cfEl.innerHTML += `<div class="cf"><b>${f.n}</b><div class="items">${f.i.map(x=>`<span data-t="${x}">${x}</span>`).join("")}</div></div>`;
+});
+
+document.getElementById("s1").textContent = "5";
+document.getElementById("s2").textContent = totalFields;
+document.getElementById("s3").textContent = totalItems;
+document.getElementById("s4").textContent = CROSS.length + F.fields.length;
+
+document.getElementById("metaChips").innerHTML = META.map(x=>`<span data-t="${x}">${x}</span>`).join("");
+
+document.getElementById("crossGrid").innerHTML = CROSS.map(x=>`<div class="cross-item" data-t="${x.n}"><b>${x.n}</b><em>${x.d}</em></div>`).join("");
+
+/* ================= 搜索 ================= */
+const input = document.getElementById("q");
+const hitEl = document.getElementById("hit");
+
+function runSearch(){
+  const kw = input.value.trim().toLowerCase();
+  const allItems = document.querySelectorAll(".items span, .meta-chips span, .cross-item");
+  if(!kw){
+    allItems.forEach(s=>s.classList.remove("hit2","hitbox","dim"));
+    document.querySelectorAll(".domain").forEach(d=>d.classList.remove("dim","lit"));
+    document.querySelectorAll(".field").forEach(f=>f.classList.remove("dim"));
+    document.querySelectorAll(".cf").forEach(c=>c.classList.remove("dim"));
+    hitEl.textContent = "";
+    return;
+  }
+  let count = 0;
+  document.querySelectorAll(".domain").forEach(d=>{
+    let inner = 0;
+    d.querySelectorAll(".items span").forEach(s=>{
+      const ok = s.dataset.t.toLowerCase().includes(kw) ||
+                 (d.querySelector("h3").textContent + d.querySelector(".d-en").textContent).toLowerCase().includes(kw);
+      s.classList.toggle("hit2", ok);
+      if(ok) { inner++; count++; }
+    });
+    d.querySelectorAll(".field").forEach(f=>{
+      const has = [...f.querySelectorAll(".items span")].some(s=>s.classList.contains("hit2"));
+      f.classList.toggle("dim", !has);
+      if(has){ f.querySelectorAll(".items span").forEach(s=>{ if(!s.classList.contains("hit2")) s.classList.add("dim"); }); }
+    });
+    d.classList.toggle("dim", inner === 0);
+    if(inner>0){ d.classList.remove("closed"); }
+  });
+  document.querySelectorAll(".meta-chips span").forEach(s=>{
+    const ok = s.dataset.t.toLowerCase().includes(kw);
+    s.classList.toggle("hit2", ok);
+    if(ok) count++;
+  });
+  document.querySelectorAll(".cross-item").forEach(s=>{
+    const ok = (s.dataset.t + s.textContent).toLowerCase().includes(kw);
+    s.classList.toggle("hitbox", ok);
+    if(ok) count++;
+  });
+  document.querySelectorAll(".cf").forEach(c=>{
+    let inner = 0;
+    c.querySelectorAll(".items span").forEach(s=>{
+      const ok = s.dataset.t.toLowerCase().includes(kw);
+      s.classList.toggle("hit2", ok);
+      if(ok){ inner++; count++; }
+    });
+    c.classList.toggle("dim", inner === 0);
+  });
+  hitEl.textContent = count ? `命中 ${count} 处` : "未找到，换个词试试";
+}
+input.addEventListener("input", runSearch);
+
+/* ================= 折叠 ================= */
+const tog = document.getElementById("toggleAll");
+let allClosed = false;
+tog.addEventListener("click",()=>{
+  allClosed = !allClosed;
+  document.querySelectorAll(".domain").forEach(d=>d.classList.toggle("closed", allClosed));
+  tog.textContent = allClosed ? "全部展开" : "全部收起";
+  tog.classList.toggle("on", allClosed);
+});
+
+/* ================= 定位器 ================= */
+const out = document.getElementById("finderOut");
+const explain = {
+  "A,B":"<strong>先求真。</strong>这类问题要先落到形式科学求「模型是否自洽」，再落到自然科学求「与观测是否一致」。缺了前者会说不清，缺了后者会想当然。",
+  "C":"<strong>求用看约束。</strong>工程与医学的答案不在原理里，而在良率、成本、安全与可维护性里。同一个原理，工艺不同结论完全不同。",
+  "D":"<strong>求共处看激励。</strong>社会科学的核心不是道德判断，而是「规则改变了谁的收益」。先问参与者的激励结构，再谈应然。",
+  "E":"<strong>求义看解释。</strong>人文学科给的是可被反复解释的意义，不是可被一次验证的结论。要看它在文本、语境与历史里是否自洽。",
+  "F":"<strong>求变要拼图。</strong>没有人单独解得了的问题，答案通常在两门学科的交界处：一门给你机制，一门给你约束。",
+  "M":"<strong>求知先怀疑方法。</strong>回到第 0 层：这个结论是靠观察、靠推演，还是靠叙事？样本多大？有没有反例？因果还是相关？"
+};
+document.querySelectorAll(".fq").forEach(b=>{
+  b.addEventListener("click",()=>{
+    const on = b.classList.contains("on");
+    document.querySelectorAll(".fq").forEach(x=>x.classList.remove("on"));
+    document.querySelectorAll(".domain").forEach(d=>d.classList.remove("lit","dim"));
+    document.querySelectorAll(".cross").forEach(c=>c.style.boxShadow="");
+    document.querySelector(".meta-band").style.boxShadow="";
+    if(on){ out.textContent = "尚未选择。试着点一个类型，看它会指向哪几层。"; return; }
+    b.classList.add("on");
+    const keys = b.dataset.k;
+    if(keys === "M"){
+      document.querySelectorAll(".domain").forEach(d=>d.classList.add("dim"));
+      document.querySelector(".meta-band").style.boxShadow = "0 0 0 1.5px #d9b25a";
+    } else if(keys === "F"){
+      document.querySelectorAll(".domain").forEach(d=>{ d.classList.add("dim"); if(d.dataset.id==="F") d.classList.remove("dim"); });
+      document.querySelector(".cross").style.boxShadow = "0 0 0 1.5px rgba(79,209,197,.9)";
+    } else {
+      const arr = keys.split(",");
+      document.querySelectorAll(".domain").forEach(d=>{
+        const hit = arr.includes(d.dataset.id);
+        d.classList.toggle("dim", !hit);
+        d.classList.toggle("lit", hit);
+        if(hit) d.classList.remove("closed");
+      });
+    }
+    out.innerHTML = explain[keys] || "";
+  });
+});
+</script>
+</body>
+</html>
+<!-- （注：内容由AI生成） -->

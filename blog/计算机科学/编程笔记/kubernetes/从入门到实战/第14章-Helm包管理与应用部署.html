@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第14章 Helm 包管理与应用部署 · 逐梦笔记</title>
+<meta name="description" content="学习目标">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="../../../../blog.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="../../../../../index.html"><span class="mark"></span>shiqianzhi<em>知识地图</em></a>
+    <button class="menu-btn" id="menuBtn" aria-label="展开导航" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../../../../../index.html">首页</a>
+      <div class="nav-drop">
+        <a href="../../../../../knowledge.html">世界知识体系 <span class="caret"></span></a>
+        <div class="drop-panel">
+          <a href="../../../../../knowledge.html#meta">元认知层 · 我们如何知道</a>
+          <a href="../../../../../knowledge.html#domains">五大知识域</a>
+          <a href="../../../../../knowledge.html#cross">交叉与前沿</a>
+          <a href="../../../../../knowledge.html#axes">三条贯穿轴</a>
+          <a href="../../../../../knowledge.html#finder">问题定位器</a>
+        </div>
+      </div>
+      <a href="../../../../../career.html">世界职业体系</a>
+      <a href="../../../../index.html" class="active">博客</a>
+      <a class="nav-cta" href="../../../../../knowledge.html">进入图谱</a>
+    </div>
+  </div>
+</nav>
+
+<div class="blog-wrap">
+  
+    <aside class="blog-side">
+      <div class="side-head">
+        <a class="blog-brand" href="../../../../index.html">逐梦笔记<span>NOTES</span></a>
+        <button class="side-toggle" id="sideToggle" aria-expanded="false" aria-controls="sideBody">目录</button>
+      </div>
+      <div class="side-body" id="sideBody">
+        <div class="tree-search">
+          <input id="treeQ" type="search" placeholder="筛选 197 篇笔记…" aria-label="筛选笔记">
+        </div>
+        <nav class="tree" aria-label="博客目录"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI创作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI短剧制作</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI写周报，把我写成了公司CEO</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E5%86%99%E5%91%A8%E6%8A%A5%EF%BC%8C%E6%8A%8A%E6%88%91%E5%86%99%E6%88%90%E4%BA%86%E5%85%AC%E5%8F%B8CEO/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI的最后一活</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%B4%BB/%E5%89%A7%E6%9C%AC.html" title="剧本">剧本</a></div></details><a class="tree-link" href="../../../../AI%E5%88%9B%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%B6%E4%BD%9C/AI%E7%9F%AD%E5%89%A7%E5%88%9B%E4%BD%9C%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B.html" title="AI 短剧创作保姆级教程：从一个想法到成片发布">AI 短剧创作保姆级教程：从一个想法到成片发布</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人生感悟</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/%E5%9C%A8%E5%89%A7%E5%8F%98%E4%B8%AD%E5%AF%BB%E8%B7%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8AI%E6%B5%AA%E6%BD%AE%E4%B8%8B%E6%8A%93%E4%BD%8F%E6%9C%BA%E9%81%87.html" title="在剧变中寻路：如何在 AI 浪潮下抓住机遇">在剧变中寻路：如何在 AI 浪潮下抓住机遇</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础学科</span><span class="tree-count">22</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数学</span><span class="tree-count">13</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">初等代数</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5.html" title="数的概念">数的概念</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E7%9A%84%E7%B1%BB%E5%88%AB.html" title="数的类别">数的类别</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%88%9D%E7%AD%89%E4%BB%A3%E6%95%B0/%E6%95%B0%E9%87%8F.html" title="数量">数量</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性代数</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E5%90%91%E9%87%8F.html" title="向量（Vector）：从几何箭头到 AI 数据表示">向量（Vector）：从几何箭头到 AI 数据表示</a></div></details><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%8C%87%E6%95%B0%E8%BF%90%E7%AE%97.html" title="什么是指数运算">什么是指数运算</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%BA%BF%E6%80%A7%E5%85%B3%E7%B3%BB.html" title="什么是线性关系">什么是线性关系</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%87%A0%E4%BD%95%E5%85%A5%E9%97%A8.html" title="几何入门">几何入门</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97.html" title="四则运算">四则运算</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%9F%BA%E6%9C%AC%E4%BB%A3%E6%95%B0.html" title="基本代数">基本代数</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E6%95%B0%E5%AD%A6.html" title="如何学习数学">如何学习数学</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%9A%E4%BB%8E0%E5%88%B0%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6.html" title="数学学习路线图：从0到高等数学">数学学习路线图：从0到高等数学</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E6%95%B0%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E8%A1%A8%E7%A4%BA.html" title="数的分类与表示">数的分类与表示</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E6%95%B0%E5%AD%A6/%E7%AE%97%E6%9C%AF%E5%9F%BA%E7%A1%80.html" title="算术基础">算术基础</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">物理</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E4%BB%8E%E5%BE%AE%E8%A7%82%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3%E7%89%A9%E8%B4%A8%EF%BC%9A%E5%8E%9F%E5%AD%90%E3%80%81%E7%B2%92%E5%AD%90%E4%B8%8E%E7%9B%B8%E4%BA%92%E4%BD%9C%E7%94%A8.html" title="从微观角度理解物质：原子、粒子与相互作用">从微观角度理解物质：原子、粒子与相互作用</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%89%A9%E8%B4%A8%E5%92%8C%E8%83%BD%E9%87%8F%E7%9A%84%E5%85%B3%E7%B3%BB.html" title="物质和能量的关系">物质和能量的关系</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%90%86%E8%A7%A3%E7%94%B5%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%89%A9%E7%90%86%E5%9F%BA%E7%A1%80.html" title="理解电必须掌握的物理基础">理解电必须掌握的物理基础</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E%E5%8E%86%E5%8F%B2%E5%88%B0%E6%9C%AC%E8%B4%A8.html" title="电是什么：从历史到本质">电是什么：从历史到本质</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%9A%84%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.html" title="电的原理与应用场景">电的原理与应用场景</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E7%89%A9%E7%90%86/%E7%94%B5%E7%A3%81%EF%BC%9A%E4%BB%8E%E7%94%B5%E5%9C%BA%E7%A3%81%E5%9C%BA%E5%88%B0%E7%94%B5%E7%A3%81%E6%B3%A2.html" title="电磁：从电场磁场到电磁波">电磁：从电场磁场到电磁波</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">语言</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">英语</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="英语学习笔记">英语学习笔记</a><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E8%AF%AD%E8%AF%AD%E6%B3%95.html" title="英语语法">英语语法</a></div></details><a class="tree-link" href="../../../../%E5%9F%BA%E7%A1%80%E5%AD%A6%E7%A7%91/%E8%AF%AD%E8%A8%80/%E8%AF%AD%E6%B3%95.html" title="语法">语法</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">心情随笔</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E5%BF%83%E6%83%85%E9%9A%8F%E7%AC%94/%E5%85%AD%E7%A7%8D%E5%80%BC%E5%BE%97%E7%BB%93%E4%BA%A4%E4%B8%80%E8%BE%88%E5%AD%90%E7%9A%84%E4%BA%BA.html" title="六种值得结交一辈子的人">六种值得结交一辈子的人</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">生活常识</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">买房攻略</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98.html" title="下面是我总结了买房相关常见问题：">下面是我总结了买房相关常见问题：</a><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5/%E4%B9%B0%E6%88%BF%E6%94%BB%E7%95%A5.html" title="买房攻略">买房攻略</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">考驾照</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E8%80%83%E9%A9%BE%E7%85%A7/%E7%A7%91%E7%9B%AE%E4%B8%80.html" title="科目一刷题笔记">科目一刷题笔记</a></div></details><a class="tree-link" href="../../../../%E7%94%9F%E6%B4%BB%E5%B8%B8%E8%AF%86/%E5%90%84%E8%A1%8C%E4%B8%9A%E5%85%A8%E6%99%AF%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%AE%9A%E4%B9%89%E3%80%81%E7%8E%B0%E7%8A%B6%E4%B8%8EAI%E6%97%B6%E4%BB%A3%E7%9A%84%E6%9C%AA%E6%9D%A5.html" title="各行业全景解析：定义、现状与 AI 时代的未来">各行业全景解析：定义、现状与 AI 时代的未来</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">计算机科学</span><span class="tree-count">160</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Agent 开发</span><span class="tree-count">11</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">docs</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">superpowers</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">specs</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/docs/superpowers/specs/2026-11-06-enterprise-agent-course-design.html" title="企业级 Agent 混合架构课程设计">企业级 Agent 混合架构课程设计</a></div></details></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">learning-records</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0001-python-worker-first.html" title="Learning Record 0001: Python Agent Worker First">Learning Record 0001: Python Agent Worker First</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/learning-records/0002-agent-state-checkpoint-recovery.html" title="Learning Record 0002: Agent State and Checkpoint Recovery">Learning Record 0002: Agent State and Checkpoint Recovery</a></div></details><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/Agent%20%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="Agent 开发学习路线">Agent 开发学习路线</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/Agent%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.html" title="Agent开发核心知识点">Agent开发核心知识点</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/Go-Python%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BD%ACAgent%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B.html" title="Go/Python 后端工程师转 Agent 开发实战教程">Go/Python 后端工程师转 Agent 开发实战教程</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/MISSION.html" title="Mission: 从 Python Agent Worker 学会企业级 Agent 开发">Mission: 从 Python Agent Worker 学会企业级 Agent 开发</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/RAG.html" title="RAG">RAG</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/RAG%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AF%A6%E7%BB%86%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html" title="RAG系统的详细工作流程">RAG系统的详细工作流程</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BA%E9%AB%98%E5%B9%B6%E5%8F%91%E4%BC%81%E4%B8%9A%E7%BA%A7Agent%E7%B3%BB%E7%BB%9F%E6%95%99%E7%A8%8B.html" title="从零搭建高并发企业级 Agent 系统教程">从零搭建高并发企业级 Agent 系统教程</a><a class="tree-link" href="../../../Agent%20%E5%BC%80%E5%8F%91/RESOURCES.html" title="企业级 Agent 开发资源">企业级 Agent 开发资源</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">人工智能</span><span class="tree-count">33</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">AI行业基础知识相关概念</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAI.html" title="什么是 AI">什么是 AI</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAIGC.html" title="什么是 AIGC">什么是 AIGC</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFAgent.html" title="什么是 Agent">什么是 Agent</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG">什么是 RAG</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE.html" title="什么是向量数据">什么是向量数据</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是大模型">什么是大模型</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E8%A1%8C%E4%B8%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E5%A4%A7%E6%A8%A1%E5%9E%8B.html" title="什么是语言大模型">什么是语言大模型</a></div></details><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%80%BB%E7%BB%93.html" title="AI 学习笔记总结">AI 学习笔记总结</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/AI%E5%BA%94%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="AI 应用工程师从入门到实战的最佳学习路线">AI 应用工程师从入门到实战的最佳学习路线</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Chroma%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Chroma 入门手册：从零上手最轻量的向量数据库">Chroma 入门手册：从零上手最轻量的向量数据库</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/LangChain%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="LangChain 入门手册：用搭积木的方式编排大模型应用">LangChain 入门手册：用搭积木的方式编排大模型应用</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Transformer%20%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.html" title="Transformer 注意力机制详解">Transformer 注意力机制详解</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BB%8B%E7%BB%8D.html" title="人工智能介绍">人工智能介绍</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%A6%E7%90%86%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="人工智能伦理与安全">人工智能伦理与安全</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AFRAG.html" title="什么是 RAG：检索增强生成从原理到实战">什么是 RAG：检索增强生成从原理到实战</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%8D%E5%90%91%E9%87%8F.html" title="什么是词向量">什么是词向量</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BANLP%E6%A8%A1%E5%9E%8B%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.html" title="从零搭建NLP模型完全指南">从零搭建NLP模型完全指南</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%85%B3%E4%BA%8EAI%E7%9A%84%E7%95%85%E6%83%B3%E5%92%8C%E6%80%9D%E8%80%83.html" title="关于AI的畅想和思考">关于AI的畅想和思考</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E8%80%85AI%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师">后端开发者的 AI 学习路线：从 Go/Python 工程师到 AI 应用架构师</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93.html" title="向量数据库：语义搜索的存储与检索引擎">向量数据库：语义搜索的存储与检索引擎</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%BA%94%E7%94%A8%E5%AE%9E%E6%88%98%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BA%B2.html" title="大模型应用实战知识总纲">大模型应用实战知识总纲</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAAgent.html" title="如何搭建一个 Agent">如何搭建一个 Agent</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="学习笔记">学习笔记</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0.html" title="强化学习">强化学习</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%96%87%E6%9C%AC%E6%98%AF%E5%A6%82%E4%BD%95%E5%8F%98%E6%88%90%E5%90%91%E9%87%8F%E7%9A%84.html" title="文本是如何变成向量的：Embedding 推理管线全解析">文本是如何变成向量的：Embedding 推理管线全解析</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.html" title="机器学习-线性回归">机器学习-线性回归</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="机器学习基础">机器学习基础</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80.html" title="深度学习基础">深度学习基础</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html" title="神经网络">神经网络</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/Agent%20%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="网页版知识库 Agent 搭建实战">网页版知识库 Agent 搭建实战</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86.html" title="自然语言处理">自然语言处理</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89.html" title="计算机视觉">计算机视觉</a><a class="tree-link" href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E9%AB%98%E7%BB%B4%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%9A%84%E5%90%91%E9%87%8F%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%90%91%E9%87%8D%E5%BB%BA.html" title="高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容">高维复杂数据的向量化与反向重建：从像素到向量，再从向量到内容</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">基础知识</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/DNS.html" title="DNS：从域名到 IP 地址的分布式解析系统">DNS：从域名到 IP 地址的分布式解析系统</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/HTTP.html" title="HTTP：从一次请求到现代 Web 传输体系">HTTP：从一次请求到现代 Web 传输体系</a><a class="tree-link" href="../../../%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84.html" title="互联网是如何工作的">互联网是如何工作的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%9F%E7%90%86.html" title="操作系统的原理">操作系统的原理</a><a class="tree-link" href="../../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F.html" title="深入理解计算机系统">深入理解计算机系统</a><a class="tree-link" href="../../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE%E7%9A%84.html" title="计算机是如何编码数据的">计算机是如何编码数据的</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">8</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Elasticsearch</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/Elasticsearch/%E5%AE%89%E8%A3%85.html" title="创建网络">创建网络</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MongoDB</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念">基本概念</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%AE%89%E8%A3%85mongodb.html" title="安装mongodb">安装mongodb</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MongoDB/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" title="数据库不存在会自动创建">数据库不存在会自动创建</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">MySQL</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%9E%B6%E6%9E%84.html" title="MySQL 架构">MySQL 架构</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="MySQL数据库知识大纲">MySQL数据库知识大纲</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E.html" title="存储引擎">存储引擎</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/%E7%B4%A2%E5%BC%95.html" title="索引">索引</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构与算法</span><span class="tree-count">10</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据结构</span><span class="tree-count">6</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数组和字符串</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C.html" title="数组的操作">数组的操作</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%A6%82%E8%BF%B0.html" title="概述">概述</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">树</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91/%E6%A0%91.html" title="树">树</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">线性表</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8.html" title="线性表">线性表</a></div></details><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD.html" title="基本概念和术语">基本概念和术语</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84%E5%92%8C%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84.html" title="逻辑结构和物理结构">逻辑结构和物理结构</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">算法</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/K-Means.html" title="K-Means 聚类算法">K-Means 聚类算法</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E4%BD%8D%E8%BF%90%E7%AE%97%E8%AF%A6%E8%A7%A3.html" title="位运算详解">位运算详解</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a><a class="tree-link" href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95.html" title="算法效率分析方法">算法效率分析方法</a></div></details></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">编程笔记</span><span class="tree-count">54</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C 语言学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../C%20%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="此时会生成 a.out（windows 会生成 a.exe）">此时会生成 a.out（windows 会生成 a.exe）</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Docker</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Docker/docker%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Docker 入门手册：编写 Dockerfile、构建镜像与容器管理">Docker 入门手册：编写 Dockerfile、构建镜像与容器管理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言之旅</span><span class="tree-count">12</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架学习笔记</span><span class="tree-count">1</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Gin 框架源码剖析</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Gin%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Gin%20%E6%A1%86%E6%9E%B6%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Gin%E6%A1%86%E6%9E%B6%E5%BC%95%E6%93%8E%E5%AE%9E%E4%BE%8B.html" title="深入理解Gin框架引擎实例">深入理解Gin框架引擎实例</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言设计与实现</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%BA%90%E4%BB%A3%E7%A0%81.html" title="自己需要那个版本的 Go 标签，就用那个">自己需要那个版本的 Go 标签，就用那个</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 语言高级开发工程</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go 微服务架构设计与实现</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 微服务架构设计与实现">Go 微服务架构设计与实现</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/gRPC%20%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html" title="gRPC 技术学习与最佳实践">gRPC 技术学习与最佳实践</a></div></details><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.html" title="Go 单元测试">Go 单元测试</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E5%90%8E%E7%AB%AF%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88.html" title="Go 后端高级开发工程师">Go 后端高级开发工程师</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/Go%20%E8%AF%AD%E8%A8%80%E9%AB%98%E9%98%B6%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7.html" title="Go 语言高阶实战技巧">Go 语言高阶实战技巧</a><a class="tree-link" href="../../Go%20%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85/%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98%E6%8A%80%E8%83%BD%E9%9B%86%E5%90%88.html" title="开发实战技能集合">开发实战技能集合</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Lua</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../Lua/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BLua%E8%84%9A%E6%9C%AC.html" title="&quot;Hello, scripting!&quot;">&quot;Hello, scripting!&quot;</a></div></details><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">kubernetes</span><span class="tree-count">17</span></summary><div class="tree-children"><details class="tree-folder" open><summary><span class="tree-caret"></span><span class="tree-name">从入门到实战</span><span class="tree-count">16</span></summary><div class="tree-children"><a class="tree-link" href="K8s%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2.html" title="Kubernetes 从入门到实战：完整知识学习大纲">Kubernetes 从入门到实战：完整知识学习大纲</a><a class="tree-link" href="%E7%AC%AC10%E7%AB%A0-Ingress%E4%B8%8E%E6%B5%81%E9%87%8F%E8%B7%AF%E7%94%B1.html" title="第10章：Ingress 与流量路由">第10章：Ingress 与流量路由</a><a class="tree-link" href="%E7%AC%AC11%E7%AB%A0-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%9B%E9%98%B6.html" title="第11章 控制器进阶">第11章 控制器进阶</a><a class="tree-link" href="%E7%AC%AC12%E7%AB%A0-RBAC%E6%9D%83%E9%99%90%E4%B8%8E%E5%AE%89%E5%85%A8.html" title="第12章 RBAC 权限与安全">第12章 RBAC 权限与安全</a><a class="tree-link" href="%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html" title="第13章 监控日志与可观测性">第13章 监控日志与可观测性</a><a class="tree-link active" href="%E7%AC%AC14%E7%AB%A0-Helm%E5%8C%85%E7%AE%A1%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第14章 Helm 包管理与应用部署">第14章 Helm 包管理与应用部署</a><a class="tree-link" href="%E7%AC%AC15%E7%AB%A0-%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98-%E5%AE%8C%E6%95%B4%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2.html" title="第15章 综合实战：完整微服务项目部署">第15章 综合实战：完整微服务项目部署</a><a class="tree-link" href="%E7%AC%AC1%E7%AB%A0-K8s%E6%A6%82%E8%BF%B0%E4%B8%8E%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3.html" title="第1章 K8s 概述与架构理解">第1章 K8s 概述与架构理解</a><a class="tree-link" href="%E7%AC%AC2%E7%AB%A0-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%88%98.html" title="第2章 环境搭建实战">第2章 环境搭建实战</a><a class="tree-link" href="%E7%AC%AC3%E7%AB%A0-Pod%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%AE%9E%E6%88%98.html" title="第3章 Pod 核心概念与实战">第3章 Pod 核心概念与实战</a><a class="tree-link" href="%E7%AC%AC4%E7%AB%A0-Deployment%E4%B8%8E%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2.html" title="第4章 Deployment 与应用部署">第4章 Deployment 与应用部署</a><a class="tree-link" href="%E7%AC%AC5%E7%AB%A0-Service%E4%B8%8E%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1.html" title="第5章：Service 与网络通信">第5章：Service 与网络通信</a><a class="tree-link" href="%E7%AC%AC6%E7%AB%A0-ConfigMap%E4%B8%8ESecret%E7%AE%A1%E7%90%86.html" title="第6章：ConfigMap 与 Secret 管理">第6章：ConfigMap 与 Secret 管理</a><a class="tree-link" href="%E7%AC%AC7%E7%AB%A0-Volume%E4%B8%8E%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8.html" title="第7章：Volume 与持久化存储">第7章：Volume 与持久化存储</a><a class="tree-link" href="%E7%AC%AC8%E7%AB%A0-Namespace%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86.html" title="第8章：Namespace 与资源管理">第8章：Namespace 与资源管理</a><a class="tree-link" href="%E7%AC%AC9%E7%AB%A0-%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6%E4%B8%8E%E8%8A%82%E7%82%B9%E7%AE%A1%E7%90%86.html" title="第9章：调度机制与节点管理">第9章：调度机制与节点管理</a></div></details><a class="tree-link" href="../HPA%E5%92%8CVPA%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="HPA 和 VPA 的区别">HPA 和 VPA 的区别</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">其他</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E5%85%B6%E4%BB%96/%E7%BB%9F%E4%B8%80%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80UML%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="统一建模语言UML学习笔记">统一建模语言UML学习笔记</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">操作系统</span><span class="tree-count">5</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Linux</span><span class="tree-count">4</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Centos</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/yum.html" title="yum">yum</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/CentosStream8%20%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html" title="刷新配置">刷新配置</a><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Centos/Centos7.9%20%E5%AE%89%E8%A3%85%20node20%20%E5%AE%9E%E6%88%98.html" title="安装 nvm">安装 nvm</a></div></details><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86.html" title="查看文件的大小">查看文件的大小</a></div></details><a class="tree-link" href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.html" title="基础概念">基础概念</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">数据库</span><span class="tree-count">3</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">mysql</span><span class="tree-count">3</span></summary><div class="tree-children"><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%AE%89%E8%A3%85mysql.html" title="CentOS Linux release 8.5.2111">CentOS Linux release 8.5.2111</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E4%BB%80%E4%B9%88%E6%98%AFmysql.html" title="什么是mysql">什么是mysql</a><a class="tree-link" href="../../%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.html" title="注意不同的密码验证策略要求密码复杂度不一样。">注意不同的密码验证策略要求密码复杂度不一样。</a></div></details></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">缓存</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E7%BC%93%E5%AD%98/redis%20%E7%BC%93%E5%AD%98%E5%AE%9E%E6%88%98.html" title="redis 缓存实战">redis 缓存实战</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">软件开发与设计规范</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/%E6%8C%87%E5%AF%BC%E6%80%9D%E6%83%B3.html" title="指导思想">指导思想</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">领域驱动设计</span><span class="tree-count">2</span></summary><div class="tree-children"><a class="tree-link" href="../../%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E4%BB%80%E4%B9%88%E6%98%AFDDD.html" title="什么是DDD">什么是DDD</a><a class="tree-link" href="../../%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/%E5%89%8D%E8%A8%80.html" title="前言">前言</a></div></details><a class="tree-link" href="../../Cookie%20%E8%AF%A6%E8%A7%A3.html" title="Cookie 详解">Cookie 详解</a><a class="tree-link" href="../../JWT%E8%AF%A6%E8%A7%A3.html" title="JWT 详解">JWT 详解</a><a class="tree-link" href="../../Raft%20%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3.html" title="Raft 协议详解">Raft 协议详解</a><a class="tree-link" href="../../WebRTC%20%E5%BA%95%E5%B1%82%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.html" title="WebRTC 底层工作原理详解">WebRTC 底层工作原理详解</a><a class="tree-link" href="../../curl%20%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="curl 使用手册">curl 使用手册</a><a class="tree-link" href="../../Git%20%E7%9A%84%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" title="克隆指定分支">克隆指定分支</a><a class="tree-link" href="../../%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95.html" title="分布式一致性算法">分布式一致性算法</a><a class="tree-link" href="../../%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.html" title="学习路线">学习路线</a><a class="tree-link" href="../../%E6%90%AD%E5%BB%BA%20Conda%20%2B%20Jupyter%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" title="搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南">搭建 Conda + Jupyter 开发环境：Windows、macOS 与 Linux 完整指南</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">编程语言</span><span class="tree-count">18</span></summary><div class="tree-children"><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">C</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/C%20%E8%AF%AD%E8%A8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="C 语言快速入门">C 语言快速入门</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Go</span><span class="tree-count">6</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20benchmark%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go Benchmark 最佳实战">Go Benchmark 最佳实战</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20pprof%20%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98.html" title="Go pprof 最佳实战：从开发诊断到生产调优">Go pprof 最佳实战：从开发诊断到生产调优</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%B8%8E%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5.html" title="Go 底层原理与工程化实践">Go 底层原理与工程化实践</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%20%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码">Go 语言设计与实现：从历史选择到 Go 1.26.5 运行时源码</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E8%AF%AD%E8%A8%80%E9%AB%98%E6%95%88%E7%BC%96%E7%A8%8B%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7%E4%B8%8E%E4%BC%98%E5%8C%96.html" title="Go 语言高效编程：原理、可观测性与优化">Go 语言高效编程：原理、可观测性与优化</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/Go%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A.html" title="Go开发工程师必知必会">Go开发工程师必知必会</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Python</span><span class="tree-count">8</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.html" title="NumPy 使用手册">NumPy 使用手册</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/NumPy%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="NumPy 使用指南：从 ndarray 到数值计算实践">NumPy 使用指南：从 ndarray 到数值计算实践</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Pandas%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.html" title="Pandas 使用指南：从 Series/DataFrame 到数据分析实践">Pandas 使用指南：从 Series/DataFrame 到数据分析实践</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B.html" title="Python 异步编程：从原理到实战">Python 异步编程：从原理到实战</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" title="Python 快速入门">Python 快速入门</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Decorator%EF%BC%89%E6%80%BB%E7%BB%93.html" title="Python 装饰器（Decorator）总结">Python 装饰器（Decorator）总结</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/%E8%AE%A4%E8%AF%86Python.html" title="认识Python">认识Python</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Python/Python%20%40staticmethod%20%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB.html" title="静态方法是类的属性">静态方法是类的属性</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">Rust</span><span class="tree-count">1</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%20%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C.html" title="Rust 入门手册：面向 Go 与 Python 开发者">Rust 入门手册：面向 Go 与 Python 开发者</a></div></details><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E7%A8%8B%E5%BA%8F%E5%BA%95%E5%B1%82%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%90%86.html" title="程序底层执行原理：从一行源码到进程退出">程序底层执行原理：从一行源码到进程退出</a><a class="tree-link" href="../../../%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88.html" title="计算机科学与编程十万个为什么">计算机科学与编程十万个为什么</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机组成原理</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%BC%96%E7%A0%81.html" title="《编码》：从手电筒到计算机">《编码》：从手电筒到计算机</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%98%BE%E7%A4%BA%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="显示器的工作原理">显示器的工作原理</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E6%99%B6%E4%BD%93%E7%AE%A1.html" title="晶体管：小学生也能看懂的计算机“小开关”">晶体管：小学生也能看懂的计算机“小开关”</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84.html" title="程序是如何执行的">程序是如何执行的</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.html" title="计算机底层原理：程序、数据与网络如何从 0 到 1 运转">计算机底层原理：程序、数据与网络如何从 0 到 1 运转</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html" title="计算机组成">计算机组成</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="计算机组成原理">计算机组成原理</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">计算机网络</span><span class="tree-count">4</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BATCP-IP%E5%8D%8F%E8%AE%AE.html" title="深入浅出TCP-IP协议">深入浅出TCP-IP协议</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20OSI.html" title="计算机网络 - OSI">计算机网络 - OSI</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html" title="计算机网络 - 概述">计算机网络 - 概述</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.html" title="计算机网络工作原理：从输入 URL 到数据跨越互联网">计算机网络工作原理：从输入 URL 到数据跨越互联网</a></div></details><details class="tree-folder"><summary><span class="tree-caret"></span><span class="tree-name">高性能服务设计与实现</span><span class="tree-count">7</span></summary><div class="tree-children"><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1.html" title="什么是高性能服务">什么是高性能服务</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%AE%89%E5%85%A8%E6%96%B9%E6%A1%88.html" title="后端服务安全方案">后端服务安全方案</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E8%AF%B4%E6%98%8E.html" title="后端服务性能指标体系">后端服务性能指标体系</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E7%99%BE%E4%B8%87%E7%BA%A7QPS%20API%E7%BD%91%E5%85%B3%E8%AE%BE%E8%AE%A1.html" title="如何设计一个支持百万级 QPS 的 API 网关">如何设计一个支持百万级 QPS 的 API 网关</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%99%90%E6%B5%81%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1.html" title="限流方案设计">限流方案设计</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%20Agent%20%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.html" title="高性能 Agent 服务架构设计与实现">高性能 Agent 服务架构设计与实现</a><a class="tree-link" href="../../../%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8F%AF%E8%A1%8C%E6%80%A7%E6%96%B9%E6%A1%88.html" title="高性能服务架构可行性方案">高性能服务架构可行性方案</a></div></details><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F%E5%A4%A7%E7%BA%B2.html" title="计算机知识学习先后顺序大纲">计算机知识学习先后顺序大纲</a><a class="tree-link" href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E7%9F%A5%E8%AF%86%E5%A4%A7%E7%BA%B2.html" title="计算机科学知识大纲">计算机科学知识大纲</a></div></details><div class="tree-label">散篇</div><a class="tree-link" href="../../../../TODO.html" title="TODO">TODO</a><a class="tree-link" href="../../../../%E4%B8%AA%E4%BA%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E9%87%8D%E9%93%B8%E8%AE%A1%E5%88%92.html" title="个人基础知识重铸计划">个人基础知识重铸计划</a><a class="tree-link" href="../../../../%E5%8F%A5%E5%AD%90.html" title="句子">句子</a><a class="tree-link" href="../../../../%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E5%AD%A6%E4%B9%A0.html" title="如何高效的学习">如何高效的学习</a><a class="tree-link" href="../../../../%E6%97%B6%E9%97%B4%E8%83%B6%E5%9B%8A.html" title="时间胶囊">时间胶囊</a><a class="tree-link" href="../../../../%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA.html" title="网站导航">网站导航</a></nav>
+      </div>
+    </aside>
+  <main class="blog-main">
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="../../../../index.html">博客</a><span>/</span><span>计算机科学</span><span>/</span><span>编程笔记</span><span>/</span><span>kubernetes</span><span>/</span><span>从入门到实战</span><span>/</span><span>第14章 Helm 包管理与应用部署</span></nav>
+    <article class="post">
+      <header class="post-head">
+        <div class="post-kicker">计算机科学 / 编程笔记 / kubernetes / 从入门到实战</div>
+        <h1>第14章 Helm 包管理与应用部署</h1>
+        <div class="post-meta"><span>计算机科学/编程笔记/kubernetes/从入门到实战/第14章-Helm包管理与应用部署.md</span><span>约 1,791 字</span></div>
+      </header>
+      <div class="prose"><h2 id="学习目标">学习目标</h2>
+<ul>
+<li>理解 Helm 的核心概念：Chart、Release、Repository</li>
+<li>掌握 Helm 与 kubectl 的区别与互补关系</li>
+<li>熟悉 Chart 目录结构和模板引擎基础</li>
+<li>掌握 values.yaml 的多环境配置方法</li>
+<li>熟练使用 Helm 三大功能：Install、Upgrade、Uninstall</li>
+<li>理解 Helm 仓库管理和常用公共 Chart 的使用</li>
+<li>通过 7 个实战练习，掌握 Helm 从安装到自定义 Chart 的完整流程</li>
+</ul>
+<hr />
+<h2 id="14-1-helm-核心概念">14.1 Helm 核心概念</h2>
+<h3 id="14-1-1-什么是-helm">14.1.1 什么是 Helm</h3>
+<p>Helm 是 Kubernetes 的包管理工具，类似于 Linux 的 <code>apt</code>、<code>yum</code> 或 Node.js 的 <code>npm</code>。它将 Kubernetes 应用及其依赖打包成标准化的 Chart，实现应用的一键部署、升级和回滚。</p>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                    Helm 在 K8s 生态中的定位                    │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │                  传统方式（kubectl）                    │   │
+│  │                                                     │   │
+│  │  kubectl apply -f deployment.yaml                    │   │
+│  │  kubectl apply -f service.yaml                      │   │
+│  │  kubectl apply -f configmap.yaml                    │   │
+│  │  kubectl apply -f ingress.yaml                      │   │
+│  │  ... 多个 YAML 文件手动管理                            │   │
+│  │  问题：版本管理困难、多环境配置繁琐、重复劳动           │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                          │                                   │
+│                          │  进化                             │
+│                          ▼                                   │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │                  Helm 方式                            │   │
+│  │                                                     │   │
+│  │  helm install my-app ./my-chart                     │   │
+│  │  helm upgrade my-app ./my-chart -f prod-values.yaml  │   │
+│  │  helm rollback my-app 1                             │   │
+│  │                                                     │   │
+│  │  优势：模板化、版本管理、一键部署、多环境配置           │   │
+│  └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="14-1-2-helm-vs-kubectl">14.1.2 Helm vs kubectl</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>kubectl</th>
+<th>Helm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>定位</strong></td>
+<td>Kubernetes 资源管理工具</td>
+<td>Kubernetes 包管理工具</td>
+</tr>
+<tr>
+<td><strong>操作对象</strong></td>
+<td>单个资源文件</td>
+<td>整个应用（多个资源）</td>
+</tr>
+<tr>
+<td><strong>模板支持</strong></td>
+<td>不支持</td>
+<td>支持 Go Template 模板</td>
+</tr>
+<tr>
+<td><strong>版本管理</strong></td>
+<td>无原生支持</td>
+<td>支持 Release 版本管理</td>
+</tr>
+<tr>
+<td><strong>多环境</strong></td>
+<td>手动维护多套 YAML</td>
+<td>一套模板 + 多套 values</td>
+</tr>
+<tr>
+<td><strong>部署复杂度</strong></td>
+<td>需要逐个 apply</td>
+<td>一键 install/upgrade</td>
+</tr>
+<tr>
+<td><strong>回滚能力</strong></td>
+<td>需要手动重建</td>
+<td><code>helm rollback</code> 一键回滚</td>
+</tr>
+<tr>
+<td><strong>依赖管理</strong></td>
+<td>手动处理</td>
+<td>Chart 依赖声明</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>简单资源操作</td>
+<td>应用级部署和管理</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="14-1-3-helm-三大核心概念">14.1.3 Helm 三大核心概念</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                    Helm 核心概念关系图                         │
+│                                                             │
+│  ┌──────────────────┐                                      │
+│  │   Repository     │                                      │
+│  │   （仓库）        │                                      │
+│  │                  │                                      │
+│  │  Chart 的存储位置  │                                      │
+│  │  类似 npm registry │                                      │
+│  └────────┬─────────┘                                      │
+│           │ 存放                                            │
+│           ▼                                                 │
+│  ┌──────────────────┐     helm install        ┌──────────────┐ │
+│  │      Chart        │ ──────────────────────▶│   Release    │ │
+│  │   （包/模板）      │                        │ （部署实例）   │ │
+│  │                  │                        │              │ │
+│  │  应用的描述模板    │                        │ Chart 的实例化 │ │
+│  │  包含 YAML 模板    │                        │ 包含配置值     │ │
+│  │ 和默认配置值       │                        │ 独立的生命周期 │ │
+│  └──────────────────┘                        └──────────────┘ │
+│           ▲                                                  │
+│           │  包含                                            │
+│           │                                                  │
+│  ┌──────────────────┐                                      │
+│  │    values.yaml    │                                      │
+│  │   （配置值）       │                                      │
+│  │                  │                                      │
+│  │  Chart 的默认配置  │                                      │
+│  │  可被外部 values   │                                      │
+│  │  文件覆盖          │                                      │
+│  └──────────────────┘                                      │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>说明</th>
+<th>类比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Chart</strong></td>
+<td>应用的模板包，包含 Kubernetes 资源定义和默认配置</td>
+<td>Docker Image</td>
+</tr>
+<tr>
+<td><strong>Release</strong></td>
+<td>Chart 的一次部署实例，具有独立的名称和版本</td>
+<td>Docker Container</td>
+</tr>
+<tr>
+<td><strong>Repository</strong></td>
+<td>Chart 的仓库，存储和分发 Chart 的地方</td>
+<td>Docker Registry</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="14-1-4-helm-三大功能">14.1.4 Helm 三大功能</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Install</strong></td>
+<td><code>helm install</code></td>
+<td>部署一个新的 Release</td>
+</tr>
+<tr>
+<td><strong>Upgrade</strong></td>
+<td><code>helm upgrade</code></td>
+<td>更新已有的 Release，修改配置或升级版本</td>
+</tr>
+<tr>
+<td><strong>Uninstall</strong></td>
+<td><code>helm uninstall</code></td>
+<td>删除一个 Release，清理所有相关资源</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="14-2-chart-目录结构详解">14.2 Chart 目录结构详解</h2>
+<h3 id="14-2-1-标准目录结构">14.2.1 标准目录结构</h3>
+<pre><code>my-chart/
+├── Chart.yaml              # Chart 元信息（必填）
+├── values.yaml             # 默认配置值
+├── values/                 # 多环境配置目录（可选）
+│   ├── dev.yaml
+│   ├── staging.yaml
+│   └── production.yaml
+├── templates/              # 模板文件
+│   ├── _helpers.tpl        # 公共模板函数（以下划线开头）
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   ├── ingress.yaml
+│   ├── configmap.yaml
+│   ├── secrets.yaml
+│   ├── hpa.yaml
+│   ├── pdb.yaml
+│   ├── serviceaccount.yaml
+│   └── NOTES.txt            # 部署后显示的提示信息
+├── charts/                 # 依赖的子 Chart
+│   └── subchart/
+│       ├── Chart.yaml
+│       └── values.yaml
+└── .helmignore             # Helm 忽略文件（类似 .gitignore）
+</code></pre>
+<h3 id="14-2-2-chart-yaml-详解">14.2.2 Chart.yaml 详解</h3>
+<pre><code class="language-yaml"># Chart.yaml - Chart 元信息
+apiVersion: v2                # Chart API 版本，v2 对应 Helm 3
+name: my-app                 # Chart 名称
+description: A Helm chart for Kubernetes  # 描述
+type: application             # 类型：application / library
+version: 1.0.0                # Chart 自身版本（遵循 SemVer）
+appVersion: &quot;1.0.0&quot;           # 应用版本
+kubeVersion: &quot;&gt;=1.24.0&quot;      # 兼容的 Kubernetes 版本
+
+# 维护者信息
+maintainers:
+  - name: Platform Team
+    email: platform@example.com
+    url: https://example.com
+
+# 依赖声明
+dependencies:
+  - name: redis
+    version: 17.x.x
+    repository: https://charts.bitnami.com/bitnami
+    condition: redis.enabled
+    tags:
+      - cache
+      - database
+  - name: mysql
+    version: 9.x.x
+    repository: https://charts.bitnami.com/bitnami
+    condition: mysql.enabled
+
+# 关键词
+keywords:
+  - web
+  - api
+  - restful
+
+# 首页
+home: https://example.com
+
+# 图标
+icon: https://example.com/icon.png
+
+# 许可证
+license: Apache-2.0
+</code></pre>
+<h3 id="14-2-3-values-yaml-详解">14.2.3 values.yaml 详解</h3>
+<pre><code class="language-yaml"># values.yaml - 默认配置值
+
+# 全局配置
+global:
+  environment: development
+  imageRegistry: &quot;&quot;
+  imagePullSecrets: []
+  storageClass: &quot;&quot;
+
+# 应用副本数
+replicaCount: 3
+
+# 镜像配置
+image:
+  repository: my-app
+  tag: &quot;1.0.0&quot;
+  pullPolicy: IfNotPresent
+
+# 容器配置
+container:
+  name: my-app
+  port: 8080
+  env:
+    - name: NODE_ENV
+      value: production
+    - name: LOG_LEVEL
+      value: info
+
+# 资源配置
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+# 自动扩缩容
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+
+# 服务配置
+service:
+  type: ClusterIP
+  port: 80
+  annotations: {}
+  loadBalancerIP: &quot;&quot;
+
+# Ingress 配置
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: my-app.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - my-app.example.com
+      secretName: my-app-tls
+
+# 持久化存储
+persistence:
+  enabled: true
+  size: 10Gi
+  accessMode: ReadWriteOnce
+
+# 健康检查
+probes:
+  liveness:
+    path: /health
+    port: 8080
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+  readiness:
+    path: /ready
+    port: 8080
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+# Pod 注解
+podAnnotations:
+  prometheus.io/scrape: &quot;true&quot;
+  prometheus.io/port: &quot;8080&quot;
+
+# Pod 标签
+podLabels:
+  app: my-app
+
+# 节点选择
+nodeSelector: {}
+
+# 容忍度
+tolerations: []
+
+# 亲和性
+affinity: {}
+
+# 网络策略
+networkPolicy:
+  enabled: false
+
+# ServiceMonitor（Prometheus 集成）
+serviceMonitor:
+  enabled: false
+  interval: 30s
+  path: /metrics
+
+# 子 Chart 配置
+redis:
+  enabled: true
+  architecture: standalone
+  auth:
+    enabled: true
+  master:
+    persistence:
+      size: 5Gi
+  replica:
+    replicaCount: 2
+
+mysql:
+  enabled: false
+  auth:
+    rootPassword: &quot;&quot;
+    database: mydb
+  primary:
+    persistence:
+      size: 10Gi
+</code></pre>
+<h3 id="14-2-4-模板文件示例">14.2.4 模板文件示例</h3>
+<h4 id="_helpers-tpl-公共模板">_helpers.tpl（公共模板）</h4>
+<pre><code>{{/* vim: set filetype=mustache: */}}
+
+{{/*
+Expand the name of the chart.
+*/}}
+{{- define &quot;my-app.name&quot; -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix &quot;-&quot; }}
+{{- end }}
+
+{{/*
+Create a default fully qualified app name.
+*/}}
+{{- define &quot;my-app.fullname&quot; -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix &quot;-&quot; }}
+{{- else }}
+{{- $name := default .Chart.Name .Values.nameOverride }}
+{{- if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix &quot;-&quot; }}
+{{- else }}
+{{- printf &quot;%s-%s&quot; .Release.Name $name | trunc 63 | trimSuffix &quot;-&quot; }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define &quot;my-app.chart&quot; -}}
+{{- printf &quot;%s-%s&quot; .Chart.Name .Chart.Version | replace &quot;+&quot; &quot;_&quot; | trunc 63 | trimSuffix &quot;-&quot; }}
+{{- end }}
+
+{{/*
+Common labels
+*/}}
+{{- define &quot;my-app.labels&quot; -}}
+helm.sh/chart: {{ include &quot;my-app.chart&quot; . }}
+{{ include &quot;my-app.selectorLabels&quot; . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/part-of: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define &quot;my-app.selectorLabels&quot; -}}
+app.kubernetes.io/name: {{ include &quot;my-app.name&quot; . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define &quot;my-app.serviceAccountName&quot; -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include &quot;my-app.fullname&quot; .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default &quot;default&quot; .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+</code></pre>
+<h4 id="deployment-yaml">deployment.yaml</h4>
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include &quot;my-app.fullname&quot; . }}
+  labels:
+    {{- include &quot;my-app.labels&quot; . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include &quot;my-app.selectorLabels&quot; . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include &quot;my-app.selectorLabels&quot; . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include &quot;my-app.serviceAccountName&quot; . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Values.container.name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- if .Values.global.imageRegistry }}
+          image: &quot;{{ .Values.global.imageRegistry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}&quot;
+          {{- else }}
+          image: &quot;{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}&quot;
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            {{- range .Values.container.env }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+            {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.container.port }}
+              protocol: TCP
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              path: {{ .path }}
+              port: {{ .port }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              path: {{ .path }}
+              port: {{ .port }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- if .Values.serviceMonitor.enabled }}
+          metrics:
+            - path: {{ .Values.serviceMonitor.path }}
+              port: metrics
+          {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
+      {{- end }}
+</code></pre>
+<h4 id="service-yaml">service.yaml</h4>
+<pre><code>apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include &quot;my-app.fullname&quot; . }}
+  labels:
+    {{- include &quot;my-app.labels&quot; . | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.container.port }}
+      protocol: TCP
+      name: http
+    {{- if .Values.serviceMonitor.enabled }}
+    - port: 9090
+      targetPort: 9090
+      protocol: TCP
+      name: metrics
+    {{- end }}
+  selector:
+    {{- include &quot;my-app.selectorLabels&quot; . | nindent 4 }}
+  {{- if and (eq .Values.service.type &quot;LoadBalancer&quot;) .Values.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+  {{- end }}
+</code></pre>
+<h4 id="ingress-yaml">ingress.yaml</h4>
+<pre><code>{{- if .Values.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include &quot;my-app.fullname&quot; . }}
+  labels:
+    {{- include &quot;my-app.labels&quot; . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if .Values.ingress.className }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- end }}
+  {{- if .Values.ingress.tls }}
+  tls:
+    {{- range .Values.ingress.tls }}
+    - hosts:
+        {{- range .hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .secretName }}
+    {{- end }}
+  {{- end }}
+  rules:
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          {{- range .paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ include &quot;my-app.fullname&quot; $ }}
+                port:
+                  number: {{ $.Values.service.port }}
+          {{- end }}
+    {{- end }}
+{{- end }}
+</code></pre>
+<h4 id="notes-txt">NOTES.txt</h4>
+<pre><code>1. Get the application URL by running these commands:
+{{- if .Values.ingress.enabled }}
+{{- range $host := .Values.ingress.hosts }}
+  {{- range .paths }}
+  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}{{ .path }}
+  {{- end }}
+{{- end }}
+{{- else if contains &quot;NodePort&quot; .Values.service.type }}
+  export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath=&quot;{.spec.ports[0].nodePort}&quot; services {{ include &quot;my-app.fullname&quot; . }})
+  export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath=&quot;{.items[0].status.addresses[0].address}&quot;)
+  echo http://$NODE_IP:$NODE_PORT
+{{- else if contains &quot;LoadBalancer&quot; .Values.service.type }}
+     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+           You can watch the status of by running 'kubectl get --namespace {{ .Release.Namespace }} svc -w {{ include &quot;my-app.fullname&quot; . }}'
+  export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include &quot;my-app.fullname&quot; . }} --template &quot;{{&quot;{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}&quot;}}&quot;)
+  echo http://$SERVICE_IP:{{ .Values.service.port }}
+{{- else if contains &quot;ClusterIP&quot; .Values.service.type }}
+  export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l &quot;app.kubernetes.io/name={{ include &quot;my-app.name&quot; . }},app.kubernetes.io/instance={{ .Release.Name }}&quot; -o jsonpath=&quot;{.items[0].metadata.name}&quot;)
+  export CONTAINER_PORT=$(kubectl get pod --namespace {{ .Release.Namespace }} $POD_NAME -o jsonpath=&quot;{.spec.containers[0].ports[0].containerPort}&quot;)
+  echo &quot;Visit http://127.0.0.1:8080 to use your application&quot;
+  kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:$CONTAINER_PORT
+{{- end }}
+</code></pre>
+<hr />
+<h2 id="14-3-helm-模板引擎">14.3 Helm 模板引擎</h2>
+<h3 id="14-3-1-go-template-基础语法">14.3.1 Go Template 基础语法</h3>
+<p>Helm 使用 Go Template 引擎，基础语法如下：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{{ .Values.key }}</code></td>
+<td>引用 values 中的值</td>
+<td><code>{{ .Values.replicaCount }}</code></td>
+</tr>
+<tr>
+<td><code>{{ .Release.Name }}</code></td>
+<td>引用 Release 名称</td>
+<td><code>{{ .Release.Name }}</code></td>
+</tr>
+<tr>
+<td><code>{{ .Chart.Name }}</code></td>
+<td>引用 Chart 名称</td>
+<td><code>{{ .Chart.Name }}</code></td>
+</tr>
+<tr>
+<td><code>{{- ... -}}</code></td>
+<td>去除空白</td>
+<td><code>{{- .Values.key -}}</code></td>
+</tr>
+<tr>
+<td><code>{{ if }}...{{ else }}...{{ end }}</code></td>
+<td>条件判断</td>
+<td>见下方示例</td>
+</tr>
+<tr>
+<td><code>{{ range .items }}...{{ end }}</code></td>
+<td>循环遍历</td>
+<td>见下方示例</td>
+</tr>
+<tr>
+<td><code>{{ define "name" }}</code></td>
+<td>定义模板</td>
+<td>见下方示例</td>
+</tr>
+<tr>
+<td><code>{{ include "name" . }}</code></td>
+<td>引用模板</td>
+<td>见下方示例</td>
+</tr>
+<tr>
+<td><code>{{ template "name" . }}</code></td>
+<td>引用模板（不传递上下文）</td>
+<td>见下方示例</td>
+</tr>
+<tr>
+<td><code>{{ .Values.key \| func }}</code></td>
+<td>使用管道函数</td>
+<td><code>{{ .Values.tag \| default "latest" }}</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="14-3-2-常用模板函数">14.3.2 常用模板函数</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>default</code></td>
+<td>设置默认值</td>
+<td><code>{{ .Values.tag \| default "latest" }}</code></td>
+</tr>
+<tr>
+<td><code>quote</code></td>
+<td>添加引号</td>
+<td><code>{{ .Values.name \| quote }}</code></td>
+</tr>
+<tr>
+<td><code>required</code></td>
+<td>必填值检查</td>
+<td><code>{{ .Values.required \| required "必须配置" }}</code></td>
+</tr>
+<tr>
+<td><code>toYaml</code></td>
+<td>转为 YAML</td>
+<td><code>{{ .Values.resources \| toYaml \| nindent 12 }}</code></td>
+</tr>
+<tr>
+<td><code>indent</code></td>
+<td>增加缩进</td>
+<td><code>{{ .Values.config \| indent 2 }}</code></td>
+</tr>
+<tr>
+<td><code>nindent</code></td>
+<td>换行并缩进</td>
+<td><code>{{ .Values.config \| nindent 4 }}</code></td>
+</tr>
+<tr>
+<td><code>upper</code></td>
+<td>转大写</td>
+<td><code>{{ .Values.name \| upper }}</code></td>
+</tr>
+<tr>
+<td><code>lower</code></td>
+<td>转小写</td>
+<td><code>{{ .Values.name \| lower }}</code></td>
+</tr>
+<tr>
+<td><code>trim</code></td>
+<td>去除两端空白</td>
+<td><code>{{ .Values.name \| trim }}</code></td>
+</tr>
+<tr>
+<td><code>contains</code></td>
+<td>包含判断</td>
+<td><code>{{ if contains "nginx" .Values.name }}</code></td>
+</tr>
+<tr>
+<td><code>replace</code></td>
+<td>字符串替换</td>
+<td><code>{{ .Values.version \| replace "+" "_" }}</code></td>
+</tr>
+<tr>
+<td><code>trunc</code></td>
+<td>截断字符串</td>
+<td><code>{{ .Values.name \| trunc 63 }}</code></td>
+</tr>
+<tr>
+<td><code>join</code></td>
+<td>数组拼接</td>
+<td><code>{{ .Values.labels \| join "," }}</code></td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td>转整数</td>
+<td><code>{{ .Values.count \| int }}</code></td>
+</tr>
+<tr>
+<td><code>float64</code></td>
+<td>转浮点数</td>
+<td><code>{{ .Values.ratio \| float64 }}</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="14-3-3-模板使用示例">14.3.3 模板使用示例</h3>
+<h4 id="条件判断">条件判断</h4>
+<pre><code>{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include &quot;my-app.fullname&quot; . }}
+spec:
+  ...
+{{- end }}
+
+{{- if eq .Values.config.mode &quot;production&quot; }}
+  replicas: 5
+{{- else if eq .Values.config.mode &quot;staging&quot; }}
+  replicas: 2
+{{- else }}
+  replicas: 1
+{{- end }}
+</code></pre>
+<h4 id="循环遍历">循环遍历</h4>
+<pre><code>{{- range .Values.container.env }}
+- name: {{ .name }}
+  value: {{ .value | quote }}
+{{- end }}
+
+{{- range $key, $value := .Values.labels }}
+{{ $key }}: {{ $value }}
+{{- end }}
+</code></pre>
+<h4 id="定义和引用模板">定义和引用模板</h4>
+<pre><code>{{- define &quot;my-app.labels&quot; -}}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+app.kubernetes.io/name: {{ .Chart.Name }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/version: {{ .Chart.AppVersion }}
+{{- end }}
+
+# 引用模板
+{{ include &quot;my-app.labels&quot; . | nindent 4 }}
+</code></pre>
+<h4 id="值类型转换">值类型转换</h4>
+<pre><code># 字符串转整数
+port: {{ .Values.service.port | int }}
+
+# 数组转 YAML
+env:
+  {{- toYaml .Values.container.env | nindent 2 }}
+
+# 必填值
+{{ $password := .Values.password | required &quot;password is required&quot; }}
+</code></pre>
+<hr />
+<h2 id="14-4-values-yaml-多环境配置">14.4 values.yaml 多环境配置</h2>
+<h3 id="14-4-1-多环境-values-文件">14.4.1 多环境 values 文件</h3>
+<pre><code>my-chart/
+├── values.yaml              # 基础默认值
+├── values/
+│   ├── dev.yaml             # 开发环境
+│   ├── staging.yaml         # 预发环境
+│   └── production.yaml      # 生产环境
+</code></pre>
+<h4 id="dev-yaml-开发环境">dev.yaml（开发环境）</h4>
+<pre><code class="language-yaml"># values/dev.yaml
+replicaCount: 1
+
+image:
+  tag: &quot;latest&quot;
+  pullPolicy: Always
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+
+service:
+  type: NodePort
+
+ingress:
+  enabled: false
+
+autoscaling:
+  enabled: false
+
+persistence:
+  enabled: false
+
+container:
+  env:
+    - name: NODE_ENV
+      value: development
+    - name: LOG_LEVEL
+      value: debug
+    - name: DB_HOST
+      value: dev-db.example.com
+</code></pre>
+<h4 id="staging-yaml-预发环境">staging.yaml（预发环境）</h4>
+<pre><code class="language-yaml"># values/staging.yaml
+replicaCount: 2
+
+image:
+  tag: &quot;staging&quot;
+  pullPolicy: IfNotPresent
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: staging.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+
+autoscaling:
+  enabled: false
+
+persistence:
+  enabled: true
+  size: 5Gi
+
+container:
+  env:
+    - name: NODE_ENV
+      value: staging
+    - name: LOG_LEVEL
+      value: info
+    - name: DB_HOST
+      value: staging-db.example.com
+</code></pre>
+<h4 id="production-yaml-生产环境">production.yaml（生产环境）</h4>
+<pre><code class="language-yaml"># values/production.yaml
+replicaCount: 5
+
+image:
+  tag: &quot;1.0.0&quot;
+  pullPolicy: IfNotPresent
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 256Mi
+  limits:
+    cpu: &quot;1&quot;
+    memory: 512Mi
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: production.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - production.example.com
+      secretName: production-tls
+
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 70
+
+persistence:
+  enabled: true
+  size: 50Gi
+
+container:
+  env:
+    - name: NODE_ENV
+      value: production
+    - name: LOG_LEVEL
+      value: warn
+    - name: DB_HOST
+      value: prod-db.example.com
+    - name: REDIS_HOST
+      value: prod-redis.example.com
+
+podAnnotations:
+  prometheus.io/scrape: &quot;true&quot;
+  prometheus.io/port: &quot;8080&quot;
+</code></pre>
+<h3 id="14-4-2-部署时指定-values-文件">14.4.2 部署时指定 values 文件</h3>
+<pre><code class="language-bash"># 使用默认 values 部署
+helm install my-app ./my-chart
+
+# 使用指定环境的 values 文件
+helm install my-app ./my-chart -f values/dev.yaml
+
+# 使用多个 values 文件（后者覆盖前者）
+helm install my-app ./my-chart \
+  -f values/production.yaml \
+  -f values/secrets.yaml
+
+# 直接通过命令行覆盖单个值
+helm install my-app ./my-chart \
+  -f values/production.yaml \
+  --set replicaCount=10 \
+  --set image.tag=&quot;v2.0.0&quot;
+
+# 使用 --set-string 强制字符串类型
+helm install my-app ./my-chart \
+  --set-string image.tag=&quot;1.0.0&quot;
+
+# 使用 --set-file 从文件读取值
+helm install my-app ./my-chart \
+  --set-file configmap.data=./config.json
+
+# 使用 --set 嵌套值
+helm install my-app ./my-chart \
+  --set container.env[0].value=new-value
+</code></pre>
+<h3 id="14-4-3-secrets-管理">14.4.3 Secrets 管理</h3>
+<pre><code class="language-yaml"># values/secrets.yaml（注意：不应提交到 Git！）
+# 推荐使用 Sealed Secrets 或 External Secrets Operator
+container:
+  env:
+    - name: DB_PASSWORD
+      value: &quot;super-secret-password&quot;
+    - name: API_KEY
+      value: &quot;sk-xxxxx&quot;
+</code></pre>
+<pre><code class="language-bash"># 方式一：通过命令行传入（不安全，仅临时使用）
+helm install my-app ./my-chart \
+  --set container.env[0].value=secret123
+
+# 方式二：使用 Secret 资源引用
+# 在模板中引用已存在的 Secret
+</code></pre>
+<pre><code># 在 deployment.yaml 中引用 Secret
+env:
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: {{ include &quot;my-app.fullname&quot; . }}-secrets
+        key: db-password
+</code></pre>
+<hr />
+<h2 id="14-5-常用-helm-仓库">14.5 常用 Helm 仓库</h2>
+<h3 id="14-5-1-添加和管理仓库">14.5.1 添加和管理仓库</h3>
+<pre><code class="language-bash"># 添加官方仓库
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo add jetstack https://charts.jetstack.io
+helm repo add elastic https://helm.elastic.co
+helm repo add nvdp https://nvidia.github.io/k8s-device-plugin
+helm repo add argo https://argoproj.github.io/argo-helm
+
+# 更新所有仓库
+helm repo update
+
+# 查看已添加的仓库
+helm repo list
+
+# 移除仓库
+helm repo remove old-repo
+
+# 重命名仓库
+helm repo rename old-name new-name
+</code></pre>
+<h3 id="14-5-2-常用公共-chart">14.5.2 常用公共 Chart</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>仓库</th>
+<th>URL</th>
+<th>常用 Chart</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bitnami</strong></td>
+<td><code>https://charts.bitnami.com/bitnami</code></td>
+<td>nginx、redis、mysql、postgresql、mongodb、kafka</td>
+</tr>
+<tr>
+<td><strong>Ingress NGINX</strong></td>
+<td><code>https://kubernetes.github.io/ingress-nginx</code></td>
+<td>ingress-nginx</td>
+</tr>
+<tr>
+<td><strong>Prometheus Community</strong></td>
+<td><code>https://prometheus-community.github.io/helm-charts</code></td>
+<td>kube-prometheus-stack、prometheus、grafana</td>
+</tr>
+<tr>
+<td><strong>Grafana</strong></td>
+<td><code>https://grafana.github.io/helm-charts</code></td>
+<td>loki、promtail、tempo、grafana</td>
+</tr>
+<tr>
+<td><strong>Jetstack (Cert Manager)</strong></td>
+<td><code>https://charts.jetstack.io</code></td>
+<td>cert-manager</td>
+</tr>
+<tr>
+<td><strong>Elastic</strong></td>
+<td><code>https://helm.elastic.co</code></td>
+<td>elasticsearch、kibana、filebeat</td>
+</tr>
+<tr>
+<td><strong>Argo</strong></td>
+<td><code>https://argoproj.github.io/argo-helm</code></td>
+<td>argo-cd、argo-workflows</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="14-5-3-搜索和查看-chart">14.5.3 搜索和查看 Chart</h3>
+<pre><code class="language-bash"># 搜索 Chart
+helm search repo nginx
+helm search repo redis
+helm search repo mysql --versions
+
+# 查看 Chart 详细信息
+helm show chart bitnami/redis
+helm show values bitnami/redis
+helm show all bitnami/redis
+
+# 查看可用版本
+helm search repo bitnami/redis --versions
+
+# 下载 Chart 到本地
+helm pull bitnami/redis
+helm pull bitnami/redis --version 17.11.3
+helm pull bitnami/redis --untar
+</code></pre>
+<hr />
+<h2 id="14-6-实战演练">14.6 实战演练</h2>
+<h3 id="实战-1-安装-helm">实战 1：安装 Helm</h3>
+<pre><code class="language-bash"># macOS
+brew install helm
+
+# 使用官方脚本安装（通用）
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+# 从二进制包安装
+# 访问 https://github.com/helm/helm/releases 下载对应平台的包
+tar -xzf helm-v3.14.0-linux-amd64.tar.gz
+sudo mv linux-amd64/helm /usr/local/bin/helm
+
+# 验证安装
+helm version
+# version.BuildInfo{Version:&quot;v3.14.0&quot;, GitCommit:&quot;xxx&quot;, GoVersion:&quot;go1.21.5&quot;}
+</code></pre>
+<h3 id="实战-2-使用-helm-安装-nginx-ingress-controller">实战 2：使用 Helm 安装 Nginx Ingress Controller</h3>
+<pre><code class="language-bash"># 1. 添加 Ingress NGINX 仓库
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+
+# 2. 创建命名空间
+kubectl create namespace ingress-nginx
+
+# 3. 自定义配置 values 文件
+cat &gt; nginx-ingress-values.yaml &lt;&lt; 'EOF'
+controller:
+  replicaCount: 2
+  service:
+    type: LoadBalancer
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-type: nlb
+      service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:xxx
+  config:
+    use-forwarded-headers: &quot;true&quot;
+    proxy-body-size: &quot;50m&quot;
+    server-tokens: &quot;false&quot;
+    ssl-redirect: &quot;true&quot;
+  metrics:
+    enabled: true
+    service:
+      annotations:
+        prometheus.io/scrape: &quot;true&quot;
+        prometheus.io/port: &quot;10254&quot;
+  podAnnotations:
+    prometheus.io/scrape: &quot;true&quot;
+    prometheus.io/port: &quot;10254&quot;
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+  admissionWebhooks:
+    enabled: true
+  ingressClassResource:
+    enabled: true
+    name: nginx
+    default: true
+EOF
+
+# 4. 安装 Ingress NGINX
+helm install ingress-nginx ingress-nginx/ingress-nginx \
+  --namespace ingress-nginx \
+  --create-namespace \
+  -f nginx-ingress-values.yaml
+
+# 5. 查看部署状态
+helm list -n ingress-nginx
+kubectl get pods -n ingress-nginx -l app.kubernetes.io/component=controller
+kubectl get svc -n ingress-nginx
+
+# 6. 获取负载均衡 IP
+kubectl get svc ingress-nginx-controller -n ingress-nginx -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+</code></pre>
+<h3 id="实战-3-搜索和使用公共-chart">实战 3：搜索和使用公共 Chart</h3>
+<pre><code class="language-bash"># 1. 搜索 MySQL Chart
+helm search repo mysql
+helm show chart bitnami/mysql
+
+# 2. 查看默认 values
+helm show values bitnami/mysql
+
+# 3. 创建 MySQL 配置
+cat &gt; mysql-values.yaml &lt;&lt; 'EOF'
+architecture: replication
+auth:
+  rootPassword: &quot;root123&quot;
+  database: mydb
+  username: appuser
+  password: &quot;app123&quot;
+primary:
+  persistence:
+    size: 20Gi
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      cpu: &quot;1&quot;
+      memory: 1Gi
+secondary:
+  replicaCount: 2
+  persistence:
+    size: 20Gi
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      cpu: &quot;1&quot;
+      memory: 1Gi
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+EOF
+
+# 4. 安装 MySQL
+helm install my-mysql bitnami/mysql \
+  --namespace database \
+  --create-namespace \
+  -f mysql-values.yaml
+
+# 5. 搜索和安装 Redis
+helm search repo redis
+
+cat &gt; redis-values.yaml &lt;&lt; 'EOF'
+architecture: sentinel
+auth:
+  enabled: false
+master:
+  persistence:
+    size: 10Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+sentinel:
+  quorum: 2
+  downAfterMilliseconds: 60000
+  parallelSyncs: 1
+  failoverTimeout: 180000
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+EOF
+
+helm install my-redis bitnami/redis \
+  --namespace database \
+  -f redis-values.yaml
+
+# 6. 验证部署
+helm list -n database
+kubectl get pods -n database
+kubectl get svc -n database
+</code></pre>
+<h3 id="实战-4-创建自定义-chart">实战 4：创建自定义 Chart</h3>
+<pre><code class="language-bash"># 1. 使用 helm create 创建 Chart 骨架
+helm create my-app-chart
+
+# 2. 查看生成的目录结构
+find my-app-chart -type f
+# my-app-chart/
+# ├── Chart.yaml
+# ├── templates/
+# │   ├── NOTES.txt
+# │   ├── _helpers.tpl
+# │   ├── deployment.yaml
+# │   ├── ingress.yaml
+# │   ├── service.yaml
+# │   ├── serviceaccount.yaml
+# │   └── tests/
+# │       └── test-connection.yaml
+# ├── values.yaml
+# └── values.schema.json（可选的 values 校验）
+
+# 3. 自定义 Chart.yaml
+cat &gt; my-app-chart/Chart.yaml &lt;&lt; 'EOF'
+apiVersion: v2
+name: my-app-chart
+description: A Helm chart for My Application
+type: application
+version: 1.0.0
+appVersion: &quot;1.0.0&quot;
+kubeVersion: &quot;&gt;=1.24.0&quot;
+maintainers:
+  - name: Platform Team
+    email: platform@example.com
+keywords:
+  - web
+  - api
+home: https://example.com
+EOF
+
+# 4. 简化 values.yaml（移除不需要的配置）
+cat &gt; my-app-chart/values.yaml &lt;&lt; 'EOF'
+replicaCount: 3
+
+image:
+  repository: nginx
+  tag: &quot;1.25&quot;
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: &quot;&quot;
+fullnameOverride: &quot;&quot;
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: &quot;&quot;
+
+podAnnotations:
+  prometheus.io/scrape: &quot;true&quot;
+  prometheus.io/port: &quot;8080&quot;
+
+podSecurityContext: {}
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 80
+  annotations: {}
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: my-app.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+EOF
+
+# 5. 添加自定义模板文件
+
+# 添加 ConfigMap 模板
+cat &gt; my-app-chart/templates/configmap.yaml &lt;&lt; 'EOF'
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include &quot;my-app-chart.fullname&quot; . }}-config
+  labels:
+    {{- include &quot;my-app-chart.labels&quot; . | nindent 4 }}
+data:
+  nginx.conf: |
+    server {
+      listen 80;
+      server_name {{ .Values.ingress.hosts[0].host }};
+      location / {
+        proxy_pass http://backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+      }
+    }
+EOF
+
+# 添加 HPA 模板
+cat &gt; my-app-chart/templates/hpa.yaml &lt;&lt; 'EOF'
+{{- if .Values.autoscaling.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include &quot;my-app-chart.fullname&quot; . }}
+  labels:
+    {{- include &quot;my-app-chart.labels&quot; . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include &quot;my-app-chart.fullname&quot; . }}
+  minReplicas: {{ .Values.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if .Values.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+{{- end }}
+EOF
+
+# 添加 ServiceMonitor 模板（Prometheus 集成）
+cat &gt; my-app-chart/templates/servicemonitor.yaml &lt;&lt; 'EOF'
+{{- if .Values.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include &quot;my-app-chart.fullname&quot; . }}
+  labels:
+    {{- include &quot;my-app-chart.labels&quot; . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include &quot;my-app-chart.selectorLabels&quot; . | nindent 6 }}
+  endpoints:
+    - port: http
+      path: {{ .Values.serviceMonitor.path }}
+      interval: {{ .Values.serviceMonitor.interval }}
+{{- end }}
+EOF
+
+# 6. 本地部署测试
+helm install my-app ./my-app-chart --dry-run --debug
+helm install my-app ./my-app-chart
+
+# 7. 打包 Chart
+helm package my-app-chart
+# 生成 my-app-chart-1.0.0.tgz
+
+# 8. 创建本地仓库并服务
+mkdir -p local-repo
+cp my-app-chart-1.0.0.tgz local-repo/
+helm repo index local-repo/
+# 生成 index.yaml
+helm serve --repo-root local-repo/
+# 默认监听 :8080
+</code></pre>
+<h3 id="实战-5-使用-values-yaml-配置部署参数">实战 5：使用 values.yaml 配置部署参数</h3>
+<pre><code class="language-bash"># 1. 开发环境部署
+helm install my-app-dev ./my-app-chart \
+  --namespace dev \
+  --create-namespace \
+  -f values/dev.yaml
+
+# 2. 预发环境部署
+helm install my-app-stg ./my-app-chart \
+  --namespace staging \
+  --create-namespace \
+  -f values/staging.yaml
+
+# 3. 生产环境部署
+helm install my-app-prod ./my-app-chart \
+  --namespace production \
+  --create-namespace \
+  -f values/production.yaml
+
+# 4. 覆盖特定参数
+helm install my-app ./my-app-chart \
+  --namespace production \
+  -f values/production.yaml \
+  --set replicaCount=10 \
+  --set image.tag=&quot;v2.0.0&quot; \
+  --set container.env[0].value=&quot;new-value&quot;
+
+# 5. 使用 Kustomize 与 Helm 结合
+# kustomization.yaml
+resources:
+  - deployment.yaml
+  - service.yaml
+helm template ./my-app-chart -f values/production.yaml | kubectl apply -f -
+
+# 6. 使用环境变量
+export IMAGE_TAG=&quot;v1.5.0&quot;
+helm install my-app ./my-app-chart \
+  --set image.tag=&quot;${IMAGE_TAG}&quot;
+</code></pre>
+<h3 id="实战-6-helm-的升级-回滚-卸载操作">实战 6：Helm 的升级、回滚、卸载操作</h3>
+<pre><code class="language-bash"># 1. 升级 Release
+helm upgrade my-app ./my-app-chart
+helm upgrade my-app ./my-app-chart -f values/production.yaml
+
+# 使用 --install 参数自动安装（如果不存在）
+helm upgrade --install my-app ./my-app-chart -f values/production.yaml
+
+# 升级并等待就绪
+helm upgrade my-app ./my-app-chart \
+  --wait \
+  --timeout 10m \
+  --atomic  # 失败则自动回滚
+
+# 2. 查看 Release 历史
+helm history my-app
+# REVISION  STATUS   CHART                 APP VERSION   DESCRIPTION
+# 1        superseded   my-app-chart-1.0.0   1.0.0         Install complete
+# 2        superseded   my-app-chart-1.0.1   1.0.1         Upgrade complete
+# 3        deployed     my-app-chart-1.0.2   1.0.2         Upgrade complete
+
+# 3. 回滚到指定版本
+helm rollback my-app 2
+
+# 回滚并等待就绪
+helm rollback my-app 2 --wait --timeout 5m
+
+# 4. 查看 Release 状态
+helm status my-app
+# NAME: my-app
+# LAST DEPLOYED: 2024-01-15 10:30:00
+# NAMESPACE: production
+# STATUS: deployed
+# REVISION: 3
+# TEST SUITE: None
+# NOTES: ...
+
+# 5. 查看 Release 所有 values
+helm get values my-app
+helm get values my-app --all
+
+# 6. 卸载 Release
+helm uninstall my-app
+helm uninstall my-app --keep-history  # 保留历史
+
+# 7. 查看所有 Release
+helm list
+helm list --all
+helm list --all-namespaces
+helm list --namespace production
+helm list --deleted  # 查看已卸载的 Release
+</code></pre>
+<h3 id="实战-7-使用-helm-template-预览渲染结果">实战 7：使用 helm template 预览渲染结果</h3>
+<pre><code class="language-bash"># 1. 预览模板渲染结果（不部署）
+helm template my-app ./my-app-chart
+
+# 2. 使用指定 values 文件预览
+helm template my-app ./my-app-chart -f values/production.yaml
+
+# 3. 指定命名空间和 Release 名称
+helm template my-app ./my-app-chart \
+  --namespace production \
+  --set fullnameOverride=my-custom-name
+
+# 4. 输出到文件
+helm template my-app ./my-app-chart -f values/production.yaml &gt; rendered.yaml
+
+# 5. 使用 --show-only 查看特定模板
+helm template my-app ./my-app-chart \
+  --show-only templates/deployment.yaml
+
+# 6. 使用 --dry-run --debug 模拟安装过程
+helm install my-app ./my-app-chart \
+  --dry-run \
+  --debug \
+  -f values/production.yaml
+
+# 7. 使用 diff 插件对比变更
+# 安装 helm diff 插件
+helm plugin install https://github.com/databus23/helm-diff
+
+# 对比本地 Chart 与已部署版本的差异
+helm diff upgrade my-app ./my-app-chart
+
+# 对比两个版本之间的 values 差异
+helm diff version my-app 2 3
+
+# 8. 使用 kubeval 校验渲染结果
+helm template my-app ./my-app-chart -f values/production.yaml | kubeval --strict
+</code></pre>
+<hr />
+<h2 id="14-7-常见问题排查">14.7 常见问题排查</h2>
+<h3 id="14-7-1-模板渲染问题">14.7.1 模板渲染问题</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>排查方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>template: ... unexpected "}"</code></td>
+<td>检查模板语法，确保 <code>{{ }}</code> 正确配对<br>使用 <code>helm template</code> 预览渲染结果</td>
+</tr>
+<tr>
+<td><code>no required values</code></td>
+<td>检查 <code>required</code> 函数引用的 values 是否存在<br>设置合理的默认值</td>
+</tr>
+<tr>
+<td><code>wrong type for value</code></td>
+<td>使用 <code>int</code>、<code>float64</code>、<code>string</code> 转换类型<br>使用 <code>--set-string</code> 强制字符串类型</td>
+</tr>
+<tr>
+<td>缩进不正确</td>
+<td>使用 <code>nindent</code> 替代 <code>indent</code>（自动换行）<br>检查 YAML 缩进是否符合预期</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="14-7-2-部署问题">14.7.2 部署问题</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>排查方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chart 依赖下载失败</td>
+<td>检查网络连接和仓库 URL<br>使用 <code>helm dependency update</code> 更新依赖<br>检查 <code>Chart.yaml</code> 中 <code>dependencies</code> 配置</td>
+</tr>
+<tr>
+<td>资源创建失败</td>
+<td>使用 <code>helm install --dry-run --debug</code> 查看详情<br>检查模板渲染结果是否正确<br>检查 Kubernetes 资源配置是否合法</td>
+</tr>
+<tr>
+<td>Release 状态卡住</td>
+<td>使用 <code>helm status</code> 查看状态<br>检查 Pod 日志和事件<br>考虑使用 <code>--wait</code> 和 <code>--timeout</code> 参数</td>
+</tr>
+<tr>
+<td>升级失败回滚</td>
+<td>使用 <code>helm history</code> 查看历史<br>使用 <code>helm rollback</code> 回滚到上一个版本<br>检查升级的变更内容</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="14-7-3-仓库管理问题">14.7.3 仓库管理问题</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>排查方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>仓库无法连接</td>
+<td>检查网络和代理设置<br>使用 <code>helm repo update</code> 刷新<br>检查仓库 URL 是否正确</td>
+</tr>
+<tr>
+<td>Chart 版本找不到</td>
+<td>使用 <code>helm search repo &lt;name&gt; --versions</code> 查看可用版本<br>确认版本号格式正确</td>
+</tr>
+<tr>
+<td>Chart 签名验证失败</td>
+<td>检查 GPG 密钥<br>使用 <code>--verify</code> 参数验证签名</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="14-7-4-版本管理最佳实践">14.7.4 版本管理最佳实践</h3>
+<ol>
+<li><strong>使用语义化版本</strong>：遵循 MAJOR.MINOR.PATCH 格式</li>
+<li><strong>values.yaml 版本化</strong>：不同环境使用不同 values 文件</li>
+<li><strong>使用 <code>helm diff</code> 插件</strong>：在升级前对比变更差异</li>
+<li><strong>利用 <code>--wait</code> 和 <code>--atomic</code></strong>：确保部署成功后再标记完成</li>
+<li><strong>保留 Release 历史</strong>：避免使用 <code>--keep-history</code> 时丢失关键信息</li>
+<li><strong>CI/CD 集成</strong>：在流水线中使用 <code>helm template</code> + <code>kubeval</code> 校验</li>
+</ol>
+<hr />
+<h2 id="14-8-章节小结">14.8 章节小结</h2>
+<h3 id="知识图谱">知识图谱</h3>
+<pre><code>Helm 包管理
+├── 核心概念
+│   ├── Chart（包/模板）
+│   ├── Release（部署实例）
+│   └── Repository（仓库）
+├── 三大功能
+│   ├── Install（安装）
+│   ├── Upgrade（升级）
+│   └── Uninstall（卸载）
+├── Chart 结构
+│   ├── Chart.yaml（元信息）
+│   ├── values.yaml（配置值）
+│   ├── templates/（模板）
+│   │   ├── _helpers.tpl（公共模板）
+│   │   ├── deployment.yaml
+│   │   ├── service.yaml
+│   │   └── NOTES.txt
+│   └── charts/（子 Chart）
+├── 模板引擎
+│   ├── Go Template 语法
+│   ├── 常用函数
+│   └── 条件/循环/定义模板
+├── 多环境配置
+│   ├── values/dev.yaml
+│   ├── values/staging.yaml
+│   ├── values/production.yaml
+│   └── --set / -f 参数覆盖
+└── 仓库管理
+    ├── Bitnami
+    ├── Ingress-nginx
+    ├── Prometheus Community
+    └── Grafana
+</code></pre>
+<h3 id="核心要点">核心要点</h3>
+<ol>
+<li><strong>Helm 核心概念</strong>：Chart 是模板包，Release 是部署实例，Repository 是分发仓库，三者关系类似 Docker 的 Image、Container、Registry</li>
+<li><strong>Helm vs kubectl</strong>：Helm 是 kubectl 的增强，提供模板化、版本管理、多环境配置能力，适用于应用级部署</li>
+<li><strong>Chart 目录结构</strong>：<code>Chart.yaml</code>（元信息）、<code>values.yaml</code>（默认配置）、<code>templates/</code>（模板文件）是核心三要素</li>
+<li><strong>模板引擎</strong>：掌握 <code>{{ }}</code> 语法、<code>include</code>/<code>template</code> 引用、<code>range</code>/<code>if</code> 控制流、管道函数（<code>default</code>、<code>toYaml</code>、<code>nindent</code> 等）</li>
+<li><strong>多环境配置</strong>：一套模板 + 多套 values 文件，通过 <code>-f</code> 和 <code>--set</code> 参数灵活切换</li>
+<li><strong>版本管理</strong>：<code>helm history</code> 查看历史、<code>helm rollback</code> 回滚、<code>helm diff</code> 对比变更</li>
+</ol>
+<h3 id="下一章预告">下一章预告</h3>
+<p>第15章将学习 Kubernetes 集群管理与运维实战，包括集群扩缩容、节点管理、资源监控等生产级运维操作。</p></div>
+      <nav class="post-pager" aria-label="上下篇"><a class="pager-link" href="%E7%AC%AC13%E7%AB%A0-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E4%B8%8E%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7.html"><em>上一篇</em><b>第13章 监控日志与可观测性</b></a><a class="pager-link next" href="%E7%AC%AC15%E7%AB%A0-%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98-%E5%AE%8C%E6%95%B4%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2.html"><em>下一篇</em><b>第15章 综合实战：完整微服务项目部署</b></a></nav>
+    </article>
+  </main>
+</div>
+<footer class="blog-foot">
+  <div class="wrap foot-inner">
+    <span>© 2026 逐梦笔记 · 由 <code>scripts/build_blog.py</code> 从 docs/ 自动生成</span>
+    <span>内容来源：<a href="https://github.com/ShiQianzhi/note" target="_blank" rel="noopener noreferrer">ShiQianzhi/note</a> · 同步于 2026-11-26</span>
+  </div>
+</footer>
+<script src="../../../../blog.js"></script>
+</body>
+</html>
